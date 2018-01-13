@@ -6,7 +6,7 @@
 *   webpack的配置项主要包括以下几点
 *   3.1 entry: 入口，定义要打包的文件
 *   3.2 output: 出口，定义打包输出的文件，包括路径、文件名
-*   3.3 module: webpack将所有资源都看成是模块，而模块就需要加载器，主要定义一些loader，可能用到的loader
+*   3.3 module: webpack将所有资源都看成是模块，而模块就需要加载器，主要定义一些loader，可能用到的loader, 版本2和版本1配置不一样
 *       3.3.1 处理样式: sass-loader, style-loader, css-loader, 将sass转化成css
 *       3.3.2 图片处理: url-loader, file-loader, image-webpack-loader, 将图片转化成base64或者进行压缩
 *       3.3.3 js处理: bable-loader, babel-preset-es2015, babel-preset-react, 将es6或者更高级的代码转化成es5的代码
