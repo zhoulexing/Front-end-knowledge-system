@@ -15,23 +15,23 @@ module.exports = {
             }, */
             {
                 test: /\.(css|less)$/,
-                use: ExtractTextPlugin.extract({
+                use: ExtractTextPlugin.extract({ //将css变成外联模式
                     fallback: "style-loader",
                     use: [
                         {
                             loader: "css-loader",
                             options: {
                                 sourceMap: true,
-                                modules: true,
-                                localIdentName: "[local]_[hash:base64:5]"
+                                modules: true, //模块化
+                                localIdentName: "[local]_[hash:base64:5]" //给类名添加hash，如果不想添加则用:global包起来
                             }
                         },
                         {
-                            loader: "postcss-loader",
+                            loader: "postcss-loader", 
                             options: {
                                 sourceMap: true,
                                 config: {
-                                    path: ".postcssrc.js"
+                                    path: ".postcssrc.js" //在当前目录下的.postcssrc.js有相关配置
                                 }
                             }
                         }
@@ -41,7 +41,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin({
+        new ExtractTextPlugin({ 
             filename: '[name].css'
         }),
     ]
