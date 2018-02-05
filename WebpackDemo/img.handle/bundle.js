@@ -71,42 +71,53 @@
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index_css__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__index_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__index_less__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__index_less___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__index_less__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__no_photo_jpg__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__no_photo_jpg___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__no_photo_jpg__);
 
 
 function component() {
     var element = document.createElement('div');
-  
+
     element.innerHTML = ['Hello', 'webpack'].join(' ');
     element.classList.add(__WEBPACK_IMPORTED_MODULE_0__index_css___default.a.hello);
-  
+
     return element;
 }
 
 function component1() {
     var element = document.createElement('div');
-  
-    element.innerHTML = `<div class=${__WEBPACK_IMPORTED_MODULE_1__index_less___default.a.hello1}>Hello1 webpack</div>`;
+    var myImg = new Image();
+    console.log(myImg);
+    myImg.src = __WEBPACK_IMPORTED_MODULE_1__no_photo_jpg___default.a;
+
+    element.appendChild(myImg);
 
     return element;
 }
-  
-  document.body.appendChild(component()).appendChild(component1());
+
+function component2() {
+    var element = document.createElement('div');
+
+    //element.innerHTML = `<div><img src=${img}/></div>`;
+    element.innerHTML = `<div><img src="no_photo.jpg"/></div>`;
+
+    return element;
+}
+
+document.body.appendChild(component()).appendChild(component1()).appendChild(component2());
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"hello":"hello_3FZ7n"};
+module.exports = {"hello":"hello_CXHgF"};
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
-module.exports = {"hello1":"hello1_1gHfy"};
+module.exports = __webpack_require__.p + "./img/no_photo.db875e0fc002a097db5922a98cbfbb9d.jpg";
 
 /***/ })
 /******/ ]);
