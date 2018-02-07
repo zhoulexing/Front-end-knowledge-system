@@ -44,7 +44,7 @@ module.exports = {
                     {
                         loader: "url-loader",
                         options: {
-                            limit: 100, //超过8192采用file-loader
+                            limit: 100, //超过100采用file-loader
                             //publicPath: "./img.handle/",
                             name: "[name].[hash].[ext]",
                             outputPath: "./img/"
