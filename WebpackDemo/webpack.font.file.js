@@ -12,11 +12,11 @@ module.exports = {
     },
     module: {
         rules: [
-            {
+            /*{
                 test: /\.css$/,
                 use: ["style-loader","css-loader"]
-            },
-            /* {
+            },*/
+             {
                 test: /\.(css|less)$/,
                 use: ExtractTextPlugin.extract({ //将css变成外联模式
                     fallback: "style-loader",
@@ -40,9 +40,9 @@ module.exports = {
                         }
                     ]
                 })
-            },   */
+            },
             {
-                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
                 use: [
                     {
                         loader: "file-loader",
@@ -55,9 +55,9 @@ module.exports = {
             }
         ]
     },
-   /*  plugins: [
+     plugins: [
         new ExtractTextPlugin({ 
             filename: '[name].css'
         }),
-    ] */
+    ]
 };
