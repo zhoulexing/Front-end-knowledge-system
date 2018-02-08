@@ -1,38 +1,39 @@
 {
-  "name": "webpack-demo",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "entry.output": "webpack --config webpack.entry.output.config.js",
-    "loader.source": "webpack --config webpack.loader.source.config.js",
-    "development.env": "webpack-dev-server --open --config webpack.development.env.config.js"
-  },
-  "author": "zlx",
-  "license": "ISC",
-  "devDependencies": {
-    "clean-webpack-plugin": "^0.1.18",
-    "css-loader": "^0.28.9",
-    "extract-text-webpack-plugin": "^3.0.2",
-    "file-loader": "^1.1.6",
-    "html-withimg-loader": "^0.1.16",
-    "less": "^2.7.3",
-    "less-loader": "^4.0.5",
-    "postcss-loader": "^2.1.0",
-    "style-loader": "^0.20.1",
-    "uglifyjs-webpack-plugin": "^1.1.8",
-    "url-loader": "^0.6.2",
-    "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.11.1",
-    "webpack-merge": "^4.1.1",
-    "xml-loader": "^1.2.1"
-  },
-  "dependencies": {
-    "font-awesome": "^4.7.0",
-    "font-awesome-webpack": "^0.0.5-beta.2",
-    "lodash": "^4.17.5",
-    "moment": "^2.20.1",
-    "utils": "^0.3.1"
-  }
+    "name": "webpack-demo",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "entry.output": "webpack --config webpack.entry.output.config.js",
+        "loader.source": "webpack --config webpack.loader.source.config.js",
+        "development.env": "webpack-dev-server --open --config webpack.development.env.config.js",
+        "create.library": "webpack-dev-server --open --config webpack.create.library.config.js"
+    },
+    "author": "zlx",
+    "license": "ISC",
+    "devDependencies": {
+        "clean-webpack-plugin": "^0.1.18",
+        "css-loader": "^0.28.9",
+        "extract-text-webpack-plugin": "^3.0.2",
+        "file-loader": "^1.1.6",
+        "html-webpack-plugin": "^2.30.1",
+        "html-withimg-loader": "^0.1.16",
+        "less": "^2.7.3",
+        "less-loader": "^4.0.5",
+        "postcss-loader": "^2.1.0",
+        "style-loader": "^0.20.1",
+        "uglifyjs-webpack-plugin": "^1.1.8",
+        "url-loader": "^0.6.2",
+        "webpack": "^3.10.0",
+        "webpack-dev-server": "^2.11.1",
+        "webpack-merge": "^4.1.1",
+        "xml-loader": "^1.2.1"
+    },
+    "dependencies": {
+        "font-awesome": "^4.7.0",
+        "lodash": "^4.17.5",
+        "moment": "^2.20.1",
+        "utils": "^0.3.1"
+    }
 }
