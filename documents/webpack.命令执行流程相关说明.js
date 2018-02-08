@@ -1,5 +1,5 @@
 /*
-* webpack(v1.x.x)源码执行流程
+* webpack(v1.x.x)源码执行流程（源码见webpack）
 * 1 shell与config解析
 *   每次在命令行输入webpack后，操作系统会去调用C:\Users\js\AppData\Roaming\npm\webpack.cmd
 *   这个脚本会调用./node_modules/webpack/bin/webpack.js, 并追加输入的参数。在这个文件中webpack

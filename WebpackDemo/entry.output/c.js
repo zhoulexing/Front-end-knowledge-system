@@ -65,12 +65,29 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const b = __webpack_require__(1);
+
+function component() {
+    var element = document.createElement('div');
+  
+    element.innerHTML = b();
+  
+    return element;
+}
+  
+document.body.appendChild(component());
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports) {
 
-const a = () => {
-    console.log("Hello");
+const b = () => {
+    return "Hello World";
 };
-module.exports = a;
+module.exports = b;
+
 
 /***/ })
 /******/ ]);

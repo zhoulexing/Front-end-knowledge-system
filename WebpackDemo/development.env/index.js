@@ -1,7 +1,10 @@
+import { cube } from "./math";
+
 function component() {
     var element = document.createElement('div');
   
-    element.innerHTML = `<div>Hello Wrold!</div>`;
+    element.innerHTML = "Hello World!" + cube(5);
+    console.log("element:", element);
   
     return element;
 }
