@@ -1,4 +1,4 @@
-/* 
+/*
     webpack相关文档说明（具体见webpack.demo）
     1 输入输出（webpack.entry.ouput.config.js）
         针对webpack进行简单的输入输出。 
@@ -41,6 +41,8 @@
             1. webpack-dev-server
             2. webpack-hot-middleware
             3. webpack-dev-middleware
+    6 创建library（webpack.create.library.config.js）
+        5.1 通过webpack创建第三方库，支持各种规范的模块调用以及浏览器环境下的全局调用。
 */
 
 /* 
