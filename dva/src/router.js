@@ -10,7 +10,7 @@ import Login from "./routes/Login/Login";
 const {ConnectedRouter} = routerRedux;
 
 function RouterConfig({history, app}) {
-    
+    const routerData = getRouterData(app);
     return (
         <LocaleProvider locale={zhCN}>
             <ConnectedRouter history={history}>
