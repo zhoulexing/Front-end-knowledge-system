@@ -40,7 +40,11 @@
     import 'babel-polyfill';
     // 或者
     require('babel-polyfill');
-7 与其他工具的配合（如ESLint和Mocha）
+7 babel-runtime
+    为了实现 ECMAScript 规范的细节，Babel 会使用“助手”方法来保持生成代码的整洁。由于这些助手方法可能会特别长并且会被添加到每一个文件的顶部，
+    因此你可以把它们统一移动到一个单一的“运行时（runtime）”中去。
+    通过安装 babel-plugin-transform-runtime 和 babel-runtime 来开始。
+8 与其他工具的配合（如ESLint和Mocha）
     npm install --save-dev eslint babel-eslint
     然后，在项目根目录下，新建一个配置文件.eslint，在其中加入parser字段。
     {
