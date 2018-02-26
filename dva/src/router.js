@@ -1,32 +1,26 @@
 import React from 'react';
-import {routerRedux, Route, Switch} from 'dva/router';
+import { routerRedux, Route, Switch } from 'dva/router';
+import { LocaleProvider, Spin } from 'antd';
+import { getRouterData } from './common/router';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
-import {LocaleProvider, Spin} from 'antd';
 
 
-import IndexPage from './routes/IndexPage';
-import Login from "./routes/Login/Login";
+const { ConnectedRouter } = routerRedux;
 
-const {ConnectedRouter} = routerRedux;
-
-function RouterConfig({history, app}) {
-    const routerData = getRouterData(app);
-    return (
-        <LocaleProvider locale={zhCN}>
-            <ConnectedRouter history={history}>
-                <Switch>
-                    <Route
-                        path="/login"
-                        component={Login}
-                    />
-                    <Route
-                        path="/"
-                        component={IndexPage}
-                    />
-                </Switch>
-            </ConnectedRouter>
-        </LocaleProvider>
-    );
+function RouterConfig({ history, app }) {
+  const routerData = getRouterData(app);
+  const LoginLayout = routerData['/'].component;
+  const Example = routerData['/example'].component;
+  return (
+    <LocaleProvider locale={zhCN}>
+      <ConnectedRouter history={history}>
+        <Switch>
+          <Route path="/" exact component={LoginLayout} />
+          <Route path="/example" exact component={Example} />
+        </Switch>
+      </ConnectedRouter>
+    </LocaleProvider>
+  );
 }
 
 export default RouterConfig;

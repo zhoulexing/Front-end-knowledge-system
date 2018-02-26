@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import styles from './IndexPage.less';
-import { Input } from "antd";
+import styles from './IndexPage.css';
 
 function IndexPage() {
   return (
@@ -11,7 +10,6 @@ function IndexPage() {
       <ul className={styles.list}>
         <li>To get started, edit <code>src/index.js</code> and save to reload.</li>
         <li><a href="https://github.com/dvajs/dva-docs/blob/master/v1/en-us/getting-started.md">Getting Started</a></li>
-          <Input />
       </ul>
     </div>
   );
