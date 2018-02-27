@@ -20,7 +20,7 @@ export default {
       	// 登录成功
       	if (response.status === 'ok') {
 			reloadAuthorized();
-        	yield put(routerRedux.push('/example'));
+        	yield put(routerRedux.push('/main'));
       	}
     },
   },

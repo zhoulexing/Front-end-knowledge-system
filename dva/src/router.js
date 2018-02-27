@@ -25,13 +25,12 @@ function RouterConfig({ history, app }) {
 				<Switch>
 					<Route path="/" exact component={Login} />
 					<Route path="/example" exact component={Example} />
-					{/* <AuthorizedRoute
+					<AuthorizedRoute
 						path="/main"
 						render={props => <MainLayout {...props} />}
 						authority={['admin', 'user']}
 						redirectPath="/main"
-					/> */}
-					<Route path="/example" exact component={Example} />
+					/>
 				</Switch>
 			</ConnectedRouter>
 		</LocaleProvider>
