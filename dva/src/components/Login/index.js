@@ -87,13 +87,12 @@ class Login extends Component {
         const otherChildren = [];
         React.Children.forEach(children, (item) => {
             if (!item) {
-              return;
+                return;
             }
-            // eslint-disable-next-line
             if (item.type.__ANT_PRO_LOGIN_TAB) {
-              TabChildren.push(item);
+                TabChildren.push(item);
             } else {
-              otherChildren.push(item);
+                otherChildren.push(item);
             }
         });
         return (

@@ -14,7 +14,8 @@
   "ignoreMomentLocale": true,
   "theme": "./src/theme.js",
   "html": {
-    "template": "./src/index.ejs"
+    "template": "./src/index.ejs",
+    "title": "云图"
   },
   "publicPath": "/",
   "disableDynamicImport": true,

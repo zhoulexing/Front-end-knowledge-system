@@ -6,10 +6,10 @@ import styles from './index.less';
 const FormItem = Form.Item;
 
 export default ({ className, ...rest }) => {
-  const clsString = classNames(styles.submit, className);
-  return (
-    <FormItem>
-      <Button size="large" className={clsString} type="primary" htmlType="submit" {...rest} />
-    </FormItem>
-  );
+	const clsString = classNames(styles.submit, className);
+	return (
+		<FormItem>
+			<Button size="large" className={clsString} type="primary" htmlType="submit" {...rest} />
+		</FormItem>
+	);
 };

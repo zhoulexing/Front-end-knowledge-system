@@ -1,10 +1,11 @@
 {
   "private": true,
   "scripts": {
-    "start": "cross-env DISABLE_ESLINT=true roadhog dev",
+    "start": "cross-env DISABLE_ESLINT=true PORT=3000 roadhog dev",
     "start:no-proxy": "cross-env NO_PROXY=true DISABLE_ESLINT=true roadhog dev",
-    "build": "roadhog build",
+    "build": "cross-env DISABLE_ESLINT=true roadhog build",
     "lint": "eslint --ext .js src test",
+    "test": "roadhog test",
     "precommit": "npm run lint"
   },
   "dependencies": {

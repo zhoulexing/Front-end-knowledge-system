@@ -1,5 +1,7 @@
 import { fakeAccountLogin } from '../services/api';
 import { routerRedux } from 'dva/router';
+import { setAuthority } from '../utils/authority';
+import { reloadAuthorized } from '../utils/Authorized';
 
 export default {
   namespace: 'login',
@@ -10,25 +12,27 @@ export default {
 
   effects: {
     *login({ payload }, { call, put }) {
-      const response = yield call(fakeAccountLogin, payload);
-      yield put({
-        type: 'changeLoginStatus',
-        payload: response,
-      });
-      // Login successfully
-      if (response.status === 'ok') {
-        yield put(routerRedux.push('/example'));
-      }
+      	const response = yield call(fakeAccountLogin, payload);
+      	yield put({
+        	type: 'changeLoginStatus',
+        	payload: response,
+      	});
+      	// 登录成功
+      	if (response.status === 'ok') {
+			reloadAuthorized();
+        	yield put(routerRedux.push('/example'));
+      	}
     },
   },
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      return {
-        ...state,
-        status: payload.status,
-        type: payload.type,
-      };
+		setAuthority(payload.currentAuthority);
+      	return {
+			...state,
+			status: payload.status,
+			type: payload.type,
+      	};
     },
   },
 };

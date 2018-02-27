@@ -41,7 +41,7 @@ export default class LoginPage extends Component {
 
     renderMessage = (content) => {
         return (
-          <Alert style={{ marginBottom: 24 }} message={content} type="error" showIcon />
+            <Alert style={{ marginBottom: 24 }} message={content} type="error" showIcon />
         );
     }
 
@@ -57,20 +57,20 @@ export default class LoginPage extends Component {
                 >
                     <Tab key="account" tab="账户密码登录">
                         {
-                            //login.status === 'error' &&
-                            //login.type === 'account' &&
-                            //!login.submitting &&
-                            //this.renderMessage('账户或密码错误（admin）')
+                            login.status === 'error' &&
+                            login.type === 'account' &&
+                            !login.submitting &&
+                            this.renderMessage('账户或密码错误（admin）')
                         }
                         <UserName name="userName" placeholder="admin" />
                         <Password name="password" placeholder="123456" />
                     </Tab>
                     <Tab key="mobile" tab="pki登录">
                         {
-                            //login.status === 'error' &&
-                            //login.type === 'mobile' &&
-                            //!login.submitting &&
-                            //this.renderMessage('请插入pki')
+                            login.status === 'error' &&
+                            login.type === 'mobile' &&
+                            !login.submitting &&
+                            this.renderMessage('请插入pki')
                         }
                         pki登录
                     </Tab>
