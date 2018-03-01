@@ -33,7 +33,7 @@ class Login extends Component {
         active: {}
     };
     
-    handleSubmit(e) {
+    handleSubmit = (e) => {
         e.preventDefault();
         const { active, type } = this.state;
         const activeFileds = active[type];
@@ -97,7 +97,7 @@ class Login extends Component {
         });
         return (
             <div className={classNames(className, styles.login)}>
-                <Form onSubmit={this.handleSubmit.bind(this)}>
+                <Form onSubmit={this.handleSubmit}>
                     {
                         tabs.length ? (
                             <div>

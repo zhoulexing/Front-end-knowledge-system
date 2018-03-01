@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'dva';
 import styles from './Login.less';
 import Login from '../../components/Login';
-import { Checkbox, Alert, Icon } from 'antd';
+import DocumentTitle from 'react-document-title';
+import { Checkbox, Alert } from 'antd';
+import { TITLE } from '../../common/constants';
 
 const { Tab, UserName, Password, Submit } = Login;
 
@@ -16,11 +18,11 @@ export default class LoginPage extends Component {
         autoLogin: true
     }
 
-    onTabChange(type) {
+    onTabChange = (type) => {
         this.setState({ type });
     }
 
-    handleSubmit(err, values) {
+    handleSubmit = (err, values) => {
         const { type } = this.state;
         if (!err) {
             this.props.dispatch({
@@ -49,11 +51,12 @@ export default class LoginPage extends Component {
         const { submitting, login } = this.props;
         const { type, autoLogin } = this.state;
         return (
-            <div className={ styles.main }>
-                <Login 
+            <DocumentTitle title={TITLE}>
+                <div className={ styles.main }>
+                <Login
                     defaultActiveKey={type}
-                    onTabChange={this.onTabChange.bind(this)}
-                    onSubmit={this.handleSubmit.bind(this)}
+                    onTabChange={this.onTabChange}
+                    onSubmit={this.handleSubmit}
                 >
                     <Tab key="account" tab="账户密码登录">
                         {
@@ -80,6 +83,7 @@ export default class LoginPage extends Component {
                     <Submit loading={submitting}>登录</Submit>
                 </Login>
             </div>
+            </DocumentTitle>
         )
     }
 };

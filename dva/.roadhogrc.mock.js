@@ -1,5 +1,6 @@
 import mockjs from 'mockjs';
 import { format, delay } from 'roadhog-api-doc';
+import { getNotices } from "./mock/notices";
 
 // 是否禁用代理
 const noProxy = process.env.NO_PROXY === 'true';
@@ -17,7 +18,7 @@ const proxy = {
 			});
 			return ;
 		}
-		if(password === '123456' && userName === 'hzjs'){
+		if(password === '123456' && userName === 'user'){
 			res.send({
 				status: 'ok',
 				type,
@@ -31,6 +32,21 @@ const proxy = {
 			currentAuthority: 'guest'
 		});
   	},
+    'GET /api/login/currentUser': {
+        $desc: "获取当前用户接口",
+        $params: {
+            pageSize: {
+                desc: '分页',
+                exp: 2,
+            }
+        },
+        $body: {
+            name: 'admin',
+            avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
+            userid: '00000001'
+        }
+    },
+    'GET /api/notices': getNotices,
 	'GET /api/500': (req, res) => {
 		res.status(500).send({
 		"timestamp": 1513932555104,

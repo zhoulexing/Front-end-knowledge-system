@@ -15,7 +15,7 @@
   "theme": "./src/theme.js",
   "html": {
     "template": "./src/index.ejs",
-    "title": "云图"
+    "title": "周某人"
   },
   "publicPath": "/",
   "disableDynamicImport": true,

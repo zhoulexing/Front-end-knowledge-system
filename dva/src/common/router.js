@@ -54,30 +54,66 @@ const dynamicWrapper = (app, models, component) => {
   	});
 };
 
+/*
+* 将层级的菜单转化成扁平化的菜单
+* */
+function getFlatMenuData(menus) {
+    let keys = {};
+    menus.forEach((item) => {
+        if (item.children) {
+            keys[item.path] = { ...item };
+            keys = { ...keys, ...getFlatMenuData(item.children) };
+        } else {
+            keys[item.path] = { ...item };
+        }
+    });
+    return keys;
+}
+
 export const getRouterData = (app) => {
 	//路由配置
     const routerConfig = {
+        '/': {
+            component: dynamicWrapper(app, [], () => import('../layouts/MainLayout'))
+        },
         '/login': {
             component: dynamicWrapper(app, ['login'], () => import('../routes/Login/Login'))
 		},
-		'/main': {
-			component: dynamicWrapper(app, [], () => import('../layouts/MainLayout'))
-		},
         '/example': {
             component: dynamicWrapper(app, ['example'], () => import('../routes/Example/Example'))
-        }
+        },
+        '/exception/403': {
+            component: dynamicWrapper(app, [], () => import('../routes/Exception/403')),
+        },
+        '/exception/404': {
+            component: dynamicWrapper(app, [], () => import('../routes/Exception/404')),
+        },
+        '/exception/500': {
+            component: dynamicWrapper(app, [], () => import('../routes/Exception/500')),
+        },
+        '/exception/trigger': {
+            component: dynamicWrapper(app, ['error'], () => import('../routes/Exception/triggerException')),
+        },
     };
 
   	const routerData = {};
+  	
+  	const menuData = getFlatMenuData(getMenuData());
 
 	Object.keys(routerConfig).forEach((path) => {
-		let router = routerConfig[path];
-		router = {
-			...router,
-			name: router.name,
-			authority: router.authority
-		};
-		routerData[path] = router;
+        const pathRegexp = pathToRegexp(path);
+        const menuKey = Object.keys(menuData).find(key => pathRegexp.test(`/${key}`));
+        let menuItem = {};
+        if (menuKey) {
+            menuItem = menuData[menuKey];
+        }
+        let router = routerConfig[path];
+        router = {
+            ...router,
+            name: router.name || menuItem.name,
+            authority: router.authority || menuItem.authority,
+        };
+        routerData[path] = router;
 	});
 	return routerData;
 };
