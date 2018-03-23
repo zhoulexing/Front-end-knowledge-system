@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8">
+    <title>list</title>
+  </head>
+  <body>
+    <% if (lists.length) { %>
+    <div>
+      <% lists.forEach(function(it){ %>
+        <div><a href="/file/download?filename=<%= it.filename %>"><%= it.filename %></a></div>
+      <% }) %>
+    </div>
+    <% } %>
+  </body>
+</html>
