@@ -5,8 +5,7 @@
     "start:no-proxy": "cross-env NO_PROXY=true DISABLE_ESLINT=true roadhog dev",
     "build": "cross-env DISABLE_ESLINT=true roadhog build",
     "lint": "eslint --ext .js src test",
-    "test": "roadhog test",
-    "precommit": "npm run lint"
+    "test": "roadhog test"
   },
   "dependencies": {
     "@antv/data-set": "^0.8.0",
