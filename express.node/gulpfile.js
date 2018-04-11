@@ -5,7 +5,7 @@ const livereload = require('gulp-livereload');
 const less = require('gulp-less');
 
 gulp.task('less', () => {
-  gulp.src('./public/css/*.less')
+  gulp.src('./app/styles/*.less')
     .pipe(plumber())
     .pipe(less())
     .pipe(gulp.dest('./public/css'))
@@ -13,7 +13,7 @@ gulp.task('less', () => {
 });
 
 gulp.task('watch', () => {
-  gulp.watch('./public/css/*.less', ['less']);
+  gulp.watch('./app/styles/*.less', ['less']);
 });
 
 gulp.task('develop', () => {

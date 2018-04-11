@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const service = require('../services/home');
+const service = require('../services/upload');
 
-router.get('/', service.getHomeTitle);
+router.post('/upload', service.upload);
 
 module.exports = (app) => {
   app.use('/', router);

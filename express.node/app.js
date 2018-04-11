@@ -1,6 +1,4 @@
-
-
-const express = require('express');
+/*const express = require('express');
 const config = require('./config/config');
 const db = require('./app/models');
 
@@ -18,5 +16,17 @@ db.sequelize
     }
   }).catch((e) => {
     throw new Error(e);
-  });
+  });*/
 
+const express = require('express');
+const config = require('./config/config');
+
+
+const app = require('./config/express')(express(), config);
+
+
+app.listen(config.port, config.ip, () => {
+  console.log('Express server listening on port ' + config.port);
+});
+
+module.exports = app;

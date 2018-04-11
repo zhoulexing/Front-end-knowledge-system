@@ -9,6 +9,7 @@ const config = {
       name: 'express-node'
     },
     port: process.env.PORT || 3000,
+    ip: process.env.IP || '127.0.0.1',
     db: {
       database: "express_node",
       username: "root",
@@ -27,6 +28,7 @@ const config = {
       name: 'express-node'
     },
     port: process.env.PORT || 3000,
+    ip: process.env.IP || '127.0.0.1',
     db: {
       database: "express_node",
       username: "root",
@@ -45,6 +47,7 @@ const config = {
       name: 'express-node'
     },
     port: process.env.PORT || 3000,
+    ip: process.env.IP || '127.0.0.1',
     db: {
       database: "express_node",
       username: "root",
