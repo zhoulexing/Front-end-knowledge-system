@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--[if lt IE 10]>
+        <script src="./js/excanvas.js" type="text/javascript"></script>
+        <script src="./js/jq.1.11.1.js" type="text/javascript"></script>
+    <![endif]-->
+    <style>
+        .img {
+            background: url("./img/add_bg.png") no-repeat;
+            background-size: 100% 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="1111111">1111111</div>
+    <canvas id="canvas" width="500" height="500" style="width: 500px;height: 500px;"></canvas>
+    <div class="img">aaaa</div>
+    <script>
+        /*var dom = document.getElementById("1111111");
+        window.onresize = function(e) {
+            alert(dom.offsetLeft + "-" + dom.offsetTop);
+        };*/
+        setTimeout(function () {  // 兼容ie8必须要加延迟
+            var cvs = document.getElementById("canvas");
+            var ctx = cvs.getContext("2d");
+            ctx.fillStyle = "red";
+            ctx.fillRect(10, 10, 20, 20);
+
+            ctx.setLineDash && ctx.setLineDash([5, 5]);
+            ctx.beginPath();
+            ctx.moveTo(100, 100);
+            ctx.lineTo(200, 100);
+            ctx.lineTo(200, 200);
+            ctx.lineTo(100, 200);
+            ctx.lineTo(100, 100);
+            ctx.strokeStyle = "red";
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            ctx.restore();
+        }, 20);
+        /*(function ($) {
+            $("body").on("keydown", function(e) {
+               alert(e.keyCode);
+            });
+        })($);*/
+    </script>
+</body>
+</html>
