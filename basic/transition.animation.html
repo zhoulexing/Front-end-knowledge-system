@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .transition {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            /*transition: width ease 1s;*/
+        }
+        .transition2  {
+            -webkit-animation: .5s changeWidth;
+            width: 250px;
+        }
+        @-webkit-keyframes changeWidth {
+            from { width: 100px; }
+            to { width: 250px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="transition"></div>
+    <script>
+        const dom = document.querySelector(".transition");
+        dom.onclick = () => {
+            //dom.classList.toggle("transition2");
+            //dom.className += " transition2";
+
+            /*setInterval(() => {
+                width === 100 ? flag = true : width === 200 ? flag = false : "";
+                dom.style.width = flag ? `${ width++ }px` : `${ width-- }px`;
+            }, 1000/60);*/
+
+            window.requestAnimationFrame(animation);
+
+        }
+
+
+        let width = 100;
+        let flag = true;
+        function animation() {
+            width === 100 ? flag = true : width === 200 ? flag = false : "";
+            dom.style.width = flag ? `${ width++ }px` : `${ width-- }px`;
+            window.requestAnimationFrame(animation);
+        }
+    </script>
+</body>
+</html>

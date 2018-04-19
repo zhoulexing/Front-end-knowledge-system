@@ -1,11 +1,20 @@
 import {isUrl} from '../utils/utils';
 
 const menuData = [
-{
-    name: '示例',
-    icon: 'setting',
-    path: 'example'
-}, {
+    {
+        name: '主页',
+        icon: 'setting',
+        path: 'main'
+    },
+    {
+        name: '示例',
+        icon: 'lock',
+        path: 'example',
+        children: [{
+            name: '滚动懒加载',
+            path: 'lazy.load'
+        }]
+    }, {
     name: '异常页',
     icon: 'warning',
     path: 'exception',

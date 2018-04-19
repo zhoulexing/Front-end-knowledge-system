@@ -79,8 +79,11 @@ export const getRouterData = (app) => {
         '/login': {
             component: dynamicWrapper(app, ['login'], () => import('../routes/Login/Login'))
 		},
-        '/example': {
-            component: dynamicWrapper(app, ['example'], () => import('../routes/Example/Example'))
+        '/main': {
+            component: dynamicWrapper(app, ['main'], () => import('../routes/Main/Main'))
+        },
+        '/example/lazy.load': {
+            component: dynamicWrapper(app, [], () => import('../routes/Example/LazyLoad'))
         },
         '/exception/403': {
             component: dynamicWrapper(app, [], () => import('../routes/Exception/403')),
@@ -97,7 +100,7 @@ export const getRouterData = (app) => {
     };
 
   	const routerData = {};
-  	
+
   	const menuData = getFlatMenuData(getMenuData());
 
 	Object.keys(routerConfig).forEach((path) => {

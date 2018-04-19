@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'dva';
-import styles from './Example.less';
+import styles from './Main.less';
 
-function ExamplePage() {
+function MainPage() {
   return (
     <div className={styles.normal}>
         <h1 className={styles.title}>Yay! Welcome to dva!</h1>
@@ -15,7 +15,7 @@ function ExamplePage() {
   );
 }
 
-ExamplePage.propTypes = {
+MainPage.propTypes = {
 };
 
-export default connect()(ExamplePage);
+export default connect()(MainPage);
