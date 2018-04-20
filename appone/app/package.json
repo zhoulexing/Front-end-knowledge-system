@@ -1,0 +1,9 @@
+{
+    "name": "shark",
+    "version": "1.0.0",
+    "main": "./main.js",
+    "window" : {
+      "icon" :  "asserts/icon.png"
+    }
+  }
+  
