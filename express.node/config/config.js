@@ -10,7 +10,7 @@ const config = {
     },
     port: process.env.PORT || 3000,
     ip: process.env.IP || '127.0.0.1',
-    db: {
+    db: { // mySql数据库
       database: "express_node",
       username: "root",
       password: "342901",
@@ -19,6 +19,10 @@ const config = {
         host: "localhost",
         port: 3306
       }
+    },
+    redis: { // redis数据库
+      ip: "127.0.0.1",
+      port: 6379
     }
   },
 
@@ -38,6 +42,10 @@ const config = {
         host: "localhost",
         port: 3306
       }
+    },
+    redis: { // redis数据库
+      ip: "127.0.0.1",
+      port: 6379
     }
   },
 
@@ -57,6 +65,10 @@ const config = {
         host: "localhost",
         port: 3306
       }
+    },
+    redis: { // redis数据库
+      ip: "127.0.0.1",
+      port: 6379
     }
   }
 };
