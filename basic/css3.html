@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .c1 {
+            width: 200px;
+            height: 30px;
+            position: relative;
+        }
+        .c1::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 200px;
+            height: 2px;
+            background-color: red;
+            transition: transform .5s;
+            transform: scaleX(0);
+            transform-origin: 100% 0;
+        }
+        .c1:hover::before {
+            transform: scaleX(1);
+            transform-origin: 0 0;
+        }
+
+        .c2 {
+            position: relative;
+        }
+        .c2::after {
+            position: absolute;
+            content: "";
+            width: 200px;
+            height: 30px;
+            background-color: red;
+            transition: transform .5s;
+            transform: scale(0, 0);
+        }
+        .c2:hover::after {
+            transform: scale(1, 1);
+        }
+    </style>
+</head>
+<body>
+    <div class="c1">Hover Me</div>
+    <div class="c2">Hover Me2</div>
+</body>
+</html>
