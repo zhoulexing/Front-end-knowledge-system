@@ -1,6 +1,6 @@
 /*const express = require('express');
 const config = require('./config/config');
-const db = require('./app/models');
+const db = require('./utils/mysql.jdbc');
 
 const app = express();
 
