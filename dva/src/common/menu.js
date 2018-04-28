@@ -9,11 +9,7 @@ const menuData = [
     {
         name: '示例',
         icon: 'lock',
-        path: 'example',
-        children: [{
-            name: '滚动懒加载',
-            path: 'lazy.load'
-        }]
+        path: 'example'
     }, {
     name: '异常页',
     icon: 'warning',

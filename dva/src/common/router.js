@@ -82,8 +82,8 @@ export const getRouterData = (app) => {
         '/main': {
             component: dynamicWrapper(app, ['main'], () => import('../routes/Main/Main'))
         },
-        '/example/lazy.load': {
-            component: dynamicWrapper(app, [], () => import('../routes/Example/LazyLoad'))
+        '/example': {
+            component: dynamicWrapper(app, ['example'], () => import('../routes/Example'))
         },
         '/exception/403': {
             component: dynamicWrapper(app, [], () => import('../routes/Exception/403')),

@@ -83,6 +83,51 @@ const proxy = {
 			"path": "/base/category/list"
 		});
 	},
+    'GET /api/example/getTblList': {
+        $desc: "获取表格数据接口",
+        $params: {
+            pageSize: {
+                desc: '分页',
+                exp: 2,
+            }
+        },
+        $body: {
+            dataSource: [{
+                key: '1',
+                name: '胡彦斌',
+                age: 32,
+                address: '西湖区湖底公园1号'
+            }, {
+                key: '2',
+                name: '胡彦祖',
+                age: 42,
+                address: '西湖区湖底公园2号'
+            }, {
+                key: '3',
+                name: '胡彦清',
+                age: 52,
+                address: '西湖区湖底公园3号'
+            }, {
+                key: '4',
+                name: '胡彦里',
+                age: 62,
+                address: '西湖区湖底公园4号'
+            }],
+            columns: [{
+                title: '姓名',
+                dataIndex: 'name',
+                key: 'name',
+            }, {
+                title: '年龄',
+                dataIndex: 'age',
+                key: 'age',
+            }, {
+                title: '住址',
+                dataIndex: 'address',
+                key: 'address',
+            }]
+        }
+    }
 };
 
 export default noProxy ? {} : delay(proxy, 1000);
