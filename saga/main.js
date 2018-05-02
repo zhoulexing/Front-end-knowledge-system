@@ -17,7 +17,7 @@ const store = createStore(
 );
 sagaMiddleware.run(rootSaga);
 
-const action = type => store.dispatch({type})
+const action = type => { debugger; store.dispatch({type}) }
 
 function render() {
     console.log("render");

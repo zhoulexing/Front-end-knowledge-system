@@ -1,5 +1,4 @@
 "use strict";
-
 const co = require("co");
 
 
@@ -34,6 +33,19 @@ co(function* test2() {
   const val2 = yield getValue("world");
   console.log(val2);
 });
+
+
+async function testAsync() {
+    console.log("value1");
+    const value = await getValue("test async");
+    console.log("value2");
+    return value;
+}
+const value4 = testAsync();
+console.log("value4:", value4);
+console.log("value3");
+
+
 
 
 
