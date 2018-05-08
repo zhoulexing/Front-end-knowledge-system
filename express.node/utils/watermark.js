@@ -46,7 +46,7 @@ function addImgWater(sourceUrl, waterUrl, finalUrl, callback) {
 }
 
 /*
-* 给图片添加文字水印
+* 给图片添加文字水印, 不过要安装imagemagick
 * 参数 sourceUrl(string) 原图片路劲
 * 参数 text(string) 文字
 * 参数 callback(function)
@@ -63,16 +63,6 @@ function addTextWater(sourceUrl, finalUrl, callback) {
       };
       callback(null, { success: true });
     });
-  /*imageMagick(sourceUrl)
-  .resize(150, 150, '!') //加('!')强行把图片缩放成对应尺寸150*150！
-  .autoOrient()
-  .write(finalUrl, function(err){
-    if (err) {
-      callback(err, null);
-      return;
-    }
-    callback(null, { success: true });
-  });*/
 }
 
 module.exports = {
