@@ -2,9 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
 <body>
-$END$
+    <canvas width='1000' height='1000' style='width: 1000px; height: 1000px;'></canvas>
+    <button onclick="getCanvas()">获取</button>
+    <script>
+
+        function getCanvas() {
+            console.log(document.getElementById('watermark'));
+        }
+
+        const cvs = document.createElement('canvas');
+        cvs.id = 'watermark';
+        document.body.insertBefore(cvs, document.body.firstChild);
+
+
+        /*const cvs = document.querySelector('canvas');
+        const ctx = cvs.getContext('2d');
+
+        ctx.fillStyle = 'red';
+        ctx.fillRect(0, 0, 1000, 1000);*/
+
+        /*let x, y;
+        for(let i = 0; i < 100; i++) {
+            y = 10 + i * 10;
+            for(let j = 0; j < 100; j++) {
+                x = 10 + j * 10;
+                ctx.rotate(10*Math.PI/180);
+                ctx.fillText('Hello', x, y);
+            }
+        }*/
+        /*ctx.fillStyle = 'blue';
+
+        ctx.save();
+        ctx.rotate(10*Math.PI/180);
+        ctx.translate(500, 500);
+        ctx.fillText('Hello', 0, 0);
+        ctx.restore();
+
+        ctx.save();
+        ctx.rotate(10*Math.PI/180);
+        ctx.translate(500, 600);
+        ctx.fillText('Hello', 0, 0);
+        ctx.restore();*/
+
+    </script>
 </body>
 </html>
