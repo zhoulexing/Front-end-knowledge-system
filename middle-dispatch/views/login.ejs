@@ -8,7 +8,14 @@
   <body>
     <div class="container">
         <div>点击下方按钮进行程序的下载并安装</div>
-        <div><button class="btn">下载</button></div>
+        <div><button class="btn" onclick="closeWindow()">下载</button></div>
     </div>
+    <script>
+      function closeWindow() {
+        window.opener=null;
+        window.open('', '_self');
+        window.close();
+      }
+    </script>
   </body>
 </html>
