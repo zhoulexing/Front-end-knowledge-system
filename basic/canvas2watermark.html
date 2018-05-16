@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        createBgImage();
+        // 将canvas生成的图片作为body的背景色
+        function createBgImage() {
+            const dom = createCanvas(1000, 1000, { width: '1000xp', height: '1000px' });
+            const cvs = dom.getContext('2d');
+
+            cvs.fillStyle = 'black';
+            cvs.fillRect(0, 0, 1000, 1000);
+
+            fillText(cvs, 'Hello');
+            const imgUrl = canvas2Picture(dom);
+            document.body.style = `background-image: url(${ imgUrl });background-repeat: no-repeat;background-attachment: fixed;background-position: 0 0;background-size: 100% 100%;`;
+            /*const promise = drawImage(cvs, './images/bg.png', 1000, 1000);
+            promise.then(() => {
+                fillText(cvs, 'Hello World');
+                const imgUrl = canvas2Picture(dom);
+                document.body.style = `background-image: url(${ imgUrl });background-repeat: no-repeat;background-attachment: fixed;background-position: 0 0;background-size: 100% 100%;`;
+            }, () => {
+                throw new Error('图片加载失败!');
+            }).catch(e => {
+                throw new Error(e);
+            });*/
+
+
+        }
+
+        // 给canvas设置文字
+        function fillText(cvs, text) {
+            const textCvs = createCanvas(50, 50, { width: '50px', height: '50px' });
+            const textCtx = textCvs.getContext('2d');
+            textCtx.fillStyle = 'red';
+            textCtx.fillText(text, 10, 10);
+
+            const pat = cvs.createPattern(textCvs, 'repeat');
+            cvs.fillStyle = pat;
+            cvs.fillRect(0, 0, 1000, 1000);
+        }
+
+        // 给canvas设置背景图片
+        function drawImage(cvs, imgUrl, width, height) {
+            const img = new Image();
+            img.src = imgUrl;
+            const promise = new Promise((resolve, reject) => {
+                img.onload = () => {
+                    cvs.drawImage(img, 0, 0, width, height);
+                    resolve();
+                };
+                img.onerror = () => {
+                    reject();
+                }
+            });
+            return promise;
+        }
+
+        // 创建canvas对象
+        function createCanvas(width, height, styles) {
+            const dom = document.createElement('canvas');
+            dom.width = width;
+            dom.height = height;
+            if(typeof styles === 'object') {
+                Object.keys(styles).forEach(key => {
+                    dom.style[key] = styles[key];
+                });
+                return dom;
+            }
+        }
+
+        // 将canvas转化成图片
+        function canvas2Picture(dom, type = 'png') {
+            let imageUrl = dom.toDataURL(type);
+            imageUrl = imageUrl.replace(fixType(type), 'image/octet-stream');
+            return imageUrl;
+        }
+
+        // 固定类型
+        function fixType(type) {
+            type = type.toLowerCase().replace(/jpg/i, 'jpeg');
+            let r = type.match(/png|jpeg|bmp|gif/)[0];
+            return 'image/' + r;
+        }
+
+    </script>
+</body>
+</html>

@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const service = require('../services/download');
 
-router.get('/download', service.download);
+router.get('/', service.download);
 
 module.exports = (app) => {
-  app.use('/', router);
+  app.use('/download', router);
 };
 
 

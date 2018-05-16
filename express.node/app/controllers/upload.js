@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const service = require('../services/upload');
 
-router.post('/upload', service.upload);
+router.post('/', service.upload);
 
 module.exports = (app) => {
-  app.use('/', router);
+  app.use('/upload', router);
 };
 
 

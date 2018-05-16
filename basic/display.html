@@ -5,9 +5,42 @@
     <title>Title</title>
 </head>
 <body>
-    <div>
-        <div style="background-color: red; height: 5px">1</div>
-        <span style="position: fixed; background-color: blue;height: 100px;width: 100px;">2</span>
-    </div>
+    <span style="position: relative; width: 100px; height: 100px; background-color: red; display: inline-block; margin:0;">
+        <span style="position: absolute;">1111</span>
+        <!--<span style="position: absolute; left: 10px; top: 10px;">Hello</span>
+        <span style="position: absolute; left: 30px; top: 30px;">World</span>
+        <span style="display: inline-block;">1111</span>
+        <span style="display: inline-block;">2222</span>-->
+    </span>
+    <span style="position: relative; width: 100px; height: 100px; background-color: red; display: inline-block; margin:0;">111111</span>
+    <span style="display: inline-block;">
+        <div style="float: left; margin-bottom: 10px; width: 100px;height: 100px; background-color: red;">11111</div>
+        <div style="float: left; margin-bottom: 10px; background: blue;">2222</div>
+    </span>
+    <script>
+        var message = "Are you sure ?";
+        var firefox = /Firefox[\/\s](\d+)/.test(navigator.userAgent);
+        if (firefox) {
+            //Add custom dialog
+            //Firefox does not accept window.showModalDialog(), window.alert(), window.confirm(), and window.prompt() furthermore
+            var dialog = document.createElement("div");
+            document.body.appendChild(dialog);
+            dialog.id = "dialog";
+            dialog.style.visibility = "hidden";
+            dialog.innerHTML = message;
+            var left = document.body.clientWidth / 2 - dialog.clientWidth / 2;
+            dialog.style.left = left + "px";
+            dialog.style.visibility = "visible";
+            var shadow = document.createElement("div");
+            document.body.appendChild(shadow);
+            shadow.id = "shadow";
+            //tip with setTimeout
+            setTimeout(function () {
+                document.body.removeChild(document.getElementById("dialog"));
+                document.body.removeChild(document.getElementById("shadow"));
+            }, 0);
+        }
+        return message;
+    </script>
 </body>
 </html>
