@@ -1,9 +1,11 @@
 const path = require('path');
 const rootPath = path.normalize(__dirname + '/..');
 const env = process.env.NODE_ENV || 'development';
+const viewEngine = 'ejs';
 
 const config = {
   development: {
+    viewEngine: viewEngine,
     root: rootPath,
     app: {
       name: 'express-node'
@@ -27,6 +29,7 @@ const config = {
   },
 
   test: {
+    viewEngine: viewEngine,
     root: rootPath,
     app: {
       name: 'express-node'
@@ -50,6 +53,7 @@ const config = {
   },
 
   production: {
+    viewEngine: viewEngine,
     root: rootPath,
     app: {
       name: 'express-node'
