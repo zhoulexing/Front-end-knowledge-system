@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const service = require('../services/download');
+const service = require('../app/services/download');
 
 router.get('/', service.download);
 

@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const service = require('../services/redis');
+const service = require('../app/services/redis');
 
 router.get('/', service.index);
 router.get('/set', service.set);

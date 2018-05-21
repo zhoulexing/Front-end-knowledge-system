@@ -1,9 +1,9 @@
-const express = require('express');
+const express = require('express')();
 const config = require('./config/config');
 const redisDb = require('./utils/redis.jdbc');
 
 
-const app = require('./config/express')(express(), config);
+const app = require('./config/express')(express, config);
 
 
 // 连接redis内存数据库

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const service = require('../services/upload');
+const service = require('../app/services/upload');
 
 router.post('/', service.upload);
 
