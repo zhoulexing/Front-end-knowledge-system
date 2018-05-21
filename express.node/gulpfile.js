@@ -8,7 +8,7 @@ gulp.task('less', () => {
   gulp.src('./app/styles/*.less')
     .pipe(plumber())
     .pipe(less())
-    .pipe(gulp.dest('./public/css'))
+    .pipe(gulp.dest('./public/stylesheets'))
     .pipe(livereload());
 });
 
@@ -20,7 +20,7 @@ gulp.task('develop', () => {
   livereload.listen();
   nodemon({
     script: 'app.js',
-    ext: 'js coffee jade',
+    ext: 'js coffee jade ejs',
     stdout: false
   }).on('readable', function () {
     this.stdout.on('data', (chunk) => {

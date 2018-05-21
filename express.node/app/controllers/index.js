@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const service = require('../services/home');
+const service = require('../services/index');
 
-router.get('/', service.getHomeTitle);
+router.get('/', service.getTitle);
 
 module.exports = (app) => {
   app.use('/', router);

@@ -3,7 +3,9 @@
 * */
 
 const redis = require("redis");
+const q = require('q');
 let redisClient = null;
+
 
 
 /*
@@ -29,24 +31,9 @@ function initRedis(ip, port) {
 }
 
 /*
-* 根据key获取数据, 通过generator的方式
-* */
-/*function* get(key) {
-  yield new Promise((resolve, reject) => {
-    redisClient.get(key, (err, value) => {
-      if(err) {
-        reject(err);
-      } else {
-        resolve(value);
-      }
-    });
-  });
-}*/
-
-/*
 * 根据key获取数据，通过async，await的方式
 * */
-async function get(key) {
+/*async function get(key) {
   return await new Promise((resolve, reject) => {
     redisClient.get(key, (err, value) => {
       if(err) {
@@ -56,6 +43,17 @@ async function get(key) {
       }
     });
   });
+}*/
+function get(key) {
+  const deferred = q.defer();
+  redisClient.get(key, (err, value) => {
+    if(err) {
+      deferred.reject(err);
+    } else {
+      deferred.resolve(value);
+    }
+  });
+  return deferred.promise;
 }
 
 /*
@@ -75,7 +73,7 @@ function hset(hashkey, key, value) {
 /*
 * 获取哈希数据中的某一个字段值
 * */
-async function hget(hashkey) {
+/*async function hget(hashkey, key) {
   return await new Promise((resolve, reject) => {
     redisClient.hget(hashkey, key, (err, value) => {
       if(err) {
@@ -85,6 +83,17 @@ async function hget(hashkey) {
       }
     });
   });
+}*/
+function hget(hashkey, key) {
+  const deferred = q.defer();
+  redisClient.hget(hashkey, key, (err, value) => {
+    if(err) {
+      deferred.reject(err);
+    } else {
+      deferred.resolve(value);
+    }
+  });
+  return deferred.promise;
 }
 
 /*
@@ -97,7 +106,7 @@ function hmset(key, value) {
 /*
 * 根据key获取所有的东西
 * */
-async function hgetall(key) {
+/*async function hgetall(key) {
   return await new Promise((resolve, reject) => {
     redisClient.hgetall(key, (err, value) => {
       if(err) {
@@ -107,6 +116,17 @@ async function hgetall(key) {
       }
     });
   });
+}*/
+function hgetall(key) {
+  const deferred = q.defer();
+  redisClient.hgetall(key, (err, value) => {
+    if(err) {
+      deferred.reject(err);
+    } else {
+      deferred.resolve(value);
+    }
+  });
+  return deferred.promise;
 }
 
 module.exports = { initRedis, set, get, hset, hget, hmset, hgetall };

@@ -1,7 +1,7 @@
 'use strict';
 
-exports.getHomeTitle = (req, res) => {
-  res.render('home', {
+exports.getTitle = (req, res) => {
+  res.render('index', {
     title: 'Generator-Express MVC',
     articles: "Hello"
   });
