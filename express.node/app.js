@@ -7,7 +7,7 @@ const app = require('./config/express')(express, config);
 
 
 // 连接redis内存数据库
-redisDb.initRedis(config.redis.ip, config.redis.port);
+//redisDb.initRedis(config.redis.ip, config.redis.port);
 
 // 创建一个服务
 app.listen(config.port, config.ip, () => {
