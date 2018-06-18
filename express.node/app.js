@@ -1,5 +1,5 @@
 const app = require('express')();
-const config = require('./config/config');
+const config = require('./config/index');
 const redisDb = require('./utils/redis.jdbc');
 const { connect } = require('./utils/web.socket');
 

@@ -1,7 +1,7 @@
 const path = require('path');
 const rootPath = path.normalize(__dirname + '/..');
 
-const config = {
+const index = {
   viewEngine: 'ejs',
   env: process.env.NODE_ENV || 'development',
   root: rootPath,
@@ -10,7 +10,7 @@ const config = {
   },
   port: process.env.PORT || 3000,
   ip: process.env.IP || '127.0.0.1',
-  db: { // mySql数据库
+  mysql: { // mySql数据库
     database: "express_node",
     username: "root",
     password: "342901",
@@ -23,7 +23,15 @@ const config = {
   redis: { // redis数据库
     ip: "127.0.0.1",
     port: 6379
+  },
+  mongodb: {
+    url: "mongodb://10.127.234.245/middle-dispatch",
+    options: {
+      db: {
+        safe: true
+      }
+    }
   }
 };
 
-module.exports = config;
+module.exports = index;
