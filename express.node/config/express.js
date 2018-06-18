@@ -70,6 +70,4 @@ module.exports = (app, config) => {
       title: 'error'
     });
   });
-
-  return app;
 };
