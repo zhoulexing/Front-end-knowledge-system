@@ -1,7 +1,7 @@
 const app = require('express')();
 const config = require('./config/index');
 const redisDb = require('./utils/redis.jdbc');
-const { connect } = require('./utils/web.socket');
+const { connect } = require('./utils/websocket');
 
 // 创建websocket, 必须放在app上面
 connect(app);

@@ -1,9 +1,11 @@
 $('#fileInput').on('change', function() {
-  //console.log("file name is " + this.value);
-  let formData = new FormData(this.form);
-  formData.append("file", 'TXT.png');
+  console.log("file name is " + this.value);
+  let formData = new FormData();
+  formData.append("file", this.files[0]);
   //console.log(formData);
-  Post('/upload', formData);
+  Upload('/upload', formData).then(res => {
+    console.log(res);
+  });
   
   
   /*console.log(this.files[0]);

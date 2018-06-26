@@ -23,6 +23,13 @@ function Post(url, params = {}) {
   });
 }
 
+function Upload(url, formData) {
+  return fetch(url, {
+    method: 'POST',
+    body: formData
+  });
+}
+
 function xFetch(url, options) {
   const opts = {...options, credentials: 'include'};
   return fetch(url, opts)
