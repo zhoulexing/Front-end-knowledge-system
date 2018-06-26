@@ -27,10 +27,23 @@ module.exports = (app, config) => {
   app.use(express.static(config.root + '/public'));
   app.use(methodOverride());
 
+
+  // 处理跨域
+  app.all('*', (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With');
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+    res.header('X-Powered-By', '3.2.1');
+    if(req.method === 'OPTIONS') res.send(200);
+    else next();
+  });
+
+
   var routes = glob.sync(config.root + '/routes/*.js');
   routes.forEach((route) => {
     require(route)(app);
   });
+
 
   app.use((req, res, next) => {
     var err = new Error('Not Found');
@@ -57,6 +70,4 @@ module.exports = (app, config) => {
       title: 'error'
     });
   });
-
-  return app;
 };

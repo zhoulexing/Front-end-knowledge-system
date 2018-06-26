@@ -1,10 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
-const config = require('../config/config');
+const config = require('../config/index');
 const db = {};
 
-const sequelize = new Sequelize(config.db.database, config.db.username, config.db.password, config.db.params);
+const sequelize = new Sequelize(config.mysql.database, config.mysql.username, config.mysql.password, config.mysql.params);
 const modelPath = path.join(__dirname, "../app/models");
 
 fs.readdirSync(modelPath)

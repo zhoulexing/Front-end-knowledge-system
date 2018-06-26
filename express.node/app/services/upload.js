@@ -10,23 +10,23 @@ const moment = require('moment');
 exports.upload = function(req, res) {
   //生成multiparty对象，并配置上传目标路劲
   const uploadPath = path.join(__dirname, '../../upload/');
-  
+
   //判断是否存在upload文件夹，不存在就创建一个
   const pathIsExist = myUtil.createDir(uploadPath);
   if(!pathIsExist) {
-    return res.status(200).json({success : false, msg : "文件上传失败"});
+    return res.status(200).json({success : false, msg : "文件夹不存在"});
   }
-  
-  
+
+
   const form = new multiparty.Form({uploadDir : uploadPath});
   //上传完成后处理
   form.parse(req, function(err, fields, files) {
     const filesTmp = JSON.stringify(files,null,2);
-    
+
     if(err || (_.isEmpty(fields) && _.isEmpty(files))) {
       return res.status(200).json({success : false, msg : "上传失败!"});
     }
-    
+
     const inputFile = files.file[0];
     const uploadedPath = inputFile.path;
     const filenameArr = inputFile.originalFilename.split(".");
@@ -42,7 +42,7 @@ exports.upload = function(req, res) {
       }
     });
   });
-  
+
 };
 
 exports.getList = function(req, res) {
@@ -53,7 +53,7 @@ exports.getList = function(req, res) {
   const filesList = [];
   myUtil.readFileList(filesPath, filesList);
   console.log("filesList:%j",filesList);
-  
+
   res.render('file.list.ejs', {lists : filesList});
 };
 

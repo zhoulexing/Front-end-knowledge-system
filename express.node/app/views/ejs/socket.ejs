@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Socket</title>
+  <link rel='stylesheet' href='/stylesheets/layout.css' />
+</head>
+<body>
+<h1>Socket</h1>
+<div id="message"></div>
+<div>
+  <input id="input"/>
+  <button onclick="handleSubmit()">确定</button>
+</div>
+<script type="text/javascript">
+  var ws = new WebSocket('ws://localhost:3000');
+  ws.onmessage=function(e){
+    setMessage(e.data);
+  };
+  ws.onerror=function(err){
+    setMessage('connect error');
+  };
+  ws.onopen=function(){
+    setMessage('connect success');
+    ws.send('Hello World');
+  };
+  ws.onclose=function(){
+    console.log('close');
+  };
+
+  function handleSubmit() {
+    var dom = document.getElementById('input');
+    ws.send(dom.value);
+  }
+
+  function setMessage(data) {
+    document.getElementById('message').innerHTML = data;
+  }
+</script>
+</body>
+</html>
