@@ -1,7 +1,8 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
+const uuid = require("node-uuid");
 
 /*
 * 获取某个路径下所有的文件
@@ -55,3 +56,16 @@ exports.createMoreDir = function(dirpath) {
   }
 }
 
+/*
+* 生成唯一的uuid
+* */
+exports.createUuidOnlyOne = function () {
+  return uuid.v4();
+}
+
+/*
+* 根据时间戳生成惟一标识符
+* */
+exports.createUuidByTime = function () {
+  return uuid.v1();
+}
