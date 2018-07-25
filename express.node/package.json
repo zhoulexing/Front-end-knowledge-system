@@ -49,5 +49,11 @@
     "nyc": "^10.0.0",
     "redis": "^2.8.0",
     "supertest": "^2.0.0"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
