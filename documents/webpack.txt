@@ -1,0 +1,183 @@
+webpack(v2)配置清单
+	入口(entry): string | [string] | object { <key>: string | [string] }
+		entry: "./src/entry.js"
+		entry: {
+			main: "./src/entry.js",
+			vendor: ["lodash", "moment", ...]
+		}
+	输出(output): object
+		output: {
+			// 必须为绝对路劲
+			path: path.resolve(__dirname, "dist"),
+			// 最好用chunkhash
+			filename: "[name].[chunkhash|hash:n].js",
+			// 静态资源的路劲
+			publicPath: "/dist/",
+			...
+		}
+	模块(module)
+		module: { 
+			rules: []
+		}
+	插件(plugins)
+		// 详细插件参数配置见官方文档
+		plugins: [
+			new [name]Plugin(options)
+		]
+	上下文(context)
+		// 入口文件所处的目录的绝对路劲的字符串, entry中的路劲是相对于context设置的路劲的
+		context: path.resolve(__dirname, "app");
+	解析(resolve) 
+		resolve: {
+			// 配置别名
+			alias: {
+				Utilities: path.resolve(__dirname, 'src/utilities/'),
+				...
+			},
+			// 自动解析确定的扩展
+			extensions: [".js", ".jsx", ...],
+			// 解析时应该搜索的模块
+			modules: ["node_modules", ...],
+			...
+		}
+	开发中(devServer)
+		devServer: {
+			// 开启热替换
+			hot: true,
+			port: 9000,
+			// 只用在命令行
+			host: "0.0.0.0"，
+			// 是否启用gzip压缩
+			compress: true,
+			// 告诉服务器从哪里提供内容boolean, string, array
+			contentBase: path.join(__dirname, "dist"),
+			// 在所有请求中添加首部内容
+			headers: {
+				"X-Custom-Foo": "bar"
+			},
+			
+			// 选择带有HTTPS的HTTP/2提供服务，可设置白签名证书
+			https: true,
+			// 惰性模式，只有在请求时才编译包
+			lazy：true,
+			// 启用代理
+			proxy: {
+				"/api": "http://localhost:3000"
+			},
+			// 设置访问路劲
+			publicPath: "/assets/"
+			...
+		}
+	开发工具(devtool)
+		// 如何生成Source Map
+		devtool: "inline-source-map" | "cheap-source-map" | ...
+	构建目标(target)
+		target: "web" | "node" | ...
+	扩展(externals)
+		// 不从bundle中引用依赖, 从脚本中引入
+		externals： {
+			jquery: "jQuery"
+		}
+	性能(performance)
+		// 控制webpack通知资源和入口起点超过指定文件限制
+		performance：{
+			hints：false，
+			...
+		}
+	统计(stats)
+		// 准确地控制显示哪些包的信息
+		stats: {
+			colors: true,
+			...
+		}
+	环境（environment）
+		// 使用--env, 通过cross-env设置
+		"scripts": {
+			"build": "cross-env NODE_ENV=production PLATFORM=web webpack"
+		}
+	
+性能优化清单
+	分析输出结果
+		//todo
+		webpack --json --profile>stats.json;
+	缩小文件搜索范围
+		通过resolve.modules配置模块库;
+		配置loader时也可以缩小范围，通过include来命中处理文件;
+	开启babel-loader缓存
+		loader: "babel-loader?cacheDiretory";
+	使用alias
+		resolve.alias配置路劲映射，默认情况下webpack会去
+		读lib目录下的入口文件再去递归加载其他依赖的文件这
+		个过程很耗时，alias配置可以让webpack直接使用dist
+		目录的整体文件减少文件递归解析;
+		alias: { "moment": "moment/min/moment.min.js", ... };
+	使用noParse
+		module.noParse配置哪些文件可以脱离webpack的解析;
+		module：{
+			noParse: /node_modules\/(jquery|moment|chart\.js)/
+		};
+	拆出依赖库配合缓存
+		方案一：通过new CommonsChunkPlugin(options)提取公共代码；
+		方案二：通过new webpack.DllPlugin(options)和new webpack.DllReferencePlugin(options);
+	压缩
+		// 压缩js, 用于生产环境, 去除console.log
+		new UglifyjsWebpackPlugin(options),
+		// 压缩image, 构造雪碧图
+		new ImageminWebpackPlugin(options),
+	按需异步加载
+		require.ensure();
+		import("./a.js").then();
+	分离css
+		// 在生产环境下分离出css
+		new ExtractTextWebpackPlugin(options)
+	热替换
+		优点1：不同于live reload会刷新浏览器
+		优点2：兼容大多前端框架或库，如react， vue
+		
+babel
+	babel做了三件事
+		Parser 解析我们的代码转换为AST
+		Transformer 利用我们配置好的plugins/presets把Parser生成的AST转变为新的AST
+		Generator 把转换后的AST生成新的代码
+	babel-polyfill和transform-runtime
+		实现浏览器对不支持API的兼容;
+		polyfill 污染全局环境、支持实例方法;
+		runtime 不污染全局环境、不支持实例方法;
+	es5-shim和es5-sham
+		es5-shim和babel-polyfill功能是一样的；
+		es5-sham是解决es5-shim解决不了的事；
+		
+相关疑问
+	Source Maps
+		用来定位资源在文件中的位置, 不编译源码如何配置？ 7种类型？
+	打包应用并发布
+	TypeScript类型声明文件
+	如何编写加载器
+	如何编写插件
+	
+	
+相关知识点解答
+	output.publicPath：处理静态资源引用地址
+	output.chunkFilename：定义require.ensure分离代码文件的名字
+	hash、chunkhash、contenthash:
+		hash跟整个项目的构建有关，只要项目里有文件更改，整个项目构建的hash值都会改变，并且全部文件公用相同的hash值
+		chunkhash根据不同的入口文件进行依赖文件分析、构建对应的chunk，生成对应的hash值，如果入口文件依赖的任何文件有变，则都会重新构建hash
+		contenthash根据模块的内容，在相互应用的情况下，如果被引用的文件内容不变则不会重复构建
+
+开发模式相关配置
+	入口entry
+	输出output
+	开发中devServer
+	模块module
+		less或css模块配置
+			使用less-loader，css-loader, postcss-loader;
+			使用extract-text-webpack-plugin插件进行css分离;
+			
+	插件plugins
+		
+	
+
+	
+		
+		
+	
