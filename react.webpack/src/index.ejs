@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>react-webpack</title>
+    <title><%=htmlWebpackPlugin.options.title%></title>
 </head>
 <body>
 <div id="root"></div>
-<script src="./dll/dll.vendor_7af768.js"></script>
-
-<script src="./dll/dll.vendor_7af768.js"></script>
-
-<script type="text/javascript" src="main.83162234.js"></script></body>
+<% if (htmlWebpackPlugin.options.hasDll) { %>
+<script src="../dll/<%= htmlWebpackPlugin.options.bundleName %>"></script>
+<% } %>
+</body>
 </html>

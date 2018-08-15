@@ -1,0 +1,169 @@
+webpack(v4)配置说明文档
+	// 配置模式, 必填
+	mode: "production" || "development"
+	// 也可以为数组||字符串，数组的话可以添加babel-polyfill
+	entry: {
+		main: "./src/index.js"
+	}
+	// 配置输出
+	output: {
+		// 配置输出路劲
+		path: path.resolve(__dirname, "dist"),
+		// 输出的文件名称，注：chunkhash不能与devServer一起使用
+		filename: "[name].[hash:6].js",
+		// 文件解析路径，index.html中引用的路径会被设置为相对于此路径
+		publicPath: "dist/",
+		// 非入口的chunk的文件名，路径相对于output.path目录
+		chunkFilename: "[name].[hash:6].js",
+		// 如果设置此选项，会将 bundle 导出为 library
+		library: "[name]_[hash:6]"
+	}
+	// 配置开发工具，适用于开发阶段，为了快速定位到源文件
+	devtool: "inline-source-map" || "eval-source-map" || ...
+	// 配置开发时的服务
+	devServer: {
+		// 本地服务器所加载的页面的目录
+		contentBase: path.resolve(__dirname, "dist"),
+		// 服务器ip
+		host: "127.0.0.1"
+		// 端口号
+		port: 9000,
+		// 设置为true，当源文件改变时会自动刷新页面, 默认为true
+		inline: false,
+		// 服务端压缩是否开启
+		compress: true | false,
+		// 热更新, 需要在命令行加--hot或者在plugins里添加webpack.HotModuleReplacementPlugin()
+		hot: true,
+		// 在开发单页应用时非常有用，它依赖于HTML5 history API，如果设置为true，所有的跳转将指向index.html
+		historyApiFallback: true,  // 不跳转
+		// todo
+		proxy: {
+			
+		}
+	}
+	// 配置第三方库,webpack.dll.config.js
+	module.exports = {
+		entry: {
+			vendor: Object.keys(package.dependencies).filter(item => {
+				return item.indexOf('normalize') < 0;
+			})
+		},
+		output: {
+			path: path.resolve(__dirname, "dll"),
+			filename: "dll.[name]_[hash:6].js"
+		},
+		plugins: [
+			new CleanWebpackPlugin(["dist"]),
+			new webpack.DllPlugin({
+				path: path.resolve(__dirname, "dll/", "[name]-manifest.json"),
+				name: "dll.[name]_[hash:6].js"
+			})
+		],
+		
+		
+		// webpack.dev.config.js, 然后通过html-webpack-plugin将此js引入进去或者通过assets-webpack-plugin
+		plugins: [
+			new webpack.DllReferencePlugin({ manifest: require("./dll/vender-manifest.json"), context: "./dll" }),
+			new AssetsPlugin({
+				filename: 'bundle-config.json',
+				path: './dll/'
+			})
+		]
+	}
+	// 配置开发模式的less加载, 文件不分离
+	{
+		test: /\.less$/,
+		use: [
+			string || object
+			{ 
+				loader: "style-loader", 
+				options: {
+					// 配置热更新
+					hmr: true,
+					// 设置模块ID基础
+					base: true,
+					// 添加自定义 attrs 到 <style></style>
+					attrs: {},
+					// 转换/条件加载 CSS，通过传递转换/条件函数
+					transform: false(Function),
+					// 要在头部的开头插入样式元素
+					insertAt: "top",
+					// 给定位置中插入 <style></style>
+					insertInto: <head>
+					// 启用/禁用 Sourcemap
+					sourceMap: false,
+					// 启用 source map 后，将相对 URL 转换为绝对 URL
+					convertToAbsoluteUrls: false,
+					// 如果已定义，则style-loader将重用单个 <style> 元素
+					singleton: true
+				}
+			},
+			{
+				loader: "css-loader",
+				options: {
+					// 解析 URLs 路径, URLs 以 / 开头将不会被翻译
+					// url(/image.png) => url(/image.png)
+					// root: ".", url(/image.png) => url(./image.png)
+					root: /       
+					// 启用/禁用css-modules模式
+					modules: false, 
+					// 启用/禁用 @import 处理
+					import: true,
+					// 启用/禁用 url() 处理
+					url: true,
+					// 启用/禁用 压缩
+					minimize: true,
+					// 启用/禁用 Sourcemaps
+					sourceMap: false,
+					// 导出以驼峰化命名的类名
+					camelCase: false,
+					// 在 css-loader 前应用的 loader 的数
+					importLoaders: 0,
+					// css作用域, 配置生成标识符
+					localIdentName: "[local]_[hash:base64:5]"
+				}
+			},
+			{
+				loader: "postcss-loader",
+				options: {
+					// 支持css-in-js 
+					exec: undefined(Boolean),
+					// Set Parser
+					parser: undefined(String | Object),
+					// Set PostCSS Syntax
+					syntax: undefined(String | Object),
+					// Set PostCSS Stringifier
+					stringifier: undefined(String | Object),
+					// Set postcss.config.js config path && ctx
+					config: undefined(Object), 
+					// Set PostCSS Plugins
+					plugins: [],
+					// Enable Source Maps
+					sourceMap: false(String|Boolean)
+				},
+				
+				// postcss可以配置在postcss.config.js 或者webpack.config.js下的postcss:function
+				module.exports = {
+					plugins: [
+						require("autoprefixer")({ browsers: ["last 2 versions", "> 1%"] })
+					]
+				}
+				postcss: function() {
+					return [autoprefixer({ browsers: ["last 2 versions", "> 1%"] })]
+				}
+			}
+			{ 
+				// 从node_modules导入less模块，只需加~，@import "~bootstrap/less/bootstrap"
+				loader: "less-loader",
+				options: {
+					// 使用插件
+					plugins: [new CleanCSSPlugin({ advance: true })],
+					// 只有结合extract-text-webpack-plugin才能使用sourceMap
+					sourceMap: true,
+					strictMath: true,
+                    noIeCompat: true
+				}
+			}
+		]
+	}
+		
