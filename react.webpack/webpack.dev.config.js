@@ -3,7 +3,8 @@ const fs = require("fs");
 const webpack = require("webpack");
 const htmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const apiMocker = require("webpack-api-mocker");
 
 const manifest = require('./dll/vendor-manifest.json');
 const hasDlls = fs.existsSync('./dll/vendor-manifest.json');
@@ -22,9 +23,14 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.jsx?$/,
+                use: ["babel-loader"],
+                include: path.resolve(__dirname, "src")
+            },
+            {
                 test: /\.less$/,
                 use: [
-                    "style-loader",
+                    MiniCssExtractPlugin.loader,
                     {
                         loader: "css-loader",
                         options: {
@@ -32,11 +38,20 @@ module.exports = {
                             localIdentName: "[local]_[hash:base64:5]"
                         }
                     },
-                    "postcss-loader",
-                    "less-loader"
+                    {
+                        loader: "postcss-loader",
+                        options: {
+                            sourceMap: true
+                        }
+                    },
+                    {
+                        loader: "less-loader",
+                        options: {
+                        }
+                    }
                 ],
                 include: path.resolve(__dirname, "src")
-            },
+            }
         ]
     },
     plugins: [
@@ -44,7 +59,7 @@ module.exports = {
         // 模板插件
         new htmlWebpackPlugin({
             title: "react-webpack",
-            //favicon: "./public/favicon.png",
+            favicon: "./images/favicon.ico",
             template: "./src/index.ejs",
             inject: "body",
             hasDll: !!hasDlls,
@@ -53,19 +68,18 @@ module.exports = {
         // 用来检索分离出的第三方库
         new webpack.DllReferencePlugin({ manifest, context: "./dll" }),
         new CopyWebpackPlugin([
-            { from: "./dll", to: "./dll" }
+            { from: "./dll", to: "./dll" },
+            { from: "./images", to: "./images" }
         ]),
-        /*new FaviconsWebpackPlugin({
-            logo: "./public/favicon.png",
-            prefix: "icons/",
-            icons: {
-                android: false,
-                firefox: false,
-                appleStartup: false
-            }
-        })*/
+        new MiniCssExtractPlugin({
+            filename: "[name]_[chunkhash:8].css",
+            chunkFilename: "[id]_[chunkhash:8].css"
+        }),
     ],
     devServer: {
+        before(app) {
+            apiMocker(app, path.resolve("./mocker/index.js"))
+        },
         // 设置基本目录结构
         contentBase: path.resolve(__dirname, "dist"),
         // 服务器ip
