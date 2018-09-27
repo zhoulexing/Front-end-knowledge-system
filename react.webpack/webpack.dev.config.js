@@ -53,7 +53,8 @@ module.exports = {
         // 用来检索分离出的第三方库
         new webpack.DllReferencePlugin({ manifest, context: "./dll" }),
         new CopyWebpackPlugin([
-            { from: "./dll", to: "./dll" }
+            { from: "./dll", to: "./dll" },
+            { from: "./images", to: "./images" }
         ]),
         /*new FaviconsWebpackPlugin({
             logo: "./public/favicon.png",

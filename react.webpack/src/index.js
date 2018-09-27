@@ -7,6 +7,6 @@ divDom.innerText = a;
 document.getElementById("root").appendChild(divDom);
 
 
-/*const imgDom = document.createElement("img");
-imgDom.src = "../images/head.jpg";
-document.getElementById("root").appendChild(imgDom);*/
+const imgDom = document.createElement("img");
+imgDom.src = "./images/head.jpg";
+document.getElementById("root").appendChild(imgDom);
