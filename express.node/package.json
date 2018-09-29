@@ -6,9 +6,10 @@
   "scripts": {
     "start": "node app.js",
     "test": "NODE_ENV=test mocha --recursive test",
-    "test:coverage": "nyc npm test",
-    "test:unit": "mocha --recursive test/middleware test/models test/routes",
-    "test:integration": "mocha --recursive test/integration",
+    "test:utils": "mocha -r ./test/setup.js ./test/app/utils --recursive --inspect -w",
+    "test:config": "cross-env NODE_ENV=test mocha -r ./test/setup.js ./test/app/config --recursive --inspect -w",
+    "test:models": "mocha -r ./test/setup.js ./test/app/models --recursive --inspect -w",
+    "test:services": "mocha -r ./test/setup.js ./test/app/services --recursive --inspect -w",
     "mock:proc": "cross-env PRODUCTION=1 puer -p 3001 -a _mockserver.js",
     "mock:dev": "puer -p 3001 -a _mockserver.js"
   },
@@ -55,6 +56,7 @@
     "puer": "^1.1.4",
     "puer-mock": "^1.2.3",
     "redis": "^2.8.0",
+    "should": "^13.2.3",
     "supertest": "^2.0.0"
   },
   "directories": {
