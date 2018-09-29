@@ -1,0 +1,22 @@
+{
+    "presets": ["react", "babel-preset-env", ["env", { "modules": false }]],
+    "plugins": [
+        "dva-hmr",
+        "syntax-dynamic-import",
+        "transform-class-properties",
+        "transform-object-rest-spread",
+        [
+            "import",
+            {
+                "libraryName": "antd",
+                "libraryDirectory": "es",
+                "style": true // or "css"
+            }
+        ]
+    ],
+    "env": {
+        "development": {
+            "plugins": ["dynamic-import-node"]
+        }
+    }
+}
