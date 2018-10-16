@@ -1,12 +1,15 @@
-webpack(v4)配置说明文档
-	// 配置模式, 必填
+### webpack配置说明文档
+
+#### 配置模式, 必填
 	mode: "production" || "development"
-	// 配置输入，值可以为对象 || 数组 || 字符串，
+
+#### 配置输入，值可以为对象 | 数组 | 字符串，
 	数组的话可以添加babel-polyfill, 并且是多入口最终打包成一个文件
 	entry: {
 		main: "./src/index.js"
 	}
-	// 配置输出
+
+#### 配置输出
 	output: {
 		// 配置输出路劲
 		path: path.resolve(__dirname, "dist"),
@@ -19,7 +22,8 @@ webpack(v4)配置说明文档
 		// 如果设置此选项，会将 bundle 导出为 library
 		library: "[name]_[hash:6]"
 	}
-	// 配置开发工具，适用于开发阶段，为了快速定位到源文件
+
+#### 配置开发工具，适用于开发阶段，为了快速定位到源文件
 	devtool: "inline-source-map" || "eval-source-map" || ...
 	// 配置开发时的服务
 	cnpm install webpack-dev-server --save-dev
@@ -66,9 +70,10 @@ webpack(v4)配置说明文档
 				sex: 6
 			});
 		}
-}
 	}
-	// 配置分离第三方库,webpack.dll.config.js
+
+#### 配置分离第三方库
+    // webpack.dll.config.js
 	cnpm install clean-webpack-plugin --save-dev
 	module.exports = {
 		entry: {
@@ -86,11 +91,11 @@ webpack(v4)配置说明文档
 				path: path.resolve(__dirname, "dll/", "[name]-manifest.json"),
 				name: "dll.[name]_[hash:6].js"
 			})
-		],
-		
-		
-		// webpack.dev.config.js, 然后通过html-webpack-plugin将此js引入进去或者通过assets-webpack-plugin
-		plugins: [
+		]
+	}
+    // webpack.dev.config.js, 然后通过html-webpack-plugin将此js引入进去或者通过assets-webpack-plugin
+    module.exports = {
+        plugins: [
 			new webpack.DllReferencePlugin({ manifest: require("./dll/vender-manifest.json"), context: "./dll" }),
 			// 或者
 			new AssetsPlugin({
@@ -98,8 +103,9 @@ webpack(v4)配置说明文档
 				path: './dll/'
 			})
 		]
-	}
-    // 配置js&jsx
+    }
+		
+#### 配置js&jsx
     cnpm install --save-dev babel-loader babel-core babel-preset-react
         babel-preset-env transform-runtime babel-plugin-transform-runtime
         babel-plugin-import babel-polyfill
@@ -120,7 +126,8 @@ webpack(v4)配置说明文档
             }
         ]
     }
-	// 配置开发模式的less加载, 文件不分离
+
+#### 配置开发模式的less加载, 文件不分离
 	cnpm install --save-dev style-loader css-loader less less-loader autoprefixer mini-css-extract-plugin
 	postcss-loader purifycss-webpack
 	module: {
@@ -231,7 +238,8 @@ webpack(v4)配置说明文档
             }
 	    ]
 	}
-	// 配置生产模式下的less加载，文件分离，以及压缩css, 清楚无用的css
+
+#### 配置生产模式下的less加载，文件分离，以及压缩css, 清除无用的css
 	const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 	const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 	const PurifyCSSPlugin = require("purifycss-webpack"); // purifycss-webpack purify-css
@@ -261,7 +269,8 @@ webpack(v4)配置说明文档
             new OptimizeCSSAssetsPlugin({})
         ]
     }
-    // 配置路劲解析, 处理路劲引用问题, file-loader, url-loader
+
+#### 配置路劲解析, 处理路劲引用问题, file-loader, url-loader
     [ext]: 资源扩展名
     [name] 资源的基本名称
     [path] 资源相对于 context 查询参数或者配置的路径
@@ -290,7 +299,8 @@ webpack(v4)配置说明文档
             }
         ]
     }
-    // 配置antd的js&css按需加载
+
+#### 配置antd的js&css按需加载
     cnpm install babel-plugin-import --save-dev
     {
         presets: [],
@@ -298,7 +308,8 @@ webpack(v4)配置说明文档
             ["import", { "libraryName": "antd", "style": true }]
         ]
     }
-    // 配置生成html
+
+#### 配置生成html
     plugins: [
         new htmlWebpackPlugin({
             title: "react-webpack",
@@ -307,7 +318,8 @@ webpack(v4)配置说明文档
             ...
         })
     ]
-    // 配置favicon图标
+
+#### 配置favicon图标
     cnpm install favicons-webpack-plugin --save-dev
     plugins: [
         new FaviconsWebpackPlugin({
@@ -327,7 +339,8 @@ webpack(v4)配置说明文档
             }
         }),
     ]
-    // 配置解析
+
+#### 配置解析
     resolve: {
         // 后缀名自动补全
         extensions: [".js", ".jsx", ".less", ".css"],
@@ -339,12 +352,14 @@ webpack(v4)配置说明文档
         // 告诉 webpack 解析模块时应该搜索的目录
         modules: [path.resolve(__dirname, "src"), "node_modules"]
     }
-    // 配置外部扩展, import的时候不会将其打包进来，而是在运行时去外部（<script>）获取这些扩展依赖
+
+#### 配置外部扩展, import的时候不会将其打包进来，而是在运行时去外部（<script>）获取这些扩展依赖
     externals: {
         jquery: "jQuery",
         ...
     }
-    // 分离代码配置
+
+#### 分离代码配置
     optimization: {
         splitChunks: {
             chunks: "all", // initial(初始块) || async(按需加载块) || all(全部块, 默认),
@@ -365,28 +380,40 @@ webpack(v4)配置说明文档
         }
     }
 
+#### 服务端渲染
 
-    // 相关问题
-    。 懒加载react组件
+#### 代码检查
+
+#### 测试
+
+=========================================================================
+
+#### 配置中相关问题
+    - 懒加载react组件
     cnpm install --save-dev babel-plugin-syntax-dynamic-import
     .babelrc:
     plugins: ["syntax-dynamic-import"]
+
     ||
-    。 转化懒加载组件
+
+    - 转化懒加载组件
     cnpm install --save-dev babel-plugin-dynamic-import-node
     .babelrc:
         plugins: ["dynamic-import-node"]
-    。 class支持 load = () => {}写法
+
+    - class支持 load = () => {}写法
     cnpm install --save-dev babel-plugin-transform-class-properties
     .babelrc:
         plugins: ["transform-class-properties"]
-    。 热更新
+
+    - 热更新
     对于react需要通过module.hot去处理;
     对于dva需要通过babel插件
     cnpm install --save-dev  babel-plugin-dva-hmr
     .babelrc:
             plugins: ["dva-hmr"]
-    。 对css的class名加了hash则需要对antd的库和自身的库进行两次不一样的处理
+
+    - 对css的class名加了hash则需要对antd的库和自身的库进行两次不一样的处理
     {
         loader: "css-loader",
         options: {
@@ -396,16 +423,16 @@ webpack(v4)配置说明文档
             minimize: true
         }
     }
+
     ||
+
     {
         loader: "css-loader"
     }
-    。 并行执行库
+    - 并行执行库
     cnpm install --save-dev parallel-webpack
-	// 配置服务端渲染
-	// 配置代码检查(eslint)
-	// 配置测试
 
 
 
 		
+
