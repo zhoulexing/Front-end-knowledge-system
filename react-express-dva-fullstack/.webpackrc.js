@@ -4,8 +4,8 @@ export default {
     outputPath: path.resolve(__dirname, "client"),
     theme: "./src/theme.js",
     alias: {
-        "util$": path.resolve(__dirname, "./src/utils/util.js"),
-
+        "utils": path.resolve(__dirname, "./src/utils"),
+        "common": path.resolve(__dirname, "./src/common"),
         "components": path.resolve(__dirname, "./src/components"),
         "images": path.resolve(__dirname, "./src/assets/images")
     },

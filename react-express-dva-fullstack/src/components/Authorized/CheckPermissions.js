@@ -1,5 +1,5 @@
 import React from "react";
-import { isPromise } from "utils/utils.js";
+import { isPromise } from "utils/util";
 import PromiseRender from "./PromiseRender";
 import { CURRENT } from "./renderAuthorize";
 
