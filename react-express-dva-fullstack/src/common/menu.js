@@ -2,7 +2,8 @@ const menuData = [
     {
         name: "系统首页",
         icon: "desktop",
-        path: "desktop"
+        path: "desktop",
+        authority: ["user"]
     },
     {
         name: "研判桌面",

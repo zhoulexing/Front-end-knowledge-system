@@ -11,7 +11,7 @@ export default {
     },
     html: {
         template: "./src/index.ejs",
-        title: "众智平台",
+        title: "周某人",
         favicon: "./src/assets/images/favicon.ico"
     },
     extraBabelPlugins: [
