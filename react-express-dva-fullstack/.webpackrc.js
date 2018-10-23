@@ -7,7 +7,8 @@ export default {
         "utils": path.resolve(__dirname, "./src/utils"),
         "common": path.resolve(__dirname, "./src/common"),
         "components": path.resolve(__dirname, "./src/components"),
-        "images": path.resolve(__dirname, "./src/assets/images")
+        "images": path.resolve(__dirname, "./src/assets/images"),
+        "layouts": path.resolve(__dirname, "./src/layouts"),
     },
     html: {
         template: "./src/index.ejs",

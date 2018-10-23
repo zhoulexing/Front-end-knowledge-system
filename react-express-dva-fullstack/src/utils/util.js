@@ -70,3 +70,15 @@ function getRenderArr(routes) {
     }
     return renderArr;
 }
+
+/**
+ * 将url转化成一个数组
+ * @param { string } url
+ * eg: /a/b/c => [/a, /a/b, /a/b/c]
+ */
+export function urlToList(url) {
+    const urllist = url.split('/').filter(i => i);
+    return urllist.map((urlItem, index) => {
+        return `/${urllist.slice(0, index + 1).join('/')}`;
+    });
+  }

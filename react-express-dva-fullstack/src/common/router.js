@@ -13,11 +13,23 @@ const getRouterConfig = (app) => {
             component: dynamicWrapper(app, [], () => import("../layouts/BasicLayout"))
         },
         "/apps/desktop": {
-            component: dynamicWrapper(app, [], () => import("../routes/Desktop/Index"))
+            component: dynamicWrapper(app, [], () => import("../routes/Desktop"))
         },
         "/apps/datasource": {
-            component: dynamicWrapper(app, [], () => import("../routes/DataSource/Index"))
+            component: dynamicWrapper(app, [], () => import("../routes/DataSource"))
         },
+        "/apps/my/determine": {
+            component: dynamicWrapper(app, [], () => import("../routes/My"))
+        },
+        "/apps/exception/403": {
+            component: dynamicWrapper(app, [], () => import("../routes/Exception/403"))
+        },        
+        "/apps/exception/404": {
+            component: dynamicWrapper(app, [], () => import("../routes/Exception/404"))
+        },        
+        "/apps/exception/500": {
+            component: dynamicWrapper(app, [], () => import("../routes/Exception/500"))
+        },        
         
         "/login": {
             component: dynamicWrapper(app, [], () => import("../layouts/LoginLayout"))

@@ -12,6 +12,7 @@
     "dva": "^2.4.0",
     "dva-loading": "^2.0.5",
     "lodash": "^4.17.10",
+    "lodash-decorators": "^6.0.0",
     "moment": "^2.22.2",
     "path-to-regexp": "^2.4.0",
     "prop-types": "^15.5.10",

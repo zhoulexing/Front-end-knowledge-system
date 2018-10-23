@@ -1,28 +1,22 @@
 const menuData = [
     {
         name: "系统首页",
-        icon: "desktop",
-        path: "desktop",
-        authority: ["user"]
-    },
-    {
-        name: "研判桌面",
-        icon: "determine",
-        path: "determine"
+        icon: "home",
+        path: "desktop"
     },
     {
         name: "研判市场",
-        icon: "market",
+        icon: "shopping-cart",
         path: "market"
     },
     {
         name: "数据资源",
-        icon: "datasource",
+        icon: "database",
         path: "datasource"
     },
     {
         name: "我的",
-        icon: "my",
+        icon: "user",
         path: "my",
         children: [
             {
