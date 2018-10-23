@@ -54,11 +54,9 @@ const getBreadcrumbNameMap = (menuData, routerData) => {
 }
 
 
-@connect(({ global = {} }) => {
-    return {
-        collapsed: global.collapsed
-    }
-})
+@connect(({ global = {} }) => ({
+    collapsed: global.collapsed
+}))
 export default class BasicLayout extends PureComponent {
 
     static childContextTypes = {
