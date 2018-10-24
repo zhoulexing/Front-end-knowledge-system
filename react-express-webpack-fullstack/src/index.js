@@ -1,18 +1,30 @@
-import "./polyfill";
-import dva from "dva";
+import React from "react";
+import ReactDOM from "react-dom";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import { routerReducer, routerMiddleware } from "react-router-redux";
+import { Provider } from "react-redux";
 import createHistory from "history/createHashHistory";
-import createLoading from "dva-loading";
+import RouterConfig from "./router";
 
-import "./index.less";
+const history = createHistory();
 
-const app = dva({
-    history: createHistory()
+const middleware = routerMiddleware(history);
+
+const reducers = combineReducers({
+    a: function(state = { a: "a" }) { return state; },
+    b: function(state = { b: "b"} ) { return state; },
+    router: routerReducer
 });
 
-app.use(createLoading());
-app.model(require("./models/global").default);
-app.router(require("./router").default);
-app.start("#root");
+const store = createStore(
+    reducers,
+    applyMiddleware(middleware)
+);
 
-export default app._store;
 
+ReactDOM.render(
+    <Provider store={ store }>
+        <RouterConfig history={ history }/>
+    </Provider>, 
+    document.querySelector("#root")
+);

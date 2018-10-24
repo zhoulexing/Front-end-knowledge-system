@@ -1,9 +1,12 @@
-import React, { PureComponent } from "react";
-import style from "./LoginLayout.less";
+import React from "react";
 
-export default class LoginLayout extends PureComponent {
+export default class LoginLayout extends React.PureComponent {
     render() {
-        return <div className={ style.login }>login</div>;
+        return (
+            <div>
+                LoginLayout
+                <button onClick={ e => {} }>go basicLayout</button>
+            </div>
+        )
     }
 }
-

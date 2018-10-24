@@ -1,17 +1,14 @@
 import React from "react";
-import { routerRedux, Route, Switch, Redirect } from "dva/router";
-import { getRouterData } from "./common/router";
+import { Switch, Route, Redirect, Router } from "react-router-dom";
+import { ConnectedRouter, push } from "react-router-redux";
+import LoginLayout from "./layouts/LoginLayout";
+import BasicLayout from "./layouts/BasicLayout";
 
-const { ConnectedRouter } = routerRedux;
-
-function RouterConfig({ history, app }) {
-    const routerData = getRouterData(app);
-    const LoginLayout = routerData["/"].component;
-    const BasicLayout = routerData["/apps"].component;
+function RouterConfig({ history }) {
     return (
         <ConnectedRouter history={ history }>
             <Switch>
-                <Redirect exact from="/" to="/login" />
+                <Redirect exact from="/" to="/login"/>
                 <Route path="/login" component={ LoginLayout } />
                 <Route path="/apps" component={ BasicLayout } />
             </Switch>
@@ -20,3 +17,4 @@ function RouterConfig({ history, app }) {
 }
 
 export default RouterConfig;
+

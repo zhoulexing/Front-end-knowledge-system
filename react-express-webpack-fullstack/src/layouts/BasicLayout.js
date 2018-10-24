@@ -1,16 +1,10 @@
-import React, { PureComponent } from "react";
-import { Layout, Button } from "antd";
-import { Route, Redirect, Switch, NavLink } from "dva/router";
-import GlobalHeader from "components/GlobalHeader";
+import React from "react";
 
-const { Header, Content } = Layout;
-
-export default class BasicLayout extends PureComponent {
-
+export default class BasicLayout extends React.PureComponent {
     render() {
         return (
             <div>
-                <GlobalHeader />
+                BasicLayout
             </div>
         )
     }
