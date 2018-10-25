@@ -4,7 +4,7 @@
 	mode: "production" || "development"
 
 #### 配置输入，值可以为对象 | 数组 | 字符串，
-	数组的话可以添加babel-polyfill, 并且是多入口最终打包成一个文件
+	// 数组的话可以添加babel-polyfill, 并且是多入口最终打包成一个文件
 	entry: {
 		main: "./src/index.js"
 	}
@@ -24,12 +24,15 @@
 	}
 
 #### 配置开发工具，适用于开发阶段，为了快速定位到源文件
-	devtool: "inline-source-map" || "eval-source-map" || ...
-	// 配置开发时的服务
+	devtool: "source-map" || "eval-source-map" || ...
+
+#### 配置开发时的服务
 	cnpm install webpack-dev-server --save-dev
 	devServer: {
-		// 本地服务器所加载的页面的目录
-		contentBase: path.resolve(__dirname, "dist"),
+        // 指定资源的引用目录, 如<script>或<link>
+        publicPath: path.resolve(__dirname, "pullic"),
+		// 本地服务器所加载的页面的目录，即提供静态文件
+		contentBase: path.resolve(__dirname, "pullic"),
 		// 服务器ip
 		host: "127.0.0.1"
 		// 端口号
@@ -72,7 +75,7 @@
 		}
 	}
 
-#### 配置分离第三方库
+#### 使用动态链接库文件加快构建速度
     // webpack.dll.config.js
 	cnpm install clean-webpack-plugin --save-dev
 	module.exports = {
@@ -240,7 +243,8 @@
 	}
 
 #### 配置生产模式下的less加载，文件分离，以及压缩css, 清除无用的css
-	const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+    // webpack4用mini-css-extract-plugin， 不再支持extract-text-webpack-plugin
+	const MiniCssExtractPlugin = require("mini-css-extract-plugin"); 
 	const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 	const PurifyCSSPlugin = require("purifycss-webpack"); // purifycss-webpack purify-css
 	module: {
@@ -315,6 +319,10 @@
             title: "react-webpack",
             template: "./src/index.ejs",
             inject: "body",
+            minify: {
+                minifyCSS: true, // 压缩HTML中出现的css代码
+                minifyJS: true, // 压缩HTML中出现的js代码
+            }
             ...
         })
     ]
@@ -340,16 +348,18 @@
         }),
     ]
 
-#### 配置解析
+#### 配置解析规则
     resolve: {
         // 后缀名自动补全
         extensions: [".js", ".jsx", ".less", ".css"],
-        // 配置别名
+        // 配置别名，加$符号则是精确匹配, 否则是模糊匹配
         alias: {
             '@': path.resolve(__dirname, "src"),
+            'utils': path.resolve(__dirname, "utils"),  
+            'utils$': path.resolve(__dirname, "utils"),  
             ...
         },
-        // 告诉 webpack 解析模块时应该搜索的目录
+        // 对于直接声明依赖名的模块（如 react ）,搜索的目录, 提升构建速度
         modules: [path.resolve(__dirname, "src"), "node_modules"]
     }
 
@@ -359,7 +369,7 @@
         ...
     }
 
-#### 分离代码配置
+#### 提取公共代码
     optimization: {
         splitChunks: {
             chunks: "all", // initial(初始块) || async(按需加载块) || all(全部块, 默认),
@@ -369,16 +379,42 @@
             maxInitialRequests: 3, // 最大的初始化加载次数，默认为1,
             name: true, // 拆分出来块的名字(Chunk Names)，默认由块名和hash值自动生成,
             cacheGroups: { // 缓存组
-                commons: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: "vendors"
+                commons: { // 提取公共部分代码
+                    test: /node_modules/,
+                    name: "commons",
+                    chunks: "initial",
+                    minChunks: 2,
+                    maxInitialRequests: 5,
+                    minSize: 0
+                },
+                vendors: {
+                    test: /node_modules/,
+                    name: "vendors",
+                    chunks: "all"
                 }
             },
+            runtimeChunk: { //提取运行时代码
+                name: "manifest"                    
+            }
             priority: 表示缓存的优先级, 及权重
             test: 缓存组的规则，表示符合条件的的放入当前缓存组，值可以是function、boolean、string、RegExp，默认为空,
             reuseExistingChunk: 表示可以使用已经存在的块，即如果满足条件的块已经存在就使用已有的，不再创建一个新的块
         }
     }
+
+#### 配置全局变量
+    // 创建一些在编译时可以配置的全局常量
+    plugins: [
+        new webpack.DefinePlugin({
+           PRODUCTION: JSON.stringify(true), PRODUCTION = true
+           VERSION: JSON.stringify('v1.0.0'), VERSION = 'v1.0.0'  
+        })
+    ]
+
+#### CSS Sprites雪碧图和图片压缩 
+    image-webpack-loader  | imagemin 
+
+#### webpack的sideEffects特性
 
 #### 服务端渲染
 
@@ -389,7 +425,10 @@
 =========================================================================
 
 #### 配置中相关问题
-    - 懒加载react组件
+    - 懒加载react组件，需要把Babel解析模块语法的功能关掉
+    {
+        "presets": [["env", { "modules": false }]]
+    }
     cnpm install --save-dev babel-plugin-syntax-dynamic-import
     .babelrc:
     plugins: ["syntax-dynamic-import"]
@@ -407,6 +446,9 @@
         plugins: ["transform-class-properties"]
 
     - 热更新
+    webpack4默认开启了热更新, 之前需要在devServer里添加hot:true,
+    并且在plugins里添加[new webpack.NameModulesPlugin(), new webpack.HotModuleReplacementPlugin()]
+
     对于react需要通过module.hot去处理;
     对于dva需要通过babel插件
     cnpm install --save-dev  babel-plugin-dva-hmr
