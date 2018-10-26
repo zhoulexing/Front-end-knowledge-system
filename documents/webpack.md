@@ -86,12 +86,12 @@
 		},
 		output: {
 			path: path.resolve(__dirname, "dll"),
-			filename: "dll.[name]_[hash:6].js"
+			filename: "dll.[name].[hash:6].js"
 		},
 		plugins: [
-			new CleanWebpackPlugin(["dist"]),
+			new CleanWebpackPlugin(["dll"]),
 			new webpack.DllPlugin({
-				path: path.resolve(__dirname, "dll/", "[name]-manifest.json"),
+				path: path.resolve(__dirname, "dll/", "[name].manifest.json"),
 				name: "dll.[name]_[hash:6].js"
 			})
 		]
@@ -99,7 +99,7 @@
     // webpack.dev.config.js, 然后通过html-webpack-plugin将此js引入进去或者通过assets-webpack-plugin
     module.exports = {
         plugins: [
-			new webpack.DllReferencePlugin({ manifest: require("./dll/vender-manifest.json"), context: "./dll" }),
+			new webpack.DllReferencePlugin({ manifest: require("./dll/vender.manifest.json"), context: "./dll" }),
 			// 或者
 			new AssetsPlugin({
 				filename: 'bundle-config.json',

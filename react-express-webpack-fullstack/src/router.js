@@ -1,6 +1,6 @@
 import React from "react";
-import { Switch, Route, Redirect, Router } from "react-router-dom";
-import { ConnectedRouter, push } from "react-router-redux";
+import { Switch, Route, Redirect } from "react-router-dom";
+import { ConnectedRouter } from "react-router-redux";
 import LoginLayout from "./layouts/LoginLayout";
 import BasicLayout from "./layouts/BasicLayout";
 

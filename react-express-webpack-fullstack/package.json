@@ -4,8 +4,9 @@
   "description": "react-express全栈",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack-dev-server --config webpack.dev.config.js --open --mode=development",
-    "build": "cross-env NODE_ENV=production webpack --mode=production"
+    "start": "cross-env NODE_ENV=development webpack-dev-server --config webpack.dev.config.js",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.pro.config.js",
+    "build:dll": "webpack --config webpack.dll.config.js"
   },
   "keywords": [
     "react",
@@ -29,7 +30,7 @@
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-router-redux": "^4.0.8",
+    "react-router-redux": "^5.0.0-alpha.9",
     "redux": "^4.0.1",
     "url-polyfill": "^1.0.14"
   },
@@ -45,6 +46,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.2",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
