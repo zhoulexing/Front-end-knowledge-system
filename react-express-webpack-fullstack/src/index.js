@@ -1,14 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { routerReducer, routerMiddleware } from "react-router-redux";
+import createLogger from "redux-loger";
 import { Provider } from "react-redux";
 import createHistory from "history/createHashHistory";
 import RouterConfig from "./router";
 
 const history = createHistory();
 
-const middleware = routerMiddleware(history);
+const middlewares = [
+    routerMiddleware(history),
+    process.env.NODE_ENV === "development" && createLogger()
+].filter(Boolean);
+const enhancer = compose(
+    applyMiddleware(...middlewares),
+    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : args => args
+);
 
 const reducers = combineReducers({
     a: function(state = { a: "a" }) { return state; },
@@ -18,7 +26,7 @@ const reducers = combineReducers({
 
 const store = createStore(
     reducers,
-    applyMiddleware(middleware)
+    enhancer
 );
 
 
