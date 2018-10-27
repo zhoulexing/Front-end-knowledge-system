@@ -5,8 +5,7 @@ import { connect } from "react-redux";
 
 class LoginLayout extends React.PureComponent {
     render() {
-        const { dispatch, location } = this.props;
-        console.log(location);
+        const { dispatch } = this.props;
         return (
             <div>
                 LoginLayout
