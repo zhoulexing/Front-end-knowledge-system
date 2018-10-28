@@ -9,6 +9,7 @@ class BasicLayout extends React.PureComponent {
             <div>
                 BasicLayout
                 <button onClick={ e => { dispatch(push("/login")) } }>go loginLayout</button>
+                <button onClick={ e => { dispatch({ type: "INCREMENT_ASYNC" }) }}>test saga</button>
             </div>
         )
     }
