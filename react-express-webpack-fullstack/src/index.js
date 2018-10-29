@@ -1,14 +1,15 @@
 import "./polyfill";
 import React from "react";
 import ReactDOM from "react-dom";
-import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
-import { routerReducer, routerMiddleware } from "react-router-redux";
+import { routerMiddleware } from "react-router-redux";
 import { createLogger } from "redux-logger";
 import createSagaMiddleware from "redux-saga";
+import RedBox from "redbox-react";
 import createHistory from "history/createHashHistory";
-import RouterConfig from "./router";
-import rootSaga from "./saga";
+import reducers from "./reducers";
+import rootSaga from "./sagas";
 
 const history = createHistory();
 const sagaMiddleware = createSagaMiddleware();
@@ -24,19 +25,6 @@ const enhancer = compose(
     window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : args => args
 );
 
-const reducers = combineReducers({
-    test: function(state = { count: 1 }, action) { 
-        switch(action.type) {
-            case "INCREMENT":
-                state.count += 1;
-                return state;
-            default:
-                return state;
-        }
-    },
-    router: routerReducer
-});
-
 const store = createStore(
     reducers,
     enhancer
@@ -44,9 +32,30 @@ const store = createStore(
 
 sagaMiddleware.run(rootSaga);
 
-ReactDOM.render(
-    <Provider store={ store }>
-        <RouterConfig history={ history }/>
-    </Provider>, 
-    document.querySelector("#root")
-);
+let render = () => { 
+    const RouterConfig = require("./router").default;
+    ReactDOM.render(
+        <Provider store={ store }>
+            <RouterConfig history={ history }/>
+        </Provider>, 
+        document.querySelector("#root")
+    );
+}
+render();
+
+if(module.hot) {
+    const renderNormally = render;
+    const renderException = (error) => {
+        ReactDOM.render(<RedBox error={error}/>, document.querySelector("#root"));
+    };
+    render = () => {
+        try {
+            renderNormally();
+        } catch (error) {
+            renderException(error);
+        }
+    };
+    module.hot.accept("./router", () => {
+        render()
+    });
+}
