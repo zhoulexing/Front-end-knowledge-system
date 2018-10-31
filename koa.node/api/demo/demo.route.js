@@ -7,4 +7,5 @@ module.exports = router
     .post("/upload/done", demo.uplpadDone)
     .get("/getPhone/:filename", demo.getPhone)
     .get("/download/:filename", demo.download)
-    .get("/getData", demo.getData);
+    .get("/getData", demo.getData)
+    .get("/getJwt", demo.getJwt);

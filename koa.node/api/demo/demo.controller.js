@@ -1,8 +1,12 @@
 const path = require("path");
 const fs = require("fs");
+const util = require("util");
 const send = require("koa-send");
 const { uploadFile } = require("../../utils/upload");
 const request = require("../../utils/request");
+const config = require("../../config");
+const jwt = require("jsonwebtoken");
+const verify = util.promisify(jwt.verify);
 
 module.exports = {
     async getJsonpData(ctx) {
@@ -77,5 +81,16 @@ module.exports = {
     async getData(ctx) {
         const data = await request.get("define?userid=admin", {"tacticsid":"1c2c7369d253f914cc12ebe202be9932"});
         ctx.body = data;
+    },
+
+    async getJwt(ctx) {
+        // 获取jwt
+        const token = ctx.header.authorization;
+        if(token) {
+            let payload = await verify(token.split(" ")[1], config.jwtSecret);
+            ctx.body = payload;
+        } else {
+            ctx.body = "失败了";
+        }
     }
 }

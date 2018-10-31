@@ -1,4 +1,7 @@
 
+const jwt = require("jsonwebtoken");
+const config = require("../../config");
+
 module.exports = {
     /**
      * 登录验证
@@ -6,10 +9,30 @@ module.exports = {
      */
     async signIn(ctx) {
         const user = ctx.query;
-        if(user.loginname === "admin" && user.password === "123456") {
-            ctx.session.user = user;
+        if(user && user.loginname === "admin") {
+            // ctx.session.user = user;
+            const userToken = {
+                loginname: user.loginname,
+                password: 123456
+            };
+            // token签名, 有效期1小时
+            const token = jwt.sign(userToken, config.jwtSecret, { expiresIn: "1h" });
+            await ctx.render("index", {
+                success: true, 
+                msg: "登录成功!",
+                token
+            });
+            // ctx.body = { 
+            //     success: true, 
+            //     msg: "登录成功!",
+            //     token
+            // };
+        } else {
+            ctx.body = {
+                success: false, 
+                msg: "登录失败!"
+            }
         }
-        ctx.body = { success: true, msg: "登录成功!" };
     },
 
     /**

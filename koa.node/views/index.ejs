@@ -10,6 +10,23 @@
 
 <body>
     <h1>你好啊, 特朗普</h1>
+    <div id="token"><%= token %></div>
+    <button onclick="testJwt()">点我</button>
+    <script>
+        function testJwt() {
+            const token = document.getElementById("token");
+            fetch("http://localhost:3000/api/demo/getJwt", {
+                method: "GET",
+                headers: {
+                    Authorization: "Bearer " + token.innerText
+                }
+            })
+            .then(res => res.json())
+            .then(res => {
+                alert(JSON.stringify(res));
+            });
+        }
+    </script>
 </body>
 
 </html>

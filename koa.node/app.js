@@ -8,6 +8,7 @@ const koaStatic = require("koa-static");
 const session = require("koa-session");
 const cors = require("koa2-cors");
 const views = require("koa-views");
+const jwtKoa = require("koa-jwt");
 
 const config = require("./config");
 const routers = require("./routers");
@@ -30,6 +31,11 @@ app.use(session({
 app.on("error", (err, ctx) => {
 	console.error(err);
 });
+
+// 设置jwt验证
+app.use(jwtKoa({ secret: config.jwtSecret }).unless({
+	path: [/^\/api\/login/] // 匹配则不需要通过jwt验证
+}));
 
 // 设置跨域
 app.use(cors({
