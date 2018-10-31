@@ -2,7 +2,6 @@ const path = require("path");
 const fs = require("fs");
 const send = require("koa-send");
 const { uploadFile } = require("../../utils/upload");
-const { request, summary, query, body, tags } = require("koa-swagger-decorator");
 
 module.exports = {
     async getJsonpData(ctx) {
@@ -74,11 +73,6 @@ module.exports = {
         }
     },
 
-    @request("get", "/api/demo/swagger")
-    @summary("test swagger")
-    @query({
-      type: { type: "number", required: true, default: 1, description: "type" }
-    })
     async testSwagger(ctx) {
         ctx.body = "test swagger";
     }

@@ -1,4 +1,4 @@
-require("./polyfill"); // 为了支持es6等高级语法
+// require("./polyfill"); // 为了支持es6等高级语法
 
 const Koa = require("koa");
 const path = require("path");
@@ -6,6 +6,7 @@ const bodyParser = require("koa-bodyparser");
 const koaLogger = require("koa-logger");
 const koaStatic = require("koa-static");
 const session = require("koa-session");
+const cors = require("koa2-cors");
 const views = require("koa-views");
 
 const config = require("./config");
@@ -30,6 +31,15 @@ app.on("error", (err, ctx) => {
 	console.error(`server error: ${ err }`);
 });
 
+// 设置跨域
+app.use(cors({
+	allowMethods: ["GET", "POST"],
+    allowHeaders: ["Content-Type", "Accept"],
+    origin: function(ctx) {
+        return "*" // 本地环境
+    }
+}));
+
 // 配置控制台日志中间件
 app.use(koaLogger());
 
@@ -50,7 +60,8 @@ app.use(bodyParser());
 app.use(routers.routes()).use(routers.allowedMethods());
 
 // 监听启动端口
-app.listen(config.port);
-console.log(`the server is start at port ${ config.port }`);
+app.listen(config.port, () => {
+	console.log(`the server is start at port ${ config.port }`);
+});
 
 module.exports = app
