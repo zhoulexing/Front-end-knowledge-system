@@ -2,6 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const send = require("koa-send");
 const { uploadFile } = require("../../utils/upload");
+const request = require("../../utils/request");
 
 module.exports = {
     async getJsonpData(ctx) {
@@ -73,7 +74,8 @@ module.exports = {
         }
     },
 
-    async testSwagger(ctx) {
-        ctx.body = "test swagger";
+    async getData(ctx) {
+        const data = await request.get("define?userid=admin", {"tacticsid":"1c2c7369d253f914cc12ebe202be9932"});
+        ctx.body = data;
     }
 }

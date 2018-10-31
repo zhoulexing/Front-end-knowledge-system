@@ -16,7 +16,6 @@ module.exports = {
      * 退出登录
      */
     async signOut(ctx) {
-        console.log(ctx.session.user);
         if(ctx.session.user) {
             ctx.session.user = null;
         }

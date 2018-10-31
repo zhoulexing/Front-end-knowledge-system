@@ -28,7 +28,7 @@ app.use(session({
 
 // 监听全局异常
 app.on("error", (err, ctx) => {
-	console.error(`server error: ${ err }`);
+	console.error(err);
 });
 
 // 设置跨域
@@ -60,8 +60,6 @@ app.use(bodyParser());
 app.use(routers.routes()).use(routers.allowedMethods());
 
 // 监听启动端口
-app.listen(config.port, () => {
+module.exports = app.listen(config.port, () => {
 	console.log(`the server is start at port ${ config.port }`);
 });
-
-module.exports = app
