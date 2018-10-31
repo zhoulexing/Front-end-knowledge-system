@@ -1,44 +1,56 @@
-const Koa = require('koa')
-const app = new Koa()
-const views = require('koa-views')
-const json = require('koa-json')
-const onerror = require('koa-onerror')
-const bodyparser = require('koa-bodyparser')
-const logger = require('koa-logger')
+require("./polyfill"); // 为了支持es6等高级语法
 
-const index = require('./routes/index')
-const users = require('./routes/users')
+const Koa = require("koa");
+const path = require("path");
+const bodyParser = require("koa-bodyparser");
+const koaLogger = require("koa-logger");
+const koaStatic = require("koa-static");
+const session = require("koa-session");
+const views = require("koa-views");
 
-// error handler
-onerror(app)
+const config = require("./config");
+const routers = require("./routers");
 
-// middlewares
-app.use(bodyparser({
-  enableTypes: ['json', 'form', 'text']
-}))
-app.use(json())
-app.use(logger())
-app.use(require('koa-static')(__dirname + '/public'))
+const app = new Koa();
 
-app.use(views(__dirname + '/views', {
-  extension: 'pug'
-}))
+// 配置session中间件
+app.keys = ["zzpt"]; // 加密钥匙
+app.use(session({
+	key: "USER_SID",
+	maxAge: 60 * 60 * 1000,  // cookie的过期时间
+	overwrite: true,  // 是否可以overwrite    (默认default true)
+	httpOnly: true, // cookie是否只有服务器端可以访问 httpOnly or not (default true)
+	signed: true,   // 签名默认true
+	rolling: true,  // 在每次请求时强行设置cookie，这将重置cookie过期时间（默认：false）
+	renew: true,  // (boolean) renew session when session is nearly expired,
+}, app));
 
-// logger
-app.use(async (ctx, next) => {
-  const start = new Date()
-  await next()
-  const ms = new Date() - start
-  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
-})
-
-// routes
-app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
-
-// error-handling
-app.on('error', (err, ctx) => {
-  console.error('server error', err, ctx)
+// 监听全局异常
+app.on("error", (err, ctx) => {
+	console.error(`server error: ${ err }`);
 });
+
+// 配置控制台日志中间件
+app.use(koaLogger());
+
+// 配置服务端渲染模板
+app.use(views(path.join(__dirname, "./views"), {
+	extension: "ejs"
+}));
+
+// 配置静态资源加载中间件
+app.use(koaStatic(
+	path.join(__dirname , "./static")
+));
+
+// 配置ctx.body解析中间件
+app.use(bodyParser());
+
+// 初始化路由中间件
+app.use(routers.routes()).use(routers.allowedMethods());
+
+// 监听启动端口
+app.listen(config.port);
+console.log(`the server is start at port ${ config.port }`);
 
 module.exports = app
