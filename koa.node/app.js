@@ -12,8 +12,12 @@ const jwtKoa = require("koa-jwt");
 
 const config = require("./config");
 const routers = require("./routers");
+const { dbconnect } = require("./utils/mongodb");
 
 const app = new Koa();
+
+// 连接数据库
+dbconnect();
 
 // 配置session中间件
 app.keys = ["zzpt"]; // 加密钥匙
@@ -33,9 +37,9 @@ app.on("error", (err, ctx) => {
 });
 
 // 设置jwt验证
-app.use(jwtKoa({ secret: config.jwtSecret }).unless({
+/* app.use(jwtKoa({ secret: config.jwtSecret }).unless({
 	path: [/^\/api\/login/] // 匹配则不需要通过jwt验证
-}));
+})); */
 
 // 设置跨域
 app.use(cors({
@@ -51,7 +55,7 @@ app.use(koaLogger());
 
 // 配置服务端渲染模板
 app.use(views(path.join(__dirname, "./views"), {
-	extension: "ejs"
+	extension: config.viewEngine
 }));
 
 // 配置静态资源加载中间件

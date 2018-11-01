@@ -8,4 +8,5 @@ module.exports = router
     .get("/getPhone/:filename", demo.getPhone)
     .get("/download/:filename", demo.download)
     .get("/getData", demo.getData)
-    .get("/getJwt", demo.getJwt);
+    .get("/getJwt", demo.getJwt)
+    .get("/saveToMongo", demo.saveToMongo);
