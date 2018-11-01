@@ -23,7 +23,8 @@ export default {
             extraBabelPlugins: ["dva-hmr"]
         }
     },
-    disableDynamicImport: true,
+    devtool: "source-map",
+    disableDynamicImport: false,
     lessLoaderOptions: {
         javascriptEnabled: true
     },
