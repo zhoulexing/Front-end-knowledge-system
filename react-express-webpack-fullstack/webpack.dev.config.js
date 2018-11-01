@@ -18,7 +18,14 @@ module.exports = {
         hot: true,
         open: true,
         host: "127.0.0.1",
-        port: 9000
+        port: 9000,
+        proxy: {
+            "/api/*": {
+			    target: "http://127.0.0.1:3000",
+			    // 接受https
+			    secure: false
+			}
+        }
     },
     resolve: {
         extensions: [".js", ".jsx", ".less", ".css"],

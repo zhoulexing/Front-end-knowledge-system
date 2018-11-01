@@ -130,6 +130,7 @@ module.exports = {
     async saveToMongo(ctx) {
         const query = ctx.query;
         const result = { success: false };
+        await asyncTime(2000);
         if(query.ID) {
             const demo = new Demo({ ...query });    
             await demo.save();
@@ -142,4 +143,12 @@ module.exports = {
         result.list = list;
         ctx.body = result;
     }
+}
+
+function asyncTime(delay) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve(2);
+        }, delay);
+    });
 }

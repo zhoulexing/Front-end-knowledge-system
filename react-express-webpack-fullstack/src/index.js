@@ -25,10 +25,7 @@ const enhancer = compose(
     window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : args => args
 );
 
-const store = createStore(
-    reducers,
-    enhancer
-);
+const store = createStore(reducers, { test: { loading: 0, count: 0 } }, enhancer);
 
 sagaMiddleware.run(rootSaga);
 
