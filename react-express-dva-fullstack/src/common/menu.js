@@ -28,6 +28,21 @@ const menuData = [
                 path: "datasource"
             }
         ]
+    },
+    {
+        name: "示例",
+        icon: "smile",
+        path: "example",
+        children: [
+            {
+                name: "示例1",
+                path: "1"
+            },
+            {
+                name: "示例2",
+                path: "2"
+            }
+        ]
     }
 ];
 

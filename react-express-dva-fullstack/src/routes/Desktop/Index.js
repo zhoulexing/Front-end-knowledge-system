@@ -1,8 +1,13 @@
 import React, { Component } from "react";
-import isEmpty from "lodash/isEmpty";
+import { Spin } from "antd";
 
 export default class Desktop extends Component {
     render() {
-        return <div>desktop</div>;
+        return (
+            <div>
+                <div>desktop</div>
+                <Spin size="large"/>
+            </div>
+        )
     }
 }

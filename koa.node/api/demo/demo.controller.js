@@ -127,7 +127,7 @@ module.exports = {
      * 测试mongodb保存数据
      * @param {object} ctx 
      */
-    async saveToMongo(ctx) {
+    async getList(ctx) {
         const query = ctx.query;
         const result = { success: false };
         await asyncTime(2000);

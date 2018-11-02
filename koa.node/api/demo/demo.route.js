@@ -9,4 +9,4 @@ module.exports = router
     .get("/download/:filename", demo.download)
     .get("/getData", demo.getData)
     .get("/getJwt", demo.getJwt)
-    .get("/saveToMongo", demo.saveToMongo);
+    .get("/getList", demo.getList);

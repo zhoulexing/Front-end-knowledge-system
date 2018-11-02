@@ -9,6 +9,7 @@ export default {
         "components": path.resolve(__dirname, "./src/components"),
         "images": path.resolve(__dirname, "./src/assets/images"),
         "layouts": path.resolve(__dirname, "./src/layouts"),
+        "routes": path.resolve(__dirname, "./src/routes")
     },
     html: {
         template: "./src/index.ejs",
@@ -23,7 +24,6 @@ export default {
             extraBabelPlugins: ["dva-hmr"]
         }
     },
-    devtool: "source-map",
     disableDynamicImport: false,
     lessLoaderOptions: {
         javascriptEnabled: true
@@ -39,7 +39,7 @@ export default {
     ],*/
     proxy: {
         "/api/*": {
-            target: "http://127.0.0.1:8001",
+            target: "http://127.0.0.1:3000",
             changeOrigin: true
         }
     }
