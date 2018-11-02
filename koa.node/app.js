@@ -43,7 +43,7 @@ app.on("error", (err, ctx) => {
 
 // 设置跨域
 app.use(cors({
-	allowMethods: ["GET", "POST"],
+	allowMethods: ["GET", "POST", "OPTIONS"],
     allowHeaders: ["Content-Type", "Accept"],
     origin: function(ctx) {
         return "*" // 本地环境
