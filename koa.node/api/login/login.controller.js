@@ -10,7 +10,7 @@ module.exports = {
     async signIn(ctx) {
         const user = ctx.query;
         if(user && user.loginname === "admin") {
-            // ctx.session.user = user;
+            ctx.session.user = user;
             const userToken = {
                 loginname: user.loginname,
                 password: 123456

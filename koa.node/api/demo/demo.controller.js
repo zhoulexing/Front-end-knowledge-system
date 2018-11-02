@@ -10,6 +10,10 @@ const verify = util.promisify(jwt.verify);
 const { Demo } = require("../../utils/mongodb");
 
 module.exports = {
+    async index(ctx) {
+        await ctx.render("hello");
+    },
+
     /**
      * jsonp接口demo
      * @param {object} ctx 

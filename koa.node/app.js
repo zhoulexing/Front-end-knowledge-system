@@ -25,7 +25,7 @@ app.use(session({
 	key: "USER_SID",
 	maxAge: 60 * 60 * 1000,  // cookie的过期时间
 	overwrite: true,  // 是否可以overwrite    (默认default true)
-	httpOnly: true, // cookie是否只有服务器端可以访问 httpOnly or not (default true)
+	httpOnly: false, // cookie是否只有服务器端可以访问 httpOnly or not (default true)
 	signed: true,   // 签名默认true
 	rolling: true,  // 在每次请求时强行设置cookie，这将重置cookie过期时间（默认：false）
 	renew: true,  // (boolean) renew session when session is nearly expired,
