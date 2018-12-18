@@ -1,0 +1,18 @@
+{
+  "name": "zlx-build-cli",
+  "version": "0.1.5",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "zlx-build-cli": "./bin/zlx-build.js"
+  },
+  "author": "zlx",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "commander": "^2.19.0",
+    "download-git-repo": "^1.1.0",
+    "ora": "^3.0.0",
+    "inquirer": "^6.2.1"
+  }
+}
