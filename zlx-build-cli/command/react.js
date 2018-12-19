@@ -1,6 +1,5 @@
 const config = require("../config");
 const inquirer = require("inquirer");
-const program = require("commander");
 const download = require("download-git-repo");
 // 改变输出文字的颜色
 const chalk = require("chalk");

@@ -1,6 +1,6 @@
 const config = require("../config");
  
 module.exports = () => {
-     console.log(Object.values(config));
+     console.log(JSON.stringify(Object.values(config)));
      process.exit();
 }

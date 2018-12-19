@@ -3,36 +3,30 @@
 // 解析用户输入的命令
 const program = require("commander");
 const package = require("../package.json");
-const config = require("../config");
 
-
-program.version(package.version);
-
-// 定义使用方法
-program
-    .command("list")
-    .description("list all the templates")
-    .alias("-l")
-    .action(() => {
-        require("../command/list")();
-    });
+// 定义命令
+// program
+//     .command("list")
+//     .description("list all the frame")
+//     .alias("l")
+//     .action(() => {
+//         require("../command/list")();
+//     });
 
 program
-    .command("init")
+    .version(package.version)
+    .option("-l --list", "list all the frame")
     .option("-t, --type [type]", "select frame type")
-    .action(obj => {
-        switch(obj.type) {
-            case config.react.type:
-                require("../command/react")();
-                break;
-            default:
-                require("../command/list")();
-                break;
-        }
-    });
+    .parse(process.argv);
 
-program.parse(process.argv);
+if(program.list) {
+    require("../command/list")();
+}
 
-if(!program.args.length) {
-    program.help();
+if(program.type) {
+    if(program.type === true) {
+        program.help();
+    } else {
+        require(`../command/${ program.type }`)();
+    }
 }
