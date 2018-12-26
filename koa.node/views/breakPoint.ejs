@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>断点上传</title>
+</head>
+
+<body>
+    <h1>断点上传</h1>
+    <form enctype="multipart/form-data" onsubmit="return upload()">
+        <input id="file" type="file"/>
+        <input type="submit" value="提交"/>
+    </form>
+    <button onclick="download()">下载</button>
+    <script type="text/javascript"> 
+        function upload() {
+            const file = document.getElementById("file").files[0];
+            const shardSize = 2 * 1024 * 1024; // 确定分片的大小
+            const shardCount = Math.ceil(file.size / shardSize); // 总片数
+            const start = 0;
+            const end = shardSize;
+
+            const formData = new FormData();
+            formData.append("data", file.slice(start, file.size)); // 用slice方法切出文件的一部分
+            formData.append("name", file.name);
+            formData.append("total", shardCount);
+
+            fetch("/api/break.point/upload", {
+                method: "POST",
+                body: formData
+            }).then(res => {
+                return res.json();
+            }).then(json => {
+                return true;
+            });
+        }  
+        function download() {
+            const headers = new Headers();
+            headers.append("Range", "bytes=0-5");
+            
+            fetch("/api/break.point/range", {
+                method: "GET",
+                headers
+            }).then(res => {
+                res.blob().then(blob => {
+                    const a = document.createElement("a");
+                    const url = window.URL.createObjectURL(blob);
+                    const filename = res.headers.get("Content-Disposition");
+                    console.log("filename：", filename);
+                    a.href = url;
+                    a.download = "test.txt";
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                });
+            });
+        }
+    </script> 
+</body>
+
+</html>
