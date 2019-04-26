@@ -8,14 +8,14 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "express-mode",
+            "name": "express-node",
             "program": "${workspaceFolder}/express.node/app.js"
         },
         {
             "type": "node",
             "request": "launch",
-            "name": "middle-dispatch",
-            "program": "${workspaceFolder}/middle-dispatch/app.js"
+            "name": "koa-node",
+            "program": "${workspaceFolder}/koa.node/app.js"
         }
     ]
 }

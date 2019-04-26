@@ -2,13 +2,14 @@ import React, { PureComponent } from "react";
 import { Route, Redirect, Switch } from "dva/router";
 import GlobalHeader from "components/GlobalHeader";
 import { getMenuData } from "common/menu";
-import NotFound from "../routes/Exception/404";
+import NotFound from "routes/Exception/404";
 import SiderMenu from "components/SiderMenu";
 import { Layout } from "antd";
 import { getRoutes } from "utils/util";
 import PropTypes from "prop-types";
 import Authorized from "utils/Authorized";
 import logo from "images/logo.svg";
+import NProgress  from "nprogress";
 import { connect } from "dva";
 
 const { Content, Header } = Layout;
@@ -54,8 +55,9 @@ const getBreadcrumbNameMap = (menuData, routerData) => {
 }
 
 
-@connect(({ global = {} }) => ({
-    collapsed: global.collapsed
+@connect(({ global = {}, loading }) => ({
+    collapsed: global.collapsed,
+    loading
 }))
 export default class BasicLayout extends PureComponent {
 
@@ -80,6 +82,7 @@ export default class BasicLayout extends PureComponent {
             routerData
         } = this.props;
 
+        this.handleProgress();
         const baseRedirect = this.getBaseRedirect();
 
         const layout = (
@@ -92,7 +95,7 @@ export default class BasicLayout extends PureComponent {
                     Authorized={Authorized}
                     location={location}
                 />
-                <Layout>
+                <Layout style={{ background: "#fff" }}>
                     <Header style={{ padding: 0 }}>
                         <GlobalHeader
                             collapsed={collapsed}
@@ -130,6 +133,19 @@ export default class BasicLayout extends PureComponent {
             </div>
         );
     }
+
+    handleProgress = () => {
+        const { loading } = this.props;
+        let currHref = "";
+        const href = window.location.href;   
+        if (currHref !== href) {  
+            NProgress.start();    
+            if (!loading.global) {  
+                NProgress.done();  
+                currHref = href;   
+            }
+        }
+    };
 
     handleMenuClick = ({ key }) => {
         console.log(key);

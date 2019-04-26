@@ -1,0 +1,79 @@
+html {
+    font-size: 14px;
+}
+
+.flex {
+    padding: 10px;
+    width: 100px;
+    height: 100px;
+    background-color: black;
+    box-shadow: 0 0 2px ease-in;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.column {
+    display: flex;
+    justify-content: space-between;
+}
+.item {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: red;
+}
+
+.grid {
+    display: flex;
+}
+.cell {
+    background-color: rgb(92, 92, 91);
+    height: 30px;
+    flex: 1;
+}
+.u-full {
+    flex: 0 0 80%;
+}
+
+.HolyGrail {
+    display: flex;
+    flex-direction: column;
+}
+.HolyGrail-head {
+    flex: 1;
+    min-height: 10vh;
+    background-color: blue;
+}
+.HolyGrail-body {
+    display: flex;
+    flex: 1;
+    background-color: blanchedalmond;
+    min-height: 40vh;
+}
+.HolyGrail-main {
+    flex: 1;
+}
+.HolyGrail-nav, .HolyGrail-aside {
+    flex: 0 0 10vw;
+    background-color: blueviolet;
+}
+.HolyGrail-nav {
+    order: -1;
+}
+.HolyGrail-footer {
+    flex: 1;
+    min-height: 10vh;
+    background-color: chartreuse;
+}
+
+.InputAddOn {
+    display: flex;
+    height: 30px;
+    background-color: brown;
+}
+.InputAddOn-item {
+    flex: 0 0 20px;
+}
+.InputAddOn-field {
+    flex: 1;
+}

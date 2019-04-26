@@ -29,8 +29,14 @@ const getRouterConfig = (app) => {
         },        
         "/apps/exception/500": {
             component: dynamicWrapper(app, [], () => import("../routes/Exception/500"))
+        },
+        "/apps/example/1": {
+            component: dynamicWrapper(app, ["example"], () => import("../routes/Example/example1"))
         },        
-        
+        "/apps/example/2": {
+            component: dynamicWrapper(app, ["example"], () => import("../routes/Example/example2"))
+        },        
+
         "/login": {
             component: dynamicWrapper(app, [], () => import("../layouts/LoginLayout"))
         }
@@ -81,7 +87,7 @@ function dynamicWrapper(app, models, component) {
             });
         },
         loading: () => {
-            return <Spin size="large" />;
+            return <Spin size="large" className="global-spin" />;
         }
     });
 }

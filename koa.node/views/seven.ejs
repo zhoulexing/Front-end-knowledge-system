@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>主题</title>
+    <style type="text/css">
+        .arrow-down {
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-top : 30px solid red;
+        }
+        .arrow-up {
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom : 30px solid red;
+        }
+        .arrow-left {
+            width: 0;
+            height: 0;
+            border-top: 30px solid transparent;
+            border-right: 30px solid red;
+            border-bottom : 30px solid transparent;
+        }
+        .arrow-right {
+            width: 0;
+            height: 0;
+            border-top: 30px solid transparent;
+            border-left: 30px solid red;
+            border-bottom : 30px solid transparent;
+        }
+        .shadow-box {
+            display: flex;
+        }
+        .shadow-box > div {
+            margin-right: 50px;
+        }
+        .shadow1 {
+            width: 50px;
+            height: 50px;
+            border: 1px solid red;
+            box-shadow: 10px 0 5px -5px blue;
+        }
+        .shadow2 {
+            position: relative;
+            width: 250px;
+            height: 250px;
+        }
+        .shadow2::before {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            top: -50px;
+            left: -50px;
+            box-shadow:
+                50px 50px #000, 150px 50px #000, 250px 50px #000,
+                50px 100px #000, 150px 100px #000, 250px 100px #000,
+                50px 150px #000, 150px 150px #000, 250px 150px #000,
+                50px 200px #000, 150px 200px #000, 250px 200px #000,
+                50px 250px #000, 150px 250px #000, 250px 250px #000;
+        }
+        .shadow3 {
+            position: relative;
+            width: 600px;
+            height: 100px;
+            background: hsl(48, 100%, 50%);
+            border-radius: 20px;
+        }
+        .shadow3::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            right: 5%;
+            bottom: 0;
+            border-radius: 10px;
+            background:  hsl(48, 100%, 20%);
+            
+            transform: translate(0, -15%) ;
+            transform-origin: center center;
+            /* box-shadow: 0 0 20px 15px hsl(48, 100%, 20%); */
+        }
+        .dy {
+            margin-left: 500px;
+            position: relative;
+            width: 37px;
+            height: 213px;
+            background: #000000;
+            filter:drop-shadow(-10px -10px 2px #24f6f0) contrast(150%) brightness(110%);
+            box-shadow: 11.6px 10px 1px 0 #fe2d52;
+        }
+        .dy::before {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 37px solid #000000;
+            border-top: 35px solid transparent;
+            border-radius: 50%;
+            top: 123px;
+            left: -137px;
+            transform: rotate(45deg);
+            filter: drop-shadow(16px 0px 2px #fe2d52);
+        }
+        .dy::after {
+            content: "";
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border: 30px solid #000000;
+            border-right: 30px solid transparent;
+            border-top: 30px solid transparent;
+            border-left: 30px solid transparent;
+            top: -100px;
+            right: -172px;
+            border-radius: 100%;
+            transform: rotate(45deg);
+            filter:drop-shadow(14px 0 2px #fe2d52);
+        }
+        .txt {
+            width: 100px; 
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            word-break: break-all;
+        }
+        .wrap {
+            width: 200px;
+            height: 40px;
+            line-height: 20px;
+            overflow: hidden;
+        }
+        .wrap::before {
+            float: left;
+            width: 5px;
+            content: "";
+            height: 40px;
+        }
+        .wrap .text {
+            float: right;
+            margin-left: -5px;
+            width: 100%;
+            word-break: break-all;
+        }
+        .wrap::after {
+            float: right;
+            content: "...";
+            height: 20px;
+            line-height: 20px;
+            width: 16px;
+            margin-left: -16px;
+            position: relative;
+            left: 100%;
+            top: -20px;
+            padding-left: 2px;
+            background: #fff;
+        }
+        .test {
+            width: 300px;
+            height: 500px;
+            border: 1px solid red;
+        }
+        .test > div:nth-child(1) {
+            float: left;
+            height: 200px;
+            width: 50px;
+            background: #000;
+        }
+        .test > div:nth-child(2) {
+            width: 100%;
+            height: 200px;
+            float: right;
+            background: #24f6f0;
+            margin-left: -50px;
+        }
+        .test > div:nth-child(3) {
+            width: 8px;
+            margin-left: -10px;
+            height: 200px;
+            float: right;
+            background: yellow;
+            position: relative;
+            /* left: 100%; */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="arrow-down"></div>
+    <div class="arrow-up"></div>
+    <div class="arrow-left"></div>
+    <div class="arrow-right"></div>
+    <div class="shadow-box">
+        <div class="shadow1"></div>
+        <div class="shadow2"></div>
+        <div class="shadow3"></div>
+    </div>
+    <!-- <div class="dy"></div> -->
+    <div class="txt">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos labore sit vel itaque delectus atque quos magnam assumenda quod architecto perspiciatis animi.
+    </div>
+    <div class="wrap">
+        <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos labore sit vel itaque delectus atque quos magnam assumenda quod architecto perspiciatis animi.</div>
+    </div>
+    <div class="test">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</body>
+
+</html>

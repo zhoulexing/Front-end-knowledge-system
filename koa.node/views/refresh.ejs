@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/styles/phone.css"></link>
+    <title>移动端</title>
+</head>
+
+<body>
+    <div id="root">
+        asdfasdf
+    </div>
+    <script>
+        let tipTxt, startY, bottomFlag;
+
+        const ele = document.getElementById("root");
+        ele.addEventListener("touchstart", refreshTouchStart);
+        ele.addEventListener("touchmove", refreshTouchMove);
+        ele.addEventListener("touchend", refreshTouchEnd);
+
+        function refreshTouchStart(e) {
+            let touch = e.changedTouches[0];
+            tipTxt = "下拉刷新";
+            startY = touch.clientY;
+        }
+
+        function refreshTouchMove(e) {
+            let touch = e.changedTouches[0];
+            let _move = touch.clientY - startY;
+            bottomFlag = ele.offsetTop + ele.offsetHeight - document.body.clientHeight <= 40;
+        }
+
+        function refreshTouchEnd(e) {
+            console.log(e);
+        }
+    </script>
+</body>
+
+</html>

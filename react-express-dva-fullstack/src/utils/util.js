@@ -1,6 +1,9 @@
 import { stringify } from "qs";
 
-
+/**
+ * 判断是否为promise对象
+ * @param {object} obj 
+ */
 export function isPromise(obj) {
     return (
         !!obj &&
@@ -9,6 +12,12 @@ export function isPromise(obj) {
     );
 }
 
+/**
+ * 将一个路劲与一个对象转换成一个get类型的路劲
+ * http://localhost:8000 { a: 1, b: 2} => http://localhost:8000?a=1&b=2
+ * @param {string} path 
+ * @param {object} query 
+ */
 export function getQueryPath(path = '', query = {}) {
     const search = stringify(query);
     if (search.length) {
