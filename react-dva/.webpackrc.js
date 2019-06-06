@@ -1,4 +1,6 @@
 const path = require("path");
+const { TITLE } = require("./src/utils/constant");
+
 export default {
     entry: "./src/index.js",
     outputPath: path.resolve(__dirname, "client"),
@@ -13,7 +15,7 @@ export default {
     },
     html: {
         template: "./src/index.ejs",
-        title: "周某人",
+        title: TITLE,
         favicon: "./src/assets/images/favicon.ico"
     },
     extraBabelPlugins: [
@@ -34,13 +36,13 @@ export default {
     ],
     ignoreMomentLocale: true,
     hash: true,
-    /*copy: [
-        { from: "", to: "" }
-    ],*/
-    proxy: {
-        "/api/*": {
-            target: "http://127.0.0.1:3000",
-            changeOrigin: true
-        }
-    }
+    copy: [
+        { from: "./src/assets/color.less", to: "./" }
+    ],
+    // proxy: {
+    //     "/api/*": {
+    //         target: "http://localhost:8000",
+    //         changeOrigin: true
+    //     }
+    // }
 }

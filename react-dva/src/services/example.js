@@ -1,5 +1,9 @@
 import request from "utils/request";
 
-export function getList() {
-  return request('/api/demo/getList');
+export function getUserList() {
+  return request("/api/userList");
+}
+
+export function getUserMsg() {
+  return request("/api/userMsg");
 }

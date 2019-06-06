@@ -1,34 +1,30 @@
 import React from "react";
 import { connect } from "dva";
-import { Button, Row, Col, Skeleton } from "antd";
+import { Button } from "antd";
+import { FormattedMessage } from "react-intl";
+import { mappings } from "../../i18n";
 
-@connect(({ example = {}, loading }) => ({
-    ...example,
-    loading
-}))
+@connect()
 export default class Example1 extends React.Component {
     render() {
         const { loading } = this.props;
         return (
             <div>
-                <Button type="primary" onClick={ this.handleAsyncRequest }>发送异步请求</Button>
-                <Row gutter={ 32 }>
-                    <Col span={ 12 }>
-                        <Skeleton loading={ loading.global } avatar paragraph={{ rows: 4 }} >
-                            <div>111</div>
-                            <div>222</div>
-                            <div>333</div>
-                            <div>444</div>
-                        </Skeleton>
-                    </Col>
-                    <Col span={ 12 }>222</Col>
-                </Row>
+                <FormattedMessage id="example.test"/>
+                <Button type="primary" onClick={ this.setTheme }>换肤</Button>
+                <Button type="primary" onClick={ () => this.setLocale(mappings.ZH_CN) }>切换中文</Button>
+                <Button type="primary" onClick={ () => this.setLocale(mappings.EN_US) }>切换英文</Button>
             </div>
         )
     }
 
-    handleAsyncRequest = () => {
+    setTheme = () => {
         const { dispatch } = this.props;
-        dispatch({ type: "example/asyncRequest" });
+        dispatch({ type: "setting/setTheme", payload: "#000" });
+    }
+
+    setLocale = (locale) => {
+        const { dispatch } = this.props;
+        dispatch({ type: "setting/setLocale", payload: locale });
     }
 }

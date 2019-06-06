@@ -20,7 +20,7 @@ export default {
     },
 
     subscriptions: {
-        setup({ history }) {
+        setup({ history, dispatch }) {
             return history.listen(({ pathname, search }) => {
                 if (typeof window.ga !== "undefined") {
                     window.ga("send", "pageview", pathname + search);

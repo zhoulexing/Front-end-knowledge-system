@@ -4,6 +4,7 @@ import { Link } from "dva/router";
 import pathToRegexp from "path-to-regexp";
 import { urlToList } from "utils/util";
 import styles from "./index.less";
+import { TITLE } from "utils/constant";
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
@@ -97,7 +98,7 @@ export default class SiderMenu extends PureComponent {
                 <div className={styles.logo}>
                     <Link to="/apps">
                         <img src={ logo } alt="logo"/>
-                        <h1>周某人</h1>
+                        <h1>{ TITLE }</h1>
                     </Link>
                 </div>
                 <Menu 

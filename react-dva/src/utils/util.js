@@ -90,4 +90,4 @@ export function urlToList(url) {
     return urllist.map((urlItem, index) => {
         return `/${urllist.slice(0, index + 1).join('/')}`;
     });
-}
+  }

@@ -10,7 +10,9 @@ import PropTypes from "prop-types";
 import Authorized from "utils/Authorized";
 import logo from "images/logo.svg";
 import NProgress  from "nprogress";
+import { IntlProvider } from "react-intl";
 import { connect } from "dva";
+import { TITLE } from "utils/constant";
 
 const { Content, Header } = Layout;
 const { AuthorizedRoute, check } = Authorized;
@@ -55,9 +57,10 @@ const getBreadcrumbNameMap = (menuData, routerData) => {
 }
 
 
-@connect(({ global = {}, loading }) => ({
+@connect(({ global = {}, loading, setting }) => ({
     collapsed: global.collapsed,
-    loading
+    loading,
+    setting
 }))
 export default class BasicLayout extends PureComponent {
 
@@ -76,6 +79,7 @@ export default class BasicLayout extends PureComponent {
 
     render() {
         const {
+            setting,
             match,
             location,
             collapsed,
@@ -101,7 +105,7 @@ export default class BasicLayout extends PureComponent {
                             collapsed={collapsed}
                             onCollapse={this.handleMenuCollapse}
                             onMenuClick={this.handleMenuClick}
-                            currentUser={{ name: "周某人" }}
+                            currentUser={{ name: TITLE }}
                         />
                     </Header>
                     <Content style={{ margin: "24px 24px 0", height: "100%" }}>
@@ -129,7 +133,9 @@ export default class BasicLayout extends PureComponent {
 
         return (
             <div style={{ height: "100%" }}>
-                {layout}
+                <IntlProvider locale={ setting.locale } messages={ setting.messages }>
+                    {layout}
+                </IntlProvider>
             </div>
         );
     }
