@@ -1,0 +1,81 @@
+{
+  "name": "zlx-build",
+  "version": "1.0.0",
+  "description": "react: react-dva\r vue: vue-ele",
+  "main": "index.js",
+  "dependencies": {
+    "antd": "^3.19.1",
+    "classnames": "^2.2.6",
+    "connected-react-router": "^6.4.0",
+    "history": "^4.9.0",
+    "isomorphic-fetch": "^2.2.1",
+    "less": "^3.9.0",
+    "path-to-regexp": "^3.0.0",
+    "prop-types": "^15.7.2",
+    "qs": "^6.7.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-loadable": "^5.5.0",
+    "react-redux": "6.x",
+    "react-router": "4.x",
+    "react-router-dom": "4.x",
+    "redux": "^4.0.1",
+    "redux-actions": "^2.6.5",
+    "redux-logger": "^3.0.6",
+    "redux-saga": "^1.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-proposal-decorators": "^7.4.4",
+    "@babel/plugin-proposal-export-default-from": "^7.2.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.4.4",
+    "@babel/plugin-transform-runtime": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/runtime": "^7.4.5",
+    "autoprefixer": "^9.6.0",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-add-module-exports": "^1.0.2",
+    "babel-plugin-import": "^1.11.2",
+    "chalk": "^2.4.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "cross-env": "^5.2.0",
+    "css-loader": "^2.1.1",
+    "cssnano": "^4.1.10",
+    "happypack": "^5.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "less-loader": "^5.0.0",
+    "mini-css-extract-plugin": "^0.7.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "postcss-loader": "^3.0.0",
+    "progress-bar-webpack-plugin": "^1.12.1",
+    "redbox-react": "^1.6.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.4.1",
+    "webpack-parallel-uglify-plugin": "^1.1.0"
+  },
+  "scripts": {
+    "test": "mocha",
+    "start": "cross-env _ENV_=develop webpack-dev-server --progress --mode=development",
+    "build": "cross-env _ENV_=production webpack --progress --mode=production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhoulexing/zlx-build.git"
+  },
+  "keywords": [
+    "react",
+    "webpack"
+  ],
+  "author": "zlx",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhoulexing/zlx-build/issues"
+  },
+  "homepage": "https://github.com/zhoulexing/zlx-build#readme"
+}
