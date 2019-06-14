@@ -4,9 +4,9 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ModuleConcatenationPlugin = require("webpack/lib/optimize/ModuleConcatenationPlugin");
 const HappyPack = require("happypack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const optimizeCss = require("optimize-css-assets-webpack-plugin");
-const ProgressBarPlugin = require("progress-bar-webpack-plugin")
-const ParallelUglifyPlugin = require("webpack-parallel-uglify-plugin");
+const OptimizeCss = require("optimize-css-assets-webpack-plugin");
+const ProgressBarPlugin = require("progress-bar-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 const os = require("os");
 const chalk = require("chalk");
 const path = require("path");
@@ -20,7 +20,7 @@ let plugins = [
     new HtmlWebpackPlugin({
         title: "周某人",
         template: `./src/index.ejs`,
-        filename: `index${ IS_PRO ? `-v${version}` : "" }.html`,
+        filename: `index${IS_PRO ? `-v${version}` : ""}.html`,
         // 压缩html
         minify: {
             collapseInlineTagWhitespace: true,
@@ -38,34 +38,15 @@ let plugins = [
     }),
 ];
 
-if(IS_PRO) {
+if (IS_PRO) {
     plugins = plugins.concat([
         new CleanWebpackPlugin(),
-         // 压缩css
-        new optimizeCss({ 
+        // 压缩css
+        new OptimizeCss({
             assetNameRegExp: /\.css$/g,
             cssProcessor: require("cssnano"),
             cssProcessorOptions: { discardComments: { removeAll: true } },
             canPrint: true
-        }),
-        new ParallelUglifyPlugin({
-            // 传递给 UglifyJS的参数如下：
-            uglifyJS: {
-                output: {
-                    // 是否输出可读性较强的代码，即会保留空格和制表符，默认为输出，为了达到更好的压缩效果，可以设置为false
-                    beautify: false,
-                    // 是否保留代码中的注释，默认为保留，为了达到更好的压缩效果，可以设置为false
-                    comments: false
-                },
-                compress: {
-                    // 是否删除代码中所有的console语句，默认为不删除，开启后，会删除所有的console语句
-                    drop_console: true,
-                    // 是否内嵌虽然已经定义了，但是只用到一次的变量，比如将 var x = 1; y = x, 转换成 y = 5, 默认为不转换，为了达到更好的压缩效果，可以设置为false
-                    collapse_vars: true,
-                    //  是否提取出现了多次但是没有定义成变量去引用的静态值，比如将 x = "xxx"; y = "xxx"  转换成 var a = "xxxx"; x = a; y = a; 默认为不转换，为了达到更好的压缩效果，可以设置为false
-                    reduce_vars: true
-                }
-            }
         }),
         new ProgressBarPlugin({
             format: "  build [:bar] " + chalk.green.bold(":percent") + " (:elapsed seconds)"
@@ -103,7 +84,12 @@ module.exports = {
             test: /\.(less|css)$/,
             exclude: /node_modules/,
             use: [
-                { loader: MiniCssExtractPlugin.loader },
+                { 
+                    loader: MiniCssExtractPlugin.loader, 
+                    options: {
+                        hmr: !IS_PRO,
+                    },
+                },
                 {
                     loader: "css-loader",
                     options: {
@@ -124,7 +110,9 @@ module.exports = {
             test: /\.(less|css)$/,
             include: /node_modules/,
             use: [
-                { loader: MiniCssExtractPlugin.loader },
+                { 
+                    loader: MiniCssExtractPlugin.loader, 
+                },
                 "css-loader",
                 "postcss-loader",
                 {
@@ -136,7 +124,7 @@ module.exports = {
                 }
             ]
         }, {
-            test:/\.(eot|woff|svg|ttf|woff2|appcache|mp3|mp4|pdf)(\?|$)/,
+            test: /\.(eot|woff|svg|ttf|woff2|appcache|mp3|mp4|pdf)(\?|$)/,
             use: ["file-loader?name=iconfont/[name]_[sha512:hash:base64:7].[ext]"],
             include: path.resolve(__dirname, "src"),
         }, {
@@ -144,6 +132,14 @@ module.exports = {
             use: ["url-loader?limit=8192&name=images/[name]_[sha512:hash:base64:7].[ext]"],
             include: path.resolve(__dirname, "src"),
         }]
+    },
+    optimization: {
+        minimizer: [
+            new TerserPlugin({
+                cache: true,
+                parallel: true
+            }),
+        ]
     },
     devServer: {
         contentBase: path.resolve(__dirname, "dist"),
