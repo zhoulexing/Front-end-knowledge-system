@@ -1,3 +1,4 @@
+import "./polyfill";
 import React from "react";
 import { Provider } from "react-redux";
 import ReactDOM from "react-dom";
@@ -10,6 +11,12 @@ import { createStore, compose, applyMiddleware, combineReducers } from "redux";
 import { routerMiddleware, connectRouter } from "connected-react-router";
 import { handleActions } from "redux-actions";
 import Routes from "./router";
+
+import zhCN from "antd/lib/locale-provider/zh_CN";
+import moment from "moment";
+import "moment/locale/zh-cn";
+import { LocaleProvider } from "antd";
+moment.locale("zh-cn");
 
 
 const app = ((opts) => {
@@ -78,7 +85,9 @@ const app = ((opts) => {
             const Routes = _routes;
             return () => (
                 <Provider store={store}>
-                    <Routes history={_history} />
+                    {/* <LocaleProvider locale={zhCN}> */}
+                        <Routes history={_history} />
+                    {/* </LocaleProvider> */}
                 </Provider>
             );
         }

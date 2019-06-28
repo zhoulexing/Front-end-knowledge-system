@@ -5,7 +5,6 @@ export default {
     },
     effects: {
         *asyncAdd({ payload }, { call, put }) {
-            debugger
             yield put({
                 type: "add",
                 payload,

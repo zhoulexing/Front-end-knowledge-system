@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Input } from "antd";
 import { findDOMNode } from "react-dom";
+import NewContextApi from "./NewContextApi";
 
 export default class Example extends Component {
     constructor(props) {
@@ -21,6 +22,7 @@ export default class Example extends Component {
                 <Button onClick={this.getRef}>获取Ref</Button>
                 <Input />
                 <input ref={this.inputRef}/>
+                <NewContextApi />
             </div>
         )
     }

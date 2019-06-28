@@ -62,7 +62,10 @@ if (IS_PRO) {
 
 
 module.exports = {
-    entry: "./src/index.js",
+    entry: [
+        "babel-polyfill", // 兼容ie
+        "./src/index.js"
+    ],
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "[name].[hash].js",
