@@ -2,15 +2,24 @@ import React, { Component } from "react";
 import { Button, Input } from "antd";
 import { findDOMNode } from "react-dom";
 import NewContextApi from "./NewContextApi";
+import TestDidMountSetState from "./TestDidMountSetState";
+import MouseWheel from "./MouseWheel";
 
 export default class Example extends Component {
     constructor(props) {
         super(props);
         this.inputRef = React.createRef();
+        this.state = {
+            count: 0,
+        }
     }
 
     componentDidMount() {
         this.inputRef.current.focus();
+        // console.log("beforeCount:", this.state.count);
+        // this.setState({ count: 1 }, () => {
+        //     console.log("afterCount:", this.state.count);
+        // });
     }
 
     render() {
@@ -23,6 +32,8 @@ export default class Example extends Component {
                 <Input />
                 <input ref={this.inputRef}/>
                 <NewContextApi />
+                <TestDidMountSetState />
+                <MouseWheel />
             </div>
         )
     }

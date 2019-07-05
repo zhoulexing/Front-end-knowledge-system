@@ -6,7 +6,6 @@ const { Provider, Consumer } = createContext(DEFAULT_STATE);
 const ReceiverComponent = (props) => (  
     <Consumer>
         {context => {
-            console.log(context);
             return <div style={{ color: context.color }}> Hello, this is receiver. </div>
         }}
     </Consumer>
