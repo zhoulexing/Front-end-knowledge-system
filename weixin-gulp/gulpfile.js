@@ -23,12 +23,12 @@ const dist = "./dist";
 const isProd = process.env.NODE_ENV === "production" || false;
 
 const handleError = (err) => {
-    console.log('\n')
-    log(colors.red('Error!'))
-    log('fileName: ' + colors.red(err.fileName))
-    log('lineNumber: ' + colors.red(err.lineNumber))
-    log('message: ' + err.message)
-    log('plugin: ' + colors.yellow(err.plugin))
+    console.log("\n")
+    log(colors.red("Error!"))
+    log("fileName: " + colors.red(err.fileName))
+    log("lineNumber: " + colors.red(err.lineNumber))
+    log("message: " + err.message)
+    log("plugin: " + colors.yellow(err.plugin))
   }
 
 gulp.task("json", () => {
@@ -73,17 +73,17 @@ gulp.task("js", () => {
         .pipe(
             isProd ?
             jdists({
-                trigger: 'prod'
+                trigger: "prod"
             })
             :
             jdists({
-                trigger: 'dev'
+                trigger: "dev"
             })
         )
         .pipe(isProd ? through.obj() : sourcemaps.init())
         .pipe(
             babel({
-                presets: ['env']
+                presets: ["@babel/env"]
             })
         )
         .pipe(
@@ -100,47 +100,47 @@ gulp.task("js", () => {
 });
 
 gulp.task("watch", () => {
-    ['wxml', 'wxss', 'js', 'json', 'wxs'].forEach(v => {
-        gulp.watch(`${src}/**/*.v`, [v]);
+    ["wxml", "wxss", "js", "json", "wxs"].forEach(v => {
+        gulp.watch(`${src}/**/*.${v}`, [v]);
     });
-    gulp.watch(`${src}/images/**`, ['images']);
-    gulp.watch(`${src}/images/**/*.less`, ['wxss']);
+    gulp.watch(`${src}/images/**`, ["images"]);
+    gulp.watch(`${src}/images/**/*.less`, ["wxss"]);
 });
 
 gulp.task("clean", () => {
-    return del(['./dist/**']);
+    return del(["./dist/**"]);
 });
 
-gulp.task('dev', ['clean'], () => {
-    runSequence('json', 'images', 'wxml', 'wxss', 'js', 'wxs', 'cloud', 'watch');
+gulp.task("dev", ["clean"], () => {
+    runSequence("json", "images", "wxml", "wxss", "js", "wxs", "cloud", "watch");
 });
 
-gulp.task('build', ['clean'], () => {
-    runSequence('json', 'images', 'wxml', 'wxss', 'js', 'wxs', 'cloud');
+gulp.task("build", ["clean"], () => {
+    runSequence("json", "images", "wxml", "wxss", "js", "wxs", "cloud");
 });
 
 
 // cloud-functions 处理方法
-const cloudPath = './server/cloud-functions'
-gulp.task('cloud', () => {
+const cloudPath = "./server/cloud-functions";
+gulp.task("cloud", () => {
   return gulp
     .src(`${cloudPath}/**`)
     .pipe(
       isProd
         ? jdists({
-            trigger: 'prod'
+            trigger: "prod"
           })
         : jdists({
-            trigger: 'dev'
+            trigger: "dev"
           })
     )
     .pipe(gulp.dest(`${dist}/cloud-functions`));
 });
 
-gulp.task('watch:cloud', () => {
-    gulp.watch(`${cloudPath}/**`, ['cloud']);
+gulp.task("watch:cloud", () => {
+    gulp.watch(`${cloudPath}/**`, ["cloud"]);
 });
   
-gulp.task('cloud:dev', () => {
-    runSequence('cloud', 'watch:cloud');
+gulp.task("cloud:dev", () => {
+    runSequence("cloud", "watch:cloud");
 });

@@ -5,7 +5,7 @@ App({
     logs.unshift(Date.now());
     wx.setStorageSync('logs', logs);
 
-    if(options.scene == 1007 || options.scene == 1008) {
+    if (options.scene == 1007 || options.scene == 1008) {
       this.globalData.share = true;
     } else {
       this.globalData.share = false;

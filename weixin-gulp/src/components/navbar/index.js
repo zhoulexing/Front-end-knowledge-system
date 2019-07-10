@@ -32,7 +32,7 @@ Component({
   //返回到首页
     _backhome() {
       wx.switchTab({
-        url: '/pages/index/index',
+        url: 'pages/index/index',
       })
     }
   }
