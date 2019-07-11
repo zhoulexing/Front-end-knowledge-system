@@ -1,3 +1,7 @@
 <view>
-    hello
+    <view wx:if="{{auth === 0}}">
+        <button open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+            使用此功能需要授权登陆
+        </button>
+    </view>
 </view>

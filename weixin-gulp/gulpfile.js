@@ -2,9 +2,9 @@ const gulp = require("gulp");
 const jsonminify = require("gulp-jsonminify");
 const through = require("through2");
 const combiner = require("stream-combiner2");
-const less = require("gulp-less");
+const sass = require("gulp-sass");
 const postcss = require("gulp-postcss");
-const pxtorpx = require("postcss-pxtorpx");
+const pxtorpx = require("postcss-px2rpx");
 const base64 = require("postcss-font-base64");
 const rename = require("gulp-rename");
 const log = require("fancy-log");
@@ -45,8 +45,8 @@ gulp.task("wxs", () => {
 
 gulp.task("wxss", () => {
     const combined = combiner.obj([
-        gulp.src(`${src}/**/*.{less,wxss}`),
-        less(),
+        gulp.src(`${src}/**/*.{wxss,scss}`),
+        sass().on('error', sass.logError),
         postcss([pxtorpx(), base64()]),
         isProd ?
             cssnano({
@@ -83,7 +83,7 @@ gulp.task("js", () => {
         .pipe(isProd ? through.obj() : sourcemaps.init())
         .pipe(
             babel({
-                presets: ["@babel/env"]
+                presets: ["@babel/preset-env"]
             })
         )
         .pipe(
@@ -104,7 +104,7 @@ gulp.task("watch", () => {
         gulp.watch(`${src}/**/*.${v}`, [v]);
     });
     gulp.watch(`${src}/images/**`, ["images"]);
-    gulp.watch(`${src}/images/**/*.less`, ["wxss"]);
+    gulp.watch(`${src}/images/**/*.scss`, ["wxss"]);
 });
 
 gulp.task("clean", () => {

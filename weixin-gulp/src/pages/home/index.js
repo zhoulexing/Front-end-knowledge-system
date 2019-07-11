@@ -1,5 +1,8 @@
 const app = getApp();
 
 Page({
-    data: {}
+    data: {
+        auth: 0,
+    },
+    
 });
