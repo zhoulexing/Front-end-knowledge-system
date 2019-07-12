@@ -1,34 +1,11 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/home/index"
+    "pages/index/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "enablePullDownRefresh": true,
+    "navigationBarTitleText": "周某人",
     "navigationBarTextStyle": "black"
-  },
-  "tabBar": {
-    "position": "bottom",
-    "color": "blue",
-    "selectedColor": "#169fe6",
-    "borderStyle": "white",
-    "list": [
-      {
-        "selectedIconPath": "images/navigation-home.png",
-        "iconPath": "images/navigation-home.png",
-        "pagePath": "pages/index/index",
-        "text": "首页"
-      },
-      {
-        "selectedIconPath": "images/navigation-home.png",
-        "iconPath": "images/navigation-home.png",
-        "pagePath": "pages/home/index",
-        "text": "主页"
-      }
-    ]
-  },
-  "sitemapLocation": "sitemap.json"
+  }
 }

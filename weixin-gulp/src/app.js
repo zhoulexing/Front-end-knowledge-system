@@ -1,31 +1,22 @@
+//app.js
 App({
-  onLaunch: function (options) {
-    const that = this;
-    // 存储日志
-    const logs = wx.getStorageSync('logs') || [];
+  onLaunch: function() {
+    // wx.cloud.init({
+    //   env: '', // 前往云控制台获取环境id
+    //   traceUser: true //是否要捕捉每个用户的访问记录。设置为true，用户可在管理端看到用户访问记录
+    // });
+
+    // 展示本地存储能力
+    var logs = wx.getStorageSync('logs') || [];
     logs.unshift(Date.now());
     wx.setStorageSync('logs', logs);
 
-    if (options.scene == 1007 || options.scene == 1008) {
-      that.globalData.share = true;
-    } else {
-      that.globalData.share = false;
-    }
-
-    // 获取系统信息
-    wx.getSystemInfo({
-      success: res => {
-        that.globalData.height = res.statusBarHeight;
-      }
-    });
-
-    // 登陆
+    // 登录
     wx.login({
-      success: res => {
+      success: (res) => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
       }
     });
-
     // 获取用户信息
     wx.getSetting({
       success: (res) => {
@@ -34,22 +25,20 @@ App({
           wx.getUserInfo({
             success: (res) => {
               // 可以将 res 发送给后台解码出 unionId
-              that.globalData.userInfo = res.userInfo;
+              this.globalData.userInfo = res.userInfo;
+
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
-              if (that.userInfoReadyCallback) {
-                that.userInfoReadyCallback(res);
+              if (this.userInfoReadyCallback) {
+                this.userInfoReadyCallback(res);
               }
             }
-          })
+          });
         }
       }
     });
   },
-
   globalData: {
-    userInfo: null,
-    share: false,
-    height: 0,
+    userInfo: null
   }
-})
+});

@@ -7,6 +7,7 @@ const postcss = require("gulp-postcss");
 const pxtorpx = require("postcss-px2rpx");
 const base64 = require("postcss-font-base64");
 const rename = require("gulp-rename");
+const htmlmin = require("gulp-htmlmin");
 const log = require("fancy-log");
 const colors = require("ansi-colors");
 const filter = require("gulp-filter");
@@ -40,7 +41,18 @@ gulp.task("wxml", () => {
 });
 
 gulp.task("wxs", () => {
-    return gulp.src(`${src}/**/*.wxs`).pipe(gulp.dest(dist));
+    return gulp
+        .src(`${src}/**/*.wxs`)
+        .pipe(
+            isProd 
+            ? htmlmin({
+                collapseWhitespace: true,
+                removeComments: true,
+                keepClosingSlash: true
+            })
+            : through.obj()
+        )
+        .pipe(gulp.dest(dist));
 });
 
 gulp.task("wxss", () => {
