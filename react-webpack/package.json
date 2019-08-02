@@ -1,7 +1,7 @@
 {
   "name": "zlx-build",
   "version": "1.0.0",
-  "description": "react: react-dva\r vue: vue-ele",
+  "description": "react-webpack",
   "main": "index.js",
   "dependencies": {
     "antd": "^3.19.1",
@@ -51,6 +51,12 @@
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
     "cssnano": "^4.1.10",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-import-resolver-webpack": "^0.11.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
     "happypack": "^5.0.1",
     "html-webpack-plugin": "^4.0.0-beta.5",
     "less-loader": "^5.0.0",
@@ -68,7 +74,9 @@
   "scripts": {
     "test": "mocha",
     "start": "cross-env _ENV_=develop webpack-dev-server --progress --mode=development",
-    "build": "cross-env _ENV_=production webpack --mode=production"
+    "build": "cross-env _ENV_=production webpack --mode=production",
+    "lint": "eslint src --fix",
+    "lint:create": "eslint --init"
   },
   "repository": {
     "type": "git",

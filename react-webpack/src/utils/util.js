@@ -1,22 +1,22 @@
-import { stringify } from "qs";
+import { stringify } from 'qs';
 
 /**
  * 判断是否为promise对象
- * @param {object} obj 
+ * @param {object} obj
  */
 export function isPromise(obj) {
     return (
-        !!obj &&
-        (typeof obj === 'object' || typeof obj === 'function') &&
-        typeof obj.then === 'function'
+        !!obj
+        && (typeof obj === 'object' || typeof obj === 'function')
+        && typeof obj.then === 'function'
     );
 }
 
 /**
  * 将一个路劲与一个对象转换成一个get类型的路劲
  * http://localhost:8000 { a: 1, b: 2} => http://localhost:8000?a=1&b=2
- * @param {string} path 
- * @param {object} query 
+ * @param {string} path
+ * @param {object} query
  */
 export function getQueryPath(path = '', query = {}) {
     const search = stringify(query);
@@ -34,12 +34,12 @@ export function getQueryPath(path = '', query = {}) {
  */
 export function getRoutes(path, routerData) {
     let routes = Object.keys(routerData).filter(
-        routePath => routePath.indexOf(path) === 0 && routePath !== path
+        routePath => routePath.indexOf(path) === 0 && routePath !== path,
     );
     // eg. path='user' /user/name => name
     routes = routes.map(item => item.replace(path, ''));
     const renderArr = getRenderArr(routes);
-    const renderRoutes = renderArr.map(item => {
+    const renderRoutes = renderArr.map((item) => {
         const exact = !routes.some(route => route !== item && getRelation(route, item) === 1);
         return {
             exact,
@@ -59,17 +59,16 @@ function getRelation(str1, str2) {
     const arr2 = str2.split('/');
     if (arr2.every((item, index) => item === arr1[index])) {
         return 1;
-    } else if (arr1.every((item, index) => item === arr2[index])) {
+    } if (arr1.every((item, index) => item === arr2[index])) {
         return 2;
     }
     return 3;
 }
 
 function getRenderArr(routes) {
-    let renderArr = [];
-    renderArr.push(routes[0]);
+    let renderArr = [routes[0]];
     for (let i = 1; i < routes.length; i += 1) {
-        // 去重
+    // 去重
         renderArr = renderArr.filter(item => getRelation(item, routes[i]) !== 1);
         // 是否包含
         const isAdd = renderArr.every(item => getRelation(item, routes[i]) === 3);
@@ -87,7 +86,5 @@ function getRenderArr(routes) {
  */
 export function urlToList(url) {
     const urllist = url.split('/').filter(i => i);
-    return urllist.map((urlItem, index) => {
-        return `/${urllist.slice(0, index + 1).join('/')}`;
-    });
+    return urllist.map((urlItem, index) => `/${urllist.slice(0, index + 1).join('/')}`);
 }

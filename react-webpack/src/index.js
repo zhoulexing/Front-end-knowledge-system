@@ -1,21 +1,26 @@
-import "./polyfill";
-import React from "react";
-import { Provider } from "react-redux";
-import ReactDOM from "react-dom";
-import { createHashHistory } from "history";
-import RedBox from "redbox-react";
-import { createLogger } from "redux-logger";
-import createSagaMiddleware from "redux-saga";
-import { takeEvery, takeLatest, fork, call, put } from "redux-saga/effects";
-import { createStore, compose, applyMiddleware, combineReducers } from "redux";
-import { routerMiddleware, connectRouter } from "connected-react-router";
-import { handleActions } from "redux-actions";
+import './polyfill';
+import React from 'react';
+import { Provider } from 'react-redux';
+import ReactDOM from 'react-dom';
+import { createHashHistory } from 'history';
+import RedBox from 'redbox-react';
+import { createLogger } from 'redux-logger';
+import createSagaMiddleware from 'redux-saga';
+import {
+    takeEvery, takeLatest, fork, call, put,
+} from 'redux-saga/effects';
+import {
+    createStore, compose, applyMiddleware, combineReducers,
+} from 'redux';
+import { routerMiddleware, connectRouter } from 'connected-react-router';
+import { handleActions } from 'redux-actions';
 
-import zhCN from "antd/lib/locale-provider/zh_CN";
-import moment from "moment";
-import "moment/locale/zh-cn";
-import { LocaleProvider } from "antd";
-moment.locale("zh-cn");
+import zhCN from 'antd/lib/locale-provider/zh_CN';
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+import { LocaleProvider } from 'antd';
+
+moment.locale('zh-cn');
 
 const sagaMiddleware = createSagaMiddleware();
 const history = createHashHistory();
@@ -29,16 +34,16 @@ const sagas = getSagas(models);
 const middlewares = [
     routerMiddleware(history),
     sagaMiddleware,
-    process.env.NODE_ENV === "development" && createLogger(),
+    process.env.NODE_ENV === 'development' && createLogger(),
 ].filter(Boolean);
 const enhancer = compose(
     applyMiddleware(...middlewares),
-    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : args => args
+    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : args => args,
 );
 const store = createStore(
     combineReducers({ ...reducers }),
     initialState,
-    enhancer
+    enhancer,
 );
 sagas.forEach(sagaMiddleware.run);
 runSubscriptions(models);
@@ -48,8 +53,8 @@ render();
 if (module.hot) {
     const renderNormally = render;
     const renderException = (error) => {
-        const RedBox = require("redbox-react");
-        ReactDOM.render(<RedBox error={error} />, document.getElementById("root"));
+        const RedBox = require('redbox-react');
+        ReactDOM.render(<RedBox error={error} />, document.getElementById('root'));
     };
     render = () => {
         try {
@@ -58,7 +63,7 @@ if (module.hot) {
             renderException(error);
         }
     };
-    module.hot.accept("./router", () => {
+    module.hot.accept('./router', () => {
         render();
     });
 }
@@ -80,14 +85,14 @@ if (module.hot) {
 
 
 function render() {
-    const Routes = require("./router").default;
+    const Routes = require('./router').default;
     ReactDOM.render(
-        <Provider store={store}>
-            <LocaleProvider locale={zhCN}>
-                <Routes history={history} />
+      <Provider store={store}>
+          <LocaleProvider locale={zhCN}>
+              <Routes history={history} />
             </LocaleProvider>
         </Provider>,
-        document.getElementById("root")
+        document.getElementById('root'),
     );
 }
 
@@ -95,7 +100,7 @@ function render() {
 function runSubscriptions(models) {
     models.forEach(({ subscriptions }) => {
         if (subscriptions) {
-            Object.values(subscriptions).forEach(func => {
+            Object.values(subscriptions).forEach((func) => {
                 func({ ...store, history });
             });
         }
@@ -103,10 +108,10 @@ function runSubscriptions(models) {
 }
 
 function getModels() {
-    const context = require.context("./models", true, /\.js$/);
+    const context = require.context('./models', true, /\.js$/);
     const keys = context.keys();
     const models = [];
-    keys.forEach(key => {
+    keys.forEach((key) => {
         if (context(key)) {
             models.push(context(key).default);
         }
@@ -123,7 +128,7 @@ function getReducers(models, history) {
         router: connectRouter(history),
     };
     let _reducers = null;
-    models.forEach(model => {
+    models.forEach((model) => {
         _reducers = reducerEnhancer(model.namespace, model.reducers);
         reducers[model.namespace] = handleActions(_reducers, model.state);
     });
@@ -133,7 +138,7 @@ function getReducers(models, history) {
 function reducerEnhancer(namespace, reducers) {
     const reducerEnhancer = {};
     if (reducers) {
-        Object.keys(reducers).forEach(key => {
+        Object.keys(reducers).forEach((key) => {
             reducerEnhancer[`${namespace}/${key}`] = reducers[key];
         });
     }
@@ -142,9 +147,7 @@ function reducerEnhancer(namespace, reducers) {
 
 
 function getSagas(models) {
-    return models.map(model => {
-        return getSaga(model.namespace, model.effects);
-    });
+    return models.map(model => getSaga(model.namespace, model.effects));
 }
 
 function getSaga(namespace, effects) {
@@ -155,12 +158,12 @@ function getSaga(namespace, effects) {
                 yield fork(watcher);
             }
         }
-    }
+    };
 }
 
 function getWatcher(k, saga) {
     let _saga = saga;
-    let _type = "takeEvery";
+    let _type = 'takeEvery';
     if (Array.isArray(saga)) {
         [_saga, opts] = saga;
         _type = opts.type;
@@ -174,17 +177,16 @@ function getWatcher(k, saga) {
         }
     }
 
-    if (_type === "watcher") {
+    if (_type === 'watcher') {
         return sagaWithErrorCatch;
-    } else if (_type === "takeEvery") {
+    } if (_type === 'takeEvery') {
         return function* () {
             yield takeEvery(k, sagaWithErrorCatch);
-        }
-    } else {
-        return function* () {
-            yield takeLatest(k, sagaWithErrorCatch);
         };
     }
+    return function* () {
+        yield takeLatest(k, sagaWithErrorCatch);
+    };
 }
 
 function onError(e) {

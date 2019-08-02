@@ -1,7 +1,7 @@
-import React from "react";
-import { isPromise } from "../../utils/util";
-import PromiseRender from "./PromiseRender";
-import { CURRENT } from "./renderAuthorize";
+import React from 'react';
+import { isPromise } from '../../utils/util';
+import PromiseRender from './PromiseRender';
+import { CURRENT } from './renderAuthorize';
 
 
 /**
@@ -13,20 +13,20 @@ import { CURRENT } from "./renderAuthorize";
  * @param { 未通过的组件 no pass components } Exception
  */
 const checkPermissions = (authority, currentAuthority, target, Exception) => {
-    // 没有权限默认查看所有 
-    if(!authority) {
+    // 没有权限默认查看所有
+    if (!authority) {
         return target;
     }
 
     // Array处理
-    if(Array.isArray(authority)) {
-        if(authority.includes(currentAuthority)) {
+    if (Array.isArray(authority)) {
+        if (authority.includes(currentAuthority)) {
             return target;
         }
-        if(Array.isArray(currentAuthority)) {
-            for(let i = 0, length = currentAuthority.length; i < length; i++) {
-                let item = currentAuthority[i];
-                if(authority.includes(item)) {
+        if (Array.isArray(currentAuthority)) {
+            for (let i = 0, { length } = currentAuthority; i < length; i++) {
+                const item = currentAuthority[i];
+                if (authority.includes(item)) {
                     return target;
                 }
             }
@@ -35,14 +35,14 @@ const checkPermissions = (authority, currentAuthority, target, Exception) => {
     }
 
     // String处理
-    if(typeof authority === "string") {
-        if(authority === currentAuthority) {
+    if (typeof authority === 'string') {
+        if (authority === currentAuthority) {
             return target;
         }
-        if(Array.isArray(currentAuthority)) {
-            for(let i = 0, length = currentAuthority.length; i < length; i++) {
-                let item = currentAuthority[i];
-                if(authority.includes(item)) {
+        if (Array.isArray(currentAuthority)) {
+            for (let i = 0, { length } = currentAuthority; i < length; i++) {
+                const item = currentAuthority[i];
+                if (authority.includes(item)) {
                     return target;
                 }
             }
@@ -51,30 +51,28 @@ const checkPermissions = (authority, currentAuthority, target, Exception) => {
     }
 
     // Promise处理
-    if(isPromise(authority)) {
-        return <PromiseRender ok={ target } error={ Exception } promise={ authority }/>;
+    if (isPromise(authority)) {
+        return <PromiseRender ok={target} error={Exception} promise={authority} />;
     }
 
     // Function处理
-    if(typeof authority === "function") {
+    if (typeof authority === 'function') {
         try {
-            let bool = authority(currentAuthority);
-            if(isPromise(bool)) {
-                return <PromiseRender ok={ target } error={ Exception } promise={ bool }/>;
+            const bool = authority(currentAuthority);
+            if (isPromise(bool)) {
+                return <PromiseRender ok={target} error={Exception} promise={bool} />;
             }
-            if(bool) {
+            if (bool) {
                 return target;
             }
             return Exception;
-        } catch(error) {
+        } catch (error) {
             throw error;
         }
     }
-}
+};
 
-const check = (authority, target, Exception) => {
-    return checkPermissions(authority, CURRENT, target, Exception);
-}
+const check = (authority, target, Exception) => checkPermissions(authority, CURRENT, target, Exception);
 
 export { checkPermissions };
-export default check; 
+export default check;

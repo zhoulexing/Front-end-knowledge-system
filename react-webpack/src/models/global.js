@@ -1,15 +1,15 @@
 export default {
-    namespace: "global",
+    namespace: 'global',
     state: {
         count: 3,
     },
     effects: {
-        *asyncAdd({ payload }, { call, put }) {
+        * asyncAdd({ payload }, { call, put }) {
             yield put({
-                type: "add",
+                type: 'add',
                 payload,
             });
-        }
+        },
     },
     reducers: {
         add(state, { payload }) {
@@ -25,4 +25,4 @@ export default {
             };
         },
     },
-}
+};

@@ -1,9 +1,9 @@
-import React, { PureComponent } from "react";
-import { Layout, Menu, Icon } from "antd";
-import { Link } from "react-router";
-import pathToRegexp from "path-to-regexp";
-import { urlToList } from "../../utils/util";
-import styles from "./index.less";
+import React, { PureComponent } from 'react';
+import { Layout, Menu, Icon } from 'antd';
+import { Link } from 'react-router';
+import pathToRegexp from 'path-to-regexp';
+import { urlToList } from '../../utils/util';
+import styles from './index.less';
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
@@ -11,13 +11,13 @@ const { Sider } = Layout;
 /**
  * 根据icon判定是图片还是字体图标
  * @param { string } icon
- * eg: "/images/example.png" 
+ * eg: "/images/example.png"
  * eg: "example"
  * eg: <Icon type="example"/>
  */
-const getIcon = icon => {
-    if (typeof icon === "string") {
-        if (icon.indexOf("images") >= 0) {
+const getIcon = (icon) => {
+    if (typeof icon === 'string') {
+        if (icon.indexOf('images') >= 0) {
             return <img src={icon} alt="icon" className={`${styles.icon} sider-menu-item-img`} />;
         }
         return <Icon type={icon} />;
@@ -30,25 +30,23 @@ const getIcon = icon => {
  * @param  menu
  * eg: [{path:string},{path:string}] => [path,path2]
  */
-export const getFlatMenuKeys = menu =>
-    menu.reduce((keys, item) => {
-        keys.push(item.path);
-        if (item.children) {
-            return keys.concat(getFlatMenuKeys(item.children));
-        }
-        return keys;
-    }, []);
+export const getFlatMenuKeys = menu => menu.reduce((keys, item) => {
+    keys.push(item.path);
+    if (item.children) {
+        return keys.concat(getFlatMenuKeys(item.children));
+    }
+    return keys;
+}, []);
 
 /**
  * 找到所有匹配的路劲
  * @param  flatMenuKeys: [/abc, /abc/:id, /abc/:id/info]
  * @param  paths: [/abc, /abc/11, /abc/11/info]
  */
-export const getMenuMatchKeys = (flatMenuKeys, paths) =>
-    paths.reduce(
-        (matchKeys, path) => matchKeys.concat(flatMenuKeys.filter(item => pathToRegexp(item).test(path))),
-        []
-    );
+export const getMenuMatchKeys = (flatMenuKeys, paths) => paths.reduce(
+    (matchKeys, path) => matchKeys.concat(flatMenuKeys.filter(item => pathToRegexp(item).test(path))),
+    [],
+);
 
 
 export default class SiderMenu extends PureComponent {
@@ -56,7 +54,7 @@ export default class SiderMenu extends PureComponent {
         super(props);
         this.flatMenuKeys = getFlatMenuKeys(props.menuData);
         this.state = {
-            openKeys: this.getDefaultCollapsedSubMenus(props)
+            openKeys: this.getDefaultCollapsedSubMenus(props),
         };
     }
 
@@ -66,19 +64,21 @@ export default class SiderMenu extends PureComponent {
      */
     getDefaultCollapsedSubMenus(props) {
         const {
-            location: { pathname }
+            location: { pathname },
         } = props || this.props;
         return getMenuMatchKeys(this.flatMenuKeys, urlToList(pathname));
     }
 
     render() {
-        const { logo, menuData, collapsed, onCollapse } = this.props;
+        const {
+            logo, menuData, collapsed, onCollapse,
+        } = this.props;
         const { openKeys } = this.state;
 
         const menuProps = collapsed
             ? {}
             : {
-                openKeys
+                openKeys,
             };
 
         let selectedKeys = this.getSelectedMenuKeys();
@@ -88,33 +88,33 @@ export default class SiderMenu extends PureComponent {
         return (
             <Sider
                 trigger={null}
-                collapsible
+            collapsible
                 collapsed={collapsed}
-                onCollapse={onCollapse}
-                width={256}
-                className={styles.sider}
-            >
+            onCollapse={onCollapse}
+            width={256}
+            className={styles.sider}
+          >
                 <div className={styles.logo}>
-                    <Link to="/apps">
-                        <img src={ logo } alt="logo"/>
+                <Link to="/apps">
+                      <img src={logo} alt="logo" />
                         <h1>周某人</h1>
                     </Link>
-                </div>
-                <Menu 
-                    theme="dark" 
-                    mode="inline"
-                    style={{ padding: "16px 0", width: "100%" }}
-                    selectedKeys={selectedKeys}
-                    onOpenChange={this.handleOpenChange} 
+              </div>
+            <Menu
+                  theme="dark"
+                  mode="inline"
+                  style={{ padding: '16px 0', width: '100%' }}
+                  selectedKeys={selectedKeys}
+                    onOpenChange={this.handleOpenChange}
                     {...menuProps}
                 >
                     { this.getNavMenuItems(menuData) }
                 </Menu>
-            </Sider>
-        )
+          </Sider>
+        );
     }
 
-    handleOpenChange = openKeys => {
+    handleOpenChange = (openKeys) => {
         const lastOpenKey = openKeys[openKeys.length - 1];
         const moreThanOne = openKeys.filter(openKey => this.isMainMenu(openKey)).length > 1;
         this.setState({
@@ -122,7 +122,7 @@ export default class SiderMenu extends PureComponent {
         });
     };
 
-    isMainMenu = key => {
+    isMainMenu = (key) => {
         const { menuData } = this.props;
         return menuData.some(item => key && (item.key === key || item.path === key));
     };
@@ -132,7 +132,7 @@ export default class SiderMenu extends PureComponent {
      */
     getSelectedMenuKeys = () => {
         const {
-            location: { pathname }
+            location: { pathname },
         } = this.props;
         return getMenuMatchKeys(this.flatMenuKeys, urlToList(pathname));
     };
@@ -142,12 +142,12 @@ export default class SiderMenu extends PureComponent {
      * @param { Array } menuData
      */
     getNavMenuItems(menuData) {
-        if(!menuData) {
+        if (!menuData) {
             return [];
         }
         return menuData
             .filter(item => item.name && !item.hideInMenu)
-            .map(item => {
+            .map((item) => {
                 const ItemDom = this.getSubMenuOrItem(item);
                 return this.checkPermissionItem(item.authority, ItemDom);
             })
@@ -160,43 +160,42 @@ export default class SiderMenu extends PureComponent {
             // 当无子菜单时就不展示菜单
             if (childrenItems && childrenItems.length > 0) {
                 return (
-                    <SubMenu
+                  <SubMenu
                         title={
                             item.icon ? (
-                                <span>
-                                    {getIcon(item.icon)}
-                                    <span>{item.name}</span>
+                              <span>
+                                  {getIcon(item.icon)}
+                                  <span>{item.name}</span>
                                 </span>
                             ) : (
                                 item.name
                             )
                         }
-                        key={item.path}
+                      key={item.path}
                     >
-                    {childrenItems}
+                        {childrenItems}
                     </SubMenu>
                 );
             }
             return null;
-        } else {
-            return <Menu.Item key={item.path}>{this.getMenuItemPath(item)}</Menu.Item>;
         }
+        return <Menu.Item key={item.path}>{this.getMenuItemPath(item)}</Menu.Item>;
     }
 
-    getMenuItemPath = item => {
+    getMenuItemPath = (item) => {
         const icon = getIcon(item.icon);
         const { target, name, path } = item;
-    
+
         const { location } = this.props;
         return (
             <Link
-                to={path}
+            to={path}
                 target={target}
                 replace={path === location.pathname}
-            >
+          >
                 {icon}
                 <span>{name}</span>
-            </Link>
+          </Link>
         );
     };
 
@@ -209,4 +208,3 @@ export default class SiderMenu extends PureComponent {
         return ItemDom;
     };
 }
-

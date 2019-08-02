@@ -18,10 +18,8 @@ function channel() {
 const chan = channel();
 
 
-
-
 function runTakeEffect(effect, cb) {
-    chan.take(input => {
+    chan.take((input) => {
         cb(input);
     });
 }
@@ -37,12 +35,12 @@ function call(genPromise) {
     return {
         isEffect: true,
         type: 'CALL',
-        fn: genPromise
-    }
+        fn: genPromise,
+    };
 }
 function take() {
     return {
-      type: 'TAKE'
+        type: 'TAKE',
     };
 }
 function fork(cb) {
@@ -54,18 +52,18 @@ function fork(cb) {
 function cancel() {
     return {
         type: 'CANCEL',
-    }
+    };
 }
 function* takeEvery(worker) {
     yield fork(function* () {
-        while(true) {
+        while (true) {
             const action = yield take();
             worker(action);
         }
     });
 }
 function* mainSaga() {
-    yield takeEvery(action => {
+    yield takeEvery((action) => {
         $result.innerHTML = action;
     });
 }
@@ -75,22 +73,22 @@ function task(iterator) {
         const result = iter.next(args);
         if (!result.done) {
             const effect = result.value;
-    
+
             // 判断effect是否是iterator
             if (typeof effect[Symbol.iterator] === 'function') {
                 runForkEffect(effect, next);
             } else if (effect.type) {
                 switch (effect.type) {
-                    case 'CANCEL':
-                        runCancelEffect();
-                        break;
-                    case 'TAKE':
-                        runTakeEffect(effect, next);
-                        break;
-                    case 'FORK':
-                        runForkEffect(effect, next);
-                        break;
-                    default:
+                case 'CANCEL':
+                    runCancelEffect();
+                    break;
+                case 'TAKE':
+                    runTakeEffect(effect, next);
+                    break;
+                case 'FORK':
+                    runForkEffect(effect, next);
+                    break;
+                default:
                 }
             }
         }
@@ -101,13 +99,6 @@ task(mainSaga);
 
 let i = 0;
 $btn.addEventListener('click', () => {
-    const action =`action data${i++}`;
+    const action = `action data${i++}`;
     chan.put(action);
 }, false);
-
-
-  
-  
-
-  
-

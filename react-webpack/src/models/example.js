@@ -1,12 +1,12 @@
 export default {
-    namespace: "example",
+    namespace: 'example',
     state: {
-        name: "zlx",
+        name: 'zlx',
     },
     effects: {
-        
+
     },
     reducers: {
-        
+
     },
-}
+};

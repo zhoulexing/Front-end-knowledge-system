@@ -1,14 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Breadcrumb } from "antd";
-import { urlToList } from "../../utils/util";
-import pathToRegexp from "path-to-regexp";
-import styles from "./index.less";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Breadcrumb } from 'antd';
+import pathToRegexp from 'path-to-regexp';
+import { urlToList } from '../../utils/util';
+import styles from './index.less';
 
 export function getBreadcrumb(breadcrumbNameMap, url) {
     let breadcrumb = breadcrumbNameMap[url];
     if (!breadcrumb) {
-        Object.keys(breadcrumbNameMap).forEach(item => {
+        Object.keys(breadcrumbNameMap).forEach((item) => {
             if (pathToRegexp(item).test(url)) {
                 breadcrumb = breadcrumbNameMap[item];
             }
@@ -26,7 +26,7 @@ export default class PageHeader extends React.PureComponent {
     };
 
     state = {
-        breadcrumb: null
+        breadcrumb: null,
     };
 
     componentDidMount() {
@@ -36,10 +36,10 @@ export default class PageHeader extends React.PureComponent {
     render() {
         const { breadcrumb } = this.state;
         return (
-            <div className={ styles.pageHeader }>
+            <div className={styles.pageHeader}>
                 {breadcrumb}
-            </div>
-        )
+          </div>
+        );
     }
 
     getBreadcrumbDom = () => {
@@ -54,7 +54,9 @@ export default class PageHeader extends React.PureComponent {
      */
     conversionBreadcrumbList = () => {
         const { breadcrumbList, breadcrumbSeparator } = this.props;
-        const { routes, params, routerLocation, breadcrumbNameMap } = this.getBreadcrumbProps();
+        const {
+            routes, params, routerLocation, breadcrumbNameMap,
+        } = this.getBreadcrumbProps();
 
         // 如果传进来了breadcrumbList，则采用breadcrumbList作为面包屑
         if (breadcrumbList && breadcrumbList.length) {
@@ -65,12 +67,12 @@ export default class PageHeader extends React.PureComponent {
         if (routes && params) {
             return (
                 <Breadcrumb
-                    className={styles.breadcrumb}
+                className={styles.breadcrumb}
                     routes={routes.filter(route => route.breadcrumbName)}
-                    params={params}
+                params={params}
                     itemRender={this.itemRender}
                     separator={breadcrumbSeparator}
-                />
+              />
             );
         }
 
@@ -83,7 +85,7 @@ export default class PageHeader extends React.PureComponent {
     }
 
     conversionFromLocation = (routerLocation, breadcrumbNameMap) => {
-        const { breadcrumbSeparator, linkElement = "a" } = this.props;
+        const { breadcrumbSeparator, linkElement = 'a' } = this.props;
         const pathSnippets = urlToList(routerLocation.pathname);
 
         const extraBreadcrumbItems = pathSnippets.map((url, index) => {
@@ -92,12 +94,12 @@ export default class PageHeader extends React.PureComponent {
             return currentBreadcrumb.name && !currentBreadcrumb.hideInBreadcrumb ? (
                 <Breadcrumb.Item key={url}>
                     {React.createElement(
-                        isLinkable ? linkElement : "span",
-                        { [linkElement === "a" ? "href" : "to"]: url },
-                        currentBreadcrumb.name
+                        isLinkable ? linkElement : 'span',
+                        { [linkElement === 'a' ? 'href' : 'to']: url },
+                        currentBreadcrumb.name,
                     )}
-                </Breadcrumb.Item>
-                ) : null;
+              </Breadcrumb.Item>
+            ) : null;
         });
 
         /* extraBreadcrumbItems.unshift(
@@ -114,18 +116,20 @@ export default class PageHeader extends React.PureComponent {
 
         return (
             <Breadcrumb className={styles.breadcrumb} separator={breadcrumbSeparator}>
-                {extraBreadcrumbItems}
-            </Breadcrumb>
+            {extraBreadcrumbItems}
+          </Breadcrumb>
         );
     }
 
     getBreadcrumbProps = () => {
-        const { routes, params, location, breadcrumbNameMap } = this.props;
+        const {
+            routes, params, location, breadcrumbNameMap,
+        } = this.props;
         const {
             routes: croutes,
             params: cparams,
             location: clocation,
-            breadcrumbNameMap: cbreadcrumbNameMap
+            breadcrumbNameMap: cbreadcrumbNameMap,
         } = this.context;
         return {
             routes: routes || croutes,
@@ -136,7 +140,7 @@ export default class PageHeader extends React.PureComponent {
     }
 
     conversionFromProps = () => {
-        const { breadcrumbList, breadcrumbSeparator, linkElement = "a" } = this.props;
+        const { breadcrumbList, breadcrumbSeparator, linkElement = 'a' } = this.props;
         return (
             <Breadcrumb className={styles.breadcrumb} separator={breadcrumbSeparator}>
                 {breadcrumbList.map(item => (
@@ -145,31 +149,31 @@ export default class PageHeader extends React.PureComponent {
                             ? React.createElement(
                                 linkElement,
                                 {
-                                    [linkElement === "a" ? "href" : "to"]: item.href,
+                                    [linkElement === 'a' ? 'href' : 'to']: item.href,
                                 },
-                                item.title
+                                item.title,
                             )
                             : item.title}
-                    </Breadcrumb.Item>
+                  </Breadcrumb.Item>
                 ))}
-            </Breadcrumb>
-        )
+          </Breadcrumb>
+        );
     }
 
     itemRender = (route, params, routes, paths) => {
-        const { linkElement = "a" } = this.props;
+        const { linkElement = 'a' } = this.props;
         const last = routes.indexOf(route) === routes.length - 1;
         return last || !route.component ? (
             <span>{route.breadcrumbName}</span>
         ) : (
-                React.createElement(
-                    linkElement,
-                    {
-                        href: paths.join("/") || "/",
-                        to: paths.join("/") || "/",
-                    },
-                    route.breadcrumbName
-                )
-            );
+            React.createElement(
+                linkElement,
+                {
+                    href: paths.join('/') || '/',
+                    to: paths.join('/') || '/',
+                },
+                route.breadcrumbName,
+            )
+        );
     };
 }

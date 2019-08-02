@@ -1,7 +1,7 @@
-import React, { PureComponent } from "react";
-import { Route, Switch } from "react-router-dom";
-import { getRoutes } from "../utils/util";
-import style from "./MainLayout.less";
+import React, { PureComponent } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { getRoutes } from '../utils/util';
+import style from './MainLayout.less';
 
 export default class MainLayout extends PureComponent {
     componentDidMount() {
@@ -14,20 +14,20 @@ export default class MainLayout extends PureComponent {
             match,
         } = this.props;
         return (
-            <div className={style.mainLayout}>
-                <div>MainLayout</div>
+          <div className={style.mainLayout}>
+              <div>MainLayout</div>
                 <Switch>
-                    {getRoutes(match.path, routerData).map(item => (
-                        <Route
-                            key={item.key}
-                            path={item.path}
-                            component={item.component}
-                            exact={item.exact}
+              {getRoutes(match.path, routerData).map(item => (
+                      <Route
+                          key={item.key}
+                          path={item.path}
+                          component={item.component}
+                          exact={item.exact}
                         />
                     ))}
-                </Switch>
+            </Switch>
             </div>
-        )
+        );
     }
 
     async login() {

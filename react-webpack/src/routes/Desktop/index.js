@@ -1,15 +1,14 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Button } from "antd";
-import Count from "./count";
-import { DragDropContext } from "react-dnd";
-import HTML5Backend from "react-dnd-html5-backend";
-import { a, b } from "../../utils/util";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Button } from 'antd';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+import Count from './count';
+import { a, b } from '../../utils/util';
 
 console.log(a, b);
 
 class Desktop extends Component {
-
     constructor(props) {
         super(props);
         // props.dispatch({
@@ -30,16 +29,16 @@ class Desktop extends Component {
             <div>
                 <Button size="large" type="primary" onClick={this.add}>Desktop1</Button>
                 <Count />
-            </div>
-        )
+          </div>
+        );
     }
 
     add = () => {
         this.props.dispatch({
-            type: "global/add",
+            type: 'global/add',
             payload: {
-                count: 6
-            }
+                count: 6,
+            },
         });
     }
 }
@@ -47,8 +46,8 @@ class Desktop extends Component {
 function mapStateToProps({ global, example }) {
     return {
         count: global.count,
-        name: example.name
-    }
+        name: example.name,
+    };
 }
 
 export default connect(mapStateToProps)(Desktop);

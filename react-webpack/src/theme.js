@@ -1,6 +1,6 @@
 module.exports = {
-    "@primary-color": "#1890ff"
-}
+    '@primary-color': '#1890ff',
+};
 module.exports = {
-    "@primary-color": "#1890ff"
-}
+    '@primary-color': '#1890ff',
+};

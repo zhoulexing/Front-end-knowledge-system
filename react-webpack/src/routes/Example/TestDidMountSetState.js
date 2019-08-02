@@ -1,11 +1,10 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 export default class TestDidMountSetState extends Component {
-
-    state = { color: "purple" };
+    state = { color: 'purple' };
 
     componentDidMount() {
-        console.log("beforeColor:", this.state.color);
+        console.log('beforeColor:', this.state.color);
         // this.setState({
         //     color: "red"
         // }, () => {
@@ -19,36 +18,35 @@ export default class TestDidMountSetState extends Component {
         // });
 
         setTimeout(() => {
-            console.log("async beforeColor:", this.state.color);
+            console.log('async beforeColor:', this.state.color);
             this.setState({
-                color: "blue"
+                color: 'blue',
             }, () => {
-                console.log("async afterColor:", this.state.color);
+                console.log('async afterColor:', this.state.color);
             });
         }, 0);
     }
 
     render() {
-        console.log("renderColor:", this.state.color);
+        console.log('renderColor:', this.state.color);
         return (
             <TestChildDidMount />
-        )
+        );
     }
 }
 
 
 class TestChildDidMount extends Component {
-
     state = {
-        name: "zlx",
+        name: 'zlx',
     }
 
     componentDidMount() {
-        console.log("beforeName:", this.state.name);
+        console.log('beforeName:', this.state.name);
         this.setState({
-            name: "yww"
+            name: 'yww',
         }, () => {
-            console.log("afterName:", this.state.name);
+            console.log('afterName:', this.state.name);
         });
 
         // setTimeout(() => {
@@ -62,9 +60,9 @@ class TestChildDidMount extends Component {
     }
 
     render() {
-        console.log("renderName:", this.state.name);
+        console.log('renderName:', this.state.name);
         return (
             <div>{ this.state.name }</div>
-        )
+        );
     }
 }
