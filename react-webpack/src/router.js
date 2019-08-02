@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Router, Redirect, Switch } from "react-router";
+import { Route, Redirect, Switch } from "react-router";
 import { ConnectedRouter } from "connected-react-router";
 import { getRouterData } from "./common/router";
 import Authorized from "./utils/Authorized";

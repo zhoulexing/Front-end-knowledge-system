@@ -10,7 +10,6 @@ import { takeEvery, takeLatest, fork, call, put } from "redux-saga/effects";
 import { createStore, compose, applyMiddleware, combineReducers } from "redux";
 import { routerMiddleware, connectRouter } from "connected-react-router";
 import { handleActions } from "redux-actions";
-import Routes from "./router";
 
 import zhCN from "antd/lib/locale-provider/zh_CN";
 import moment from "moment";
@@ -18,152 +17,178 @@ import "moment/locale/zh-cn";
 import { LocaleProvider } from "antd";
 moment.locale("zh-cn");
 
+const sagaMiddleware = createSagaMiddleware();
+const history = createHashHistory();
+const models = getModels();
+const initialState = getInitialState();
+const reducers = getReducers(models, history);
+const sagas = getSagas(models);
 
-const app = ((opts) => {
-    opts = opts || {};
-    const _history = opts.history || createHashHistory();
-    const _models = [];
-    let _routes = null;
-    return {
-        model,
-        _store: null,
-        _models,
-        router,
-        start,
-    }
 
-    function router(routes) {
-        _routes = routes;
-    }
+// 初始化store
+const middlewares = [
+    routerMiddleware(history),
+    sagaMiddleware,
+    process.env.NODE_ENV === "development" && createLogger(),
+].filter(Boolean);
+const enhancer = compose(
+    applyMiddleware(...middlewares),
+    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : args => args
+);
+const store = createStore(
+    combineReducers({ ...reducers }),
+    initialState,
+    enhancer
+);
+sagas.forEach(sagaMiddleware.run);
+runSubscriptions(models);
 
-    function model(model) {
-        _models.push(model);
-    }
 
-    function start(container) {
-        const sagaMiddleware = createSagaMiddleware();
-        let reducers = {
-            router: connectRouter(_history),
-        };
-        let sagas = [];
-        _models.forEach(model => {
-            reducers[model.namespace] = handleActions(reducerEnhancer(model.namespace, model.reducers || {}), model.state);
-            if(model.effects) {
-                sagas.push(getSaga(model.namespace, model.effects));
-            }
-        });
-
-        // 初始化store
-        const middlewares = [
-            routerMiddleware(_history),
-            sagaMiddleware,
-            process.env.NODE_ENV === "development" && createLogger(),
-        ].filter(Boolean);
-        const enhancer = compose(
-            applyMiddleware(...middlewares),
-            window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : args => args
-        );
-        const initialState = opts.initialState || {};
-        const store = app.store = createStore(
-            combineReducers({ ...reducers }), initialState, enhancer
-        );
-        
-        sagas.forEach(sagaMiddleware.run);
-
-        // 执行model中的监听函数
-        _models.forEach(({ subscriptions }) => {
-            if (subscriptions) {
-                Object.values(subscriptions).forEach(func => {
-                    func({ ...store, history: _history });
-                });
-            }
-        });
-
-        if(container) {
-            render();
-        } else {
-            const Routes = _routes;
-            return () => (
-                <Provider store={store}>
-                    {/* <LocaleProvider locale={zhCN}> */}
-                        <Routes history={_history} />
-                    {/* </LocaleProvider> */}
-                </Provider>
-            );
+render();
+if (module.hot) {
+    const renderNormally = render;
+    const renderException = (error) => {
+        const RedBox = require("redbox-react");
+        ReactDOM.render(<RedBox error={error} />, document.getElementById("root"));
+    };
+    render = () => {
+        try {
+            renderNormally();
+        } catch (error) {
+            renderException(error);
         }
+    };
+    module.hot.accept("./router", () => {
+        render();
+    });
+}
 
-        function reducerEnhancer(namespace, reducers) {
-            const reducerEnhancer = {};
-            Object.keys(reducers).forEach(key => {
-                reducerEnhancer[`${namespace}/${key}`] = reducers[key];
+
+// module.hot.accept("../reducers", () => {
+//     const nextRootReducer = require("../reducers/index");
+//     store.replaceReducer(nextRootReducer);
+// });
+// module.hot.accept("../sagas", () => {
+//     const getNewSagas = require("../sagas");
+//     sagaTask.cancel()
+//     sagaTask.done.then(() => {
+//         sagaTask = sagaMiddleware.run(function* replacedSaga(action) {
+//             yield getNewSagas()
+//         })
+//     })
+// });
+
+
+function render() {
+    const Routes = require("./router").default;
+    ReactDOM.render(
+        <Provider store={store}>
+            <LocaleProvider locale={zhCN}>
+                <Routes history={history} />
+            </LocaleProvider>
+        </Provider>,
+        document.getElementById("root")
+    );
+}
+
+// 执行model中的监听函数
+function runSubscriptions(models) {
+    models.forEach(({ subscriptions }) => {
+        if (subscriptions) {
+            Object.values(subscriptions).forEach(func => {
+                func({ ...store, history });
             });
-            return reducerEnhancer;
         }
-        
-        function getSaga(namespace, effects) {
-            return function*() {
-                for(const key in effects) {
-                    if (Object.prototype.hasOwnProperty.call(effects, key)) {
-                        const watcher = getWatcher(`${namespace}/${key}`, effects[key]);
-                        yield fork(watcher);
-                    }
-                }
-            }
-        }    
+    });
+}
 
-        function getWatcher(k, saga) {
-            let _saga = saga;
-            let _type = "takeEvery";
-            if (Array.isArray(saga)) {
-                [ _saga, opts ] = saga;
-                _type = opts.type;
-            }
-
-            function* sagaWithErrorCatch(...arg) {
-                try {
-                    yield _saga(...arg, { call, put });
-                } catch (e) {
-                    onError(e);
-                }
-            }
-
-            if(_type === "watcher") {
-                return sagaWithErrorCatch;
-            } else if(_type === "takeEvery") {
-                return function*() {
-                    yield takeEvery(k, sagaWithErrorCatch);
-                }
-            } else {
-                return function*() {
-                    yield takeLatest(k, sagaWithErrorCatch);
-                };
-            }
+function getModels() {
+    const context = require.context("./models", true, /\.js$/);
+    const keys = context.keys();
+    const models = [];
+    keys.forEach(key => {
+        if (context(key)) {
+            models.push(context(key).default);
         }
+    });
+    return models;
+}
 
-        function onError(e) {
-            console.error(e);
-        }
+function getInitialState() {
+    return {};
+}
 
-        function render() {
-            ReactDOM.render(
-                <Provider store={store}>
-                    <Routes history={_history}></Routes>
-                </Provider>,
-                container
-            );
+function getReducers(models, history) {
+    const reducers = {
+        router: connectRouter(history),
+    };
+    let _reducers = null;
+    models.forEach(model => {
+        _reducers = reducerEnhancer(model.namespace, model.reducers);
+        reducers[model.namespace] = handleActions(_reducers, model.state);
+    });
+    return reducers;
+}
+
+function reducerEnhancer(namespace, reducers) {
+    const reducerEnhancer = {};
+    if (reducers) {
+        Object.keys(reducers).forEach(key => {
+            reducerEnhancer[`${namespace}/${key}`] = reducers[key];
+        });
+    }
+    return reducerEnhancer;
+}
+
+
+function getSagas(models) {
+    return models.map(model => {
+        return getSaga(model.namespace, model.effects);
+    });
+}
+
+function getSaga(namespace, effects) {
+    return function* () {
+        for (const key in effects) {
+            if (Object.prototype.hasOwnProperty.call(effects, key)) {
+                const watcher = getWatcher(`${namespace}/${key}`, effects[key]);
+                yield fork(watcher);
+            }
         }
     }
-})();
+}
 
-
-const context = require.context("./models", true, /\.js$/);
-const keys = context.keys();
-keys.forEach(key => {
-    if(context(key)) {
-        app.model(context(key).default);
+function getWatcher(k, saga) {
+    let _saga = saga;
+    let _type = "takeEvery";
+    if (Array.isArray(saga)) {
+        [_saga, opts] = saga;
+        _type = opts.type;
     }
-});
-app.router(Routes);
-app.start(document.getElementById("root"));
 
-export default app._store;
+    function* sagaWithErrorCatch(...arg) {
+        try {
+            yield _saga(...arg, { call, put });
+        } catch (e) {
+            onError(e);
+        }
+    }
+
+    if (_type === "watcher") {
+        return sagaWithErrorCatch;
+    } else if (_type === "takeEvery") {
+        return function* () {
+            yield takeEvery(k, sagaWithErrorCatch);
+        }
+    } else {
+        return function* () {
+            yield takeLatest(k, sagaWithErrorCatch);
+        };
+    }
+}
+
+function onError(e) {
+    console.error(e);
+}
+
+export default store;

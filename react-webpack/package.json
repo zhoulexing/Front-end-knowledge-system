@@ -22,6 +22,7 @@
     "react-redux": "6.x",
     "react-router": "4.x",
     "react-router-dom": "4.x",
+    "react-table": "^6.10.0",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.5",
     "redux-logger": "^3.0.6",

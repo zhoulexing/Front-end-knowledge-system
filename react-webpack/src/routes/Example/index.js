@@ -4,6 +4,7 @@ import { findDOMNode } from "react-dom";
 import NewContextApi from "./NewContextApi";
 import TestDidMountSetState from "./TestDidMountSetState";
 import MouseWheel from "./MouseWheel";
+import ReactTable from "./ReactTable";
 
 export default class Example extends Component {
     constructor(props) {
@@ -34,6 +35,7 @@ export default class Example extends Component {
                 <NewContextApi />
                 <TestDidMountSetState />
                 <MouseWheel />
+                <ReactTable />
             </div>
         )
     }

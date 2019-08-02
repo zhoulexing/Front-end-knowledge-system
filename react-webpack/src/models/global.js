@@ -1,7 +1,7 @@
 export default {
     namespace: "global",
     state: {
-        count: 0,
+        count: 3,
     },
     effects: {
         *asyncAdd({ payload }, { call, put }) {

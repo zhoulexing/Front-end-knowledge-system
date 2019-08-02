@@ -1,2 +1,2 @@
-// 兼容ie
+// LocaleProvider兼容ie
 import "babel-polyfill"; 
