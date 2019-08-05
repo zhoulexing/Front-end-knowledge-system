@@ -3,9 +3,9 @@ import { getAuthority } from './authority';
 
 let Authorized = RenderAuthorized(getAuthority());
 
-const reloadAuthorized = function () {
+function reloadAuthorized() {
     Authorized = RenderAuthorized(getAuthority());
-};
+}
 
 export { reloadAuthorized };
 

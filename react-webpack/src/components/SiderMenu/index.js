@@ -86,30 +86,30 @@ export default class SiderMenu extends PureComponent {
             selectedKeys = [openKeys[openKeys.length - 1]];
         }
         return (
-            <Sider
-                trigger={null}
+          <Sider
+            trigger={null}
             collapsible
-                collapsed={collapsed}
+            collapsed={collapsed}
             onCollapse={onCollapse}
             width={256}
             className={styles.sider}
           >
-                <div className={styles.logo}>
-                <Link to="/apps">
-                      <img src={logo} alt="logo" />
-                        <h1>周某人</h1>
-                    </Link>
-              </div>
+            <div className={styles.logo}>
+              <Link to="/apps">
+                <img src={logo} alt="logo" />
+                <h1>周某人</h1>
+              </Link>
+            </div>
             <Menu
-                  theme="dark"
-                  mode="inline"
-                  style={{ padding: '16px 0', width: '100%' }}
-                  selectedKeys={selectedKeys}
-                    onOpenChange={this.handleOpenChange}
-                    {...menuProps}
-                >
-                    { this.getNavMenuItems(menuData) }
-                </Menu>
+              theme="dark"
+              mode="inline"
+              style={{ padding: '16px 0', width: '100%' }}
+              selectedKeys={selectedKeys}
+              onOpenChange={this.handleOpenChange}
+              {...menuProps}
+            >
+              { this.getNavMenuItems(menuData) }
+            </Menu>
           </Sider>
         );
     }
@@ -161,20 +161,20 @@ export default class SiderMenu extends PureComponent {
             if (childrenItems && childrenItems.length > 0) {
                 return (
                   <SubMenu
-                        title={
+                    title={
                             item.icon ? (
                               <span>
-                                  {getIcon(item.icon)}
-                                  <span>{item.name}</span>
-                                </span>
+                                {getIcon(item.icon)}
+                                <span>{item.name}</span>
+                              </span>
                             ) : (
                                 item.name
                             )
                         }
-                      key={item.path}
-                    >
-                        {childrenItems}
-                    </SubMenu>
+                    key={item.path}
+                  >
+                    {childrenItems}
+                  </SubMenu>
                 );
             }
             return null;
@@ -188,13 +188,13 @@ export default class SiderMenu extends PureComponent {
 
         const { location } = this.props;
         return (
-            <Link
+          <Link
             to={path}
-                target={target}
-                replace={path === location.pathname}
+            target={target}
+            replace={path === location.pathname}
           >
-                {icon}
-                <span>{name}</span>
+            {icon}
+            <span>{name}</span>
           </Link>
         );
     };

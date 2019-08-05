@@ -21,10 +21,10 @@ class Count extends Component {
         const { count } = this.props;
         const { name } = this.state;
         return (
-            <div>
-                <div>{ count }</div>
-                <div>{ name }</div>
-                <Button onClick={this.handleClick}>点我</Button>
+          <div>
+            <div>{ count }</div>
+            <div>{ name }</div>
+            <Button onClick={this.handleClick}>点我</Button>
           </div>
         );
     }

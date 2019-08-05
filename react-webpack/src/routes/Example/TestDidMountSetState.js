@@ -30,7 +30,7 @@ export default class TestDidMountSetState extends Component {
     render() {
         console.log('renderColor:', this.state.color);
         return (
-            <TestChildDidMount />
+          <TestChildDidMount />
         );
     }
 }
@@ -62,7 +62,7 @@ class TestChildDidMount extends Component {
     render() {
         console.log('renderName:', this.state.name);
         return (
-            <div>{ this.state.name }</div>
+          <div>{ this.state.name }</div>
         );
     }
 }

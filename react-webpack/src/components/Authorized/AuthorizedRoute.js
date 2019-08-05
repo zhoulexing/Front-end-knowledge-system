@@ -9,11 +9,11 @@ class AuthorizedRoute extends React.Component {
         } = this.props;
         return (
           <Authorized
-              authority={authority}
-              noMatch={<Route {...rest} render={() => <Redirect to={{ pathname: redirectPath }} />} />}
-            >
-              <Route {...rest} render={props => (Component ? <Component {...props} /> : render(props))} />
-            </Authorized>
+            authority={authority}
+            noMatch={<Route {...rest} render={() => <Redirect to={{ pathname: redirectPath }} />} />}
+          >
+            <Route {...rest} render={props => (Component ? <Component {...props} /> : render(props))} />
+          </Authorized>
         );
     }
 }

@@ -88,10 +88,10 @@ function render() {
     const Routes = require('./router').default;
     ReactDOM.render(
       <Provider store={store}>
-          <LocaleProvider locale={zhCN}>
-              <Routes history={history} />
-            </LocaleProvider>
-        </Provider>,
+        <LocaleProvider locale={zhCN}>
+          <Routes history={history} />
+        </LocaleProvider>
+      </Provider>,
         document.getElementById('root'),
     );
 }

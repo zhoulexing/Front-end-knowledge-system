@@ -26,9 +26,9 @@ class Desktop extends Component {
     render() {
         const { count } = this.props;
         return (
-            <div>
-                <Button size="large" type="primary" onClick={this.add}>Desktop1</Button>
-                <Count />
+          <div>
+            <Button size="large" type="primary" onClick={this.add}>Desktop1</Button>
+            <Count />
           </div>
         );
     }

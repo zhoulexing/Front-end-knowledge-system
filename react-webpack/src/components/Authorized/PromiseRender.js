@@ -37,7 +37,7 @@ export default class PromiseRender extends React.PureComponent {
             return <Component {...this.props} />;
         }
         return (
-            <div style={{
+          <div style={{
                 width: '100%',
                 height: '100%',
                 margin: 'auto',
@@ -45,7 +45,7 @@ export default class PromiseRender extends React.PureComponent {
                 textAlign: 'center',
             }}
           >
-                <Spin size="large" />
+            <Spin size="large" />
           </div>
         );
     }

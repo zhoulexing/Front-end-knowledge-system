@@ -15,21 +15,21 @@ export default class NoticeIcon extends React.PureComponent {
         }
         return (
           <Popover
-              placement="bottomRight"
-              content="hello"
-                popupClassName={styles.popover}
-                trigger="click"
-              arrowPointAtCenter
-              popupAlign={popupAlign}
-              onVisibleChange={onPopupVisibleChange}
-              {...popoverProps}
-            >
-              <span className={cs(className, styles.noticeButton)}>
+            placement="bottomRight"
+            content="hello"
+            popupClassName={styles.popover}
+            trigger="click"
+            arrowPointAtCenter
+            popupAlign={popupAlign}
+            onVisibleChange={onPopupVisibleChange}
+            {...popoverProps}
+          >
+            <span className={cs(className, styles.noticeButton)}>
               <Badge count={10} className={styles.badge}>
-                      <Icon type="bell" className={styles.icon} />
-                    </Badge>
-                </span>
-            </Popover>
+                <Icon type="bell" className={styles.icon} />
+              </Badge>
+            </span>
+          </Popover>
         );
     }
 }

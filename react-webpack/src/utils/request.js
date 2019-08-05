@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { notification } from 'antd';
-import { routerRedux } from 'dva/router';
+import { push } from 'connected-react-router';
 import store from '../index';
 
 function parseJSON(response) {
@@ -38,6 +38,6 @@ export default function request(url, options) {
         .then(parseJSON)
         .catch(() => {
             const { dispatch } = store;
-            dispatch(routerRedux.push('/login'));
+            dispatch(push('/login'));
         });
 }

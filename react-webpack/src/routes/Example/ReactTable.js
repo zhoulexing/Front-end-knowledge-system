@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
-import style from './index.less';
 
 export default class MyReactTable extends Component {
     render() {
         return (
           <ReactTable
-              columns={this.getColumns()}
-              data={this.getData()}
-              getTdProps={(a, b, c) => ({
+            columns={this.getColumns()}
+            data={this.getData()}
+            getTdProps={(a, b) => ({
                     style: {
                         borderRight: b && b.original.firstName === 'zhou' ? 'none' : '1px solid #eee',
                     },
                 })}
-            />
+          />
         );
     }
 

@@ -25,17 +25,17 @@ export default class Example extends Component {
 
     render() {
         return (
-            <div>
-            <marquee direction="left" style={{ width: '200px' }}>
-                <span>温州营业厅客户打算尽快来的哈就是大家撒谎大垃圾袋是肯德</span>
-              </marquee>
-                <Button onClick={this.getRef}>获取Ref</Button>
-                <Input />
-                <input ref={this.inputRef} />
-                <NewContextApi />
-                <TestDidMountSetState />
-                <MouseWheel />
-                <ReactTable />
+          <div>
+            <marquee direction='left' style={{ width: '200px' }}>
+              <span>温州营业厅客户打算尽快来的哈就是大家撒谎大垃圾袋是肯德</span>
+            </marquee>
+            <Button onClick={this.getRef}>获取Ref</Button>
+            <Input />
+            <input ref={this.inputRef} />
+            <NewContextApi />
+            <TestDidMountSetState />
+            <MouseWheel />
+            <ReactTable />
           </div>
         );
     }

@@ -13,19 +13,19 @@ const RouterConfig = ({ history }) => {
     const LoginLayout = routerData['/login'].component;
     return (
       <ConnectedRouter history={history}>
-          <Switch>
-                <Redirect exact from="/" to="/apps" />
+        <Switch>
+          <Redirect exact from="/" to="/apps" />
           <Route path="/login" component={LoginLayout} />
           <AuthorizedRoute
-                  path="/apps"
-                  render={props => <MainLayout {...props} />}
-                  authority={['admin']}
-                  redirectPath={getQueryPath('/login', {
+            path="/apps"
+            render={props => <MainLayout {...props} />}
+            authority={['admin']}
+            redirectPath={getQueryPath('/login', {
                         redirect: window.location.href,
                     })}
-                />
-            </Switch>
-        </ConnectedRouter>
+          />
+        </Switch>
+      </ConnectedRouter>
     );
 };
 

@@ -4,7 +4,7 @@ export default {
         count: 3,
     },
     effects: {
-        * asyncAdd({ payload }, { call, put }) {
+        * asyncAdd({ payload }, { put }) {
             yield put({
                 type: 'add',
                 payload,

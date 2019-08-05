@@ -1,8 +1,14 @@
 import React, { PureComponent } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { getRoutes } from '../utils/util';
+import { Button } from 'antd';
+import { push } from 'connected-react-router';
+import { connect } from 'react-redux';
 import style from './MainLayout.less';
+import { getRoutes } from '../utils/util';
 
+@connect(({ global }) => ({
+    global,
+}))
 export default class MainLayout extends PureComponent {
     componentDidMount() {
         this.login();
@@ -15,19 +21,25 @@ export default class MainLayout extends PureComponent {
         } = this.props;
         return (
           <div className={style.mainLayout}>
-              <div>MainLayout</div>
-                <Switch>
+            <div>MainLayout</div>
+            <Button onClick={this.goOtherRoute.bind(this, '/apps/example')}>go to example</Button>
+            <Button onClick={this.goOtherRoute.bind(this, '/apps/desktop')}>go to desktop</Button>
+            <Switch>
               {getRoutes(match.path, routerData).map(item => (
-                      <Route
-                          key={item.key}
-                          path={item.path}
-                          component={item.component}
-                          exact={item.exact}
-                        />
+                <Route
+                  key={item.key}
+                  path={item.path}
+                  component={item.component}
+                  exact={item.exact}
+                />
                     ))}
             </Switch>
-            </div>
+          </div>
         );
+    }
+
+    goOtherRoute(url) {
+        this.props.dispatch(push(url));
     }
 
     async login() {

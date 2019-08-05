@@ -36,8 +36,8 @@ export default class PageHeader extends React.PureComponent {
     render() {
         const { breadcrumb } = this.state;
         return (
-            <div className={styles.pageHeader}>
-                {breadcrumb}
+          <div className={styles.pageHeader}>
+            {breadcrumb}
           </div>
         );
     }
@@ -66,12 +66,12 @@ export default class PageHeader extends React.PureComponent {
         // 如果有routes和params, 则用routes和params作为面包屑
         if (routes && params) {
             return (
-                <Breadcrumb
+              <Breadcrumb
                 className={styles.breadcrumb}
-                    routes={routes.filter(route => route.breadcrumbName)}
+                routes={routes.filter(route => route.breadcrumbName)}
                 params={params}
-                    itemRender={this.itemRender}
-                    separator={breadcrumbSeparator}
+                itemRender={this.itemRender}
+                separator={breadcrumbSeparator}
               />
             );
         }
@@ -92,8 +92,8 @@ export default class PageHeader extends React.PureComponent {
             const currentBreadcrumb = getBreadcrumb(breadcrumbNameMap, url);
             const isLinkable = index !== pathSnippets.length - 1 && currentBreadcrumb.component;
             return currentBreadcrumb.name && !currentBreadcrumb.hideInBreadcrumb ? (
-                <Breadcrumb.Item key={url}>
-                    {React.createElement(
+              <Breadcrumb.Item key={url}>
+                {React.createElement(
                         isLinkable ? linkElement : 'span',
                         { [linkElement === 'a' ? 'href' : 'to']: url },
                         currentBreadcrumb.name,
@@ -115,7 +115,7 @@ export default class PageHeader extends React.PureComponent {
         ); */
 
         return (
-            <Breadcrumb className={styles.breadcrumb} separator={breadcrumbSeparator}>
+          <Breadcrumb className={styles.breadcrumb} separator={breadcrumbSeparator}>
             {extraBreadcrumbItems}
           </Breadcrumb>
         );
@@ -142,10 +142,10 @@ export default class PageHeader extends React.PureComponent {
     conversionFromProps = () => {
         const { breadcrumbList, breadcrumbSeparator, linkElement = 'a' } = this.props;
         return (
-            <Breadcrumb className={styles.breadcrumb} separator={breadcrumbSeparator}>
-                {breadcrumbList.map(item => (
-                    <Breadcrumb.Item key={item.title}>
-                        {item.href
+          <Breadcrumb className={styles.breadcrumb} separator={breadcrumbSeparator}>
+            {breadcrumbList.map(item => (
+              <Breadcrumb.Item key={item.title}>
+                {item.href
                             ? React.createElement(
                                 linkElement,
                                 {
@@ -154,7 +154,7 @@ export default class PageHeader extends React.PureComponent {
                                 item.title,
                             )
                             : item.title}
-                  </Breadcrumb.Item>
+              </Breadcrumb.Item>
                 ))}
           </Breadcrumb>
         );
@@ -164,7 +164,7 @@ export default class PageHeader extends React.PureComponent {
         const { linkElement = 'a' } = this.props;
         const last = routes.indexOf(route) === routes.length - 1;
         return last || !route.component ? (
-            <span>{route.breadcrumbName}</span>
+          <span>{route.breadcrumbName}</span>
         ) : (
             React.createElement(
                 linkElement,
