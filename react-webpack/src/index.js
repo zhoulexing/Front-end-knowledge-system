@@ -3,7 +3,6 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 import { createHashHistory } from 'history';
-import RedBox from 'redbox-react';
 import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import {

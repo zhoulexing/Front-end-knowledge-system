@@ -62,10 +62,7 @@ if (IS_PRO) {
 
 
 module.exports = {
-    entry: [
-        "babel-polyfill", // 兼容ie
-        "./src/index.js"
-    ],
+    entry: "./src/index.tsx",
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "[name].[hash].js",
@@ -73,16 +70,16 @@ module.exports = {
     },
     plugins: plugins,
     resolve: {
-        extensions: [".js", ".jsx", ".less", ".css"],
+        extensions: [".ts", ".tsx", ".js", ".less", ".css"],
         modules: ["node_modules"],
         alias: require("./src/alias")
     },
     devtool: IS_PRO ? "" : "inline-source-map",
     module: {
         rules: [{
-            test: /\.jsx?$/,
+            test: /\.tsx?$/,
             exclude: /node_modules/,
-            use: ["happypack/loader?id=js"]
+            use: ["happypack/loader?id=js", "ts-loader"]
         }, {
             test: /\.(less|css)$/,
             exclude: /node_modules/,
@@ -151,20 +148,19 @@ module.exports = {
                     minChunks: 2,
                     maxInitialRequests: 5,
                     minSize: 30000,
+                    name: IS_PRO ? 'commons.[contenthash].js' : 'commons.[hash].js',
                 },
                 vendors: {
                     test: /node_modules/,
                     chunks: 'all',
-                    filename: isProduction ? 'vendor.[contenthash].js' : 'vendor.[hash].js',
+                    name: IS_PRO ? 'vendor.[contenthash].js' : 'vendor.[hash].js',
                     // 优先级
                     priority: -10
                 }
             }
         },
         // 将webpack运行时生成代码打包到runtime.js
-        runtimeChunk: {
-            name: 'runtime',
-        }
+        runtimeChunk: true
     },
     devServer: {
         contentBase: path.resolve(__dirname, "dist"),

@@ -1,0 +1,39 @@
+{
+    "compilerOptions": {
+        "baseUrl": "src",
+        "outDir": "dist",
+        "target": "es5",
+        "jsx": "react",
+        "module": "es6",
+        "lib": ["es6", "es7", "dom"],  // 指定要包含在编译中的库文件
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "strict": true,
+        "experimentalDecorators": true,
+        "removeComments": true,
+        "declaration": false,
+
+
+        // "allowJs": false, // 允许编译 JS 文件
+        // "checkJs": false, // 报告 JS 文件中存在的类型错误需要配合 allowJs 使用
+        // "declaration": false, // 生成对应的 .d.ts 文件
+        // "declarationDir": "string", // 生成的 .d.ts 文件存放路径默认与 .ts 文件相同
+        // "experimentalDecorators": false, // 启用实验功能-ES 装饰器
+        // "jsx": "string", // 在 .tsx 中支持 JSX ：React 或 Preserve
+        // "jsxFactory": "string", // jsx 设置为 React 时使用的创建函数
+        // "lib": "string[]", // 编译时引入的 ES 功能库
+        // "module": "string", // 生成的模块形式
+        // "moduleResolution": "string", // 模块解析方式
+        // "noImplicitAny": false, // 存在隐式 any 时抛错
+        // "noImplicitReturns": false, // 不存在 return 时抛错
+        // "noImplicitThis": false, // this 可能为 any 时抛错
+        // "outDir": "string", // 编译生成的文件存放路径默认与 .ts 文件相同
+        // "sourceMap": false, // 生成 .map 文件
+        // "target": "string", // 生成 .js 文件版本
+    },
+    "include": ["src"],
+    "exclude": ["node_modules"],
+    "files": [], //制定编译文件
+}

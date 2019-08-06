@@ -1,2 +1,1 @@
-// LocaleProvider兼容ie
-import 'babel-polyfill';
+import '@babel/polyfill';
