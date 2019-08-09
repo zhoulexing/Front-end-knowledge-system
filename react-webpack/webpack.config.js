@@ -151,20 +151,19 @@ module.exports = {
                     minChunks: 2,
                     maxInitialRequests: 5,
                     minSize: 30000,
+                    name: IS_PRO ? 'commons.[contenthash].js' : 'commons.[hash].js',
                 },
                 vendors: {
                     test: /node_modules/,
                     chunks: 'all',
-                    filename: isProduction ? 'vendor.[contenthash].js' : 'vendor.[hash].js',
+                    name: IS_PRO ? 'vendor.[contenthash].js' : 'vendor.[hash].js',
                     // 优先级
                     priority: -10
                 }
             }
         },
         // 将webpack运行时生成代码打包到runtime.js
-        runtimeChunk: {
-            name: 'runtime',
-        }
+        runtimeChunk: true
     },
     devServer: {
         contentBase: path.resolve(__dirname, "dist"),

@@ -1,11 +1,28 @@
 import * as React from 'react';
 
-export interface Props {
-    name: string;
-    enthusiasmLevel?: number;
+export namespace BasicLayout {
+    export interface Props {
+        name: string;
+        enthusiasmLevel?: number;
+    }
+    export interface State {
+        loading: boolean;
+    }
 }
 
-class BasicLayout extends React.Component<Props, object> {
+
+class BasicLayout extends React.Component<BasicLayout.Props, BasicLayout.State> {
+    name: string;
+
+    constructor(props: BasicLayout.Props, context?: any) {
+        super(props, context);
+        this.state = {
+            loading: false,
+        }
+        this.name = "zlx";
+    }
+
+
     render() {
         const { name, enthusiasmLevel = 1 } = this.props;
 

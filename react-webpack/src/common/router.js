@@ -18,6 +18,9 @@ const routerConfig = {
     '/apps/example': {
         component: dynamicWrapper(() => import(/* webpackChunkName: "example" */'../routes/Example')),
     },
+    '/apps/hooks': {
+        component: dynamicWrapper(() => import(/* webpackChunkName: "hooks" */'../routes/Hooks')),
+    },
     '/apps/desktop/deliver': {
         component: dynamicWrapper(() => import(/* webpackChunkName: "deliver" */'../routes/Deliver')),
     },
