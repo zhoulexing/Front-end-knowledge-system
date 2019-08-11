@@ -9,7 +9,9 @@
         </el-aside>
         <el-container>
             <el-header></el-header>
-            <el-main></el-main>
+            <el-main>
+                <router-view />
+            </el-main>
         </el-container>
     </el-container>
 </template>
@@ -62,8 +64,6 @@ export default {
 }
 .el-main {
     color: #333;
-    text-align: center;
-    line-height: 160px;
 }
 </style>
 
