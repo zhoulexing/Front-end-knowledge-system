@@ -82,8 +82,7 @@
     "start": "cross-env _ENV_=develop webpack-dev-server --progress --mode=development",
     "build": "cross-env _ENV_=production webpack --mode=production",
     "lint": "eslint src --fix",
-    "lint:create": "eslint --init",
-    "test:ts": "tsc -p ./test"
+    "lint:create": "eslint --init"
   },
   "repository": {
     "type": "git",

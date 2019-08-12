@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "typescript": "^3.5.3"
+  },
+  "scripts": {
+    "ts": "tsc ./typescript/*.ts"
+  }
+}
