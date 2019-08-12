@@ -23,7 +23,7 @@ import './index.less'
 class Index extends Component {
 
     config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '首页1'
   }
 
   componentWillReceiveProps (nextProps) {
