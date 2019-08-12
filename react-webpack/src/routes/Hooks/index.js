@@ -69,10 +69,12 @@ function UseState() {
 function UseEffect() {
     const [count, setCount] = useState(0);
     useEffect(() => {
+        console.log('useEffect in:', count);
         if(count ===3 ) {
             alert(count);
         }
     }, [count]);
+    console.log('useEffect out:', count);
     return (
         <div>
             <p>when count equal 3 alert count</p>
@@ -86,10 +88,12 @@ function UseEffect() {
 function UseLayoutEffect() {
     const [count, setCount] = useState(0);
     useLayoutEffect(() => {
+        console.log('useLayoutEffect in:', count);
         if(count ===3 ) {
             alert(count);
         }
     }, [count]);
+    console.log('useLayoutEffect out:', count);
     return (
         <div>
             <p>when count equal 3 alert count</p>

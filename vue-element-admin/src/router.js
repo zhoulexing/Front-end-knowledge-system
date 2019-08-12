@@ -20,6 +20,10 @@ export const constantRouter = [
             {
                 path: "desktop",
                 component: () => import("views/desktop/index"),
+            },
+            { 
+                path: "example",
+                component: () => import("views/example/index"),
             }
         ]
     },
