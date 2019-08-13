@@ -1,6 +1,21 @@
+const path = require('path')
+
+const sassImporter = function(url) {
+  if (url[0] === '~' && url[1] !== '/') {
+    return {
+      file: path.resolve(__dirname, '..', 'node_modules', url.substr(1))
+    }
+  }
+
+  const reg = /^@styles\/(.*)/
+  return {
+    file: reg.test(url) ? path.resolve(__dirname, '..', 'src/styles', url.match(reg)[1]) : url
+  }
+}
+
 const config = {
   projectName: 'react-taro',
-  date: '2019-8-12',
+  date: '2019-8-13',
   designWidth: 750,
   deviceRatio: {
     '640': 2.34 / 2,
@@ -20,12 +35,17 @@ const config = {
       plugins: [
         'transform-decorators-legacy',
         'transform-class-properties',
-        'transform-object-rest-spread'
+        'transform-object-rest-spread',
+        'transform-regenerator'
       ]
+    },
+    sass: {
+      importer: sassImporter
     }
   },
   defineConstants: {
   },
+  alias: {},
   copy: {
     patterns: [
     ],
@@ -58,7 +78,7 @@ const config = {
           }
         },
         cssModules: {
-          enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
+          enable: true, // 默认为 false，如需使用 css modules 功能，则设为 true
           config: {
             namingPattern: 'module', // 转换模式，取值为 global/module
             generateScopedName: '[name]__[local]___[hash:base64:5]'

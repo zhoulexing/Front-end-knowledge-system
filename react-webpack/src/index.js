@@ -86,11 +86,11 @@ if (module.hot) {
 function render() {
     const Routes = require('./router').default;
     ReactDOM.render(
-      <Provider store={store}>
-        <LocaleProvider locale={zhCN}>
-          <Routes history={history} />
-        </LocaleProvider>
-      </Provider>,
+        <Provider store={store}>
+            <LocaleProvider locale={zhCN}>
+                <Routes history={history} />
+            </LocaleProvider>
+        </Provider>,
         document.getElementById('root'),
     );
 }
@@ -153,29 +153,41 @@ function getSaga(namespace, effects) {
     return function* () {
         for (const key in effects) {
             if (Object.prototype.hasOwnProperty.call(effects, key)) {
-                const watcher = getWatcher(`${namespace}/${key}`, effects[key]);
+                const watcher = getWatcher(namespace, key, effects[key]);
                 yield fork(watcher);
             }
         }
     };
 }
 
-function getWatcher(k, saga) {
+function getWatcher(namespace, key, saga) {
     let _saga = saga;
     let _type = 'takeEvery';
+
     if (Array.isArray(saga)) {
         [_saga, opts] = saga;
         _type = opts.type;
     }
 
+    function putEnhancer(namespace) {
+        return function* (params) {
+            if (params.type) {
+                params.type = `${namespace}/${params.type}`;
+            }
+            yield put(params);
+        }
+    }
+
+    let _put = putEnhancer(namespace);
     function* sagaWithErrorCatch(...arg) {
         try {
-            yield _saga(...arg, { call, put });
+            yield _saga(...arg, { call, put: _put });
         } catch (e) {
             onError(e);
         }
     }
 
+    let k = `${namespace}/${key}`;
     if (_type === 'watcher') {
         return sagaWithErrorCatch;
     } if (_type === 'takeEvery') {
