@@ -1,4 +1,67 @@
-.intro {
-  margin: 40px;
-  text-align: center;
+@import "../../constants.scss";
+
+.header {
+  position: relative;
+  background-color: #eee;
+  padding: 20rpx 20rpx;
+  .hd-icon {
+    position: absolute;
+    top: 38rpx;
+    left:  32rpx;
+  }
+}
+
+.keyword {
+  display: flex;
+  justify-content: space-between;
+  padding: 8rpx 20rpx 20rpx;
+  background-color: #eee;
+  .prop {
+    line-height: $height-base;
+  }
+}
+
+.advert {
+  width: 100%;
+  height: 280rpx;
+  .img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.rubbish {
+  padding: 15rpx;
+  .item {
+    display: flex;
+    align-items: center;
+    border-radius: $border-radius-sm;
+    padding: 30rpx;
+    margin-bottom: 15rpx;
+  }
+  .item-img {
+    width: 450rpx;
+    
+    margin-right: 15rpx;
+  }
+  .item-text-title {
+    font-size: $font-size-lg;
+    margin-bottom: 8rpx;
+  }
+  .item-text-ctn {
+    line-height: 1.5;
+    color: $white-3;
+  }
+  .harmful {
+    background-color: $bg-color1;
+  }
+  .recyclable {
+    background-color: $bg-color2;
+  }
+  .wet {
+    background-color: $bg-color3;
+  }
+  .dry {
+    background-color: $bg-color4;
+  }
 }

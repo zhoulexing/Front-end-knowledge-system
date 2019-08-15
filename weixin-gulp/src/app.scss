@@ -1,5 +1,40 @@
-pages {
-  position: relative;
-  z-index: 9999998;
-  background: #fff;
+@import "./constants.scss";
+
+// page
+page {
+  background-color: $bg-color;
+  font-size: $font-size;
+  font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+}
+
+// input
+@mixin input {
+  background-color: $white;
+  padding-left: 54rpx;
+}
+.input-ph {
+  margin-left: 5rpx;
+}
+.input-base {
+  @include input;
+  height: $height-base;
+  border-radius: $border-radius-base;
+}
+.input-lg {
+  @include input;
+  height: $height-lg;
+  line-height: $height-lg;
+  min-height: $height-lg;
+  border-radius: $border-radius-lg;
+}
+.input-sm {
+  @include input;
+  height: $height-sm;
+  border-radius: $border-radius-sm;
+}
+
+// button
+.button-base {
+  font-size: $font-size;
+  line-height: $height-base;
 }

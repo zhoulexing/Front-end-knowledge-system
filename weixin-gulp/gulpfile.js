@@ -116,7 +116,7 @@ gulp.task("watch", () => {
         gulp.watch(`${src}/**/*.${v}`, [v]);
     });
     gulp.watch(`${src}/images/**`, ["images"]);
-    gulp.watch(`${src}/images/**/*.scss`, ["wxss"]);
+    gulp.watch(`${src}/**/*.scss`, ["wxss"]);
 });
 
 gulp.task("clean", () => {
