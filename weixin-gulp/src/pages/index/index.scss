@@ -6,8 +6,8 @@
   padding: 20rpx 20rpx;
   .hd-icon {
     position: absolute;
-    top: 38rpx;
-    left:  32rpx;
+    top: 42rpx;
+    left:  40rpx;
   }
 }
 
@@ -40,9 +40,9 @@
     margin-bottom: 15rpx;
   }
   .item-img {
-    width: 450rpx;
-    
+    width: 160rpx;
     margin-right: 15rpx;
+    flex-shrink: 0;
   }
   .item-text-title {
     font-size: $font-size-lg;
@@ -51,6 +51,7 @@
   .item-text-ctn {
     line-height: 1.5;
     color: $white-3;
+    font-size: $font-size-sm;
   }
   .harmful {
     background-color: $bg-color1;
