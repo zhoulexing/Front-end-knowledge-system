@@ -42,12 +42,14 @@ let myStr: string = myArray[0];
 /* 类类型 */
 interface ClockInterface {
     currentTime: Date;
-    setTime(d: Date);
+    setTime(d: Date): void;
 }
 class Clock implements ClockInterface {
     currentTime: Date;
-    constructor(h: number, m: number) {}
-    setTime(d: Date) {
+    constructor(h: number, m: number) {
+        this.currentTime = new Date();
+    }
+    setTime(d: Date): void {
         this.currentTime = d;
     }
 }

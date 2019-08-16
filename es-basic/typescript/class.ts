@@ -15,6 +15,7 @@ class Animal {
     name: string;
     constructor(theName: string) {
         this.name = theName;
+        this.age = 25;
     }
     move(distanceInMeters: number = 0) {
         console.log(`${this.name} moved ${distanceInMeters}m.`);
@@ -47,6 +48,10 @@ tom.move(34);
 
 class Employee {
     private _fullName: string;
+    constructor() {
+        this._fullName = "";
+    }
+
 
     get fullName(): string {
         return this._fullName;

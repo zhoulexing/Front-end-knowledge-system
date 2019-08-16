@@ -3,6 +3,6 @@
     "typescript": "^3.5.3"
   },
   "scripts": {
-    "ts": "tsc ./typescript/*.ts"
+    "ts": "tsc -p ./tsconfig.json"
   }
 }

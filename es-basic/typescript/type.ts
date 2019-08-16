@@ -7,7 +7,7 @@ enum Color { Red, Green, Blue };
 let c: Color = Color.Green;
 let notTrue: any = 4;
 let unusable: void = undefined;
-let unusable2: void = null;
+let unusable2: null = null;
 let unusable3: null = null;
 let unusable4: undefined = undefined;
 let someValue: any = 'this is value';
