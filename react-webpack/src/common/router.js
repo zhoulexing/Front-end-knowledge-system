@@ -21,6 +21,9 @@ const routerConfig = {
     '/apps/hooks': {
         component: dynamicWrapper(() => import(/* webpackChunkName: "hooks" */'../routes/Hooks')),
     },
+    '/apps/hotkeys': {
+        component: dynamicWrapper(() => import(/* webpackChunkName: "hotkeys" */'../routes/HotKeys')),
+    },
     '/apps/desktop/deliver': {
         component: dynamicWrapper(() => import(/* webpackChunkName: "deliver" */'../routes/Deliver')),
     },

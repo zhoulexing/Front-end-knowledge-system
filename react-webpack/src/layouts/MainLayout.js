@@ -25,6 +25,7 @@ export default class MainLayout extends PureComponent {
             <Button onClick={this.goOtherRoute.bind(this, '/apps/example')}>go to example</Button>
             <Button onClick={this.goOtherRoute.bind(this, '/apps/desktop')}>go to desktop</Button>
             <Button onClick={this.goOtherRoute.bind(this, '/apps/hooks')}>go to hooks</Button>
+            <Button onClick={this.goOtherRoute.bind(this, '/apps/hotkeys')}>go to hotkeys</Button>
             <Switch>
               {getRoutes(match.path, routerData).map(item => (
                 <Route
