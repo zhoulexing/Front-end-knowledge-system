@@ -67,7 +67,7 @@
                 setTimeout;
                 setInterval;
                 setImmediate;
-                requestAnimationFrame;
+                
             microtask(微任务)：当前dask执行结束之后，立即执行的任务
                 在当前task任务后，下一个task之前，在渲染之前；
                 所以它的响应速度比setTimeout快，因为无需等渲染；
@@ -76,16 +76,8 @@
                 process.nextTick;   
                 Promise;
                 MutationObserver;
-
-        js中的异步操作，包含如下：
-            setTimeout,
-            setInterval,
-            setImmediate,
-            promise,
-            requestIdleCallback,
-            requestAnimationFrame,
-            process.nextTick,
-            MutationObserver
+                requestIdleCallback；
+                requestAnimationFrame;
 */
 function sleep(num = 1) {
     var start = new Date().getTime();
@@ -119,5 +111,31 @@ function test2() {
     });
     console.log('代码执行结束啦');
 }
-test2();
+// test2();
 
+
+function test3() {
+    window.requestIdleCallback(function(deadline) {
+        console.log('requestIdleCallback', deadline.timeRemaining());
+    });
+    setTimeout(function() {
+        console.log('定时器开始啦');
+    }, 4);
+    sleep(5);
+}
+// test3();
+
+function test4() {
+    var i = 0;
+    function step() {
+        console.log(i);
+        i += 1;
+        if(i < 5) {
+            window.requestAnimationFrame(step);
+        }
+        sleep(5);
+    }
+    window.requestAnimationFrame(step);
+    console.log('end');
+}
+test4();
