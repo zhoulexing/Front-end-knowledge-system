@@ -16,16 +16,28 @@
 	</head>
 
 <body>
-    <div id="root" style="width: 100px;">Hello</div>
-    <script type="text/javascript">
+    <div id="root" style="width: 100px;height: 100px;">Hello</div>
+    <!-- <script type="text/javascript">
         setTimeout(() => {
             console.log(document.querySelector("#root").getComputedStyles);
         }, 2000);
     </script>
     <script type="text/javascript">
         for(let i = 0; i < 2000; i++ ) {
-            // console.log(i);
         }
+    </script> -->
+    <script>
+        var start = new Date().getTime();
+        // 触发一次 Layout
+        var dom = document.querySelector('#root');
+
+        for(var i = 0; i < 20; i++) {
+            var h = dom.offsetHeight;
+            dom.style.height = h + 20;
+        }
+        
+        var end = new Date().getTime();
+        console.log(end - start);
     </script>
 </body>
 

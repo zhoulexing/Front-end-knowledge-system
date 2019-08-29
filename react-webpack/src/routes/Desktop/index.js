@@ -24,6 +24,7 @@ class Desktop extends Component {
     }
 
     render() {
+        console.log('1111');
         const { count } = this.props;
         return (
           <div>
