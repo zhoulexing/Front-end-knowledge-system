@@ -5,18 +5,13 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Count from './count';
 import { a, b } from '../../utils/util';
+import QRCode from 'qrcode.react';
 
 console.log(a, b);
 
 class Desktop extends Component {
     constructor(props) {
         super(props);
-        // props.dispatch({
-        //     type: "global/add",
-        //     payload: {
-        //         count: 1,
-        //     }
-        // });
     }
 
     componentDidMount() {
@@ -30,6 +25,7 @@ class Desktop extends Component {
           <div>
             <Button size="large" type="primary" onClick={this.add}>Desktop1</Button>
             <Count />
+            <QRCode value="http://www.baidu.com"/>
           </div>
         );
     }
