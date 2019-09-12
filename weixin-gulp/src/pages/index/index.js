@@ -17,4 +17,12 @@ Page({
       }
     }
   },
+
+  preview: function(e) {
+    const src = '/images/harmful.jpg';
+    wx.previewImage({
+      current: src,
+      urls: ['/images/harmful.jpg', '/images/recyclable.jpg']
+    });
+  },
 })
