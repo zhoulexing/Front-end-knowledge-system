@@ -178,3 +178,7 @@ console.log('reg21', reg21.test('color: red;'));
 // 抽取注释
 var reg22 = /<!--(.*?)-->/;
 console.log('reg22', reg22.test('<!-- abc -->'));
+
+// 特殊字符包括emoij
+var reg23 = /[\ud800\udbff-\udc00\udfff\ud800-\udfff]/;
+console.log('reg23', reg23.test('𠂆'));
