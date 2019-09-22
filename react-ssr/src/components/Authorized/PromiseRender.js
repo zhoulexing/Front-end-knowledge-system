@@ -10,7 +10,7 @@ export default class PromiseRender extends React.PureComponent {
         this.setRenderComponent(this.props);
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps) {
         this.setRenderComponent(nextProps);
     }
 
