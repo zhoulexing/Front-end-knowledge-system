@@ -37,7 +37,7 @@ app.use(bodyParser());
 app.use(views(path.resolve(__dirname, './views'), { map: { html: 'ejs' } }));
 
 // 配置静态路径
-app.use(require('koa-static')(__dirname + '/public'));
+app.use(require('koa-static')(__dirname + '/dist'));
 
 // 配置路由
 app.use(index.routes(), index.allowedMethods());

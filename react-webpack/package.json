@@ -47,8 +47,10 @@
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.6.2",
     "@babel/runtime": "^7.4.5",
     "@sentry/webpack-plugin": "^1.8.0",
+    "asset-require-hook": "^1.2.0",
     "autoprefixer": "^9.6.0",
     "babel-eslint": "8",
     "babel-loader": "^8.0.6",
@@ -84,6 +86,7 @@
   "scripts": {
     "test": "mocha",
     "start": "cross-env _ENV_=develop webpack-dev-server --progress --mode=development",
+    "server": "node server/start.js",
     "build": "cross-env _ENV_=production webpack --mode=production",
     "lint": "eslint src --fix",
     "lint:create": "eslint --init"
