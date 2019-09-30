@@ -8,27 +8,27 @@ import koaWebpack from 'koa-webpack';
 import index from './routes/index';
 import user from './routes/user';
 import config from './config';
-import webpackConfig from '../webpack.config';
+// import webpackConfig from '../webpack.config';
 
-const app = new Koa()
+const app = new Koa();
 
 // dev 模式热加载
-app.use(koaWebpack({
-    compiler: webpack(webpackConfig),
-    hot: {
-        log: () => { }
-    },
-    dev: {
-        noInfo: true,
-        serverSideRender: true,
-        hot: true,
-        logLevel: 'error',
-        stats: {
-            colors: true
-        },
-        publicPath: ''
-    },
-}));
+// app.use(koaWebpack({
+//     compiler: webpack(webpackConfig),
+//     hot: {
+//         log: () => { }
+//     },
+//     dev: {
+//         noInfo: true,
+//         serverSideRender: true,
+//         hot: true,
+//         logLevel: 'error',
+//         stats: {
+//             colors: true
+//         },
+//         publicPath: ''
+//     },
+// }));
 
 // 解析body
 app.use(bodyParser());

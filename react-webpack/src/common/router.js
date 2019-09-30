@@ -66,6 +66,7 @@ function dynamicWrapper(component) {
             });
         },
         loading: () => <Spin size="large" className="global-spin" />,
+        // loading: () => <div />,
     });
 }
 

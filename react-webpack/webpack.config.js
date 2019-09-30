@@ -7,6 +7,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const OptimizeCss = require("optimize-css-assets-webpack-plugin");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+const ManifestPlugin = require("webpack-manifest-plugin");
 const os = require("os");
 const chalk = require("chalk");
 const path = require("path");
@@ -28,7 +29,7 @@ let plugins = [
         }
     }),
     new MiniCssExtractPlugin({
-        filename: "[name].[contenthash].css",
+        filename: "[name].[contenthash:8].css",
     }),
     new HappyPack({
         id: "js",
@@ -51,6 +52,7 @@ if (IS_PRO) {
         new ProgressBarPlugin({
             format: "  build [:bar] " + chalk.green.bold(":percent") + " (:elapsed seconds)"
         }),
+        new ManifestPlugin()
     ]);
 } else {
     plugins = plugins.concat([
@@ -68,8 +70,8 @@ module.exports = {
     ],
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "[name].[hash].js",
-        chunkFilename: "[name].[hash].js",
+        filename: "[name].[hash:8].js",
+        chunkFilename: "[name].[hash:8].js",
     },
     plugins: plugins,
     resolve: {
@@ -151,12 +153,12 @@ module.exports = {
                     minChunks: 2,
                     maxInitialRequests: 5,
                     minSize: 30000,
-                    name: IS_PRO ? 'commons.[contenthash].js' : 'commons.[hash].js',
+                    name: 'commons',
                 },
                 vendors: {
                     test: /node_modules/,
                     chunks: 'all',
-                    name: IS_PRO ? 'vendor.[contenthash].js' : 'vendor.[hash].js',
+                    name: 'vendor',
                     // 优先级
                     priority: -10
                 }

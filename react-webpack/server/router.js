@@ -1,23 +1,23 @@
 import React from 'react';
-import { StaticRouter, Router, Route } from 'react-router';
+import { Provider } from 'react-redux';
+import { StaticRouter, Route } from 'react-router';
 import { getRouterData } from '../src/common/router';
-import store from '../src/index';
+import dva from '../src/dva';
+const app = dva();
 
 function Routes(props) {
     const routerData = getRouterData();
     const MainLayout = routerData['/apps'].component;
     const LoginLayout = routerData['/login'].component;
+    LoginLayout.preload();
     return (
-        <Provider store={store}>
+        <Provider store={app._store}>
             <StaticRouter
-                basename='/client'
                 context={props.context}
                 location={props.url}
             >
-                <Router>
-                    <Route path='/apps' component={MainLayout}/>
-                    <Route path='/login' component={LoginLayout}/>
-                </Router>
+                <Route path='/apps' component={MainLayout}/>
+                <Route path='/login' component={LoginLayout}/>
             </StaticRouter>
         </Provider>
     )
