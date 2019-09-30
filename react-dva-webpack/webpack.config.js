@@ -19,7 +19,7 @@ const IS_PRO = process.env._ENV_ === "production";
 let plugins = [
     new HtmlWebpackPlugin({
         title: "周某人",
-        template: `./client/index.ejs`,
+        template: `./src/index.ejs`,
         filename: `index${IS_PRO ? `-v${version}` : ""}.html`,
         // 压缩html
         minify: {
@@ -62,7 +62,7 @@ if (IS_PRO) {
 
 
 module.exports = {
-    entry: "./client/index.js",
+    entry: "./src/index.js",
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "[name].[hash].js",
@@ -72,7 +72,7 @@ module.exports = {
     resolve: {
         extensions: [".js", ".jsx", ".less", ".css"],
         modules: ["node_modules"],
-        alias: require("./client/alias")
+        alias: require("./src/alias")
     },
     devtool: IS_PRO ? "" : "inline-source-map",
     module: {
@@ -101,7 +101,7 @@ module.exports = {
                 {
                     loader: "less-loader",
                     options: {
-                        modifyVars: require("./client/theme"),
+                        modifyVars: require("./src/theme"),
                         javascriptEnabled: true,
                     }
                 }
@@ -118,7 +118,7 @@ module.exports = {
                 {
                     loader: "less-loader",
                     options: {
-                        modifyVars: require("./client/theme"),
+                        modifyVars: require("./src/theme"),
                         javascriptEnabled: true,
                     }
                 }
@@ -126,11 +126,11 @@ module.exports = {
         }, {
             test: /\.(eot|woff|svg|ttf|woff2|appcache|mp3|mp4|pdf)(\?|$)/,
             use: ["file-loader?name=iconfont/[name]_[sha512:hash:base64:7].[ext]"],
-            include: path.resolve(__dirname, "client"),
+            include: path.resolve(__dirname, "src"),
         }, {
             test: /\.(png|jpg|gif)$/,
             use: ["url-loader?limit=8192&name=images/[name]_[sha512:hash:base64:7].[ext]"],
-            include: path.resolve(__dirname, "client"),
+            include: path.resolve(__dirname, "src"),
         }]
     },
     optimization: {

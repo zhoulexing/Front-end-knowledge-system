@@ -20,6 +20,3 @@ class GetMin<T> {
         return min;
     }
 }
-
-interface ConfigFn{
-}
