@@ -1,5 +1,6 @@
 /* 
-call() 方法在使用一个指定的 this 值和若干个指定的参数值的前提下调用某个函数或方法。
+call和apply方法在使用一个指定的this值和若干个指定的参数值的前提下调用某个函数或方法, call和apply方法的区别就是传递参数的方式不同。
+首先了解下call的基本使用情况和基本的模拟实现。
 */
 
 /* 基础版本 */
@@ -19,7 +20,9 @@ Function.prototype.call1 = function(context) {
 run1.call1(animal1); // 1
 
 
-/* 可传参 */
+/* 
+基于以上情况的模拟实现，无法进行传参，所以修改如下。 
+*/
 var animal2 = {
     speed: 10
 };
@@ -41,7 +44,9 @@ run2.call2(animal2, 'dog'); // dog running speed 10
 
 
 
-/* this参数可以传null，且有返回值 */
+/* 
+在调用call函数的时候，this参数可以传null，且可以有返回值，所以升级版如下。
+*/
 var speed = 20;
 var animal3 = {
     speed: 10
@@ -68,7 +73,9 @@ var result3 = run3.call3(null, 'dog'); // dog running speed 20
 console.log(result3); // 20
 
 
-/* apply与call类似，只是传参方式不一样 */
+/* 
+apply与call类似，只是传参方式不一样，所以apply的模拟实现如下。
+*/
 Function.prototype.apply3 = function(context, arr) {
     context = context || window;
     context.fn = this;
