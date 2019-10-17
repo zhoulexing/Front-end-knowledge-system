@@ -8,7 +8,6 @@ class Report {
           return this.instance;
     }
 
-
     install() {
         console.log('hello world');
     }
