@@ -1,189 +1,215 @@
-
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta name="renderer" content="webkit">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta http-equiv="Cache-Control" content="no-cache,no-store, must-revalidate">
-		<meta http-equiv="pragma" content="no-cache">
-		<meta http-equiv="expires" content="0">
-		<meta name="google" value="notranslate" />
-		<meta charset=utf-8>
-		<title>flex布局</title>
-    </head>
-    <style>
-        /* 
+
+<head>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-cache,no-store, must-revalidate">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta name="google" value="notranslate" />
+    <meta charset=utf-8>
+    <title>flex布局</title>
+</head>
+<style>
+    /* 
         Flex布局是2009年W3C提出的一种新的方案，可以简单、完整、响应式地实现各种页面布局。
         它的简称是Flexible Box，意为"弹性布局"。
         */
-        /* 
+    /* 
         任何一个容器都可以设为弹性布局，行内元素也可以，每个容器至少有一个主轴和一个纵轴。
         当一个容器设为弹性布局时，其子元素就具有了行内块元素的性质。每个容器具有如下属性：
         flex-direction、flex-wrap、flex-flow、justify-content、align-items、align-content。
         */
 
-        /* 
+    /* 
         flex-direction属性决定主轴的方向，默认是row，其他属性分别为row-reverse、column、column-reverse。
         */
 
-        /* 
+    /* 
         flex-wrap属性决定在排不下的情况下如何换行，默认是nowrap，即不换行, 其他属性分别为wrap、wrap-reverse。
         */
 
-        /* 
+    /* 
         flex-flow是flex-direction属性和flex-wrap的简写形式，默认值是row nowrap，具体可见上面两个例子。
          */
 
-        /* 
+    /* 
         justify-content属性定义了在主轴上的对齐方式，默认值是flex-start，左对齐，其他属性分别为flex-end、
         center、space-between、space-around。
         */
 
-        /* 
+    /* 
         align-items属性定义项目在交叉轴上如何对齐，默认值是flex-start，起点对齐，其他属性分别为flex-end、
         center、space-between、space-around。
         */
 
-        /* 
+    /* 
         align-content属性定义了多根轴线的对齐方式，如果只有一根轴线，则不起作用。默认属性是stretch，其他
         属性是flex-start、flex-end、center、space-between、space-around。
         */
 
-        /* 
+    /* 
         以上讲的是容器的属性，现在了解下项目的属性，分别有order、flex-grow、flex-shrink、flex-basic、flex、align-self。
         */
 
-        /* 
+    /* 
         order属性定义项目的排列顺序，数值越小，排列越靠前，默认为0。
         */
 
-        /*
+    /*
         flex-grow属性定义项目放大的比例，默认为0，即如果存在剩余空间，也不放大。如果设置了其他值，则按值比例进行分配。
         */
 
-        /*  
+    /*  
         flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，则项目会缩小。如果某项设置了0，其他项为非0，
         则前者不缩小，后者按比例缩小。
         */
 
-        /*  
+    /*  
         flex-basic属性定义了在分配多余空间之前，项目占据的主轴空间，它的默认值是auto，即项目的本来大小。如果空间够的话，
         也可以设置与宽度和高度一样的值，占据固定空间。
         */
 
-        /*  
+    /*  
         flex属性是flex-grow、flex-shrink、flex-basic的简写，默认值是0 1 auto，该属性有两个快捷值，
         auto(1 1 auto)和none(0 0 auto)，具体见上面三个例子。
         */
 
-        /*
+    /*
         align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的
         align-items属性，如果没有父元素，就等同于stretch。
         */
-        .title {
-            line-height: 0;
-        }
-        .flex-layout {
-            background-color: #eee;
-            display: flex;
-            margin-bottom: 40px;
-        }
-        .width-150 {
-            width: 150px;
-        }
-        .height-100 {
-            height: 100px;
-        }
-        .height-50 {
-            height: 50px;
-        }
-        .flex-item {
-            width: 30px;
-            height: 30px;
-            background-color: brown;
-            margin: 5px;
-            color: #fff;
-        }
-        .flex-item-2 {
-            background-color: brown;
-            margin: 5px;
-            color: #fff;
-            width: 30px;
-        }
-        .row {
-            flex-direction: row;
-        }
-        .row-reverse {
-            flex-direction: row-reverse;
-        }
-        .column {
-            flex-direction: column;
-        }
-        .column-reverse {
-            flex-direction: column-reverse;
-        }
+    .title {
+        line-height: 0;
+    }
 
-        .nowrap {
-            flex-wrap: nowrap;
-        }
-        .wrap {
-            flex-wrap: wrap;
-        }
-        .wrap-reverse {
-            flex-wrap: wrap-reverse;
-        }
+    .flex-layout {
+        background-color: #eee;
+        display: flex;
+        margin-bottom: 40px;
+    }
 
-        .jc-flex-start {
-            justify-content: flex-start;
-        }
-        .jc-flex-end {
-            justify-content: flex-end;
-        }
-        .jc-center {
-            justify-content: center;
-        }
-        .jc-space-between {
-            justify-content: space-between;
-        }
-        .jc-space-around {
-            justify-content: space-around;
-        }
+    .width-150 {
+        width: 150px;
+    }
 
-        .ai-flex-start {
-            align-items: flex-start;
-        }
-        .ai-flex-end {
-            align-items: flex-end;
-        }
-        .ai-center {
-            align-items: center;
-        }
-        .ai-space-between {
-            align-items: baseline;
-        }
-        .ai-space-around {
-            align-items: stretch;
-        }
+    .height-100 {
+        height: 100px;
+    }
 
-        .ac-flex-start {
-            align-content: flex-start;
-        }
-        .ac-flex-end {
-            align-content: flex-end;
-        }
-        .ac-center {
-            align-content: center;
-        }
-        .ac-space-between {
-            align-content: space-between;
-        }
-        .ac-space-around {
-            align-content: space-around;
-        }
-        .ac-stretch {
-            align-content: stretch;
-        }
-    </style>
+    .height-50 {
+        height: 50px;
+    }
+
+    .flex-item {
+        width: 30px;
+        height: 30px;
+        background-color: brown;
+        margin: 5px;
+        color: #fff;
+    }
+
+    .flex-item-2 {
+        background-color: brown;
+        margin: 5px;
+        color: #fff;
+        width: 30px;
+    }
+
+    .row {
+        flex-direction: row;
+    }
+
+    .row-reverse {
+        flex-direction: row-reverse;
+    }
+
+    .column {
+        flex-direction: column;
+    }
+
+    .column-reverse {
+        flex-direction: column-reverse;
+    }
+
+    .nowrap {
+        flex-wrap: nowrap;
+    }
+
+    .wrap {
+        flex-wrap: wrap;
+    }
+
+    .wrap-reverse {
+        flex-wrap: wrap-reverse;
+    }
+
+    .jc-flex-start {
+        justify-content: flex-start;
+    }
+
+    .jc-flex-end {
+        justify-content: flex-end;
+    }
+
+    .jc-center {
+        justify-content: center;
+    }
+
+    .jc-space-between {
+        justify-content: space-between;
+    }
+
+    .jc-space-around {
+        justify-content: space-around;
+    }
+
+    .ai-flex-start {
+        align-items: flex-start;
+    }
+
+    .ai-flex-end {
+        align-items: flex-end;
+    }
+
+    .ai-center {
+        align-items: center;
+    }
+
+    .ai-space-between {
+        align-items: baseline;
+    }
+
+    .ai-space-around {
+        align-items: stretch;
+    }
+
+    .ac-flex-start {
+        align-content: flex-start;
+    }
+
+    .ac-flex-end {
+        align-content: flex-end;
+    }
+
+    .ac-center {
+        align-content: center;
+    }
+
+    .ac-space-between {
+        align-content: space-between;
+    }
+
+    .ac-space-around {
+        align-content: space-around;
+    }
+
+    .ac-stretch {
+        align-content: stretch;
+    }
+</style>
+
 <body style="background-color: #55a9f3">
     <h3 class="title">flex-direction：row(默认值)</h3>
     <div class="flex-layout row width-150">
@@ -210,7 +236,7 @@
         <div class="flex-item">3</div>
     </div>
 
-    <hr/>
+    <hr />
 
     <h3 class="title">flex-wrap：nowrap</h3>
     <div class="flex-layout nowrap width-150">
@@ -362,7 +388,7 @@
         <div class="flex-item">5</div>
         <div class="flex-item">6</div>
     </div>
-    
+
     <hr />
 
     <h3 class="title">order：2 1 3</h3>
@@ -410,30 +436,31 @@
 
     <h3 class="title">align-self：flex-end</h3>
     <div class="flex-layout width-150" style="height:60px">
-            <div class="flex-item" style="flex-basis: auto">1</div>
+        <div class="flex-item" style="flex-basis: auto">1</div>
         <div class="flex-item" style="align-self: flex-end">2</div>
         <div class="flex-item" style="flex-basis: auto">3</div>
     </div>
 
     <h3 class="title">align-self：center</h3>
     <div class="flex-layout width-150" style="height:60px">
-            <div class="flex-item" style="flex-basis: auto">1</div>
+        <div class="flex-item" style="flex-basis: auto">1</div>
         <div class="flex-item" style="align-self: center">2</div>
         <div class="flex-item" style="flex-basis: auto">3</div>
     </div>
 
     <h3 class="title">align-self：baseline</h3>
     <div class="flex-layout width-150" style="height:60px">
-            <div class="flex-item" style="flex-basis: auto">1</div>
+        <div class="flex-item" style="flex-basis: auto">1</div>
         <div class="flex-item" style="align-self: baseline">2</div>
         <div class="flex-item" style="flex-basis: auto">3</div>
     </div>
 
     <h3 class="title">align-self：stretch</h3>
     <div class="flex-layout width-150" style="height:60px">
-            <div class="flex-item" style="flex-basis: auto">1</div>
+        <div class="flex-item" style="flex-basis: auto">1</div>
         <div class="flex-item" style="align-self: stretch">2</div>
         <div class="flex-item" style="flex-basis: auto">3</div>
     </div>
 </body>
+
 </html>
