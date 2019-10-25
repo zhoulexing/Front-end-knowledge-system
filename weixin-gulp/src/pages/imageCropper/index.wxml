@@ -1,0 +1,22 @@
+<image-cropper 
+    id="image-cropper" 
+    bindload="cropperload" 
+    bindimageload="loadimage" 
+    bindtapcut="clickcut" 
+    width="{{width}}" 
+    height="{{height}}" 
+    imgSrc="{{src}}" 
+    angle="{{angle}}" 
+    limit_move="{{limit_move}}" 
+    disable_rotate="{{disable_rotate}}" 
+    disable_width="{{disable_width}}" 
+    disable_height="{{disable_height}}" 
+    disable_ratio="{{disable_ratio}}"
+    max_width="{{max_width}}" 
+    max_height="{{max_height}}" 
+></image-cropper>
+<text class="hint">点击中间裁剪框可查看裁剪后的图片</text>
+<button class='bottom'>
+    <button catchtouchstart='rotate' catchtouchend='end' data-type="rotate">旋转</button>
+    <button catchtap='upload'>上传</button>
+</button>

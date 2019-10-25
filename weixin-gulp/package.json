@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "gulp watch",
+    "watch": "gulp watch",
     "dev": "gulp dev",
+    "start": "gulp dev",
     "cloud": "gulp cloud:dev",
     "clean": "gulp clean",
     "build": "cross-env NODE_ENV=production gulp build"

@@ -1,0 +1,8 @@
+<import src="/components/we-cropper/we-cropper.wxml"/>
+
+<view>
+    <template is="we-cropper" data="{{...cropperOpt}}"/>
+    <view bindtap="chooseImg">
+        <button>选择图片</button>
+    </view>
+</view>

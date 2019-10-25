@@ -1,6 +1,9 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/rubbish/index",
+    "pages/wxCropper/index",
+    "pages/imageCropper/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
