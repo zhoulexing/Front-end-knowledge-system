@@ -1,14 +1,18 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/imageCropper/index",
     "pages/rubbish/index",
-    "pages/wxCropper/index",
-    "pages/imageCropper/index"
+    "pages/wxCropper/index"
   ],
   "window": {
-    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "周某人",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom",
+    "backgroundTextStyle": "light"
+  },
+  "usingComponents": {
+    "nav-bar": "./components/nav-bar/nav-bar"
   }
 }
