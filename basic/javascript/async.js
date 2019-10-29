@@ -33,7 +33,7 @@ gen(); // 1, 2, 3
 
 
 /* 
-接下来看下async的基本用法,
+接下来看下async的基本用法。
 */
 async function getData() {
     return 'Hello World';
