@@ -63,3 +63,9 @@ class Employee {
 }
 
 
+class Queue {
+    private data = [];
+    push = () => {
+        
+    }
+}

@@ -55,7 +55,7 @@ import/require仅仅是导入类型, 如下只做了两件事，分别是导入f
 import foo = require('foo');
 ```
 #### globals.d.ts
-globals.d.ts文件用来将一些接口或者类型放入全局命名空间里，这些定义的接口和类型能在你的所有 TypeScript 代码里使用。
+globals.d.ts文件用来将一些接口或者类型放入全局命名空间里，这些定义的接口和类型能在你的所有TypeScript代码里使用。
 
 
 ### 命名空间
@@ -93,3 +93,109 @@ import(/* webpackChunkName: "momentjs" */ 'moment')
 ```
 
 
+### 类型概览
+Typescript中类型有原始类型、数组、接口、内联类型注解、特殊类型、泛型、联合类型、交叉类型、
+元组类型、类型别名。
+```
+let num:number;
+let str:string;
+let bool:boolean;
+
+let boolArray: boolean[];
+
+interface Name = {
+    first: string,
+    second: string
+};
+let name: Name = {
+    first: 'John',
+    second: 'Doe'
+};
+
+let name: {
+    first: string,
+    second: string
+};
+let name: Name = {
+    first: 'John',
+    second: 'Doe'
+};
+
+let power: any;
+let val: null;
+let alias: undefined;
+function log(message: string):void {
+    console.log(message);
+}
+
+function reverse<T>(items: T[]):T[] {
+    const toreturn = [];
+    for (let i = items.length - 1; i >= 0; i--) {
+        toreturn.push(items[i]);
+    }
+    return toreturn;
+}
+
+function formatCommandLine(command: string | string[]) {
+    let line = '';
+    if (typeof command === 'string') {
+        line = command.trim();
+    } else {
+        line = command.join(' ').trim();
+    }
+}
+
+function extend<T, U>(first: T, second: U): T & U {
+    const result = <T & U>{};
+    result.frist = frist.key;
+    result.second = second.key;
+    return result;
+}
+
+let nameNumber: [string, number];
+
+type StrOrNum = string | number;
+let sample: StrOrNum;
+```
+
+
+### 从Javascript迁移
++ 添加一个tsconfig.json文件
++ 把文件扩展名从.js改为.ts，开始使用any来减少错误
++ 开始在typescript中写代码，减少any的使用
++ 为你的第三方代码定义环境声明
+```
+declare var $:any;
+
+declare type JQuery = any;
+declare var $:JQuery;
+
+declare module 'jquery';
+declare module '*.css';
+declare module '*.html';
+```
+
+
+### 环境声明
+可以通过关键字declare来声明变量，将这些变量放到.ts或者.d.ts文件中里，globals.d.ts是全局的声明文件。
+变量声明推荐使用接口，便于扩展。
+```
+interface Process {
+    exit(code?:number):void;
+}
+declare let process:Process;
+
+interface Process {
+    exitWithLogging(code?: number): void;
+}
+
+process.exitWithLogging = function() {
+    console.log('exiting');
+    process.exit.apply(process, arguments);
+};
+```
+
+
+### lib.d.ts
+当安装Typescript时，会顺带安装lib.d.ts等声明文件。此文件包含了Javascript运行时以及
+DOM中存在各种常见的环境声明。
