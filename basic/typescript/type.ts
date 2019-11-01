@@ -12,6 +12,9 @@ let unusable3: null = null;
 let unusable4: undefined = undefined;
 let someValue: any = 'this is value';
 let strLength: number = (someValue as string).length;
+let m = '111';
+
+
 
 
 
