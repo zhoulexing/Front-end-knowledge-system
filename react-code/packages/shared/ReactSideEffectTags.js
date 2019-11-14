@@ -1,0 +1,1 @@
+export const NoEffect = /*              */ 0b000000000000;
