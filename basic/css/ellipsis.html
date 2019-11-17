@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ellipsis</title>
+    <style>
+        .sin-ellipsis {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .mul-ellipsis {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .mul-ellipsis-height {
+            overflow: hidden;
+            line-height: 20px;
+            max-height: 40px;
+        }
+        .mul-ellipsis-height2 {
+            position: relative;
+            overflow: hidden;
+            line-height: 20px;
+            height: 40px;
+        }
+        .mul-ellipsis-height2::after {
+            content: "...";
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            padding: 0 10px;
+        }
+        .mul-ellipsis-height3 {
+            background-color: #fff;
+            overflow: hidden;
+            line-height: 20px;
+            max-height: 40px;
+        }
+        .mul-ellipsis-height3::before {
+            width: 20px;
+            height: 40px;
+            float: left;
+            content: "";
+        }
+        .mul-ellipsis-height3 .text {
+            float: right;
+            width: 100%;
+            margin-left: -20px;
+            word-break: break-all;
+        }
+        .mul-ellipsis-height3::after {
+            float: right;
+            width: 20px;
+            height: 20px;
+            content: "...";
+            left: 100%;
+            position: relative;
+            transform: translate(-100%, -100%);
+            background-color: red;
+        }
+        .abc {
+            background-color: #fff;
+            overflow: hidden;
+            line-height: 20px;
+            max-height: 40px;
+        }
+        .abc::before {
+            content: "";
+            width: 20px;height: 20px;
+            background-color: red;
+            float: left;
+        }
+        .abc::after {
+            content: "";
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            float: right;
+        }
+        .abc .test {
+            width: 100%;
+            background-color: blue;
+            float: right;
+            margin-left: -20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sin-ellipsis">这是一行特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长</div>
+    <hr/>
+    <div class="mul-ellipsis">这是一行特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长</div>
+    <hr/>
+    <div class="mul-ellipsis-js">这是一行特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长</div>
+    <hr/>
+    <div class="mul-ellipsis-height">这是一行特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长</div>
+    <hr/>
+    <div class="mul-ellipsis-height2">这是一行特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长</div>
+    <hr/>
+    <div class="mul-ellipsis-height3">
+        <div class="text">这是一行特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长特别长</div>
+    </div>
+</body>
+<script>
+    const ele = document.querySelector(".mul-ellipsis-js");
+    const ctn = ele.innerHTML;
+    const line = 2;
+    function formatStr() {
+        const style = window.getComputedStyle(ele);
+        const baseWidth = +style.width.slice(0, -2);
+        const baseFontSize = +style.fontSize.slice(0, -2);
+        const ctnOneLineNum = Math.floor(baseWidth / baseFontSize);
+        const ctnTotalLineNum = ctnOneLineNum * line;
+        const lastIndex = ctnTotalLineNum - ctn.length;
+        let content = "";
+        if(ctn.length > ctnTotalLineNum) {
+            content = ctn.slice(0, lastIndex - 3).concat("...");
+        } else {
+            content = ctn;
+        }
+        ele.innerHTML = content;
+    }
+    let timeId = null;
+    window.onresize = function() {
+        clearTimeout(timeId);
+        timeId = setTimeout(function() {
+            formatStr();
+        }, 1000);
+    }
+    formatStr();
+</script>
+</html>
