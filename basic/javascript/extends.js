@@ -19,6 +19,18 @@ console.log(
     cat1 instanceof Animal1,  // true
     Cat1 instanceof Animal1 // false
 );
+/* 
+原型链继承有一个问题，如果父类含有引用类型的值，子类的实例化后改变这个属性，则另一个实例的这个引用值也会受影响。
+*/
+function Animal1() {
+    this.books = ['js', 'html', 'css'];
+}
+function Cat1() {}
+Cat1.prototype = new Animal1();
+var c1 = new Cat1();
+var c2 = new Cat1();
+c1.books.push('java');
+console.log(c2.books);
 
 
 /* 构造继承 */
@@ -39,6 +51,9 @@ console.log(
     cat2 instanceof Cat2,  // true
     cat2 instanceof Animal2 // false
 );
+/* 
+构造函数继承有一个问题，就是父类原型上的方法不可继承。
+*/
 
 
 /* 实例继承 */
