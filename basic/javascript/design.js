@@ -180,9 +180,17 @@ Football.prototype.running = function() {
     return 'football running';
 }
 var basketball = new Basketball(100, 25);
-console.log(basketball.price, basketball.weight, basketball.running()); // 100, 50, basketball running
+console.log(
+    basketball.price, 
+    basketball.weight, 
+    basketball.running()
+); // 100, 50, basketball running
 var fontball = new Football(200, 50);
-console.log(fontball.price, fontball.weight, fontball.running()); // 200 50 football running
+console.log(
+    fontball.price, 
+    fontball.weight, 
+    fontball.running()
+); // 200 50 football running
 
 /* 
 关于单例模式，在实际工作过程中应该是最常见的了，比如经常用的第三方库如jQuery，在全局中只有一个实例。这种模式最明显的好处就是为它提供了一个命名空间，除此之外，
