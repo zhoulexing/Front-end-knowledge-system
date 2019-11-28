@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .box-outer {
+            background-color: coral;
+            margin: 50px;
+            padding: 50px;
+            width: 1000px;
+            height: 1000px;
+            border: solid 50px #000;
+            /* position: relative; */
+        }
+        .box-inner {
+            background-color: darkgreen;
+            margin: 50px;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box-outer">
+        <div class="box-inner">
+            
+        </div>
+    </div>
+    <script>
+        var boxOuter = document.querySelector(".box-outer");
+        var boxInner = document.querySelector(".box-inner");
+        console.log(`
+            clientLeft:${boxOuter.clientLeft},
+            clientTop:${boxOuter.clientTop},
+            clientWidth:${boxOuter.clientWidth},
+            clientHeight:${boxOuter.clientHeight},
+
+            offsetLeft:${boxOuter.offsetLeft},
+            offsetTop:${boxOuter.offsetTop},
+            offsetWidth:${boxOuter.offsetWidth},
+            offsetHeight:${boxOuter.offsetHeight},
+
+            scrollLeft:${boxOuter.scrollLeft},
+            scrollTop:${boxOuter.scrollTop},
+            scrollWidth:${boxOuter.scrollWidth},
+            scrollHeight:${boxOuter.scrollHeight},
+        `);
+
+        console.log(`
+            clientLeft:${boxInner.clientLeft},
+            clientTop:${boxInner.clientTop},
+            clientWidth:${boxInner.clientWidth},
+            clientHeight:${boxInner.clientHeight},
+
+            offsetLeft:${boxInner.offsetLeft},
+            offsetTop:${boxInner.offsetTop},
+            offsetWidth:${boxInner.offsetWidth},
+            offsetHeight:${boxInner.offsetHeight},
+
+            scrollLeft:${boxInner.scrollLeft},
+            scrollTop:${boxInner.scrollTop},
+            scrollWidth:${boxInner.scrollWidth},
+            scrollHeight:${boxInner.scrollHeight},
+        `);
+
+        console.log(`
+            innerWidth: ${window.innerWidth},
+            innerHeight: ${window.innerHeight},
+            outerWidth: ${window.outerWidth},
+            outerHeight: ${window.outerHeight},
+            screenLeft: ${window.screenLeft},
+            screenTop: ${window.screenTop},
+            screenX: ${window.screenX},
+            screenY: ${window.screenY},
+        `)
+    </script>
+</body>
+</html>
