@@ -14,13 +14,13 @@
             "type": "node",
             "request": "launch",
             "name": "express-node",
-            "program": "${workspaceFolder}/express.node/app.js"
+            "program": "${workspaceFolder}/node-express/app.js"
         },
         {
             "type": "node",
             "request": "launch",
             "name": "koa-node",
-            "program": "${workspaceFolder}/koa.node/app.js"
+            "program": "${workspaceFolder}/node-koa/app.js"
         }
     ]
 }

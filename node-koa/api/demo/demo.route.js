@@ -10,4 +10,5 @@ module.exports = router
     .get("/download/:filename", demo.download)
     .get("/getData", demo.getData)
     .get("/getJwt", demo.getJwt)
-    .get("/getList", demo.getList);
+    .get("/getList", demo.getList)
+    .get("/image", demo.getImage);

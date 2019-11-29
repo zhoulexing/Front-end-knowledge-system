@@ -8,6 +8,7 @@ const config = require("../../config");
 const jwt = require("jsonwebtoken");
 const verify = util.promisify(jwt.verify);
 const { Demo } = require("../../utils/mongodb");
+const crypto = require("crypto");
 
 module.exports = {
     async index(ctx) {
@@ -146,6 +147,48 @@ module.exports = {
         const list = await Demo.find();
         result.list = list;
         ctx.body = result;
+    },
+
+    async getImage(ctx) {
+        const { query, response, request } = ctx;
+        const filepath = path.join(__dirname, "../../static/images/", query.filename);
+
+        // 判断图片是否存在
+        let exist = fs.existsSync(filepath);
+        let data = "未找到相关内容";
+        
+        // response.set("pragma", "no-cache");
+        // response.set("expires", new Date(Date.now() + 10 * 1000).toString());
+        // response.set("cache-control", "max-age=60");
+        // if(exist) {
+            // data = fs.readFileSync(filepath);
+        // }
+
+        // const ifModifiedSince = request.headers["if-modified-since"];
+        // const imageStatus = fs.statSync(filepath);
+        // const lastModified = imageStatus.mtime.toGMTString();
+        // if (ifModifiedSince === lastModified) {
+        //     response.status = 304;
+        // } else if (exist) {
+        //     response.lastModified = lastModified;
+        //     data = fs.readFileSync(filepath);
+        // }
+
+
+        const ifNoneMatch = request.headers["if-none-match"];
+        const hash = crypto.createHash("md5");
+        const imageBuffer = fs.readFileSync(filepath);
+        hash.update(imageBuffer);
+        const etag = `"${hash.digest("hex")}"`;
+        if (ifNoneMatch === etag) {
+            response.status = 304;
+        } else if(exist) {
+            response.set("etag", etag);
+            data = imageBuffer;
+        }
+
+
+        ctx.body = data;
     }
 }
 
