@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 无论是在实际工作中还是在面试过程中，布局是经常会碰到的一个问题，无论是三列布局还是垂直居中布局。-->
+
+    <!-- 三列布局主要的实现方式有圣杯布局、双飞翼布局、绝对定位布局、Flex布局和calc计算函数布局。 -->
+
+    <!-- 垂直居中分为确定高度的和不知道高度的。 -->
+    <style>
+        .grail-header {
+            width: 100%;
+            height: 60px;
+            background-color: dodgerblue;
+        }
+        .grail-footer {
+            width: 100%;
+            height: 60px;
+            background-color: darkred;
+            clear: both;
+        }
+        .grail-main {
+            height: 300px;
+            padding: 0 100px;
+        }
+        .grail-middle {
+            width: 100%;
+            float: left;
+            height: 100%;
+            background-color: darkslategray;
+        }
+        .grail-left {
+            float: left;
+            width: 100px;
+            height: 100%;
+            margin-left: -100%;
+            background-color: darkseagreen;
+            position: relative;
+            left: -100px;
+        }
+        .grail-right {
+            float: right;
+            width: 100px;
+            height: 100%;
+            background-color: darkseagreen;
+            position: relative;
+            left: 100px;
+            margin-left: -100px;
+        }
+
+
+        .kick-header {
+            width: 100%;
+            height: 60px;
+            background-color: dodgerblue;
+        }
+        .kick-footer {
+            width: 100%;
+            height: 60px;
+            background-color: darkred;
+            clear: both;
+        }
+        .kick-main {
+            width: 100%;
+            height: 300px;
+        }
+        .kick-middle {
+            float: left;
+            width: 100%;
+            height: 100%;
+            background-color: darkslategray;
+        }
+        .kick-middle .kick-center {
+            padding: 0 100px;
+        }
+        .kick-left {
+            float: left;
+            width: 100px;
+            height: 100%;
+            margin-left: -100%;
+            left: -100px;
+            background-color: darkseagreen;
+        }
+        .kick-right {
+            float: right;
+            width: 100px;
+            height: 100%;
+            background-color: darkseagreen;
+            margin-left: -100px;
+        }
+
+
+        .pt-header {
+            width: 100%;
+            height: 60px;
+            background-color: dodgerblue;
+        }
+        .pt-footer {
+            width: 100%;
+            height: 60px;
+            background-color: darkred;
+        }
+        .pt-main {
+            width: 100%;
+            height: 300px;
+            position: relative;
+        }
+        .pt-middle {
+            height: 100%;
+            background-color: darkslategray;
+            padding: 0 100px;
+        }
+        .pt-left {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100px;
+            height: 100%;
+            background-color: darkseagreen;
+        }
+        .pt-right {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100px;
+            height: 100%;
+            background-color: darkseagreen;
+        }
+
+
+        .flex-header {
+            width: 100%;
+            height: 60px;
+            background-color: dodgerblue;
+        }
+        .flex-footer {
+            width: 100%;
+            height: 60px;
+            background-color: darkred;
+        }
+        .flex-main {
+            width: 100%;
+            height: 300px;
+            display: flex;
+        }
+        .flex-middle {
+            flex: 1;
+            height: 100%;
+            background-color: darkslategray;
+        }
+        .flex-left {
+            width: 100px;
+            height: 100%;
+            background-color: darkseagreen;
+        }
+        .flex-right {
+            width: 100px;
+            height: 100%;
+            background-color: darkseagreen;
+        }
+
+
+        .calc-header {
+            width: 100%;
+            height: 60px;
+            background-color: dodgerblue;
+        }
+        .calc-footer {
+            width: 100%;
+            height: 60px;
+            background-color: darkred;
+        }
+        .calc-main {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+        }
+        .calc-middle {
+            float: left;
+            width: calc(100% - 200px);
+            height: 100%;
+            background-color: darkslategray;
+        }
+        .calc-left {
+            float: left;
+            width: 100px;
+            height: 100%;
+            background-color: darkseagreen;
+        }
+        .calc-right {
+            float: right;
+            width: 100px;
+            height: 100%;
+            background-color: darkseagreen;
+        }
+
+
+        .pa-box {
+            background-color: deeppink;
+            width: 200px;
+            height: 200px;
+            position: relative;
+        }
+        .pa-child {
+            background-color: gold;
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -25px 0 0 -25px;
+        }
+
+
+        .pm-box {
+            background-color: deeppink;
+            width: 200px;
+            height: 200px;
+            position: relative;
+        }
+        .pm-child {
+            background-color: gold;
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+        }
+
+
+        .pt-box {
+            background-color: deeppink;
+            width: 200px;
+            height: 200px;
+            position: relative;
+        }
+        .pt-child {
+            color: gold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+
+        .fx-box {
+            background-color: deeppink;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .fx-child {
+            color: gold;
+        }
+
+
+        .dt-box {
+            background-color: deeppink;
+            width: 200px;
+            height: 200px;
+            display: table;
+        }
+        .dt-child {
+            display: table-cell;
+            color: gold;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+
+        .gd-box {
+            background-color: deeppink;
+            width: 200px;
+            height: 200px;
+            display: grid;
+            justify-content: center;
+            align-items: center;
+        }
+        .gd-child {
+            color: gold;
+        }
+    </style>
+</head>
+<body>
+    <!-- 圣杯布局 -->
+    <header class="grail-header"></header>
+    <main class="grail-main">
+        <div class="grail-middle">111</div>
+        <div class="grail-left"></div>
+        <div class="grail-right"></div>
+    </main>
+    <footer class="grail-footer"></footer>
+
+    <hr>
+
+    <!-- 双飞翼布局 -->
+    <header class="kick-header"></header>
+    <main class="kick-main">
+        <div class="kick-middle">
+            <div class="kick-center">222</div>
+        </div>
+        <div class="kick-left"></div>
+        <div class="kick-right"></div>
+    </main>
+    <footer class="kick-footer"></footer>
+
+    <hr>
+
+    <!-- 绝对定位布局 -->
+    <header class="pt-header"></header>
+    <main class="pt-main">
+        <div class="pt-left"></div>
+        <div class="pt-middle">333</div>
+        <div class="pt-right"></div>
+    </main>
+    <footer class="pt-footer"></footer>
+
+    <hr>
+
+    <!-- Flex布局 -->
+    <header class="flex-header"></header>
+    <main class="flex-main">
+        <div class="flex-left"></div>
+        <div class="flex-middle">444</div>
+        <div class="flex-right"></div>
+    </main>
+    <footer class="flex-footer"></footer>
+
+    <hr>
+
+    <!-- calc布局 -->
+    <header class="calc-header"></header>
+    <main class="calc-main">
+        <div class="calc-left"></div>
+        <div class="calc-middle">555</div>
+        <div class="calc-right"></div>
+    </main>
+    <footer class="calc-footer"></footer>
+
+    <hr>
+
+    <!-- 绝对定位和负边距 -->
+    <div class="pa-box">
+        <div class="pa-child"></div>
+    </div>
+
+    <hr>
+
+    <!-- 绝对定位和margin:auto -->
+    <div class="pm-box">
+        <div class="pm-child"></div>
+    </div>
+
+    <hr>
+
+    <!-- 绝对定位和转换 -->
+    <div class="pt-box">
+        <div class="pt-child">垂直居中</div>
+    </div>
+    
+    <hr>
+
+    <!-- Flex -->
+    <div class="fx-box">
+        <div class="fx-child">垂直居中</div>
+    </div>
+    
+    <hr>
+
+    <!-- grid -->
+    <div class="gd-box">
+        <div class="gd-child">垂直居中</div>
+    </div>
+
+    <hr>
+
+    <!-- display: table -->
+    <div class="dt-box">
+        <div class="dt-child">垂直居中</div>
+    </div>
+
+</body>
+</html>
