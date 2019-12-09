@@ -55,7 +55,7 @@ greenTea.init();
 又被称作发布-订阅模式或消息机制，定义了一种依赖关系，解决了主体对象与观察者之间功能的耦合。
 
 观察者模式在实际编码过程中用的还是蛮多的，尤其是在框架设计中，比如vue的双向绑定原理、redux中的监听函数还有浏览器的事件机制，用的都是观察者模式或者叫
-发布-订阅模式。其实观察者模式并不等于发布-订阅模式，它们之间的区别就在于调度中心的位置不一样。
+发布-订阅模式。其实观察者模式并不等于发布-订阅模式，它们之间的区别在于调度中心的位置不一样。
 */
 // 观察者模式
 class Subject {
@@ -173,14 +173,12 @@ function MarryState() {
         }
         return this;
     }
-
     const goes = function() {
         for(let key in currentState) {
             states[key] && states[key]();
         }
         return this;
     }
-
     return {
         changeState,
         goes
@@ -254,7 +252,8 @@ Chain.prototype.setNext = function(next) {
 Chain.prototype.check = function() {
     const result = this.fn.apply(this, arguments);
     if(result === 'nextSuccessor') {
-        return this.next && this.next.check.apply(this.next, arguments);
+        return this.next && 
+            this.next.check.apply(this.next, arguments);
     }
     return result;
 }
@@ -476,3 +475,8 @@ function createDom(vnode) {
     vnode.children.forEach(child => render(child, dom));  
     return dom ;
 }
+
+
+/* 
+总结：行为型模式包括并不限于这11种，它们与创建型和结构型不一样，侧重于具体行为。
+*/
