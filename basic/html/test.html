@@ -5,12 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Test</title>
+    <style>
+        .container {
+            position: relative;
+        }
+        .container:hover .child {
+            width: 100px;
+            height: 100px;
+        }
+        .child {
+            transition: width .5s ease 0s;
+			position: absolute;
+			width: 0;
+			height: 0;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			top: 3px;
+			left: 47px;
+			background-color: #eee;
+			padding: 0 10px 0 17px;
+			box-shadow: 0 0 5px #bfbfbf;
+        }
+    </style>
 </head>
 <body>
     <div style="display: flex;">
         <div style="flex-grow: 1;">1111</div>
         <div style="width: 5px;height: 100%;background-color: red;"></div>
         <div style="flex-grow: 1;">2222</div>
+    </div>
+
+    <div class="container">
+        <div>更多</div>
+        <div class="child">
+            <button>点我</button>
+        </div>
     </div>
 </body>
 </html>
