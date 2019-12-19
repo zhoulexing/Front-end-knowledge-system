@@ -1,0 +1,18 @@
+{
+  "name": "webpack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "loadcss": "rimraf ./loadcss/dist && webpack --config ./loadcss/webpack.config.js"
+  },
+  "author": "zlx",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^3.3.2",
+    "rimraf": "^3.0.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  }
+} 
