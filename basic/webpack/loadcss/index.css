@@ -13,5 +13,7 @@ body {
     flex-direction: column;
 }
 .img {
-    background-image: url(../images/prototype.jpg);
+    width: 100px;
+    height: 100px;
+    background: url('./images/prototype.jpg') no-repeat;
 }
