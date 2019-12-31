@@ -10,7 +10,7 @@ import pathToRegexp from "path-to-regexp";
 const getRouterConfig = (app) => {
     return {
         "/apps": {
-            component: dynamicWrapper(app, [], () => import("../layouts/BasicLayout"))
+            component: dynamicWrapper(app, [], () => require("../layouts/BasicLayout"))
         },
         "/login": {
             component: dynamicWrapper(app, [], () => import("../layouts/LoginLayout"))

@@ -1,11 +1,11 @@
 import { addLocaleData } from "react-intl";
-import en from "react-intl/locale-data/en";
-import zh from "react-intl/locale-data/zh";
+// import en from "react-intl/locale-data/en";
+// import zh from "react-intl/locale-data/zh";
 import zh_CN from "./zh_CN";
 import en_US from "./en_US";
 
-addLocaleData(en);
-addLocaleData(zh);
+// addLocaleData(en);
+// addLocaleData(zh);
 
 export const mappings = {
     ZH_CN: "zh",
