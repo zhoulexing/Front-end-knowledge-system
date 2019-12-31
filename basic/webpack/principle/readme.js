@@ -139,3 +139,59 @@
         );
     }
 });
+
+
+eval(`
+    __webpack_require__.r(__webpack_exports__);
+    __webpack_require__.d(__webpack_exports__, \"getAge\", function() { return getAge; });
+    __webpack_require__.d(__webpack_exports__, \"getName\", function() { return getName; });
+    function getName() { return \"Zlx\"; }
+    function getAge() { return 30;}
+    var isHas = [1, 2, 3].includes(2);
+`);
+
+eval(`
+    Object.defineProperty(exports, \"__esModule\", { value: true });
+    exports.getAge = getAge;
+    exports.getName = getName;
+    function getName() { return \"Zlx\"; }
+    function getAge() {\n  return 30;\n}
+    var isHas = [1, 2, 3].includes(2);
+`);
+
+eval(`
+    __webpack_require__.r(__webpack_exports__);
+    __webpack_require__.d(__webpack_exports__, \"getAge\", function() { return getAge; });
+    __webpack_require__.d(__webpack_exports__, \"getName\", function() { return getName; });
+    function getName() {\n  return \"Zlx\";\n}
+    function getAge() {\n  return 30;\n}
+    var isHas = [1, 2, 3].includes(2);
+`);
+
+eval(`
+    var $ = __webpack_require__(/*! ../internals/export */ \"./node_modules/_core-js@3.6.0@core-js/internals/export.js\");
+    var flattenIntoArray = __webpack_require__(/*! ../internals/flatten-into-array */ \"./node_modules/_core-js@3.6.0@core-js/internals/flatten-into-array.js\");
+    var toObject = __webpack_require__(/*! ../internals/to-object */ \"./node_modules/_core-js@3.6.0@core-js/internals/to-object.js\");
+    var toLength = __webpack_require__(/*! ../internals/to-length */ \"./node_modules/_core-js@3.6.0@core-js/internals/to-length.js\");
+    var toInteger = __webpack_require__(/*! ../internals/to-integer */ \"./node_modules/_core-js@3.6.0@core-js/internals/to-integer.js\");
+    var arraySpeciesCreate = __webpack_require__(/*! ../internals/array-species-create */ \"./node_modules/_core-js@3.6.0@core-js/internals/array-species-create.js\"); 
+    `Array.prototype.flat` method\n// https://github.com/tc39/proposal-flatMap\n\n\n$({\n  target: 'Array',\n  proto: true\n}, {\n  flat: function flat()\n  /* depthArg = 1 */\n  {\n    var depthArg = arguments.length ? arguments[0] : undefined;\n    var O = toObject(this);\n    var sourceLen = toLength(O.length);\n    var A = arraySpeciesCreate(O, 0);\n    A.length = flattenIntoArray(A, O, O, sourceLen, 0, depthArg === undefined ? 1 : toInteger(depthArg));\n    return A;\n  }\n});\n\n//# sourceURL=webpack:///./node_modules/_core-js@3.6.0@core-js/modules/es.array.flat.js?
+`);
+
+eval(`
+    var isArray = __webpack_require__(/*! ../internals/is-array */ \"./node_modules/_core-js-pure@3.6.0@core-js-pure/internals/is-array.js\");
+    var toLength = __webpack_require__(/*! ../internals/to-length */ \"./node_modules/_core-js-pure@3.6.0@core-js-pure/internals/to-length.js\");
+    var bind = __webpack_require__(/*! ../internals/bind-context */ \"./node_modules/_core-js-pure@3.6.0@core-js-pure/internals/bind-context.js\"); 
+     `FlattenIntoArray` abstract operation\n// https://tc39.github.io/proposal-flatMap/#sec-FlattenIntoArray
+     var flattenIntoArray = function (target, original, source, sourceLen, start, depth, mapper, thisArg) {\n  var targetIndex = start;\n  var sourceIndex = 0;\n  var mapFn = mapper ? bind(mapper, thisArg, 3) : false;\n  var element;\n\n  while (sourceIndex < sourceLen) {\n    if (sourceIndex in source) {\n      element = mapFn ? mapFn(source[sourceIndex], sourceIndex, original) : source[sourceIndex];\n\n      if (depth > 0 && isArray(element)) {\n        targetIndex = flattenIntoArray(target, original, element, toLength(element.length), targetIndex, depth - 1) - 1;\n      } else {\n        if (targetIndex >= 0x1FFFFFFFFFFFFF) throw TypeError('Exceed the acceptable array length');\n        target[targetIndex] = element;\n      }\n\n      targetIndex++;\n    }\n\n    sourceIndex++;\n  }\n\n  return targetIndex;\n};\n\nmodule.exports = flattenIntoArray;\n\n//# sourceURL=webpack:///./node_modules/_core-js-pure@3.6.0@core-js-pure/internals/flatten-into-array.js?
+`);
+
+eval(`
+    var $ = __webpack_require__(/*! ../internals/export */ \"./node_modules/_core-js@3.6.0@core-js/internals/export.js\");
+    var flattenIntoArray = __webpack_require__(/*! ../internals/flatten-into-array */ \"./node_modules/_core-js@3.6.0@core-js/internals/flatten-into-array.js\");
+    var toObject = __webpack_require__(/*! ../internals/to-object */ \"./node_modules/_core-js@3.6.0@core-js/internals/to-object.js\");
+    var toLength = __webpack_require__(/*! ../internals/to-length */ \"./node_modules/_core-js@3.6.0@core-js/internals/to-length.js\");
+    var toInteger = __webpack_require__(/*! ../internals/to-integer */ \"./node_modules/_core-js@3.6.0@core-js/internals/to-integer.js\");
+    var arraySpeciesCreate = __webpack_require__(/*! ../internals/array-species-create */ \"./node_modules/_core-js@3.6.0@core-js/internals/array-species-create.js\"); 
+    `Array.prototype.flat` method\n// https://github.com/tc39/proposal-flatMap\n\n\n$({\n  target: 'Array',\n  proto: true\n}, {\n  flat: function flat()\n  /* depthArg = 1 */\n  {\n    var depthArg = arguments.length ? arguments[0] : undefined;\n    var O = toObject(this);\n    var sourceLen = toLength(O.length);\n    var A = arraySpeciesCreate(O, 0);\n    A.length = flattenIntoArray(A, O, O, sourceLen, 0, depthArg === undefined ? 1 : toInteger(depthArg));\n    return A;\n  }\n});\n\n//# sourceURL=webpack:///./node_modules/_core-js@3.6.0@core-js/modules/es.array.flat.js?
+`);

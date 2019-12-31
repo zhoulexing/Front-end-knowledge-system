@@ -29,6 +29,14 @@ module.exports = {
                 }
             }]
         }, {
+            test: /\.style.js$/,
+            use: [
+                'style-loader',
+                { loader: 'css-loader', options: { importLoaders: 2 } },
+                { loader: 'postcss-loader', options: { parser: 'postcss-js' } },
+                'babel-loader'
+            ]
+        }, {
             test: /\.(png|jpg|gif)$/,
             use: ["url-loader?limit=1024&name=[name]_[sha512:hash:base64:7].[ext]"],
         }]
