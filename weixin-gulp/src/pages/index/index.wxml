@@ -11,4 +11,10 @@
     <view bindtap="goImageCropper">
         <button>image-cropper</button>
     </view>
+    <view bindtap="goRubbish">
+        <button>rubbish</button>
+    </view>
+    <view bindtap="goSentry">
+        <button>sentry</button>
+    </view>
 </view>

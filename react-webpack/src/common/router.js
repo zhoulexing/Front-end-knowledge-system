@@ -15,6 +15,9 @@ const routerConfig = {
     '/apps/desktop': {
         component: dynamicWrapper(() => import(/* webpackChunkName: "desktop" */'../routes/Desktop')),
     },
+    '/apps/desktop/deliver': {
+        component: dynamicWrapper(() => import(/* webpackChunkName: "deliver" */'../routes/Deliver')),
+    },
     '/apps/example': {
         component: dynamicWrapper(() => import(/* webpackChunkName: "example" */'../routes/Example')),
     },
@@ -24,8 +27,8 @@ const routerConfig = {
     '/apps/hotkeys': {
         component: dynamicWrapper(() => import(/* webpackChunkName: "hotkeys" */'../routes/HotKeys')),
     },
-    '/apps/desktop/deliver': {
-        component: dynamicWrapper(() => import(/* webpackChunkName: "deliver" */'../routes/Deliver')),
+    '/apps/clodop': {
+        component: dynamicWrapper(() => import(/* webpackChunkName: "hotkeys" */'../routes/CLodop')),
     },
 };
 
