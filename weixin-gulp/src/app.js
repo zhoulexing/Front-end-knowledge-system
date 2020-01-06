@@ -6,7 +6,7 @@ const {
 
 // 初始化 Sentry
 Sentry.init({
-  dsn: "https://40cdfac753a74ff58da437df56744d46@sentry.800best.com/23", // 事件发送的位置
+  dsn: "", // 事件发送的位置
   debug: false, // 启用调试
   release: "1.0.0", // 版本
   integrations: [new GlobalHandlers({ onerror: true })], 

@@ -41,5 +41,18 @@ Page({
     typeError: function() {
         const str = null;
         str.split(",");
+    },
+    promiseCatch: function() {
+        getData().then(params => {
+            console.log(params.name);
+        }).catch(err => {
+            throw new Error(err);
+        });
     }
 });
+
+function getData(params) {
+    return new Promise(resolve => {
+        resolve(params);
+    });
+}

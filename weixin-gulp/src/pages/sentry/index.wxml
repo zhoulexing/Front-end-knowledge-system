@@ -7,4 +7,5 @@
     <button wx:if="{{canIUse}}" open-type="getUserInfo" bindtap="uploadCatch">try catch</button>
     <button wx:if="{{canIUse}}" open-type="getUserInfo" bindtap="throwError">throw error</button>
     <button wx:if="{{canIUse}}" open-type="getUserInfo" bindtap="typeError">type error</button>
+    <button wx:if="{{canIUse}}" open-type="getUserInfo" bindtap="promiseCatch">promise catch</button>
 </view>
