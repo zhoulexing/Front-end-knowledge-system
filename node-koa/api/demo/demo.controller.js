@@ -90,6 +90,50 @@ module.exports = {
     },
 
     /**
+     * 获取js
+     * @param {object} ctx 
+     */
+    async getJs(ctx) {
+        const { filename } = ctx.params;
+        const filepath = path.join(__dirname, "../../static/javascripts/", filename);
+
+        await asyncTime(2000);
+
+        // 判断图片是否存在
+        let exist = fs.existsSync(filepath);
+        let data = "未找到相关内容";
+        if (exist) {
+            data = fs.readFileSync(filepath);
+            ctx.res.writeHead(200);
+            ctx.res.write(data, "binary");
+            ctx.res.end();
+        }
+        ctx.body = data;
+    },
+
+    /**
+     * 获取css
+     * @param {object} ctx 
+     */
+    async getCss(ctx) {
+        const { filename } = ctx.params;
+        const filepath = path.join(__dirname, "../../static/styles/", filename);
+
+        await asyncTime(3000);
+
+        // 判断图片是否存在
+        let exist = fs.existsSync(filepath);
+        let data = "未找到相关内容";
+        if (exist) {
+            data = fs.readFileSync(filepath);
+            ctx.res.writeHead(200);
+            ctx.res.write(data, "binary");
+            ctx.res.end();
+        }
+        ctx.body = data;
+    },
+
+    /**
      * 下载
      * @param {object} ctx 
      */

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="renderer" content="webkit" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+            http-equiv="Cache-Control"
+            content="no-cache,no-store, must-revalidate"
+        />
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta http-equiv="expires" content="0" />
+        <title>测试浏览器渲染</title>
+    </head>
+    <body>
+		<div id="a">aaaaa</div>
+		<div id="b">bbbbb</div>
+        <script>
+            // var a = document.querySelector("#a");
+            // a.onclick = function() {
+            //     var aDom = document.createElement("div");
+            //     aDom.style.width = "100px";
+            //     aDom.style.height = "100px";
+            //     aDom.style.backgroundColor = "red";
+            //     console.log(aDom.style.width);
+            //     a.appendChild(aDom);
+			// };
+			// var aDom = document.createElement("div");
+            //     aDom.style.width = "100px";
+            //     aDom.style.height = "100px";
+            //     aDom.style.backgroundColor = "red";
+            //     console.log(aDom.style.width);
+            //     a.appendChild(aDom);
+
+			// new MutationObserver(function () {
+			// 	console.log('mutate');
+			// }).observe(a, {
+			// 	attributes: true
+			// });
+			// a.setAttribute('data-random', Math.random());
+
+
+
+			// console.log("start");
+            // setTimeout(function() {
+			// 	console.log("setTimeout1");
+            //     var b = document.querySelector("#b");
+			// 	b.style.width = "100px";
+            //     console.log(b.clientWidth);
+			// 	b.style.height = "100px";
+            //     b.style.backgroundColor = "red";
+            //     sleep(50);
+            //     console.log(b.clientHeight);
+			// }, 0);
+
+            var b = document.querySelector("#b");
+				b.style.width = "100px";
+                console.log(b.clientWidth);
+				b.style.height = "100px";
+                b.style.backgroundColor = "red";
+                sleep(50);
+
+            function sleep(time) {
+                let start = end = +new Date();
+                while(end - start <= time) {
+                    end = +new Date();
+                }
+            }
+
+            // Promise.resolve()
+            //     .then(function() {
+            //         console.log("promise1");
+            //     })
+            //     .then(function() {
+            //         console.log("promise2");
+            //     });
+            // console.log("end");
+        </script>
+    </body>
+</html>
