@@ -1,4 +1,17 @@
-//app.js
+import * as Sentry from "./components/sentry/sentry-minapp.wx.min";
+
+const {
+  Integrations: { GlobalHandlers }
+} = Sentry;
+
+// 初始化 Sentry
+Sentry.init({
+  dsn: "", // 事件发送的位置
+  debug: false, // 启用调试
+  release: "1.0.0", // 版本
+  integrations: [new GlobalHandlers({ onerror: true })], 
+});
+
 App({
   onLaunch: function() {
     // wx.cloud.init({
@@ -26,7 +39,24 @@ App({
             success: (res) => {
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo;
-
+              const {
+                nickName,
+                country,
+                province,
+                city,
+                avatarUrl
+              } = res.userInfo;
+              Sentry.configureScope(scope => {
+                scope.setUser({ id: nickName });
+                scope.setTag("country", country);
+                scope.setExtra("province", province);
+                scope.setExtras({
+                  city,
+                  avatarUrl,
+                  environment: this.globalData.environment
+                });
+              });
+              
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
@@ -38,7 +68,12 @@ App({
       }
     });
   },
+  onError(error) {
+    console.log("in app:", error);
+    Sentry.captureException(error);
+  },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    environment: "dev" 
   }
 });

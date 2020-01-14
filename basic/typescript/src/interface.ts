@@ -69,4 +69,58 @@ square.sideLength = 5;
 square.penWidth = 4;
 
 
+interface MenuItem {
+    name: string,
+    icon: string,
+    path: string,
+    children: MenuItem[]
+}
+
+interface MenuData extends Array<MenuItem> {}
+
+// interface MenuData {
+//     [index: number]: MenuItem
+// }
+
+// type MenuData = MenuItem[];
+
+const menuData = [
+    {
+        name: "数据资源",
+        icon: "database",
+        path: "datasource"
+    },
+    {
+        name: "我的",
+        icon: "user",
+        path: "my",
+        children: [
+            {
+                name: "研判",
+                path: "determine"
+            },
+            {
+                name: "资源",
+                path: "datasource"
+            }
+        ]
+    },
+    {
+        name: "示例",
+        icon: "smile",
+        path: "example",
+        children: [
+            {
+                name: "示例1",
+                path: "1"
+            },
+            {
+                name: "示例2",
+                path: "2"
+            }
+        ]
+    }
+];
+
+
 

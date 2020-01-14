@@ -1,0 +1,5 @@
+@import "./c1.css";
+#root {
+    width: 100px;
+    background-color: red;
+}

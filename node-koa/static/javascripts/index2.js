@@ -1,0 +1,1 @@
+document.querySelector("#f").style.color = "blue";

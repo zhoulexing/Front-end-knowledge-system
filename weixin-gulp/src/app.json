@@ -3,13 +3,13 @@
     "pages/index/index",
     "pages/imageCropper/index",
     "pages/rubbish/index",
-    "pages/wxCropper/index"
+    "pages/wxCropper/index",
+    "pages/sentry/index"
   ],
   "window": {
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "周某人",
     "navigationBarTextStyle": "black",
-    "navigationStyle": "custom",
     "backgroundTextStyle": "light"
   },
   "usingComponents": {

@@ -11,4 +11,6 @@ module.exports = router
     .get("/getData", demo.getData)
     .get("/getJwt", demo.getJwt)
     .get("/getList", demo.getList)
+    .get("/js/:filename", demo.getJs)
+    .get("/css/:filename", demo.getCss)
     .get("/image", demo.getImage);

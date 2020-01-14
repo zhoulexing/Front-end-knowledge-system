@@ -14,11 +14,11 @@ function A() {}
 A.prototype = {
     length: 2,
     size() {
-        return this.length
+        return this.length;
     }
-}
+};
 var a = new A();
-console.log(a.size(), a.length);// 2 2
+console.log(a.size(), a.length); // 2 2
 
 /* 
 如果通过A.size()或A().size()获取就会报错，因为原型对象上的属性和方法必须通过实例化后才能获取。但是在使用jQuery的时候，并没有实例化，
@@ -30,9 +30,9 @@ function A() {
 A.fn = A.prototype = {
     length: 2,
     size() {
-        return this.length
+        return this.length;
     }
-}
+};
 console.log(A().size(), A.fn.size()); // 2 2
 
 /* 
@@ -44,13 +44,13 @@ function A(selector) {
 A.fn = A.prototype = {
     length: 2,
     size() {
-        return this.length
+        return this.length;
     },
     init(selector) {
         return document.getElementById(selector);
     }
-}
-console.log(A('demo')); // <div id="demo"></div>
+};
+console.log(A("demo")); // <div id="demo"></div>
 
 /* 
 经过改写之后，虽然可以返回元素，但是不能进行链式调用，比如执行A方法后继续执行size方法。所以在需要修改返回对象，
@@ -62,16 +62,16 @@ function A(selector) {
 A.fn = A.prototype = {
     length: 2,
     size() {
-        return this.length
+        return this.length;
     },
     init(selector) {
         this[0] = document.getElementById(selector);
         this.length = 1;
         return this;
     }
-}
-var demo = A('demo');
-var test = A('test');
+};
+var demo = A("demo");
+var test = A("test");
 console.log(demo[0]); // <div id="test"></div>
 console.log(test[0]); // <div id="test"></div>
 
@@ -85,15 +85,15 @@ function A(selector) {
 A.fn = A.prototype = {
     length: 2,
     size() {
-        return this.length
+        return this.length;
     },
     init: function(selector) {
         this[0] = document.getElementById(selector);
         this.length = 1;
         return this;
     }
-}
-console.log(A('demo').size()); // Uncaught TypeError
+};
+console.log(A("demo").size()); // Uncaught TypeError
 
 /* 
 实例化init对象，可以解决对象覆盖的问题，但是A.fn对象上的size方法就获取不到了。为了使init方法在实例化后还能够获取到A.fn对象上的属性，
@@ -106,16 +106,16 @@ A.fn = A.prototype = {
     constructor: A,
     length: 2,
     size() {
-        return this.length
+        return this.length;
     },
     init: function(selector) {
         this[0] = document.getElementById(selector);
         this.length = 1;
         return this;
     }
-}
+};
 A.fn.init.prototype = A.fn;
-console.log(A('demo').size()); // 1
+console.log(A("demo").size()); // 1
 
 /* 
 在jQuery中获取的元素更像一个数组，但是A方法的返回值是一个对象。为了使A方法的返回值类似数组，需要添加数组的一些方法。
@@ -127,7 +127,7 @@ A.fn = A.prototype = {
     constructor: A,
     length: 2,
     size() {
-        return this.length
+        return this.length;
     },
     init: function(selector) {
         this[0] = document.getElementById(selector);
@@ -138,11 +138,9 @@ A.fn = A.prototype = {
     push: [].push,
     sort: [].sort,
     splice: [].splice
-}
+};
 A.fn.init.prototype = A.fn;
-console.log(A('demo')); // [...]
-
-
+console.log(A("demo")); // [...]
 
 /* 
 委托模式
@@ -154,54 +152,47 @@ javascript中的事件代理就是用委托模式将子元素的事件委托给�
 // 委托翻译
 function ChineseTranslater() {
     var dictionray = {
-        'hello': '你好',
-        'world': '世界'
+        hello: "你好",
+        world: "世界"
     };
     this.translate = function(source) {
         return dictionray[source];
-    }
+    };
 }
 var translater = new ChineseTranslater();
-translater.translate('hello'); // 你好
-
+translater.translate("hello"); // 你好
 
 /* 
 数据访问对象模式
 抽象和封装对数据源的访问与存储，DAO通过对数据源的管理方便对数据的访问与存储。
 
-如下对本地存储localStorage的封装, 网上有很多例子，这里只是简单封装一下。
+如下对本地存储localStorage的封装。
 */
-function BaseLocalStorage(preId, timeSign) {
-    this.preId = preId;
-    this.timeSign = timeSign || '|-|';
-}
 BaseLocalStorage.prototype = {
     status: {
         SUCCESS: 0, // 成功
         FAILURE: 1, // 失败
         OVERFLOW: 2, // 移除
-        TIMEOUT: 3, // 过期
+        TIMEOUT: 3 // 过期
     },
     storage: localStorage || window.localStorage,
     getKey: function(key) {
         return this.preId + key;
     },
-    set: function(key, value, callback, time) {
-
-    },
-    get: function(key, callback) {
-
-    },
-    remove: function(key, callback) {
-
-    }
+    set: function(key, value, callback, time) {},
+    get: function(key, callback) {},
+    remove: function(key, callback) {}
+};
+function BaseLocalStorage(preId, timeSign) {
+    this.preId = preId;
+    this.timeSign = timeSign || "|-|";
 }
 BaseLocalStorage.prototype = {
     status: {
         SUCCESS: 0, // 成功
         FAILURE: 1, // 失败
         OVERFLOW: 2, // 移除
-        TIMEOUT: 3, // 过期
+        TIMEOUT: 3 // 过期
     },
     storage: localStorage || window.localStorage,
     getKey: function(key) {
@@ -236,15 +227,15 @@ BaseLocalStorage.prototype = {
         } catch (error) {
             result = {
                 status: that.status.FAILURE,
-                value: null,
+                value: null
             };
             callback && callback.call(this, result.status, result.value);
             return result;
         }
-        if(value) {
+        if (value) {
             index = value.indexOf(that.timeSign);
             time = +value.slice(0, index);
-            if(new Date(time).getTime() > new Date().getTime() || time == 0) {
+            if (+new Date(time) > +new Date() || time == 0) {
                 value = value.slice(index + timeSignLen);
             } else {
                 value = null;
@@ -257,7 +248,7 @@ BaseLocalStorage.prototype = {
         result = {
             status: status,
             value: value
-        }
+        };
         callback && callback.call(this, result.status, result.value);
         return result;
     },
@@ -267,31 +258,35 @@ BaseLocalStorage.prototype = {
         value = null;
         try {
             value = this.storage.getItem(key);
-        } catch (error) {
-            
-        }
-        if(value) {
+        } catch (error) {}
+        if (value) {
             try {
                 this.storage.removeItem(key);
                 status = this.status.SUCCESS;
-            } catch (error) {
-                
-            }
+            } catch (error) {}
         }
-        callback && callback.call(this, status, status > 0 ? null : value.slice(value.indexOf(this.timeSign) + this.timeSign.length));
+        callback &&
+            callback.call(
+                this,
+                status,
+                status > 0
+                    ? null
+                    : value.slice(
+                          value.indexOf(this.timeSign) + this.timeSign.length
+                      )
+            );
     }
-}
-var LS = new BaseLocalStorage('LS_');
-LS.set('name', 'xiaoming', function() {
-     console.log(arguments);
-});
-LS.get('name', function() {
+};
+var LS = new BaseLocalStorage("LS_");
+LS.set("name", "xiaoming", function() {
     console.log(arguments);
 });
-LS.remove('name', function() {
+LS.get("name", function() {
     console.log(arguments);
 });
-
+LS.remove("name", function() {
+    console.log(arguments);
+});
 
 /* 
 节流模式
@@ -307,19 +302,19 @@ function debounce(func, wait) {
         timer = setTimeout(() => {
             func.apply(this, arguments);
         }, wait);
-    }
+    };
 }
 
 // 节流函数的简单实现
 function throttle(func, wait) {
     let timer;
     return function() {
-        if(timer) return;
+        if (timer) return;
         timer = setTimeout(() => {
             func.apply(this, arguments);
             timer = null;
         }, wait);
-    }
+    };
 }
 
 // 节流函数的时间戳版简单实现
@@ -327,13 +322,12 @@ function throttle(func, wait) {
     let last = 0;
     return function() {
         const currentTime = +new Date();
-        if(currentTime - last > wait) {
+        if (currentTime - last > wait) {
             func.apply(this, arguments);
             last = +new Date();
         }
-    }
+    };
 }
-
 
 /* 
 简单模版模式
@@ -343,35 +337,33 @@ function throttle(func, wait) {
 */
 function formateString(str, data) {
     return str.replace(/\{#(\w+)#\}/g, function(match, key) {
-        return typeof data[key] === undefined ? '' : data[key];
+        return typeof data[key] === undefined ? "" : data[key];
     });
 }
 var _html = `<div><strong>{#strong#}</strong><span>{#span#}</span></div>`;
 // <div><strong>a</strong><span>b</span></div>
-console.log(formateString(_html, {strong: 'a', span: 'b'})); 
-
+console.log(formateString(_html, { strong: "a", span: "b" }));
 
 /* 
 惰性模式
 减少每次代码执行时的重复性的分支判断，通过对对象重定义来屏蔽原对象中的分支判断。
 */
 var addEnent = function(dom, type, fn) {
-    if(dom.addEventListener) {
+    if (dom.addEventListener) {
         addEnent = function(dom, type, fn) {
             dom.addEventListener(type, fn, false);
-        }
-    } else if(dom.attachEvent) {
+        };
+    } else if (dom.attachEvent) {
         addEnent = function(dom, type, fn) {
-            dom.attachEvent('on'+type, fn);
-        }
+            dom.attachEvent("on" + type, fn);
+        };
     } else {
-        addEnent = function(dom, type, fn){
-            dom['on'+type] = fn;
-        }
+        addEnent = function(dom, type, fn) {
+            dom["on" + type] = fn;
+        };
     }
     addEnent(dom, type, fn);
 };
-
 
 /* 
 参与者模式
@@ -383,9 +375,8 @@ var addEnent = function(dom, type, fn) {
 function bind(fn, context) {
     return function() {
         return fn.apply(context, arguments);
-    }
+    };
 }
-
 
 /* 
 等待者模式
@@ -395,7 +386,6 @@ function bind(fn, context) {
 的请求都返回了，一般的做法是进行深层次嵌套，请求多的话就变成了回调地狱。Promise通过链式的调用方式和all函数
 很好的解决了这个问题。这里就不举例子了，有兴趣的可以看看Promise的模拟实现。
 */
-
 
 /* 
 总结

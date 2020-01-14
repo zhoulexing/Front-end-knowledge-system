@@ -1,8 +1,8 @@
-## webpack关于css、less等的处理
-
+## webpack 关于 css、less 等的处理
 
 ### style-loader
-将编译完成的的css插入html中的工具, sourceMap需要将其设置到前一个loader，如css-loader
+
+将编译完成的的 css 插入 html 中的工具, sourceMap 需要将其设置到前一个 loader，如 css-loader
 
 ```webpack.config.js
 {
@@ -34,19 +34,19 @@
         loader: 'style-loader',
         options: {
             // 都是延迟加载, 需要通过.use()方法使其加载
-            injectType: 'lazyStyleTag', 
+            injectType: 'lazyStyleTag',
             injectType: 'lazySingletonStyleTag'
         }
     }, {
         loader: 'css-loader',
     }]
-}         
+}
 ```
 
-
 ### css-loader
-css-loader用来处理样式，可以将css模块化，但是涉及到css中的图片需要url-loader或file-loader配合,
-没有url-loader或file-loader，css中url的路劲必须是绝对路劲或者将options中的url设置为false，否则
+
+css-loader 用来处理样式，可以将 css 模块化，但是涉及到 css 中的图片需要 url-loader 或 file-loader 配合,
+没有 url-loader 或 file-loader，css 中 url 的路劲必须是绝对路劲或者将 options 中的 url 设置为 false，否则
 会报错。
 
 ```webpack.config.js
@@ -66,7 +66,7 @@ css-loader用来处理样式，可以将css模块化，但是涉及到css中的�
                 localIdentName: '[path][name]__[local]--[hash:base64:5]', // :local(.container) {} :global {}
                 context: path.resolve(__dirname, 'src'),
                 hashPrefix: 'my-custom-hash',
-            }, 
+            },
             sourceMap: false | true,
             // 0 => no loaders (default);
             // 1 => postcss-loader;
@@ -78,11 +78,12 @@ css-loader用来处理样式，可以将css模块化，但是涉及到css中的�
 }
 ```
 
-
 ### postcss-loader
-PostCSS不是类似Less，Sass，Stylus那样的CSS预处理器，而是一种允许用JS插件来转变样式的工具。
-它和css-loader有很多重合的地方：postcss-import等同import；modules等同exac或postcss-js。
-另外postcss-loader还提供了压缩优化css、自动添加浏览器私有前缀的问题。
+
+PostCSS 不是类似 Less，Sass，Stylus 那样的 CSS 预处理器，而是一种允许用 JS 插件来转变样式的工具。
+它和 css-loader 有很多重合的地方：postcss-import 等同 import；modules 等同 exac 或 postcss-js。
+另外 postcss-loader 还提供了压缩优化 css、自动添加浏览器私有前缀的问题。
+
 ```webpack.config.js
 {
     test: /\.css$/,
@@ -102,27 +103,21 @@ PostCSS不是类似Less，Sass，Stylus那样的CSS预处理器，而是一种�
     }]
 }
 ```
+
 ```postcss.config.js
 module.exports = {
-    plugins: [
-        // 指定@import引入css文件的功能和范围
-        require("postcss-import")({
-            root: "./loadcss"
-        }),
-        // 支持css一些新的功能, postcss-cssnext已经支持autoprefixer
-        require("postcss-preset-env")(),
-        require("postcss-cssnext")(),
-        // 压缩和优化css, 删除注释和重复样式等
-        require("cssnano")();
-        // 解决浏览器私有前缀的问题 
-        require("autoprefixer")();
-    ]
+    plugins: [ // 指定@import引入css文件的功能和范围
+            require("postcss-import") ({root: "./loadcss"}), // 支持css一些新的功能, postcss-cssnext已经支持autoprefixer
+            require("postcss-preset-env") (), require("postcss-cssnext") (), // 压缩和优化css, 删除注释和重复样式等
+            require("cssnano") () ; // 解决浏览器私有前缀的问题
+            require("autoprefixer") () ; ];
 }
 ```
 
-
 ### less-loader
-less-loader用来解析less
+
+less-loader 用来解析 less
+
 ```webpack.config.js
 {
     test: /\.less$/,
@@ -130,7 +125,7 @@ less-loader用来解析less
         loader: 'less-loader',
         options: {
             // 解决引入antd按需加载的问题
-            javascriptEnabled: true, 
+            javascriptEnabled: true,
             // 定制主题
             modifyVars: { "@primary-color": "#1DA57A" },
             sourceMap: true
@@ -139,10 +134,11 @@ less-loader用来解析less
 }
 ```
 
-
 ### mini-css-extract-plugin & optimize-css-assets-webpack-plugin
-mini-css-extract-plugin是将css单独打包成文件的一个插件, 但是要将css进行压缩
-还需要optimize-css-assets-webpack-plugin插件的配合。
+
+mini-css-extract-plugin 是将 css 单独打包成文件的一个插件, 但是要将 css 进行压缩
+还需要 optimize-css-assets-webpack-plugin 插件的配合。
+
 ```webpack.config.js
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCss = require('optimize-css-assets-webpack-plugin');
@@ -155,7 +151,7 @@ const OptimizeCss = require('optimize-css-assets-webpack-plugin');
             assetNameRegExp: /\.css$/g,
             cssProcessor: require('cssnano'),
             // 移除所有的注释
-            cssProcessorOptions: { discardComments: { removeAll: true } }, 
+            cssProcessorOptions: { discardComments: { removeAll: true } },
             canPrint: true
         }),
     ]
@@ -185,12 +181,13 @@ const OptimizeCss = require('optimize-css-assets-webpack-plugin');
 }
 ```
 
-
 ### file-loader & url-loader
-file-loader和url-loader都是用来处理页面引入文件路劲的问题。url-loader主要是用来处理图片，
-封装了file-loader，当图片大小小于limit参数时，url-loader将会把文件转为DataURL，当图片大
-小大于limit参数时，url-loader会调用file-loader参数进行处理。另外，file-loader还可以处理
+
+file-loader 和 url-loader 都是用来处理页面引入文件路劲的问题。url-loader 主要是用来处理图片，
+封装了 file-loader，当图片大小小于 limit 参数时，url-loader 将会把文件转为 DataURL，当图片大
+小大于 limit 参数时，url-loader 会调用 file-loader 参数进行处理。另外，file-loader 还可以处理
 子图图标文件。
+
 ```webpack.config.js
 {
     test: /\.(png|jpg|gif)$/,
@@ -198,6 +195,7 @@ file-loader和url-loader都是用来处理页面引入文件路劲的问题。ur
     include: path.resolve(__dirname, "src"),
 }
 ```
+
 ```webpack.config.js
 {
     test: /\.(eot|woff|svg|ttf|woff2|appcache|mp3|mp4|pdf)(\?|$)/,
@@ -206,12 +204,13 @@ file-loader和url-loader都是用来处理页面引入文件路劲的问题。ur
 }
 ```
 
-
 ### 总结
-关于css的webpack配置，主要是处理以下几点：
-* less或sass与处理器；
-* css的模块化；
-* css中图片url的处理；
-* css的外联样式和外部文件样式；
-* css自动添加各浏览器的前缀；
-* css的压缩优化；
+
+关于 css 的 webpack 配置，主要是处理以下几点：
+
+-   less 或 sass 与处理器；
+-   css 的模块化；
+-   css 中图片 url 的处理；
+-   css 的外联样式和外部文件样式；
+-   css 自动添加各浏览器的前缀；
+-   css 的压缩优化；

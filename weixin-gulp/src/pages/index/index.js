@@ -12,4 +12,14 @@ Page({
             url: '/pages/imageCropper/index'
         });
     },
+    goRubbish: function() {
+        wx.navigateTo({
+            url: '/pages/rubbish/index'
+        });
+    },
+    goSentry: function() {
+        wx.navigateTo({
+            url: '/pages/sentry/index'
+        });
+    }
 });

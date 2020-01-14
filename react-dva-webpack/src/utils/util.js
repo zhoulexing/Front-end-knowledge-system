@@ -91,3 +91,7 @@ export function urlToList(url) {
         return `/${urllist.slice(0, index + 1).join('/')}`;
     });
   }
+
+export function test() {
+    return "test";
+}

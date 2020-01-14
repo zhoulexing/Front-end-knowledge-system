@@ -1,0 +1,24 @@
+{
+    "presets": [
+        ["@babel/preset-env", {
+            "modules": false,
+            // "useBuiltIns": "usage",
+            // "corejs": 3,
+            "targets": {
+                // "esmodules": false,
+                "browsers": ["> 0.25%, not dead", "last 2 versions"]
+                
+            } 
+        }]
+    ],
+    "plugins": [
+        // ["@babel/plugin-transform-runtime", {
+            // "corejs": 3,
+            // "regenerator": true,
+            // "helpers": true,
+            // "absoluteRuntime": false,
+            // "useESModules": false
+        // }],
+        // "@babel/plugin-proposal-class-properties",
+    ]
+}

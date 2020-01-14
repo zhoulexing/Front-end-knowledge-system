@@ -3,20 +3,27 @@
         "sourceMap": true,
         "target": "es5",
         "jsx": "react",
-        "module": "es6",
+        "module": "esnext",
         "moduleResolution": "node",
         "experimentalDecorators": true,
         "declaration": false,
         "removeComments": true,
         "noImplicitReturns": true,
         "noUnusedLocals": true,
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
         "strict": true,
-        "outDir": "build",
-        "lib": ["es6", "es7", "dom"],
-        "baseUrl": "src",
+        "outDir": "dist",
+        "lib": ["esnext", "dom"],
+        
+        "baseUrl": ".",
         "paths": {
-            "app/*": ["./src/*"]
+            "@/*": ["./src/*"]
         }
     },
-    "exclude": ["dist", "node_modules"]
+    "exclude": [
+        "dist", 
+        "node_modules"
+    ]
 }

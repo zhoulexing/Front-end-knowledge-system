@@ -1,0 +1,11 @@
+<view>
+    <button wx:if="{{canIUse}}" open-type="getUserInfo" bindtap="uploadError">upload error</button>
+    <button wx:if="{{canIUse}}" open-type="getUserInfo" bindtap="uploadTypeError">upload type error</button>
+    <button wx:if="{{canIUse}}" open-type="getUserInfo" bindtap="uploadErrorByOption">upload error by option</button>
+    <button wx:if="{{canIUse}}" open-type="getUserInfo" bindtap="uploadMsg">upload message</button>
+    <button wx:if="{{canIUse}}" open-type="getUserInfo" bindtap="uploadMsgByLevel">upload message by level</button>
+    <button wx:if="{{canIUse}}" open-type="getUserInfo" bindtap="uploadCatch">try catch</button>
+    <button wx:if="{{canIUse}}" open-type="getUserInfo" bindtap="throwError">throw error</button>
+    <button wx:if="{{canIUse}}" open-type="getUserInfo" bindtap="typeError">type error</button>
+    <button wx:if="{{canIUse}}" open-type="getUserInfo" bindtap="promiseCatch">promise catch</button>
+</view>
