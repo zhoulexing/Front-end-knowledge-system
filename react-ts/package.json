@@ -4,12 +4,13 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cross-env _ENV_=develop webpack-dev-server --no-inline --progress --mode=development"
   },
   "keywords": [
     "react",
     "redux",
-    "dva",
+    "redux-saga",
     "typescript",
     "pwa"
   ],
@@ -17,23 +18,47 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/preset-react": "^7.8.3",
+    "@babel/runtime-corejs3": "^7.8.3",
+    "@types/classnames": "^2.2.9",
     "@types/history": "^4.7.3",
-    "@types/node": "^12.12.17",
-    "@types/react": "^16.9.16",
+    "@types/node": "^12.12.24",
+    "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
-    "typescript": "^3.7.3",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "@types/react-loadable": "^5.5.3",
+    "@types/react-redux": "^7.1.5",
+    "@types/redux": "^3.6.0",
+    "@types/redux-actions": "^2.6.1",
+    "@types/redux-logger": "^3.0.7",
+    "babel-loader": "^8.0.6",
+    "cross-env": "^6.0.3",
+    "html-webpack-plugin": "^4.0.0-beta.11",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-logger": "^3.0.6",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.4",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
   },
   "dependencies": {
-    "antd": "^3.26.2",
-    "dva": "^2.6.0-beta.19",
+    "@ant-design/pro-layout": "^4.10.8",
+    "antd": "^3.26.7",
+    "connected-react-router": "^6.6.1",
     "dva-loading": "^3.0.19",
     "less": "^3.10.3",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "path-to-regexp": "^6.1.0",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "react-loadable": "^5.5.0",
+    "react-redux": "^7.1.3",
+    "redux": "^4.0.5",
+    "redux-action": "^1.2.2",
+    "redux-saga": "^1.1.3"
   }
 }
