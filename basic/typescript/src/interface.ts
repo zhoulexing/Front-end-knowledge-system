@@ -122,5 +122,11 @@ const menuData = [
     }
 ];
 
+interface Config {
+    width?: string;
+    [propName:string]: any;
+}
 
-
+interface Config1 {
+    [name:string]: string
+}

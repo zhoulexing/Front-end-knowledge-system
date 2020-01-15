@@ -1,7 +1,7 @@
 declare module "dva";
 declare module "dva-loading";
+declare module "@loadable/component";
 declare module "path-to-regexp";
-declare module "connected-react-router";
 declare module "redux-devtools-extension";
 
 declare module "*.css";
@@ -24,6 +24,5 @@ interface Window {
         hitType: "event" | "pageview",
         fieldsObject: GAFieldsObject | string
     ) => void;
-    devToolsExtension: () => any
 }
 declare let ga: Function;

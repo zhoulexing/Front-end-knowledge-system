@@ -69,3 +69,34 @@ class Queue {
         
     }
 }
+
+abstract class Animal1 {
+    abstract makeSound(): void;
+    move(): void {
+        console.log('Hello World!');
+    }
+}
+
+class Cat extends Animal1 {
+    makeSound() {
+        console.log("miao miao");
+    }
+}
+
+const cat = new Cat();
+cat.move();
+
+class Car {
+    public run() {
+
+    }
+    protected run1() {
+
+    }
+    private run2() {
+
+    }
+}
+
+const car = new Car();
+car.run();

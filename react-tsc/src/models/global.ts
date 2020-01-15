@@ -1,21 +1,19 @@
 export default {
-
     namespace: "global",
 
     state: {
-        collapsed: false
+        collapsed: false,
+        loading: false
     },
 
-    effects: {
-        
-    },
+    effects: {},
 
     reducers: {
         changeLayoutCollapsed(state: any, { payload }: any) {
             return {
                 ...state,
                 collapsed: payload
-            }
+            };
         }
     },
 
@@ -26,6 +24,6 @@ export default {
                     window.ga("send", "pageview", pathname + search);
                 }
             });
-        },
+        }
     }
 };

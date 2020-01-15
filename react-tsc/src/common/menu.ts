@@ -1,24 +1,14 @@
-export interface MenuItem {
+export interface MenuDataItem {
     name: string;
     icon?: string;
     path: string;
-    authority?: String[];
-    children?: MenuItem[];
+    authority?: Array<string>,
+    children?: Array<MenuDataItem>
 }
 
-export interface MenuData extends Array<MenuItem> {};
+export interface MenuData extends Array<MenuDataItem> {}
 
 const menuData: MenuData = [
-    {
-        name: "系统首页",
-        icon: "home",
-        path: "desktop"
-    },
-    {
-        name: "研判市场",
-        icon: "shopping-cart",
-        path: "market"
-    },
     {
         name: "数据资源",
         icon: "database",
@@ -56,19 +46,16 @@ const menuData: MenuData = [
     }
 ];
 
-function formatter(data: MenuData, parentPath: String = "/apps/", parentAuthority?: String[]) {
+
+function formatter(data: MenuData, parentPath = "/apps/", parentAuthority?: Array<string>) {
     return data.map(item => {
-        const result: MenuItem = {
+        const result = {
             ...item,
             authority: item.authority || parentAuthority,
             path: parentPath + item.path
         };
-        if (item.children) {
-            result.children = formatter(
-                item.children,
-                `${parentPath}${item.path}/`,
-                item.authority
-            );
+        if(item.children) {
+            result.children = formatter(item.children, `${parentPath}${item.path}/`, item.authority);
         }
         return result;
     });

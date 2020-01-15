@@ -10,6 +10,7 @@
         "removeComments": true,
         "noImplicitReturns": true,
         "noUnusedLocals": true,
+        "noImplicitAny": true,
         "allowJs": true,
         "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true,

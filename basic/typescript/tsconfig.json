@@ -1,12 +1,19 @@
 {
     "compilerOptions": {
-        "outDir": "./dist", // 输出目录
         "target": "es5", // 编译为es5
+        "module": "esnext", // 制定使用模块
         "allowJs": true, // 允许编辑js文件
-        "module": "es6", // 制定使用模块
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "removeComments": true,
+        "outDir": "dist", // 输出目录
         "moduleResolution": "node", // 模块解析策略
-        "strict": true // 严格模式
+        "strict": true, // 严格模式
+        "lib": ["esnext", "dom"],
     },
     "include": ["./src"], // 指定目录
-    // "files": [] // 指定文件
+    "exclude": [
+        "dist", 
+        "node_modules"
+    ]
 }
