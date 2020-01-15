@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "experimentalDecorators": true,// 装饰器
         "target": "es5", // 编译为es5
         "module": "esnext", // 制定使用模块
         "allowJs": true, // 允许编辑js文件
