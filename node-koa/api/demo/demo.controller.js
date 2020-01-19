@@ -97,6 +97,9 @@ module.exports = {
         const { filename } = ctx.params;
         const filepath = path.join(__dirname, "../../static/javascripts/", filename);
 
+        if(filename === "index2.js") {
+            await asyncTime(2000);
+        }
         await asyncTime(2000);
 
         // 判断图片是否存在

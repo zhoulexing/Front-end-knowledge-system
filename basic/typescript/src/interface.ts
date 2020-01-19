@@ -130,3 +130,13 @@ interface Config {
 interface Config1 {
     [name:string]: string
 }
+
+
+interface Person {
+    name: string;
+    age: number;
+}
+
+const person = {} as Person;
+person.name = "zlx";
+person.age = 20;

@@ -18,10 +18,13 @@ interface RouterData {
 const getRouterConfig = (app: any) => {
     return {
         "/login": {
-            component: dynamicWrapper(app, [], () => import(/* webpackChunkName: "loginLayout" */"../layouts/LoginLayout"))
+            component: dynamicWrapper(app, [], () => import(/* webpackChunkName: "loginLayout" */"@/layouts/LoginLayout"))
         },
         "/apps": {
-            component: dynamicWrapper(app, [], () => import(/* webpackChunkName: "basicLayout" */"../layouts/BasicLayout"))
+            component: dynamicWrapper(app, [], () => import(/* webpackChunkName: "basicLayout" */"@/layouts/BasicLayout"))
+        },
+        "/apps/example": {
+            component: dynamicWrapper(app, [], () => import(/* webpackChunkName: "basicLayout" */"@/routes/Example"))
         },
     }
 };
