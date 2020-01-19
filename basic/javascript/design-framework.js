@@ -76,5 +76,126 @@ F.module(["time", window], function(t, w) {
 
 
 /* 
+异步模块模式
+请求发出后，继续其他业务逻辑，直到模块加载完成执行后续的逻辑，实现模块开发中对模块加载完成后的引用。
+*/
+(function(F) {
+    var moduleCache = {};
+
+    F.module = function(url, deps, callback) {
+        var params = [];
+        var depsCount = 0;
+        var i = 0;
+        var len = deps.length;
+        if(len) {
+            while(i < len) {
+                (function(i) {
+                    depsCount++;
+                    loadModule(deps[i], function(mod) {
+                        params[i] = mod;
+                        depsCount--;
+                        if(depsCount === 0) {
+                            setModule(url, params, callback)
+                        }
+                    });
+                })(i);
+                i++;
+            }
+        } else {
+            setModule(url, [], callback);
+        }
+    }
+
+    var loadModule = function(moduleName, callback) {
+        var _module;
+        if(moduleCache[moduleName]) {
+            _module = moduleCache[moduleName];
+            if(_module.status === "loaded") {
+                setTimeout(() => {
+                    callback(_module.exports);
+                }, 0);
+            } else {
+                _module.onload.push(callback);
+            }
+        } else {
+            moduleCache[moduleName] = {
+                moduleName: moduleName,
+                status: "loading",
+                exports: null,
+                onload: [callback]
+            };
+            loadScript(getUrl(moduleName));
+        }
+    }
+
+    var getUrl = function(moduleName) {
+        return String(moduleName).replace(/\.js$/g, "") + ".js";
+    }
+
+    var loadScript = function(src) {
+        var _script = document.createElement("script");
+        _script.type = "text/javascript";
+        _script.charset = "UTF-8";
+        _script.async = true;
+        _script.src = src;
+        document.getElementsByTagName("head")[0].appendChild(_script);
+    }
+
+    var setModule = function(moduleName, params, callback) {
+        var _module, fn;
+        if(moduleCache[moduleName]) {
+            _module = moduleCache[moduleName];
+            _module.status = "loaded";
+            _module.exports = callback ? callback.apply(_module, params) : null;
+            while(fn = _module.onload.shift()) {
+                fn(_module.exports);
+            }
+        } else {
+            callback && callback.apply(null, params);
+        }
+    }
+})((function() {
+    return window.F = {};
+})());
+
+// 应用
+F.module("lib/dom", [], function() {
+    return {
+        g: function(id) {
+            return document.getElementsById(id);
+        },
+        html: function(id, html) {
+            if(html) {
+                this.g(id).innerHTML = html;
+            } else {
+                return this.g(id).innerHTML;
+            }
+        }
+    }
+});
+F.module("lib/event", ["lib/dom"], function(dom) {
+    var events = {
+        on: function(id, type, fn) {
+            dom.g(id)['on' + type] = fn;
+        }
+    } 
+    return events;
+});
+F.module(null, ["lib/event", "lib/dom"], function(events, dom) {
+    events.on("demo", "click", function() {
+        dom.html("demo", "success");
+    });
+});
+
+
+/* 
+widget模式
+widget模式是指借用web widget思想将页面分解成部件，针对部件开发，最终组合成完整的页面。
+
+widget模式就是将数据填充到模版引擎中，以数据驱动的方式完成一个最小化的页面组件。以前主要的实现方式就是规定一个模版，数据内容通过占位符来确定，
+然后通过模版编译引擎将其编译成html。现在的主流框架react和vue都是通过虚拟dom来实现。
+*/
+
+/* 
 
 */
