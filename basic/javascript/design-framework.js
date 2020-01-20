@@ -211,20 +211,21 @@ function tplEngine(str, data) {
 }
 
 function compileTpl(str) {
-    const fnBody = `
-        const templateArray = [];
-        const fn = (function(data) {
-            let templateKey = "";
-            for(let key in data) {
-                templateKey += key + "=" + data[key];
-            }
-            eval(templateKey);
-            templateArray.push(dealTpl(str));
-            templateKey = null;
-        })(templateData);
-        fn = null;
-        return templateArray.join("");
-    `;
+    // const fnBody = `
+    //     let templateArray = [];
+    //     let fn = (function(data) {
+    //         let templateKey = "";
+    //         for(let key in data) {
+    //             templateKey += ( 'var ' + key + '=data["' + key + '"];');
+    //         }
+    //         eval(templateKey);
+    //         templateArray.push(dealTpl(str));
+    //         templateKey = null;
+    //     })(templateData);
+    //     fn = null;
+    //     return templateArray.join("");
+    // `;
+    var fnBody = "var template_array=[];\nvar fn=(function(data){\nvar template_key='';\nfor(key in data){\ntemplate_key +=(''+key+'=data[\"'+key+'\"];');\n}\neval(template_key);\ntemplate_array.push('"+dealTpl(str)+"');\ntemplate_key=null;\n})(templateData);\nfn=null;\nreturn template_array.join('') ;" ;
     return new Function("templateData", fnBody);
 }
 
@@ -240,32 +241,29 @@ function dealTpl(str) {
             "',typeof($1) === 'undefined' ? '' : $1, '"
         )
         .replace(new RegExp(_left, "g"), "');")
-        .replace(new RegExp(_right, "g"));
+        .replace(new RegExp(_right, "g"), "template_array.push('");
 }
 
-var data = [
-    { is_selected: true, title: "这是一本设计模式书", text: "设计模式" },
-    { is_selected: false, title: "这是一本HTML", text: "HTML" },
-    { is_selected: null, title: "这是一本CSS", text: "CSS" },
-    { is_selected: "", title: "这是一本javascript", text: "javascript" }
-];
-var str = `
-    <div id="tag_cloud">
-        {% 
-            for(var i = 0; i < tagCloud.length; i++) { 
-                var ctx = tagCloud[i]; 
-                {%
-                    <a 
-                        href="#" 
-                        class="tag_item {% if(ctx["is_selected"]){ selected } %}" 
-                        title="{% =ctx["title"] %}"
-                    >
-                        {% =ctx["text"] %}
-                    </a>
-                %} 
-        %}
-    </div>
-`;
+var data = {
+    tagCloud: [
+        { is_selected: true, title: "这是一本设计模式书", text: "设计模式" },
+        { is_selected: false, title: "这是一本HTML", text: "HTML" },
+        { is_selected: null, title: "这是一本CSS", text: "CSS" },
+        { is_selected: "", title: "这是一本javascript", text: "javascript" }
+    ]
+};
+var str = [
+    '<div id="tag_cloud">',
+    '{% for(var i = 0; i < tagCloud.length; i++){', 
+        ' var ctx = tagCloud[i]; %}',
+        '<a href="#" class="tag_item {% if(ctx["is_selected"]){ %}',
+        'selected',
+        '{% } %}" title="{%=ctx["title"]%}">',
+        '{%=ctx["text"]%}',
+        '</a>',
+    '{% } %}',
+    '</div>'
+    ].join('') ;
 tplEngine(str, data);
 
 
