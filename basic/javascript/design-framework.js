@@ -5,7 +5,7 @@
 
 /* 
 同步模块模式
-请求发出后，无论模块是否存在，立即执行后续的逻辑，实现模块开发中对模块的立即引用。。
+请求发出后，无论模块是否存在，立即执行后续的逻辑，实现模块开发中对模块的立即引用。
 */
 var F = F || {};
 
@@ -211,21 +211,12 @@ function tplEngine(str, data) {
 }
 
 function compileTpl(str) {
-    // const fnBody = `
-    //     let templateArray = [];
-    //     let fn = (function(data) {
-    //         let templateKey = "";
-    //         for(let key in data) {
-    //             templateKey += ( 'var ' + key + '=data["' + key + '"];');
-    //         }
-    //         eval(templateKey);
-    //         templateArray.push(dealTpl(str));
-    //         templateKey = null;
-    //     })(templateData);
-    //     fn = null;
-    //     return templateArray.join("");
-    // `;
-    var fnBody = "var template_array=[];\nvar fn=(function(data){\nvar template_key='';\nfor(key in data){\ntemplate_key +=(''+key+'=data[\"'+key+'\"];');\n}\neval(template_key);\ntemplate_array.push('"+dealTpl(str)+"');\ntemplate_key=null;\n})(templateData);\nfn=null;\nreturn template_array.join('') ;" ;
+    // 将字符串转为方法实体
+    const fnBody = `
+        var template_array=[];
+        template_array.push(' ${dealTpl(str)} ');
+        return template_array.join('');
+    `;
     return new Function("templateData", fnBody);
 }
 
@@ -252,20 +243,20 @@ var data = {
         { is_selected: "", title: "这是一本javascript", text: "javascript" }
     ]
 };
+// 模板
 var str = [
     '<div id="tag_cloud">',
-    '{% for(var i = 0; i < tagCloud.length; i++){', 
-        ' var ctx = tagCloud[i]; %}',
-        '<a href="#" class="tag_item {% if(ctx["is_selected"]){ %}',
-        'selected',
-        '{% } %}" title="{%=ctx["title"]%}">',
-        '{%=ctx["text"]%}',
-        '</a>',
-    '{% } %}',
-    '</div>'
-    ].join('') ;
+    "{% for(var i = 0; i < tagCloud.length; i++){",
+    " var ctx = tagCloud[i]; %}",
+    '<a href="#" class="tag_item {% if(ctx["is_selected"]){ %}',
+    "selected",
+    '{% } %}" title="{%=ctx["title"]%}">',
+    '{%=ctx["text"]%}',
+    "</a>",
+    "{% } %}",
+    "</div>"
+].join("");
 tplEngine(str, data);
-
 
 /* 
 MVC & MVP & MVVM模式
@@ -280,24 +271,24 @@ app.Model = function() {
     let value = 0;
     this.add = function() {
         value++;
-    }
+    };
     this.sub = function() {
         value--;
-    }
+    };
     this.getValue = function() {
         return value;
-    }
+    };
 
     const views = [];
     this.register = function(view) {
         views.push(view);
-    }
+    };
     this.notify = function() {
         views.forEach(view => {
             view.render(this);
         });
-    }
-}
+    };
+};
 app.View = function(controller) {
     const dom = document.getElementsById("#root");
     const btnAdd = document.getElementsById("#add");
@@ -305,10 +296,10 @@ app.View = function(controller) {
 
     this.render = function(model) {
         dom.innerHTML = model.getValue();
-    }
+    };
     btnAdd.onclick = controller.increase;
     btnSub.onclick = controller.decrease;
-}
+};
 app.Controller = function() {
     let model, view;
     this.init = function() {
@@ -316,20 +307,19 @@ app.Controller = function() {
         view = new app.View(this);
         model.register(view);
         model.notify();
-    }
+    };
 
     this.increase = function() {
         model.add(1);
         model.notify();
-    }
+    };
     this.decrease = function() {
         model.sub(1);
         model.notify();
-    }
-}
+    };
+};
 const controller = new app.Controller();
 controller.init();
-
 
 // MVP
 const app = {};
@@ -337,14 +327,14 @@ app.Model = function() {
     let value = 0;
     this.add = function() {
         value++;
-    }
+    };
     this.sub = function() {
         value--;
-    }
+    };
     this.getValue = function() {
         return value;
-    }
-}
+    };
+};
 app.View = function() {
     const dom = document.getElementsById("#root");
     const btnAdd = document.getElementsById("#add");
@@ -352,29 +342,28 @@ app.View = function() {
 
     this.render = function(model) {
         dom.innerHTML = model.getValue();
-    }
+    };
     this.init = function() {
         const presenter = new app.Presenter(this);
         btnAdd.onclick = presenter.increase;
         btnSub.onclick = presenter.decrease;
-    }
-}
+    };
+};
 app.Presenter = function(view) {
-    let model = new app.Model();;
+    let model = new app.Model();
     view.render(model);
 
     this.increase = function() {
         model.add(1);
         view.render(model);
-    }
+    };
     this.decrease = function() {
         model.sub(1);
         view.render(model);
-    }
-}
+    };
+};
 const view = new app.View();
 view.init();
-
 
 // MVVM
 const app = {};
@@ -385,10 +374,10 @@ app.Model = function(view) {
         const view = new app.View();
         view.render(data.value);
         observer(data);
-    }
+    };
 
     function observer(obj) {
-        if(!obj || (typeof obj != 'object')) {
+        if (!obj || typeof obj != "object") {
             return;
         }
         Object.keys(obj).forEach(key => {
@@ -398,18 +387,18 @@ app.Model = function(view) {
 
     function defineReactive(obj, key, val) {
         Object.defineProperty(obj, key, {
-            enumerable: true, 
-            configurable: true, 
+            enumerable: true,
+            configurable: true,
             get: function reactiveGetter() {
                 return val;
             },
             set: function reactiveSetter(newVal) {
-                if(newVal === val) return;
+                if (newVal === val) return;
                 view.render(newVal);
             }
         });
     }
-}
+};
 app.View = function(model) {
     const dom = document.getElementsById("#root");
     const btnAdd = document.getElementsById("#add");
@@ -417,7 +406,7 @@ app.View = function(model) {
 
     this.render = function(value) {
         dom.innerHTML = value;
-    }
+    };
 
     btnAdd.onclick = function() {
         model.data.value += 1;
@@ -425,12 +414,19 @@ app.View = function(model) {
     btnSub.onclick = function() {
         model.data.value -= 1;
     };
-}
+};
 const model = new app.Model();
 model.init();
-
 
 /* 
 总结
 架构型设计模式是为了在编写代码的过程中，更好的帮助我们组织代码进行解耦。
+
+关于javascript设计模式，大概就这些，包含五大类，分别是创建型、结构型、行为型、技巧性和架构型。
+大部分的内容和例子基本都是书上的，我只是在此基础上通过自己的理解总结了一下，并加以输出，希望能
+够帮助到大家。也希望大家通过这几篇文章能够得其神而忘其行，结合自己项目找到适合的设计模式，构建出高性能、
+高可用、高可扩展性、高可维护性的代码。另外，关于设计模式不能为了用而用，否则会适得其反，使代码
+机构更加的混乱，不容易阅读。毕竟这些模式都是前人通过大量的经验总结而来，理解加应用需要一个缓慢
+的过程，最重要的还是从基础做起，再结合自己的理解和经验慢慢提升。对于我来说，这些模式我也没有完
+全的理解和应用，让我们一起在今后的工作中一起慢慢领悟吧。
 */

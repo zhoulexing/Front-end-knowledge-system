@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <!-- 无论是在实际工作中还是在面试过程中，布局是经常会碰到的一个问题，无论是三列布局还是垂直居中布局。-->
+    <!-- 无论是在实际工作中还是在面试过程中，垂直居中布局布局是经常会碰到的一个问题。-->
 
     <!-- 三列布局主要的实现方式有圣杯布局、双飞翼布局、绝对定位布局、Flex布局和calc计算函数布局。 -->
 
@@ -261,6 +261,17 @@
             color: gold;
         }
 
+        .gd-box {
+            background-color: deeppink;
+            width: 200px;
+            height: 200px;
+            display: grid;
+            justify-content: center;
+            align-items: center;
+        }
+        .gd-child {
+            color: gold;
+        }
 
         .dt-box {
             background-color: deeppink;
@@ -273,19 +284,6 @@
             color: gold;
             text-align: center;
             vertical-align: middle;
-        }
-
-
-        .gd-box {
-            background-color: deeppink;
-            width: 200px;
-            height: 200px;
-            display: grid;
-            justify-content: center;
-            align-items: center;
-        }
-        .gd-child {
-            color: gold;
         }
     </style>
 </head>
