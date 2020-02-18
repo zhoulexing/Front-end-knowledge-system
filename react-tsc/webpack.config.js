@@ -1,19 +1,22 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCss = require("optimize-css-assets-webpack-plugin");
 
-const IS_PRO = process.env.NODE_ENV === "production";
+const IS_PRO = process.env._ENV_ === "production";
 
 module.exports = {
     entry: "./src/index.tsx",
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "[name].[hash:8].js",
-        chunkFilename: "[name].[hash:8].js",
+        chunkFilename: "[name].[hash:8].js"
     },
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
+                exclude: /node_modules/,
                 use: ["babel-loader", "ts-loader"]
             },
             {
@@ -25,7 +28,7 @@ module.exports = {
                 test: /\.(less|css)$/,
                 exclude: /node_modules/,
                 use: [
-                    "style-loader",
+                    IS_PRO ? MiniCssExtractPlugin.loader : "style-loader",
                     {
                         loader: "css-loader",
                         options: {
@@ -49,9 +52,8 @@ module.exports = {
                 test: /\.(less|css)$/,
                 include: /node_modules/,
                 use: [
-                    "style-loader",
+                    IS_PRO ? MiniCssExtractPlugin.loader : "style-loader",
                     "css-loader",
-                    "postcss-loader",
                     {
                         loader: "less-loader",
                         options: {
@@ -63,7 +65,7 @@ module.exports = {
             }
         ]
     },
-    devtool: IS_PRO ? "source-map" : "inline-source-map",
+    devtool: IS_PRO ? "" : "inline-source-map",
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".jsx", ".json", ".less", ".css"],
         modules: ["node_modules"],
@@ -73,7 +75,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: "周某人",
+            title: "前沿前端",
             template: `./src/index.ejs`,
             filename: `index.html`,
             // 压缩html
@@ -83,8 +85,19 @@ module.exports = {
                       collapseWhitespace: true
                   }
                 : {}
-        })
-    ],
+        }),
+        new MiniCssExtractPlugin({
+            filename: "[name].[contenthash:8].css"
+        }),
+        IS_PRO
+            ? new OptimizeCss({
+                  assetNameRegExp: /\.css$/g,
+                  cssProcessor: require("cssnano"),
+                  cssProcessorOptions: { discardComments: { removeAll: true } },
+                  canPrint: true
+              })
+            : null
+    ].filter(Boolean),
     devServer: {
         contentBase: path.resolve(__dirname, "src"),
         compress: true,

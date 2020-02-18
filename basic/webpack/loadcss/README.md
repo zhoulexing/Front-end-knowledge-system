@@ -106,11 +106,12 @@ PostCSS 不是类似 Less，Sass，Stylus 那样的 CSS 预处理器，而是一
 
 ```postcss.config.js
 module.exports = {
-    plugins: [ // 指定@import引入css文件的功能和范围
-            require("postcss-import") ({root: "./loadcss"}), // 支持css一些新的功能, postcss-cssnext已经支持autoprefixer
-            require("postcss-preset-env") (), require("postcss-cssnext") (), // 压缩和优化css, 删除注释和重复样式等
-            require("cssnano") () ; // 解决浏览器私有前缀的问题
-            require("autoprefixer") () ; ];
+    plugins: [ 
+        require("postcss-import") ({root: "./loadcss"}), // 指定@import引入css文件的功能和范围
+        require("postcss-preset-env") (), require("postcss-cssnext") (), // 支持css一些新的功能, postcss-cssnext已经支持autoprefixer注释和重复样式等
+        require("cssnano") (), // 压缩和优化css, 删除
+        require("autoprefixer") (),  // 解决浏览器私有前缀的问题
+    ];
 }
 ```
 

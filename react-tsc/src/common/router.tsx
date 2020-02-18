@@ -24,7 +24,7 @@ const getRouterConfig = (app: any) => {
             component: dynamicWrapper(app, [], () => import(/* webpackChunkName: "basicLayout" */"@/layouts/BasicLayout"))
         },
         "/apps/example": {
-            component: dynamicWrapper(app, [], () => import(/* webpackChunkName: "basicLayout" */"@/routes/Example"))
+            component: dynamicWrapper(app, [], () => import(/* webpackChunkName: "example" */"@/routes/Example"))
         },
     }
 };

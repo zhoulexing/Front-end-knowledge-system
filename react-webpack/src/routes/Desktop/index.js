@@ -25,7 +25,7 @@ class Desktop extends Component {
           <div>
             <Button size="large" type="primary" onClick={this.add}>Desktop1</Button>
             <Count />
-            <QRCode value="http://www.baidu.com"/>
+            <QRCode value="https://m.duanqu.com/?_ariver_appid=3000000002140711&page=%2fpages%2fservice-detail%2fservice-detail%3fserviceCode%3dFW_GOODS-1891070%26tracelog%3dsp"/>
           </div>
         );
     }

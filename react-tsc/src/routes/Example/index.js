@@ -1,4 +1,5 @@
 import React from "react";
+import style from "./index.less";
 
 
 export default class Example extends React.Component {
@@ -9,7 +10,7 @@ export default class Example extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className={style.example}>
                 Example
             </div>
         )
