@@ -129,16 +129,38 @@ performance: {
 
 ```
 optimization: {
-    minimizer: [
+    minimizer: true | false, // 默认为true, 用TerserPlugin进行压缩
+    minimizer: [ // 自定义压缩工具，可用多个
         new TerserPlugin({
             cache: true,
-            parallel: true
+            parallel: true,
+            sourceMap: true, // Must be set to true if using source-maps in production
+            terserOptions: {
+            }
         }),
     ],
-    splitChunks: {
-        chunks: "async",
-        maxAsyncRequests: 5,
-        minSize: 50000
-    }
+    runtimeChunk： true | "multiple" | object, // 入口起点添加一个额外 chunk
+    splitChunks: { // 默认配置
+        chunks: "async", // 分离条件
+        minSize: 30000, // 文件最小打包体积
+        maxSize: 0,
+        minChunks: 1,
+        maxAsyncRequests: 5, // 如果设置为1，则每个入口文件就只会打包成为一个文件
+        maxInitialRequests: 3, // maxInitialRequest / maxAsyncRequests <maxSize <minSize
+        automaticNameDelimiter: "~", // 连接符
+        name: true,
+        cacheGroups: { // 制定分割包的规则列表
+            vendors: {
+                test: /[\\/]node_modules[\\/]/,
+                priority: -10 // 优先级
+            },
+            default: {
+                minChunks: 2, // 依赖最少引入多少次才能进行拆包
+                priority: -20,
+                reuseExistingChunk: true
+            }
+        }
+    },
+    ...
 }
 ```

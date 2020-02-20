@@ -7,7 +7,7 @@
         "moduleResolution": "node",
         "experimentalDecorators": true,
         "declaration": false,
-        "removeComments": true,
+        "removeComments": false,
         "noImplicitReturns": true,
         "noUnusedLocals": true,
         "noImplicitAny": true,

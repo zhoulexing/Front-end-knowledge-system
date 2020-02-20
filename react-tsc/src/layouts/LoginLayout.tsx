@@ -1,10 +1,11 @@
 import React from "react";
 import { Button } from "antd";
-import { routerRedux, connect } from "dva";
+import { push } from "connected-react-router";
+import { connect } from "react-redux";
 
 class LoginLayout extends React.Component<any, any> {
     goIndex = () => {
-        this.props.dispatch(routerRedux.push("/apps"));
+        this.props.dispatch(push("/apps"));
     }
 
     render() {

@@ -1,107 +1,192 @@
 const path = require("path");
+const os = require("os");
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCss = require("optimize-css-assets-webpack-plugin");
+const HappyPack = require("happypack");
 
-const IS_PRO = process.env._ENV_ === "production";
+const IS_PRO = process.env.NODE_ENV === "production";
+const sourcePath = path.resolve(__dirname, "./src");
+const outPath = path.resolve(__dirname, "./dist");
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
 module.exports = {
-    entry: "./src/index.tsx",
+    entry: "./index.tsx",
+
+    mode: process.env.NODE_ENV,
+
+    context: sourcePath,
+
     output: {
-        path: path.resolve(__dirname, "dist"),
+        path: outPath,
         filename: "[name].[hash:8].js",
         chunkFilename: "[name].[hash:8].js"
     },
+
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
-                use: ["babel-loader", "ts-loader"]
+                use: "happypack/loader?id=ts"
             },
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                use: "babel-loader"
+                use: "happypack/loader?id=js"
             },
             {
                 test: /\.(less|css)$/,
                 exclude: /node_modules/,
-                use: [
-                    IS_PRO ? MiniCssExtractPlugin.loader : "style-loader",
-                    {
-                        loader: "css-loader",
-                        options: {
-                            sourceMap: true,
-                            modules: {
-                                localIdentName: "[local]--[hash:base64:5]"
-                            }
-                        }
-                    },
-                    "postcss-loader",
-                    {
-                        loader: "less-loader",
-                        options: {
-                            javascriptEnabled: true,
-                            sourceMap: true
-                        }
-                    }
-                ]
+                use: "happypack/loader?id=style_src"
             },
             {
                 test: /\.(less|css)$/,
-                include: /node_modules/,
+                use: "happypack/loader?id=style_node_modules"
+            },
+            {
+                test: /\.(png|jpg|gif)$/,
                 use: [
-                    IS_PRO ? MiniCssExtractPlugin.loader : "style-loader",
-                    "css-loader",
-                    {
-                        loader: "less-loader",
-                        options: {
-                            javascriptEnabled: true,
-                            sourceMap: true
-                        }
-                    }
-                ]
+                    "url-loader?limit=8192&name=images/[name]_[sha512:hash:base64:7].[ext]"
+                ],
+                include: sourcePath
+            },
+            {
+                test: /\.(eot|woff|svg|ttf|woff2|appcache|mp3|mp4|pdf)(\?|$)/,
+                use: [
+                    "file-loader?name=iconfont/[name]_[sha512:hash:base64:7].[ext]"
+                ],
+                include: sourcePath
             }
         ]
     },
-    devtool: IS_PRO ? "" : "inline-source-map",
+
+    devtool: IS_PRO ? "hidden-source-map" : "cheap-module-eval-source-map",
+
     resolve: {
-        extensions: [".ts", ".tsx", ".js", ".jsx", ".json", ".less", ".css"],
+        extensions: [".ts", ".tsx", ".js", ".jsx"],
         modules: ["node_modules"],
         alias: {
-            "@": path.resolve(__dirname, "./src")
+            "@": sourcePath
         }
     },
+
     plugins: [
         new HtmlWebpackPlugin({
             title: "前沿前端",
-            template: `./src/index.ejs`,
+            template: `./index.ejs`,
             filename: `index.html`,
             // 压缩html
-            minify: IS_PRO
-                ? {
-                      collapseInlineTagWhitespace: true,
-                      collapseWhitespace: true
-                  }
-                : {}
+            minify: {
+                minifyJS: true,
+                minifyCSS: true,
+                collapseInlineTagWhitespace: true,
+                collapseWhitespace: true // 删除空白符与换行符
+            },
+            append: {
+                // body:"",
+                // head: ""
+            }
         }),
         new MiniCssExtractPlugin({
-            filename: "[name].[contenthash:8].css"
+            filename: "[name].[contenthash:8].css",
+            disable: !IS_PRO
         }),
-        IS_PRO
-            ? new OptimizeCss({
-                  assetNameRegExp: /\.css$/g,
-                  cssProcessor: require("cssnano"),
-                  cssProcessorOptions: { discardComments: { removeAll: true } },
-                  canPrint: true
-              })
-            : null
+        new OptimizeCss({
+            assetNameRegExp: /\.css$/g,
+            cssProcessor: require("cssnano"),
+            cssProcessorOptions: { discardComments: { removeAll: true } },
+            canPrint: true
+        }),
+        new webpack.HotModuleReplacementPlugin(),
+        new HappyPack({
+            id: "js",
+            loaders: ["babel-loader?cacheDirectory=true"],
+            threadPool: happyThreadPool,
+            verbose: true // 是否允许happypack输出日志
+        }),
+        new HappyPack({
+            id: "ts",
+            loaders: [
+                "babel-loader?cacheDirectory=true",
+                "ts-loader?happyPackMode=true"
+            ],
+            threadPool: happyThreadPool,
+            verbose: true
+        }),
+        new HappyPack({
+            id: "style_src",
+            loaders: [
+                IS_PRO ? MiniCssExtractPlugin.loader : "style-loader",
+                {
+                    loader: "css-loader",
+                    options: {
+                        sourceMap: !IS_PRO,
+                        modules: {
+                            localIdentName: "[local]--[hash:base64:5]"
+                        }
+                    }
+                },
+                "postcss-loader?cacheDirectory=true",
+                {
+                    loader: "less-loader",
+                    options: {
+                        cacheDirectory: true,
+                        javascriptEnabled: true
+                    }
+                }
+            ],
+            threadPool: happyThreadPool,
+            verbose: true
+        }),
+        new HappyPack({
+            id: "style_node_modules",
+            loaders: [
+                IS_PRO ? MiniCssExtractPlugin.loader : "style-loader",
+                "css-loader",
+                {
+                    loader: "less-loader",
+                    options: {
+                        cacheDirectory: true,
+                        javascriptEnabled: true
+                    }
+                }
+            ],
+            threadPool: happyThreadPool,
+            verbose: true
+        })
     ].filter(Boolean),
+
+    optimization: {
+        splitChunks: {
+            chunks: "all", 
+            minSize: 30000, 
+            maxSize: 0,
+            minChunks: 1,
+            maxAsyncRequests: 5, 
+            maxInitialRequests: 3, 
+            automaticNameDelimiter: "~", 
+            name: true,
+            cacheGroups: { 
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10
+                },
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true
+                }
+            }
+        }
+    },
+
     devServer: {
-        contentBase: path.resolve(__dirname, "src"),
+        contentBase: sourcePath,
         compress: true,
-        hot: false,
+        hot: true,
+        historyApiFallback: true,
         host: "0.0.0.0",
         port: 8081
     }

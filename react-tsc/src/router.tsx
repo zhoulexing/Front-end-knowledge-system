@@ -1,17 +1,14 @@
 import React from "react";
-import { routerRedux, router } from "dva";
 import { getRouterData } from "@/common/router";
-
-const { Route, Switch, Redirect } = router;
-const { ConnectedRouter } = routerRedux;
+import { Route, Switch, Redirect } from "react-router";
+import { ConnectedRouter } from "connected-react-router";
 
 interface RouterConfigProps {
     history: History;
-    app: any
 }
 
-const RouterConfig: React.SFC<RouterConfigProps> = ({ history, app }) => {
-    const routerData = getRouterData(app);
+const RouterConfig: React.SFC<RouterConfigProps> = ({ history }: any) => {
+    const routerData = getRouterData();
     const LoginLayout = routerData["/login"].component;
     const BasicLayout = routerData["/apps"].component;
 

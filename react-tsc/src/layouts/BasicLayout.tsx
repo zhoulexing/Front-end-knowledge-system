@@ -1,20 +1,34 @@
 import React from "react";
 import { Button } from "antd";
-import { router } from "dva";
+import { Route } from "react-router";
+import { push } from "connected-react-router";
+import { connect } from "react-redux";
 import style from "./BasicLayout.less";
 
-const { Route } = router;
 
-export default class BasicLayout extends React.Component<object, object> {
+class BasicLayout extends React.Component<any, any> {
+    goOtherPage(path: string) {
+        this.props.dispatch(push(path));
+    }
+
     render() {
-        console.log(this.props);
         const { routerData } = this.props as any;
         return (
             <div className={style.layout}>
                 <div>Hello BasicLayout</div>
-                <Button>Go Example</Button> 
-                <Route path="/apps/example" component={routerData["/apps/example"].component} />
+                <Button onClick={this.goOtherPage.bind(this, "/apps/example")}>Go Example</Button>
+                <Button onClick={this.goOtherPage.bind(this, "/apps/es2020")}>Go ES2020</Button>
+                <Route
+                    path="/apps/example"
+                    component={routerData["/apps/example"].component}
+                />
+                <Route
+                    path="/apps/es2020"
+                    component={routerData["/apps/es2020"].component}
+                />
             </div>
-        )
+        );
     }
 }
+
+export default connect()(BasicLayout);

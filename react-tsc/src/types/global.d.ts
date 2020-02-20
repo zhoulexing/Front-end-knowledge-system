@@ -1,8 +1,3 @@
-declare module "dva";
-declare module "dva-loading";
-declare module "@loadable/component";
-declare module "path-to-regexp";
-declare module "redux-devtools-extension";
 
 declare module "*.css";
 declare module "*.less";
@@ -24,5 +19,6 @@ interface Window {
         hitType: "event" | "pageview",
         fieldsObject: GAFieldsObject | string
     ) => void;
+    __REDUX_DEVTOOLS_EXTENSION__: any
 }
 declare let ga: Function;

@@ -15,16 +15,19 @@ interface RouterData {
 /*
 * 路由配置
 * */
-const getRouterConfig = (app: any) => {
+const getRouterConfig = () => {
     return {
         "/login": {
-            component: dynamicWrapper(app, [], () => import(/* webpackChunkName: "loginLayout" */"@/layouts/LoginLayout"))
+            component: dynamicWrapper(() => import(/* webpackChunkName: "loginLayout" */"@/layouts/LoginLayout"))
         },
         "/apps": {
-            component: dynamicWrapper(app, [], () => import(/* webpackChunkName: "basicLayout" */"@/layouts/BasicLayout"))
+            component: dynamicWrapper(() => import(/* webpackChunkName: "basicLayout" */"@/layouts/BasicLayout"))
         },
         "/apps/example": {
-            component: dynamicWrapper(app, [], () => import(/* webpackChunkName: "example" */"@/routes/Example"))
+            component: dynamicWrapper(() => import(/* webpackChunkName: "example" */"@/routes/Example"))
+        },
+        "/apps/es2020": {
+            component: dynamicWrapper(() => import(/* webpackChunkName: "es2020" */"@/routes/ES2020"))
         },
     }
 };
@@ -43,19 +46,13 @@ function getFlatMenuData(menus: MenuData) {
 }
 
 let routerDataCache: RouterData;
-function dynamicWrapper(app: any, models: any, component: any) {
-    // 注册model
-    models.forEach((model: any) => {
-        if(modelNotExisted(app, model)) {
-            app.model(require(`@/models/${ model }`).default);
-        }
-    });
+function dynamicWrapper(component: any) {
 
     // 如果是同步加载, 则直接返回一个函数组件
     if(component.toString().indexOf(".then(") < 0) {
         return (props: any) => {
             if(!routerDataCache) {
-                routerDataCache = getRouterData(app);
+                routerDataCache = getRouterData();
             }
             return createElement(component().default, { ...props, routerData: routerDataCache });
         }
@@ -64,20 +61,14 @@ function dynamicWrapper(app: any, models: any, component: any) {
     const LoadableCom = loadable(component);
     return (props: any) => {
         if(!routerDataCache) {
-            routerDataCache = getRouterData(app);
+            routerDataCache = getRouterData();
         }
         return createElement(LoadableCom, { ...props, routerData: routerDataCache });
     }
 }
 
-function modelNotExisted(app: any, model: any) {
-    return !app._models.some(({ namespace }: any) => {
-        return namespace === model.substring(model.lastIndexOf('/') + 1);
-    });
-}
-
-export const getRouterData = (app:any) => {
-    const routerConfig: any = getRouterConfig(app);
+export const getRouterData = () => {
+    const routerConfig: any = getRouterConfig();
     const flatMenuData = getFlatMenuData(getMenuData());
     const routerData: any = {};
     Object.keys(routerConfig).forEach(path => {
