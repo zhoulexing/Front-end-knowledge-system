@@ -129,6 +129,7 @@ performance: {
 
 ```
 optimization: {
+    usedExports: true, // 在压缩式进行tree-shaking
     minimizer: true | false, // 默认为true, 用TerserPlugin进行压缩
     minimizer: [ // 自定义压缩工具，可用多个
         new TerserPlugin({
@@ -141,15 +142,15 @@ optimization: {
     ],
     runtimeChunk： true | "multiple" | object, // 入口起点添加一个额外 chunk
     splitChunks: { // 默认配置
-        chunks: "async", // 分离条件
-        minSize: 30000, // 文件最小打包体积
-        maxSize: 0,
-        minChunks: 1,
-        maxAsyncRequests: 5, // 如果设置为1，则每个入口文件就只会打包成为一个文件
-        maxInitialRequests: 3, // maxInitialRequest / maxAsyncRequests <maxSize <minSize
-        automaticNameDelimiter: "~", // 连接符
-        name: true,
-        cacheGroups: { // 制定分割包的规则列表
+        chunks: "async", // 表示从哪些chunks里面抽取代码，除了三个可选字符串值 initial、async、all 之外，还可以通过函数来过滤所需的 chunks
+        minSize: 30000, // 表示抽取出来的文件在压缩前的最小大小，默认为 30000
+        maxSize: 0, // 表示抽取出来的文件在压缩前的最大大小，默认为 0，表示不限制最大大小
+        minChunks: 1, // 表示被引用次数，默认为1
+        maxAsyncRequests: 5, // 最大的按需(异步)加载次数，默认为 5
+        maxInitialRequests: 3, // 最大的初始化加载次数，默认为 3
+        automaticNameDelimiter: "~", // 抽取出来的文件的自动生成名字的分割符，默认为 ~
+        name: true, // 抽取出来文件的名字，默认为 true，表示自动生成文件名
+        cacheGroups: { // cacheGroups 才是我们配置的关键, 它可以继承/覆盖上面 splitChunks 中所有的参数值, 除此之外还额外提供了三个配置，分别为：test, priority 和 reuseExistingChunk
             vendors: {
                 test: /[\\/]node_modules[\\/]/,
                 priority: -10 // 优先级
@@ -157,8 +158,32 @@ optimization: {
             default: {
                 minChunks: 2, // 依赖最少引入多少次才能进行拆包
                 priority: -20,
-                reuseExistingChunk: true
-            }
+                reuseExistingChunk: true, // 是否复用存在的chunk
+            },
+            reactBase: {
+                name: "reactBase",
+                test: module => {
+                    return /react|redux|prop-types/.test(module.context);
+                },
+                chunks: "initial",
+                priority: 10
+            },
+            reactVendor: {
+                test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+                name: "reactvendor"
+            },
+            utilityVendor: {
+                test: /[\\/]node_modules[\\/](lodash|moment|moment-timezone)[\\/]/,
+                name: "utilityVendor"
+            },
+            bootstrapVendor: {
+                test: /[\\/]node_modules[\\/](react-bootstrap)[\\/]/,
+                name: "bootstrapVendor"
+            },
+            vendor: {
+                test: /[\\/]node_modules[\\/](!react-bootstrap)(!lodash)(!moment)(!moment-timezone)[\\/]/,
+                name: "vendor"
+            },
         }
     },
     ...

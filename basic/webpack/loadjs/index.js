@@ -3,6 +3,9 @@
 
 // console.log(getName() + getAge() + getSg());
 console.log("zlx");
+import { isEmpty } from "lodash";
+
+console.log(_.isEmpty({}));
 
 function a() {
     import(/* webpackChunkName: "need" */"./need").then(m => {

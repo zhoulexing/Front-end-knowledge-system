@@ -4,9 +4,11 @@ import { Button } from "antd";
 import { connect } from "react-redux"; 
 import user from "@/assets/images/user.jpg";
 import logo from "@/assets/images/logo.svg";
+import isEmpty from "lodash/isEmpty";
 
 @connect()
 export default class Example extends React.Component {
+
     getData(value) {
         return new Promise(resolve => {
             setTimeout(() => {
@@ -20,6 +22,7 @@ export default class Example extends React.Component {
         const newObj = { ...obj };
         const data = await this.getData(1000);
         console.log(data);
+        console.log(isEmpty({}));
     }
 
     render() {
@@ -29,6 +32,8 @@ export default class Example extends React.Component {
                 <Button onClick={this.syncAction}>同步action</Button>
                 <img src={user}/>
                 <img src={logo}/>
+
+                
             </div>
         )
     }

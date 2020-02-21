@@ -2,6 +2,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    cache: {
+        type: "filesystem"
+    },
     mode: process.env.NODE_ENV,
     entry: './loadjs/index.js',
     output: {
@@ -21,10 +24,45 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './loadjs/index.ejs',
             filename: 'index.html',
-            minify: process.env.NODE_ENV === 'production' ? {
+            minify: {
+                minifyJS: true,
+                minifyCSS: true,
                 collapseInlineTagWhitespace: true,
-                collapseWhitespace: true
-            } : {}
+                collapseWhitespace: true // 删除空白符与换行符
+            },
         }),
-    ].filter(Boolean)
+    ].filter(Boolean),
+    optimization: {
+        chunkIds: "deterministic",
+        moduleIds: "deterministic",
+        splitChunks: {
+            chunks: "all", 
+            minSize: 30000, 
+            maxSize: 100000,
+            minChunks: 1,
+            maxAsyncRequests: 30, 
+            maxInitialRequests: 30, 
+            automaticNameDelimiter: "~", 
+            name: false,
+            cacheGroups: { 
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10
+                },
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true
+                }
+            },
+            minSize: {
+                javascript: 0,
+                style: 0,
+            },
+            maxSize: {
+                javascript: 30000,
+                style: 30000,
+            }
+        }
+    },
 }

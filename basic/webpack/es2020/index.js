@@ -8,6 +8,16 @@ class Person {
             throw "It is already a person!";
         }
     }
+
+    async getData() {
+        try {
+            const value = await fetch("www.baidu.com");
+            console.log(value);
+        } catch (error) {
+            
+        }
+        
+    }
 }
 
 const element = { index: 0, value: "foo" };

@@ -12,6 +12,8 @@
     ],
     "plugins": [
         ["@babel/plugin-proposal-decorators", { "legacy": true }],
+        "@babel/plugin-syntax-top-level-await",
+        "@babel/plugin-proposal-private-methods",
         "@babel/plugin-proposal-class-properties",
         [
             "@babel/plugin-transform-runtime",

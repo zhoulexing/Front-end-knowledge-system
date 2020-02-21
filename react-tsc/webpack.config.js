@@ -12,11 +12,11 @@ const outPath = path.resolve(__dirname, "./dist");
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
 module.exports = {
-    entry: "./index.tsx",
-
     mode: process.env.NODE_ENV,
 
     context: sourcePath,
+
+    entry: "./index.tsx",
 
     output: {
         path: outPath,
@@ -27,23 +27,53 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
+                test: /\.tsx?$/, // @babel/plugin-transform-typescript和@babel/preset-typescript
                 exclude: /node_modules/,
-                use: "happypack/loader?id=ts"
+                use: ["happypack/loader?id=ts"]
             },
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                use: "happypack/loader?id=js"
+                use: ["happypack/loader?id=js"]
             },
             {
                 test: /\.(less|css)$/,
                 exclude: /node_modules/,
-                use: "happypack/loader?id=style_src"
+                use: [
+                    IS_PRO ? MiniCssExtractPlugin.loader : "style-loader",
+                    {
+                        loader: "css-loader",
+                        options: {
+                            sourceMap: !IS_PRO,
+                            modules: {
+                                localIdentName: "[local]--[hash:base64:5]"
+                            }
+                        }
+                    },
+                    "postcss-loader?cacheDirectory=true",
+                    {
+                        loader: "less-loader",
+                        options: {
+                            cacheDirectory: true,
+                            javascriptEnabled: true
+                        }
+                    }
+                ]
             },
             {
                 test: /\.(less|css)$/,
-                use: "happypack/loader?id=style_node_modules"
+                include: /node_modules/,
+                use: [
+                    IS_PRO ? MiniCssExtractPlugin.loader : "style-loader",
+                    "css-loader",
+                    {
+                        loader: "less-loader",
+                        options: {
+                            cacheDirectory: true,
+                            javascriptEnabled: true
+                        }
+                    }
+                ]
             },
             {
                 test: /\.(png|jpg|gif)$/,
@@ -62,7 +92,7 @@ module.exports = {
         ]
     },
 
-    devtool: IS_PRO ? "hidden-source-map" : "cheap-module-eval-source-map",
+    devtool: IS_PRO ? "hidden-source-map" : "source-map", // cheap-module-eval-source-map
 
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".jsx"],
@@ -83,22 +113,13 @@ module.exports = {
                 minifyCSS: true,
                 collapseInlineTagWhitespace: true,
                 collapseWhitespace: true // 删除空白符与换行符
-            },
-            append: {
-                // body:"",
-                // head: ""
             }
+            // append: {
+            // body:"",
+            // head: ""
+            // }
         }),
-        new MiniCssExtractPlugin({
-            filename: "[name].[contenthash:8].css",
-            disable: !IS_PRO
-        }),
-        new OptimizeCss({
-            assetNameRegExp: /\.css$/g,
-            cssProcessor: require("cssnano"),
-            cssProcessorOptions: { discardComments: { removeAll: true } },
-            canPrint: true
-        }),
+
         new webpack.HotModuleReplacementPlugin(),
         new HappyPack({
             id: "js",
@@ -115,69 +136,52 @@ module.exports = {
             threadPool: happyThreadPool,
             verbose: true
         }),
-        new HappyPack({
-            id: "style_src",
-            loaders: [
-                IS_PRO ? MiniCssExtractPlugin.loader : "style-loader",
-                {
-                    loader: "css-loader",
-                    options: {
-                        sourceMap: !IS_PRO,
-                        modules: {
-                            localIdentName: "[local]--[hash:base64:5]"
-                        }
-                    }
-                },
-                "postcss-loader?cacheDirectory=true",
-                {
-                    loader: "less-loader",
-                    options: {
-                        cacheDirectory: true,
-                        javascriptEnabled: true
-                    }
-                }
-            ],
-            threadPool: happyThreadPool,
-            verbose: true
+        new OptimizeCss({
+            assetNameRegExp: /\.css$/g,
+            cssProcessor: require("cssnano"),
+            cssProcessorOptions: { discardComments: { removeAll: true } },
+            canPrint: true
         }),
-        new HappyPack({
-            id: "style_node_modules",
-            loaders: [
-                IS_PRO ? MiniCssExtractPlugin.loader : "style-loader",
-                "css-loader",
-                {
-                    loader: "less-loader",
-                    options: {
-                        cacheDirectory: true,
-                        javascriptEnabled: true
-                    }
-                }
-            ],
-            threadPool: happyThreadPool,
-            verbose: true
+        new MiniCssExtractPlugin({
+            filename: "[name].[contenthash:8].css",
+            chunkFilename: "[name].[contenthash:8].css",
+            disable: !IS_PRO
         })
     ].filter(Boolean),
 
     optimization: {
+        usedExports: true,
         splitChunks: {
-            chunks: "all", 
-            minSize: 30000, 
+            chunks: "all",
+            minSize: 30000,
             maxSize: 0,
-            minChunks: 1,
-            maxAsyncRequests: 5, 
-            maxInitialRequests: 3, 
-            automaticNameDelimiter: "~", 
+            minChunks: 2,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            automaticNameDelimiter: "~",
             name: true,
-            cacheGroups: { 
+            cacheGroups: {
+                styles: {
+                    name: "styles",
+                    test: /\.(less|css)$/,
+                    chunks: "all",
+                    minChunks: 1,
+                    reuseExistingChunk: true,
+                    enforce: true
+                },
                 vendors: {
                     test: /[\\/]node_modules[\\/]/,
+                    name: "vendor",
                     priority: -10
                 },
-                default: {
+                commons: {
+                    chunks: "initial",
                     minChunks: 2,
                     priority: -20,
-                    reuseExistingChunk: true
-                }
+                    maxInitialRequests: 5,
+                    minSize: 0
+                },
+                
             }
         }
     },
