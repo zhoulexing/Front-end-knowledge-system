@@ -131,7 +131,6 @@ interface Config1 {
     [name:string]: string
 }
 
-
 interface Person {
     name: string;
     age: number;
