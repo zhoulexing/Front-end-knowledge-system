@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "antd";
-
+import "./testTs";
 
 export default class ES2020 extends React.Component {
     #id = 0;
