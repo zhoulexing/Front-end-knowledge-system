@@ -12,4 +12,5 @@ describe("test object is promise", () => {
         const bool = isPromise({});
         expect(bool).to.equal(false);
     });
+
 });

@@ -32,7 +32,7 @@ export default class Example extends React.Component {
                 <Button onClick={this.syncAction}>同步action</Button>
                 <img src={user}/>
                 <img src={logo}/>
-
+                
                 
             </div>
         )

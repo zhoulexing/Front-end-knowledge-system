@@ -12,7 +12,10 @@ module.exports = {
     moduleNameMapper: {
         // 代表需要被 Mock 的资源名称
         "^@/(.*)$": "<rootDir>/src/$1",
-        "\\.(css|less|sass|scss)$": "<rootDir>/tests/cssTransform.js",
+        // "\\.(css|less)$": "identity-obj-proxy",
+        "\\.(css|less)$": "<rootDir>/tests/fileTransform.js",
+        "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+            "<rootDir>/tests/fileTransform.js"
     },
     setupFiles: ["<rootDir>/tests/setup.js"], // 运行测试前可运行的脚本，比如注册enzyme的兼容
     testMatch: [
@@ -20,12 +23,14 @@ module.exports = {
         "<rootDir>/tests/**/*.(spec|test).[jt]s?(x)",
         // "**/?(*.)+(spec|test).[jt]s?(x)"
     ],
-    preset: "ts-jest",
+    moduleFileExtensions: [
+        "ts",
+        "tsx",
+        "js",
+        "jsx"
+    ],
     transform: {
         ...tsjPreset.transform,
-        "^.+\\.(css|less)$": "<rootDir>/tests/cssTransform.js",
-        "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
-            "<rootDir>/tests/fileTransform.js"
     },
     transformIgnorePatterns: [
         // 转换时需要忽略的文件
