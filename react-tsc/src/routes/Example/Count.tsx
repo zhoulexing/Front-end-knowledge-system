@@ -1,13 +1,17 @@
-import React from "react";
+import * as React from "react";
 import { Button } from "antd";
 
-export default class Count extends React.Component<any, any> {
+
+class Count extends React.Component {
     render() {
         return (
-            <div>
+            <div className="test">
                 数量：1
                 <Button>加</Button>
             </div>
         )
     }
 }
+
+
+export default Count;

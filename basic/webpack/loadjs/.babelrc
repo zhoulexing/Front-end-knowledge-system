@@ -1,7 +1,7 @@
 {
     "presets": [
         ["@babel/preset-env", {
-            "modules": false,
+            // "modules": false,
             // "useBuiltIns": "usage",
             // "corejs": 3,
             "targets": {
@@ -12,13 +12,14 @@
         }]
     ],
     "plugins": [
-        // ["@babel/plugin-transform-runtime", {
-            // "corejs": 3,
-            // "regenerator": true,
-            // "helpers": true,
-            // "absoluteRuntime": false,
-            // "useESModules": false
-        // }],
+        ["@babel/plugin-transform-runtime", {
+            "corejs": 3,
+            "regenerator": true,
+            "helpers": true,
+            "absoluteRuntime": false,
+            "useESModules": false
+        }],
+        "add-module-exports"
         // "@babel/plugin-proposal-class-properties",
     ]
 }
