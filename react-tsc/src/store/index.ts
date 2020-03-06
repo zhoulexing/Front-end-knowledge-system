@@ -5,33 +5,53 @@ import createSagaMiddleware from "redux-saga";
 import { createLogger } from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { handleActions } from "redux-actions";
+import { createHashHistory } from "history";
 
-const models = readModels();
+const models: ModelsType = readModels();
 const sagaMiddleware = createSagaMiddleware();
 
-export function configureStore(history: any, initialState = {}) {
-    const reducers: any = {};
-    const sagas: any = [];
+export const history = createHashHistory();
+
+export default configureStore();
+
+interface ModelsType {
+    [propName:string]: any;
+};
+
+type MiddlewareFunction = (store: any) => (next: any) => (action: any) => any;
+
+type Sagas = { 
+    [key: string]: any;
+};
+
+type Reducers = {
+    [key: string]: any;
+};
+
+function configureStore() {
+    const reducers: Reducers = {};
+    const sagas: Sagas = [];
     Object.values(models).forEach((model: any) => {
         reducers[model.namespace] = getReducer(model);
         sagas.push(getSaga(model));
     });
-    const middlewares: any = [
+    const middlewares: Array<MiddlewareFunction> = [
         routerMiddleware(history),
         sagaMiddleware,
-        process.env.NODE_ENV === "development" && createLogger()
     ].filter(Boolean);
+    if(process.env.NODE_ENV === "development") {
+        middlewares.push(createLogger());
+    }
     const enhancer = composeWithDevTools(applyMiddleware(...middlewares));
-    const _store = createStore(
+    const _store: any = createStore(
         combineReducers({ ...reducers, router: connectRouter(history) }),
-        initialState,
         enhancer
     );
     sagas.forEach(sagaMiddleware.run);
     return _store;
 }
 
-function getSaga({ namespace, effects }: any) {
+function getSaga({ namespace, effects }: ModelsType) {
     return function*() {
         for (const key in effects) {
             if (Object.prototype.hasOwnProperty.call(effects, key)) {
@@ -52,7 +72,7 @@ function getWatcher(namespace: string, key: string, saga: any) {
         _type = opts.type;
     }
 
-    function onError(e: any) {
+    function onError(e: Error) {
         console.error(e);
     }
 
@@ -88,16 +108,12 @@ function getWatcher(namespace: string, key: string, saga: any) {
     };
 }
 
-function getReducer({ state, reducers, namespace }: any) {
+function getReducer({ state, reducers, namespace }: ModelsType) {
     const reducerEnhancer: any = {};
     Object.keys(reducers).forEach((key: string) => {
         reducerEnhancer[`${namespace}/${key}`] = reducers[key];
     });
     return handleActions(reducerEnhancer, state);
-}
-
-interface ModelsType {
-    [propName:string]: any;
 }
 
 function readModels() {
