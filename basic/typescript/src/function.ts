@@ -32,3 +32,31 @@ function readModels() {
     });
     return models;
 }
+
+
+interface TypedResponse<T = any> extends Response {
+    json<P = T>(): Promise<P>;
+}
+
+function checkStatus(response: TypedResponse) {
+    if(!response.ok) {
+        throw new Error(response.statusText);
+    }
+    return response.json();
+}
+
+function request<T>(url: string): Promise<T> {
+    return fetch(url)
+        .then(checkStatus)
+        .catch((error: Error) => {
+            throw error;
+        });
+}
+
+request<{ title: string, message: string }>("/url/xxx")
+    .then(({ title, message }) => {
+        console.log(title, message);
+    })
+    .catch(error => {
+        console.error(error);
+    });

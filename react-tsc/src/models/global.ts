@@ -1,3 +1,25 @@
+import { Effect, EffectsCommandMap, Subscription } from "./connect.d";
+import { AnyAction, Reducer } from "redux";
+
+export interface GlobalModelState {
+    collapsed: boolean;
+    loading: boolean;
+}
+
+export interface GlobalModelType {
+    namespace: "global";
+    state: GlobalModelState;
+    effects: {
+        fetchNotices: Effect;
+    };
+    reducers: {
+        changeLayoutCollapsed: Reducer<GlobalModelState>;
+    };
+    subscriptions: {
+        setup: Subscription
+    }
+}
+
 export default {
     namespace: "global",
 
@@ -6,7 +28,25 @@ export default {
         loading: false
     },
 
-    effects: {},
+    effects: {
+        *fetchNotices(_: AnyAction, { call, put, select }: EffectsCommandMap) {
+            const data = yield call();
+            yield put({
+                type: "saveNotices",
+                payload: data
+            });
+            const unreadCount: number = yield select(
+                (state: any) => state.global.notices.filter((item: any) => !item.read).length
+            );
+            yield put({
+                type: "user/changeNotifyCount",
+                payload: {
+                    totalCount: data.length,
+                    unreadCount
+                }
+            });
+        }
+    },
 
     reducers: {
         changeLayoutCollapsed(state: any, { payload }: any) {
