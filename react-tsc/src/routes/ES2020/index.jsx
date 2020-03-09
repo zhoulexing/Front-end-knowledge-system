@@ -1,6 +1,7 @@
-import React from "react";
+import * as React from "react";
 import { Button } from "antd";
-import "./testTs";
+
+
 
 export default class ES2020 extends React.Component {
     #id = 0;
@@ -81,7 +82,7 @@ export default class ES2020 extends React.Component {
 
     getPrivite = () => {
         this.#increment();
-        console.log(this.#id);
+        console.log(this.id);
         console.log(ES2020.name);
         console.log(ES2020.#age);
     }
@@ -91,6 +92,6 @@ export default class ES2020 extends React.Component {
     }
 
     flatMap = () => {
-
+        
     }
 }

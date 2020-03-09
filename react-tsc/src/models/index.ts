@@ -1,7 +1,7 @@
 import { AnyAction, Dispatch } from "redux";
 import { GlobalModelState } from "./global";
 
-export interface EffectsCommandMap {
+interface EffectsCommandMap {
     put: <A extends AnyAction>(action: A) => any;
     call: Function;
     select: Function;

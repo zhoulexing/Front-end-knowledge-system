@@ -23,12 +23,12 @@ export function isPromise(obj?: any): boolean {
  * @returns {string|boolean}
  * @author zlx
  */
-export function toDecimal(x: any, length: number): string | boolean {
+export function toDecimal(x: any, length: number = 2): string | boolean {
     let f = parseFloat(x);
     if (isNaN(f)) {
         return false;
     }
-    let lengthPow: number = Math.pow(18, length);
+    let lengthPow: number = Math.pow(10, length);
     f = Math.round(x * lengthPow) / lengthPow;
     let s: string = f.toString();
     let rs: number = s.indexOf(".");
@@ -61,6 +61,6 @@ export function dayOfYear(date: Date): number {
  * @param {string} param0
  * @returns {string}
  */
-export function decapitalize([first, ...rest]: Array<string>): string {
+export function decapitalize([first, ...rest]: string): string {
 	return first.toLowerCase() + rest.join('');
 }

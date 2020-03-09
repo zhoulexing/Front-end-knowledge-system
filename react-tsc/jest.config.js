@@ -27,8 +27,7 @@ module.exports = {
 
     testMatch: [
         // 匹配的测试文件
-        // "<rootDir>/tests/**/*.(spec|test).[jt]s?(x)",
-        "<rootDir>/tests/routes/Example.test.js",
+        "<rootDir>/tests/**/*.(spec|test).[jt]s?(x)",
         // "**/?(*.)+(spec|test).[jt]s?(x)"
     ],
     snapshotSerializers: ["enzyme-to-json/serializer"],

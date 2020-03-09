@@ -122,7 +122,7 @@ function readModels() {
     const context = require.context("../models", true, /\.ts$/);
     const keys: string[] = context.keys();
     keys.forEach((key: string) => {
-        if (context(key)) {
+        if (context(key) && !key.indexOf("index")) {
             models[key] = context(key).default;
         }
     });

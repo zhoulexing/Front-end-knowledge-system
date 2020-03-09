@@ -1,9 +1,18 @@
-import { Effect, EffectsCommandMap, Subscription } from "./connect.d";
-import { AnyAction, Reducer } from "redux";
+
+import { Reducer, AnyAction } from "redux";
+import { Effect, Subscription } from "./index";
+
+export interface NoticeItem {
+    id: string;
+    type: string;
+    status: string;
+    read: boolean;
+}
 
 export interface GlobalModelState {
     collapsed: boolean;
     loading: boolean;
+    notices: NoticeItem[];
 }
 
 export interface GlobalModelType {
@@ -13,30 +22,31 @@ export interface GlobalModelType {
         fetchNotices: Effect;
     };
     reducers: {
-        changeLayoutCollapsed: Reducer<GlobalModelState>;
+        changeLayoutCollapsed: Reducer<GlobalModelState, AnyAction>;
     };
     subscriptions: {
         setup: Subscription
     }
 }
 
-export default {
+const globalModal: GlobalModelType = {
     namespace: "global",
 
     state: {
         collapsed: false,
-        loading: false
+        loading: false,
+        notices: [],
     },
 
     effects: {
-        *fetchNotices(_: AnyAction, { call, put, select }: EffectsCommandMap) {
+        *fetchNotices(_, { call, put, select }) {
             const data = yield call();
             yield put({
                 type: "saveNotices",
                 payload: data
             });
             const unreadCount: number = yield select(
-                (state: any) => state.global.notices.filter((item: any) => !item.read).length
+                (state) => state.global.notices.filter((item) => !item.read).length
             );
             yield put({
                 type: "user/changeNotifyCount",
@@ -49,7 +59,7 @@ export default {
     },
 
     reducers: {
-        changeLayoutCollapsed(state: any, { payload }: any) {
+        changeLayoutCollapsed(state, { payload }) {
             return {
                 ...state,
                 collapsed: payload
@@ -58,8 +68,8 @@ export default {
     },
 
     subscriptions: {
-        setup({ history, dispatch }: any) {
-            return history.listen(({ pathname, search }: any) => {
+        setup({ history, dispatch }) {
+            return history.listen(({ pathname, search }) => {
                 if (typeof window.ga !== "undefined") {
                     window.ga("send", "pageview", pathname + search);
                 }
@@ -67,3 +77,6 @@ export default {
         }
     }
 };
+
+
+export default globalModal;
