@@ -21,8 +21,19 @@ export type Effect = (
     }
 ) => void;
 
+export interface ListenCallbackParams {
+    pathname: string;
+    search: string;
+}
+
+export type ListenCallback = (params: ListenCallbackParams) => void;
+
+export interface HistoryEnhancer extends History {
+    listen: (callback: ListenCallback) => void;
+}
+
 export interface SubscriptionAPI {
-    history: History;
+    history: HistoryEnhancer;
     dispatch: Dispatch<any>;
 }
 
