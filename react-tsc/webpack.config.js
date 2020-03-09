@@ -11,6 +11,7 @@ const sourcePath = path.resolve(__dirname, "./src");
 const outPath = path.resolve(__dirname, "./dist");
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
+
 module.exports = {
     mode: process.env.NODE_ENV,
 
@@ -20,8 +21,12 @@ module.exports = {
 
     output: {
         path: outPath,
-        filename: "[name].[hash:8].js",
-        chunkFilename: "[name].[hash:8].js"
+        filename: "[name].js",
+        chunkFilename: "[name].[hash:8].js",
+
+        library: "reactTsc-[name]",
+        libraryTarget: "umd",
+        jsonpFunction: `webpackJsonp_reactTsc`
     },
 
     module: {
@@ -180,13 +185,13 @@ module.exports = {
                     priority: -20,
                     maxInitialRequests: 5,
                     minSize: 0
-                },
-                
+                }
             }
         }
     },
 
     devServer: {
+        headers: {"Access-Control-Allow-Origin": "*"},
         contentBase: sourcePath,
         compress: true,
         hot: true,
