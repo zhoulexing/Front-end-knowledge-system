@@ -1,0 +1,21 @@
+{
+  "name": "main",
+  "version": "1.0.0",
+  "description": "react vue angular",
+  "main": "index.js",
+  "author": "zlx",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel index.html --port 7099",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "qiankun": "^1.4.5",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
+  },
+  "devDependencies": {
+    "less": "^3.11.1",
+    "parcel-bundler": "^1.12.4"
+  }
+}

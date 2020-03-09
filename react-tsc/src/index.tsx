@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import store, { history } from "./store";
-
+import "./public-path";
 
 let render = () => {
     const Routes = require("./router").default;
@@ -12,7 +12,7 @@ let render = () => {
         </Provider>,
         document.getElementById("root")
     );
-}
+};
 
 render();
 
