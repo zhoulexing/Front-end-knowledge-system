@@ -7,8 +7,8 @@ const OptimizeCss = require("optimize-css-assets-webpack-plugin");
 const HappyPack = require("happypack");
 
 const IS_PRO = process.env.NODE_ENV === "production";
-const sourcePath = path.resolve(__dirname, "./src");
-const outPath = path.resolve(__dirname, "./dist");
+const sourcePath = path.resolve(__dirname, "../src");
+const outPath = path.resolve(__dirname, "../dist");
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
 
@@ -108,8 +108,15 @@ module.exports = {
     },
 
     plugins: [
+        new webpack.DefinePlugin({
+            ENV:JSON.stringify(process.env.NODE_ENV)
+        }),
+        new webpack.ProvidePlugin({
+            React: "react",
+        }),
         new HtmlWebpackPlugin({
             title: "前沿前端",
+            favicon: "./assets/images/favicon.ico",
             template: `./index.ejs`,
             filename: `index.html`,
             // 压缩html

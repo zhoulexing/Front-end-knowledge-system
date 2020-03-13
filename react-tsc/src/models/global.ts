@@ -1,6 +1,6 @@
 
 import { Reducer } from "redux";
-import { Effect, Subscription } from "./index.d";
+import { Effect, Subscription } from "@/store/index.d";
 
 export interface NoticeItem {
     id: string;
@@ -59,7 +59,7 @@ const globalModal: GlobalModelType = {
     },
 
     reducers: {
-        changeLayoutCollapsed(state = globalModal.state, { payload }) {
+        changeLayoutCollapsed(state: GlobalModelState, { payload }) {
             return {
                 ...state,
                 collapsed: payload

@@ -12,8 +12,6 @@ const sagaMiddleware = createSagaMiddleware();
 
 export const history = createHashHistory();
 
-export default configureStore();
-
 interface ModelsType {
     [propName:string]: any;
 };
@@ -122,9 +120,16 @@ function readModels() {
     const context = require.context("../models", true, /\.ts$/);
     const keys: string[] = context.keys();
     keys.forEach((key: string) => {
-        if (context(key) && !key.indexOf("index.d")) {
+        if (context(key) && !key.includes("index")) {
             models[key] = context(key).default;
         }
     });
     return models;
 }
+
+export default configureStore;
+
+
+
+
+

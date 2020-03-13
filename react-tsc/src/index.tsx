@@ -1,8 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import store, { history } from "./store";
+import configureStore, { history } from "./store";
 import "./public-path";
+import "./index.less";
+
+const store = configureStore();
 
 let render = () => {
     const Routes = require("./router").default;
@@ -36,3 +39,5 @@ if (module.hot) {
         render();
     });
 }
+
+export default store;

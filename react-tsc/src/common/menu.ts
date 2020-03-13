@@ -1,9 +1,18 @@
+import * as React from "react";
+import {
+    HomeOutlined,
+    SmileOutlined,
+} from "@ant-design/icons";
+
+
 export interface MenuDataItem {
     name: string;
-    icon?: string;
+    icon?: React.ElementType;
     path: string;
-    authority?: Array<string>,
-    children?: Array<MenuDataItem>
+    hideInMenu?: boolean;
+    target?: string;
+    authority?: Array<string>;
+    children?: Array<MenuDataItem>;
 }
 
 export interface MenuData extends Array<MenuDataItem> {}
@@ -11,12 +20,12 @@ export interface MenuData extends Array<MenuDataItem> {}
 const menuData: MenuData = [
     {
         name: "数据资源",
-        icon: "database",
+        icon: HomeOutlined,
         path: "datasource"
     },
     {
         name: "我的",
-        icon: "user",
+        icon: HomeOutlined,
         path: "my",
         children: [
             {
@@ -31,7 +40,7 @@ const menuData: MenuData = [
     },
     {
         name: "示例",
-        icon: "smile",
+        icon: SmileOutlined,
         path: "example",
         children: [
             {
@@ -46,16 +55,23 @@ const menuData: MenuData = [
     }
 ];
 
-
-function formatter(data: MenuData, parentPath = "/apps/", parentAuthority?: Array<string>) {
+function formatter(
+    data: MenuData,
+    parentPath = "/apps/",
+    parentAuthority?: string[]
+) {
     return data.map(item => {
         const result = {
             ...item,
             authority: item.authority || parentAuthority,
             path: parentPath + item.path
         };
-        if(item.children) {
-            result.children = formatter(item.children, `${parentPath}${item.path}/`, item.authority);
+        if (item.children) {
+            result.children = formatter(
+                item.children,
+                `${parentPath}${item.path}/`,
+                item.authority
+            );
         }
         return result;
     });
