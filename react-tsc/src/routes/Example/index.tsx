@@ -5,9 +5,17 @@ import { connect } from "react-redux";
 import user from "@/assets/images/user.jpg";
 import logo from "@/assets/images/logo.svg";
 import isEmpty from "lodash/isEmpty";
+import { ConnectState } from "@/store/index.d";
+import {} from "@/models/example";
 
-@connect()
-export default class Example extends React.Component {
+export interface ExampleProps extends ExampleModelState{
+    
+}
+
+@connect(({ example }: ConnectState) => ({
+    ...example
+}))
+export default class Example extends React.Component<ExampleProps> {
 
     getData(value) {
         return new Promise(resolve => {
@@ -26,10 +34,12 @@ export default class Example extends React.Component {
     }
 
     render() {
+        const { count } = this.props;
         return (
             <div className={style.example}>
-                Example12
-                <Button onClick={this.syncAction}>同步action</Button>
+                <span>{ count }</span>
+                <Button onClick={this.add}>增加</Button>
+                <Button onClick={this.asyncAction}>异步action</Button>
                 <img src={user}/>
                 <img src={logo}/>
                 
@@ -38,10 +48,19 @@ export default class Example extends React.Component {
         )
     }
 
-    syncAction = () => {    
+    add = () => {
+        const { count } = this.props;
         this.props.dispatch({
-            type: "global/changeLayoutCollapsed", 
-            payload: true
+            type: "example/add", 
+            payload: {
+                count: ++count
+            }
+        });
+    }
+
+    asyncAction = () => {    
+        this.props.dispatch({
+            type: "example/fetchData"
         });
     }
 }

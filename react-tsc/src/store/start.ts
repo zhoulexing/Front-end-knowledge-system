@@ -10,7 +10,7 @@ import { createLogger } from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import { ReduxCompatibleReducer } from "redux-actions";
-import { Model, MiddlewareFunction, HistoryEnhancer } from "./index.d";
+import { Model, MiddlewareFunction } from "./index.d";
 import { createHashHistory } from "history";
 import getModels, { ModelMap } from "./getModels";
 import getReducer from "./getReducer";
@@ -19,7 +19,7 @@ import getSaga from "./getSaga";
 export type Options = {
     initialReducer?: Reducer;
     initialState?: Object;
-    history?: HistoryEnhancer;
+    history?: History.PoorMansUnknown;
 };
 
 
@@ -32,19 +32,20 @@ function onError(err?: Error) {
 
 function configureStore(opts?: Options, hooksAndOpts?: any) {
     const { initialReducer, history = createHashHistory() } = opts || {};
+    const { onEffect = [] } = hooksAndOpts || {};
     const models: ModelMap = getModels();
     const sagaMiddleware = createSagaMiddleware();
     const reducers: { [key: string]: ReduxCompatibleReducer<any, any> } = {
         ...initialReducer
     };
-    const sagas = [];
+    const sagas: any = [];
     Object.values(models).forEach((model: Model) => {
         reducers[model.namespace] = getReducer(
             model.reducers,
             model.state
         ) as ReduxCompatibleReducer<any, any>;
         if (model.effects) {
-            sagas.push(getSaga(model.effects, model, onError, [], hooksAndOpts));
+            sagas.push(getSaga(model.effects, model, onError, onEffect, hooksAndOpts));
         }
     });
 
@@ -60,6 +61,7 @@ function configureStore(opts?: Options, hooksAndOpts?: any) {
         combineReducers({ ...reducers, router: connectRouter(history as any) }),
         enhancer
     );
+    sagas.forEach(sagaMiddleware.run);
     return store;
 }
 
