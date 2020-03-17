@@ -15,6 +15,7 @@ import { createHashHistory } from "history";
 import getModels, { ModelMap } from "./getModels";
 import getReducer from "./getReducer";
 import getSaga from "./getSaga";
+import { run as runSubscription } from "./subscription";
 
 export type Options = {
     initialReducer?: Reducer;
@@ -31,7 +32,7 @@ function onError(err?: Error) {
 }
 
 function configureStore(opts?: Options, hooksAndOpts?: any) {
-    const { initialReducer, history = createHashHistory() } = opts || {};
+    const { initialReducer, history = createHashHistory(), initialState = {} } = opts || {};
     const { onEffect = [] } = hooksAndOpts || {};
     const models: ModelMap = getModels();
     const sagaMiddleware = createSagaMiddleware();
@@ -59,8 +60,19 @@ function configureStore(opts?: Options, hooksAndOpts?: any) {
     const enhancer = composeWithDevTools(applyMiddleware(...middlewares));
     const store: any = createStore(
         combineReducers({ ...reducers, router: connectRouter(history as any) }),
+        initialState,
         enhancer
     );
+
+    const unlisteners: { [key: string]: any } = {};
+    let model: Model;
+    for (const key in models) {
+        model = models[key];
+      if (model.subscriptions) {
+        unlisteners[model.namespace] = runSubscription(model.subscriptions, model, store, history, onError);
+      }
+    }
+
     sagas.forEach(sagaMiddleware.run);
     return store;
 }
