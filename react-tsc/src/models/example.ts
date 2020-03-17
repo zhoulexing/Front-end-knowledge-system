@@ -32,10 +32,10 @@ const exampleModel: ExampleModelType = {
         count: 0,
     },
     effects: {
-        *fetchData(_, { call, put }) {
-            const data = yield call(getData([1, 2, 3]));
+        *fetchData({ payload }, { call, put }) {
+            const data = yield call(getData, payload);
             yield put({
-                type: "user/changeNotifyCount",
+                type: "example/setData",
                 payload: {
                     data,
                 }

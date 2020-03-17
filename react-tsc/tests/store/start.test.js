@@ -1,4 +1,4 @@
-import configureStore from "@/store/start";
+import configureStore from "@/store";
 import { createHashHistory } from "history";
 
 describe("test store", () => {

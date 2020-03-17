@@ -112,12 +112,12 @@ function getWatcher(
     }
 
     function* sagaWithCatch(...args: any) {
+        console.log("args:", args, effect);
         try {
             yield sagaEffects.put({ type: `${key}${NAMESPACE_SEP}@@start` });
-            yield (effect as Effect)(...args, createEffects(model, opts));
+            yield (effect as Effect)(...args, createEffects(model));
             yield sagaEffects.put({ type: `${key}${NAMESPACE_SEP}@@end` });
         } catch (e) {
-            console.log("123:", e);
             onError(e);
         }
     }

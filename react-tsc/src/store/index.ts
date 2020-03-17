@@ -1,135 +1,68 @@
-import { createStore, applyMiddleware, combineReducers } from "redux";
-import { takeEvery, takeLatest, fork, put } from "redux-saga/effects";
+import {
+    createStore,
+    applyMiddleware,
+    combineReducers,
+    Reducer,
+} from "redux";
 import { routerMiddleware, connectRouter } from "connected-react-router";
 import createSagaMiddleware from "redux-saga";
 import { createLogger } from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { handleActions } from "redux-actions";
+
+import { ReduxCompatibleReducer } from "redux-actions";
+import { Model, MiddlewareFunction } from "./index.d";
 import { createHashHistory } from "history";
+import getModels, { ModelMap } from "./getModels";
+import getReducer from "./getReducer";
+import getSaga from "./getSaga";
 
-const models: ModelsType = readModels();
-const sagaMiddleware = createSagaMiddleware();
-
-export const history = createHashHistory();
-
-interface ModelsType {
-    [propName:string]: any;
+export type Options = {
+    initialReducer?: Reducer;
+    initialState?: Object;
+    history?: History.PoorMansUnknown;
 };
 
-type MiddlewareFunction = (store: any) => (next: any) => (action: any) => any;
 
-type Sagas = { 
-    [key: string]: any;
-};
+function onError(err?: Error) {
+    if (err) {
+        if (typeof err === "string") err = new Error(err);
+        throw err;
+    }
+}
 
-type Reducers = {
-    [key: string]: any;
-};
-
-function configureStore() {
-    const reducers: Reducers = {};
-    const sagas: Sagas = [];
-    Object.values(models).forEach((model: any) => {
-        reducers[model.namespace] = getReducer(model);
-        sagas.push(getSaga(model));
+function configureStore(opts?: Options, hooksAndOpts?: any) {
+    const { initialReducer, history = createHashHistory() } = opts || {};
+    const { onEffect = [] } = hooksAndOpts || {};
+    const models: ModelMap = getModels();
+    const sagaMiddleware = createSagaMiddleware();
+    const reducers: { [key: string]: ReduxCompatibleReducer<any, any> } = {
+        ...initialReducer
+    };
+    const sagas: any = [];
+    Object.values(models).forEach((model: Model) => {
+        reducers[model.namespace] = getReducer(
+            model.reducers,
+            model.state
+        ) as ReduxCompatibleReducer<any, any>;
+        if (model.effects) {
+            sagas.push(getSaga(model.effects, model, onError, onEffect, hooksAndOpts));
+        }
     });
-    const middlewares: Array<MiddlewareFunction> = [
-        routerMiddleware(history),
+
+    const middlewares: MiddlewareFunction[] = [
+        routerMiddleware(history as any),
         sagaMiddleware,
     ].filter(Boolean);
-    if(process.env.NODE_ENV === "development") {
+    if(process.env.NODE_ENV !== "production") {
         middlewares.push(createLogger());
     }
     const enhancer = composeWithDevTools(applyMiddleware(...middlewares));
-    const _store: any = createStore(
-        combineReducers({ ...reducers, router: connectRouter(history) }),
+    const store: any = createStore(
+        combineReducers({ ...reducers, router: connectRouter(history as any) }),
         enhancer
     );
     sagas.forEach(sagaMiddleware.run);
-    return _store;
-}
-
-function getSaga({ namespace, effects }: ModelsType) {
-    return function*() {
-        for (const key in effects) {
-            if (Object.prototype.hasOwnProperty.call(effects, key)) {
-                const watcher = getWatcher(namespace, key, effects[key]);
-                yield fork(watcher);
-            }
-        }
-    };
-}
-
-function getWatcher(namespace: string, key: string, saga: any) {
-    let _saga = saga;
-    let _type = "takeEvery";
-    let opts: any = {};
-
-    if (Array.isArray(saga)) {
-        [_saga, opts] = saga;
-        _type = opts.type;
-    }
-
-    function onError(e: Error) {
-        console.error(e);
-    }
-
-    function putEnhancer(namespace: string) {
-        return function*(params: any) {
-            if (params.type) {
-                params.type = `${namespace}/${params.type}`;
-            }
-            yield put(params);
-        };
-    }
-
-    let _put = putEnhancer(namespace);
-    function* sagaWithErrorCatch(...arg: any) {
-        try {
-            yield _saga(...arg, { fork, put: _put });
-        } catch (e) {
-            onError(e);
-        }
-    }
-
-    let k = `${namespace}/${key}`;
-    if (_type === "watcher") {
-        return sagaWithErrorCatch;
-    }
-    if (_type === "takeEvery") {
-        return function*() {
-            yield takeEvery(k, sagaWithErrorCatch);
-        };
-    }
-    return function*() {
-        yield takeLatest(k, sagaWithErrorCatch);
-    };
-}
-
-function getReducer({ state, reducers, namespace }: ModelsType) {
-    const reducerEnhancer: any = {};
-    Object.keys(reducers).forEach((key: string) => {
-        reducerEnhancer[`${namespace}/${key}`] = reducers[key];
-    });
-    return handleActions(reducerEnhancer, state);
-}
-
-function readModels() {
-    const models: ModelsType = {};
-    // 需要@types/webpack-env才能支持require.context
-    const context = require.context("../models", true, /\.ts$/);
-    const keys: string[] = context.keys();
-    keys.forEach((key: string) => {
-        if (context(key) && !key.includes("index")) {
-            models[key] = context(key).default;
-        }
-    });
-    return models;
+    return store;
 }
 
 export default configureStore;
-
-
-
-
-

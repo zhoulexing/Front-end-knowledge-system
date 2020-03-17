@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-// import configureStore, { history } from "./store";
-import configureStore from "@/store/start";
+import configureStore from "@/store";
 import { createHashHistory } from "history";
 import "./public-path";
 import "./index.less";

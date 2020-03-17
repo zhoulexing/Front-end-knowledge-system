@@ -58,9 +58,11 @@ export default class Example extends React.Component<ExampleProps> {
         });
     }
 
-    asyncAction = () => {    
+    asyncAction = () => {
+        const { count, data } = this.props;
         this.props.dispatch({
-            type: "example/fetchData"
+            type: "example/fetchData",
+            payload: data.concat(count)
         });
     }
 }
