@@ -1,4 +1,4 @@
-import { Dispatch } from 'redux';
+import { Dispatch } from "redux";
 import prefixedDispatch from "./prefixedDispatch";
 import { SubscriptionsMapObject } from "./index.d";
 
