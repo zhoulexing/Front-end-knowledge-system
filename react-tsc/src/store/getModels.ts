@@ -39,7 +39,7 @@ function checkModel(m: Model, existModels: ModelMap) {
 
     // 并且唯一
     invariant(
-        existModels.hasOwnProperty(namespace),
+        !existModels.hasOwnProperty(namespace),
         `[app.model] namespace should be unique`
     );
 

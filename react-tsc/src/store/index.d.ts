@@ -1,5 +1,6 @@
 import { ReducersMapObject, Reducer, AnyAction, Dispatch } from "redux";
 import { GlobalModelState } from "@/models/global";
+import { ExampleModelState } from "@/models/example";
 
 export interface EffectsCommandMap {
     put: <A extends AnyAction>(action: A) => any;
@@ -73,6 +74,7 @@ export interface ErrorEnhancer extends Error {
 }
 
 export interface ConnectState {
-    global: GlobalModelState;
     router: RouterModelState;
+    global: GlobalModelState;
+    example: ExampleModelState;
 }

@@ -5,7 +5,7 @@ import {
     Model,
     EffectsCommandMap
 } from "./index.d";
-import sagaEffects from "redux-saga/effects";
+import * as sagaEffects from "redux-saga/effects";
 import { NAMESPACE_SEP } from "./constants";
 import prefixType from "./prefixType";
 import { AnyAction } from "redux";
@@ -47,7 +47,7 @@ function getWatcher(
     let effect = _effect;
     let type = "takeEvery";
     let ms: number;
-    let delayMs: any;
+    let delayMs: number;
 
     if (Array.isArray(_effect)) {
         [effect] = _effect;
@@ -111,10 +111,11 @@ function getWatcher(
             };
     }
 
-    function* sagaWithCatch(args: any) {
+    function* sagaWithCatch(...args: any) {
+        console.log("args:", args, effect);
         try {
             yield sagaEffects.put({ type: `${key}${NAMESPACE_SEP}@@start` });
-            yield (effect as Effect)(args, createEffects(model));
+            yield (effect as Effect)(...args, createEffects(model));
             yield sagaEffects.put({ type: `${key}${NAMESPACE_SEP}@@end` });
         } catch (e) {
             onError(e);
