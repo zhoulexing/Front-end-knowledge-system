@@ -4,15 +4,6 @@ import { Button } from "antd";
 
 
 export default class ES2020 extends React.Component {
-    #id = 0;
-
-    static name = "zlx";
-    
-    static #age = 20;
-
-    #increment() {
-        this.#id++;
-    }
 
     componentDidCatch(err) {
         console.log(err);
@@ -31,11 +22,11 @@ export default class ES2020 extends React.Component {
                     <Button onClick={this.getPrivite}>操作</Button>
                 </div>
                 <div>
-                    <span>可选操作链</span>
+                    <span>可选链</span>
                     <Button onClick={this.getChainProp}>操作</Button>
                 </div>
                 <div>
-                    <span>空位合并操作</span>
+                    <span>空值合并运算符</span>
                     <Button onClick={this.getOperation}>操作</Button>
                 </div>
                 <div>
@@ -81,17 +72,35 @@ export default class ES2020 extends React.Component {
     }
 
     getPrivite = () => {
-        this.#increment();
-        console.log(this.id);
-        console.log(ES2020.name);
-        console.log(ES2020.#age);
+        const test = new Test();
+        console.log(test.#id);
+        console.log(test.getId());
+        console.log(Test.#age);
     }
 
     flat = () => {
-        console.log([1, 2, [3, 4, [5, 6]]].flat());
+        console.log([1, 2, [3, 4, [5, 6]]].flat()); // [1, 2, 3, 4, Array(2)]
+
     }
 
     flatMap = () => {
         
+    }
+}
+
+
+class Test {
+    #id = 0;
+    
+    static #age = 20;
+
+    #increment() {
+        this.#id++;
+    }
+
+    getId() {
+        console.log(Test.#age); // 20
+        this.#increment();
+        return this.#id;
     }
 }

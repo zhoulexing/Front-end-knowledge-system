@@ -291,3 +291,22 @@ MockPromise.race = function(promises) {
     });
 }
 
+
+function test() {
+    return new Promise((resolve, reject) => {
+        const arr = [10, 20, 30];
+        for(let i = 0; i < arr.length; i++) {
+            let item = arr[i];
+            if(item === 10) {
+                reject(item);
+                break;
+            }
+            console.log(item);
+        }
+    });
+}
+test().then(item => {
+
+}).catch(err => {
+    console.log("error:", err);
+});
