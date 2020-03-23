@@ -184,6 +184,15 @@ optimization: {
                 test: /[\\/]node_modules[\\/](!react-bootstrap)(!lodash)(!moment)(!moment-timezone)[\\/]/,
                 name: "vendor"
             },
+            styles: {
+                name: "styles",
+                test: /\.(less|css)$/,
+                maxSize: 500000,
+                chunks: "all",
+                minChunks: 1,
+                reuseExistingChunk: true,
+                enforce: true
+            },
         }
     },
     ...
