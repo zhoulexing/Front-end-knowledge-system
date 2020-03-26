@@ -2,22 +2,20 @@ import React from "react";
 import style from "./index.less";
 import { Button } from "antd";
 import { connect } from "react-redux"; 
+import { Dispatch } from "redux";
 import user from "@/assets/images/user.jpg";
 import logo from "@/assets/images/logo.svg";
 import isEmpty from "lodash/isEmpty";
 import { ConnectState } from "@/store/index.d";
-import {} from "@/models/example";
+import { ExampleModelState } from "@/models/example";
 
 export interface ExampleProps extends ExampleModelState{
-    
+    dispatch: Dispatch;
 }
 
-@connect(({ example }: ConnectState) => ({
-    ...example
-}))
-export default class Example extends React.Component<ExampleProps> {
+class Example extends React.Component<ExampleProps> {
 
-    getData(value) {
+    getData(value: any) {
         return new Promise(resolve => {
             setTimeout(() => {
                 resolve(value);
@@ -26,8 +24,6 @@ export default class Example extends React.Component<ExampleProps> {
     }
     
     async componentDidMount() {
-        const obj = { name: "zlx", age: 12 };
-        const newObj = { ...obj };
         const data = await this.getData(1000);
         console.log(data);
         console.log(isEmpty({}));
@@ -49,7 +45,7 @@ export default class Example extends React.Component<ExampleProps> {
     }
 
     add = () => {
-        const { count } = this.props;
+        let { count } = this.props;
         this.props.dispatch({
             type: "example/add", 
             payload: {
@@ -66,3 +62,7 @@ export default class Example extends React.Component<ExampleProps> {
         });
     }
 }
+
+export default connect(({ example }: ConnectState) => ({
+    ...example
+}))(Example);

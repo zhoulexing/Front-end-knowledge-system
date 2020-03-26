@@ -1,5 +1,5 @@
 import { Effect } from "@/store/index.d";
-import { Reducer } from "redux";
+import { AnyAction } from "redux";
 
 export interface ExampleModelState {
     data: number[];
@@ -13,8 +13,8 @@ export interface ExampleModelType {
         fetchData: Effect;
     },
     reducers: {
-        setData: Reducer<ExampleModelState>;
-        add: Reducer<ExampleModelState>;
+        setData: (state: ExampleModelState, _: AnyAction) => void;
+        add: (state: ExampleModelState, _: AnyAction) => void;
     }
 };
 

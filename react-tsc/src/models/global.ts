@@ -1,5 +1,5 @@
 
-import { Reducer } from "redux";
+import { AnyAction } from "redux";
 import { Effect, Subscription } from "@/store/index.d";
 
 export interface NoticeItem {
@@ -22,7 +22,7 @@ export interface GlobalModelType {
         fetchNotices: Effect;
     };
     reducers: {
-        changeLayoutCollapsed: Reducer<GlobalModelState>;
+        changeLayoutCollapsed: (state: GlobalModelState, _: AnyAction) => void;
     };
     subscriptions: {
         setup: Subscription
@@ -59,7 +59,7 @@ const globalModal: GlobalModelType = {
     },
 
     reducers: {
-        changeLayoutCollapsed(state: GlobalModelState, { payload }) {
+        changeLayoutCollapsed(state, { payload }) {
             return {
                 ...state,
                 collapsed: payload

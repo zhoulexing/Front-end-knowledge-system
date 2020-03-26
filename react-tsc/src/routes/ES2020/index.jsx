@@ -73,9 +73,7 @@ export default class ES2020 extends React.Component {
 
     getPrivite = () => {
         const test = new Test();
-        console.log(test.#id);
         console.log(test.getId());
-        console.log(Test.#age);
     }
 
     flat = () => {

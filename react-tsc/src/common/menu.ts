@@ -1,11 +1,8 @@
 import * as React from "react";
-import {
-    HomeOutlined,
-    SmileOutlined,
-} from "@ant-design/icons";
-
+import { HomeOutlined, SmileOutlined } from "@ant-design/icons";
 
 export interface MenuDataItem {
+    key?: string;
     name: string;
     icon?: React.ElementType;
     path: string;
@@ -19,9 +16,24 @@ export interface MenuData extends Array<MenuDataItem> {}
 
 const menuData: MenuData = [
     {
-        name: "数据资源",
+        name: "示例",
+        icon: SmileOutlined,
+        path: "example",
+        children: [
+            {
+                name: "示例1",
+                path: "1"
+            },
+            {
+                name: "示例2",
+                path: "2"
+            }
+        ]
+    },
+    {
+        name: "ES2020",
         icon: HomeOutlined,
-        path: "datasource"
+        path: "es2020"
     },
     {
         name: "我的",
@@ -35,21 +47,6 @@ const menuData: MenuData = [
             {
                 name: "资源",
                 path: "datasource"
-            }
-        ]
-    },
-    {
-        name: "示例",
-        icon: SmileOutlined,
-        path: "example",
-        children: [
-            {
-                name: "示例1",
-                path: "1"
-            },
-            {
-                name: "示例2",
-                path: "2"
             }
         ]
     }

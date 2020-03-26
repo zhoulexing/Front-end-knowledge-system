@@ -58,9 +58,25 @@ export function dayOfYear(date: Date): number {
 /**
  * 将字符串的首字母转换成小写字母
  * 
- * @param {string} param0
+ * @param {string} param
  * @returns {string}
  */
 export function decapitalize([first, ...rest]: string): string {
 	return first.toLowerCase() + rest.join('');
+}
+
+
+/**
+ * 将url转化成一个数组
+ * 
+ * @param {string} url
+ * @returns {string[]}
+ * 
+ * eg: /a/b/c => [/a, /a/b, /a/b/c]
+ */
+export function urlToList(url: string) {
+    const urllist = url.split("/").filter(Boolean);
+    return urllist.map((urlItem, index) => {
+        return `/${urllist.slice(0, index + 1).join('/')}`;
+    });
 }

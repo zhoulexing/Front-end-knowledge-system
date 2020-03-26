@@ -23,7 +23,7 @@ const getRouterConfig = () => {
         "/apps": {
             component: dynamicWrapper(() => import(/* webpackChunkName: "basicLayout" */"@/layouts/BasicLayout"))
         },
-        "/apps/example": {
+        "/apps/example/1": {
             component: dynamicWrapper(() => import(/* webpackChunkName: "example" */"@/routes/Example"))
         },
         "/apps/es2020": {
