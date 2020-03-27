@@ -20,7 +20,7 @@ import { run as runSubscription } from "./subscription";
 export type Options = {
     initialReducer?: Reducer;
     initialState?: Object;
-    history?: History.PoorMansUnknown;
+    history?: History;
 };
 
 

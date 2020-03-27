@@ -5,6 +5,8 @@ import { MenuData, MenuDataItem } from "@/common/menu";
 import { SmileOutlined } from "@ant-design/icons";
 import { urlToList } from "@/utils/util";
 import { pathToRegexp } from "path-to-regexp";
+import { IAuthorizedType } from "@/components/Authorized/Authorized";
+import { IAuthorityType } from "@/components/Authorized/CheckPermissions";
 
 import styles from "./index.less";
 
@@ -18,20 +20,23 @@ interface SiderMenuProps {
     menuData: MenuData;
     location: any;
     onCollapse: (collapsed: boolean, type: any) => void;
+    Authorized: IAuthorizedType;
 }
 
 interface SideMenuState {
     openKeys: string[];
 }
 
-const getIcon = (icon: string | React.ElementType | undefined) => {
+const getIcon = (icon: React.ReactNode) => {
     if (!icon) {
         return <SmileOutlined />;
     }
     if (typeof icon === "string") {
         return <img src={icon} alt="icon" className={styles.icon} />;
     }
-    return React.createElement(icon);
+    return React.createElement(
+        icon as React.FunctionComponent | React.ComponentClass
+    );
 };
 
 export const getFlatMenuKeys = (menuData: MenuData) => {
@@ -115,7 +120,9 @@ class SiderMenu extends React.PureComponent<SiderMenuProps, SideMenuState> {
 
     handleClick = ({ key, keyPath }: { key: string; keyPath: string[] }) => {
         const { openKeys } = this.state;
-        const newOpenKeys = openKeys.filter(openKey => keyPath.includes(openKey));
+        const newOpenKeys = openKeys.filter(openKey =>
+            keyPath.includes(openKey)
+        );
         this.setState({
             openKeys: newOpenKeys
         });
@@ -147,8 +154,7 @@ class SiderMenu extends React.PureComponent<SiderMenuProps, SideMenuState> {
             .filter((item: MenuDataItem) => item.name && !item.hideInMenu)
             .map((item: MenuDataItem) => {
                 const ItemDom = this.getSubMenuOrItem(item);
-                // return this.checkPermissionItem(item.authority, ItemDom);
-                return ItemDom;
+                return this.checkPermissionItem(item.authority, ItemDom);
             })
             .filter(item => item);
     };
@@ -198,9 +204,18 @@ class SiderMenu extends React.PureComponent<SiderMenuProps, SideMenuState> {
                 replace={path === location.pathname}
             >
                 {icon}
-                <span>{name}</span>
+                <span style={{ marginLeft: "10px" }}>{name}</span>
             </Link>
         );
+    };
+
+    checkPermissionItem = (authority: IAuthorityType, ItemDom: React.ReactNode) => {
+        const { Authorized } = this.props;
+        if (Authorized && Authorized.check) {
+            const { check } = Authorized;
+            return check(authority, ItemDom, null);
+        }
+        return ItemDom;
     };
 }
 

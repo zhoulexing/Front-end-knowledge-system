@@ -1,10 +1,14 @@
 import * as React from "react";
-import { HomeOutlined, SmileOutlined } from "@ant-design/icons";
+import {
+    HomeOutlined,
+    SmileOutlined,
+    WarningOutlined
+} from "@ant-design/icons";
 
 export interface MenuDataItem {
     key?: string;
     name: string;
-    icon?: React.ElementType;
+    icon?: React.ReactNode;
     path: string;
     hideInMenu?: boolean;
     target?: string;
@@ -36,17 +40,13 @@ const menuData: MenuData = [
         path: "es2020"
     },
     {
-        name: "我的",
-        icon: HomeOutlined,
-        path: "my",
+        name: "异常页",
+        icon: WarningOutlined,
+        path: "exception",
         children: [
             {
-                name: "研判",
-                path: "determine"
-            },
-            {
-                name: "资源",
-                path: "datasource"
+                name: "404",
+                path: "404"
             }
         ]
     }
