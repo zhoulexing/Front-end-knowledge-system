@@ -26,7 +26,6 @@ class GlobalHeader extends React.Component<GlobalHeaderProps> {
         const { collapsed, currentUser } = this.props;
         const menu = (
             <Menu
-                className={styles.menu}
                 selectedKeys={[]}
                 onClick={() => {}}
             >
@@ -48,7 +47,7 @@ class GlobalHeader extends React.Component<GlobalHeaderProps> {
 
         return (
             <div>
-                <span onClick={this.toggle}>
+                <span onClick={this.toggle} className="test">
                     {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
                 </span>
 

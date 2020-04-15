@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import check, { IAuthorityType } from "./CheckPermissions";
 import Secured from "./Secured";
 import AuthorizedRoute from "./AuthorizedRoute";

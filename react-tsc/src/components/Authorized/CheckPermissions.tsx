@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import PromiseRender from "./PromiseRender";
 import { CURRENT } from "./renderAuthorize";
 
@@ -7,7 +7,7 @@ export type IAuthorityType =
     | string
     | string[]
     | Promise<boolean>
-    | ((currentAuthority: string | string[]) => IAuthorityType);
+    | ((currentAuthority: string | string[]) => boolean | Promise<boolean>);
 
 const checkPermissions = <T, K>(
     authority: IAuthorityType,

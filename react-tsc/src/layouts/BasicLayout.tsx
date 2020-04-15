@@ -44,6 +44,24 @@ const getRedirect = (item: MenuDataItem) => {
 };
 getMenuData().forEach(getRedirect);
 
+const getBaseRedirect = (routerData: RouterData) => {
+    // 这里是重定向的,重定向到 url 的 redirect 参数所示地址
+    const urlParams: URL = new URL(window.location.href);
+
+    const redirect = urlParams.searchParams.get("redirect");
+    // 如果有重定向，则将重定向参数赋给href
+    if (redirect) {
+        urlParams.searchParams.delete("redirect");
+        window.history.replaceState(null, "redirect", urlParams.href);
+    } else {
+        const authorizedPath = Object.keys(routerData).find(
+            item => check(routerData[item].authority, item, null) && item !== "/apps"
+        );
+        return authorizedPath;
+    }
+    return redirect;
+};
+
 const BasicLayout: React.FC<BasicLayoutProps> = props => {
     const { location, collapsed, match, routerData } = props;
 
@@ -55,25 +73,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
         });
     };
 
-    const getBaseRedirect = () => {
-        // 这里是重定向的,重定向到 url 的 redirect 参数所示地址
-        const urlParams: URL = new URL(window.location.href);
-
-        const redirect = urlParams.searchParams.get("redirect");
-        // 如果有重定向，则将重定向参数赋给href
-        if (redirect) {
-            urlParams.searchParams.delete("redirect");
-            window.history.replaceState(null, "redirect", urlParams.href);
-        } else {
-            const authorizedPath = Object.keys(routerData).find(
-                item => check(routerData[item].authority, item, null) && item !== "/apps"
-            );
-            return authorizedPath;
-        }
-        return redirect;
-    };
-
-    const baseRedirect = getBaseRedirect() as string;
+    const baseRedirect = getBaseRedirect(routerData) as string;
 
     return (
         <Layout style={{ height: "100%" }}>
