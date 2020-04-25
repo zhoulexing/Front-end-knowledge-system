@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { Spin } from "antd";
 import { isComponentClass } from "./Secured";
 import isEqual from "lodash/isEqual";

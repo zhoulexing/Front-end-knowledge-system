@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import Authorized from "./Authorized";
 import { IAuthorityType } from "./CheckPermissions";
 import { Route, Redirect } from "react-router-dom";

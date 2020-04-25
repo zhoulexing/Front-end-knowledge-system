@@ -8,8 +8,8 @@ const path = require("path");
 module.exports = {
     rootDir: path.resolve(__dirname),
     setupFiles: [ // 运行测试前可运行的脚本，比如注册enzyme的兼容
-        '<rootDir>/tests/test.setup.js',
-        '<rootDir>/tests/test.shim.js'
+        '<rootDir>/tests/setup.js',
+        '<rootDir>/tests/shim.js'
     ],
 
     collectCoverage: false, // 是否收集测试时的覆盖率
@@ -20,8 +20,8 @@ module.exports = {
     moduleNameMapper: {
         // 代表需要被 Mock 的资源名称
         "^@/(.*)$": "<rootDir>/src/$1",
-        // "\\.(css|less)$": "identity-obj-proxy",
-        "\\.(css|less)$": "<rootDir>/tests/cssTransform.js",
+        "\\.(css|less)$": "identity-obj-proxy",
+        // "\\.(css|less)$": "<rootDir>/tests/cssTransform.js", // 这种方式会报超不到属性的错误
         "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/tests/fileTransform.js"
     },
 

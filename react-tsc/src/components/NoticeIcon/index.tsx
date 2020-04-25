@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { Popover, Badge } from "antd";
 import styles from "./index.less";
 import cs from "classnames";

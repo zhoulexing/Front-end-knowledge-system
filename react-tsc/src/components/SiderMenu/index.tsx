@@ -51,15 +51,9 @@ export const getFlatMenuKeys = (menuData: MenuData) => {
 
 export const getMenuMatchKeys = (flatMenuKeys: string[], paths: string[]) => {
     const result: string[] = [];
-    return paths.reduce(
-        (matchKeys, path) =>
-            matchKeys.concat(
-                flatMenuKeys.filter((item: string) =>
-                    pathToRegexp(item).test(path)
-                )
-            ),
-        result
-    );
+    return paths.reduce((matchKeys, path) => {
+        return matchKeys.concat(flatMenuKeys.filter((item: string) => pathToRegexp(item).test(path)));
+    }, result);
 };
 
 class SiderMenu extends React.PureComponent<SiderMenuProps, SideMenuState> {
@@ -87,8 +81,8 @@ class SiderMenu extends React.PureComponent<SiderMenuProps, SideMenuState> {
         const menuProps = collapsed
             ? {}
             : {
-                  openKeys
-              };
+                openKeys
+            };
 
         let selectedKeys = this.getSelectedMenuKeys();
         if (!selectedKeys.length) {
@@ -173,8 +167,8 @@ class SiderMenu extends React.PureComponent<SiderMenuProps, SideMenuState> {
                                     <span>{item.name}</span>
                                 </span>
                             ) : (
-                                item.name
-                            )
+                                    item.name
+                                )
                         }
                         key={item.path}
                     >

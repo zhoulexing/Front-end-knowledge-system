@@ -25,13 +25,6 @@ export interface RouterData {
  * */
 const getRouterConfig = () => {
     return {
-        "/login": {
-            component: dynamicWrapper(() =>
-                import(
-                    /* webpackChunkName: "loginLayout" */ "@/layouts/LoginLayout"
-                )
-            )
-        },
         "/apps": {
             component: dynamicWrapper(() =>
                 import(
@@ -53,7 +46,14 @@ const getRouterConfig = () => {
             component: dynamicWrapper(() =>
                 import(/* webpackChunkName: "404" */ "@/routes/Exception/404")
             )
-        }
+        },
+        "/login": {
+            component: dynamicWrapper(() =>
+                import(
+                    /* webpackChunkName: "loginLayout" */ "@/layouts/LoginLayout"
+                )
+            )
+        },
     };
 };
 
