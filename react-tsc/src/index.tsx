@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import configureStore from "@/store";
 import { createHashHistory } from "history";
-import "./public-path";
 import "./index.less";
 
 const history = createHashHistory();

@@ -30,6 +30,9 @@ output: {
     filename: '[name].[hash:6].js',
     // 静态资源的引入路劲如: <script src='https://www.example.com/dist/main.342a01.js'/>
     publicPath: 'https://www.example.com',
+
+    library: '变量名', // 在全局变量中增加一个library变量
+    libraryTarget: 'umd', // 打包的模块化规范， var:通过<script>应用； this: 导出到this，通过this访问；window：导出到浏览器的 window 对象中
 }
 ```
 
@@ -93,7 +96,9 @@ target: 'web' | 'node'
 devServer: {
     host: '0.0.0.0',
     port: 8080,
+    // 打包生成的静态文件所在的位置（若是devServer里面的publicPath没有设置，则会认为是output里面设置的publicPath的值）
     publicPath: path.resolve(__dirname, 'dist'),
+    // 告诉服务器从哪里提供内容（只有想提供静态文件时才需要）
     contentBase: path.resolve(__dirname, 'publick'),
     hot: true | false,
     open: true | false,

@@ -23,10 +23,6 @@ module.exports = {
         path: outPath,
         filename: "[name].js",
         chunkFilename: "[name].[hash:8].js",
-
-        library: "reactTsc-[name]",
-        libraryTarget: "umd",
-        jsonpFunction: `webpackJsonp_reactTsc`
     },
 
     module: {
@@ -198,7 +194,6 @@ module.exports = {
     },
 
     devServer: {
-        headers: {"Access-Control-Allow-Origin": "*"},
         contentBase: sourcePath,
         compress: true,
         hot: true,
