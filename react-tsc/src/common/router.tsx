@@ -30,36 +30,41 @@ const getRouterConfig = () => {
                 import(
                     /* webpackChunkName: "basicLayout" */ "@/layouts/BasicLayout"
                 )
-            )
+            ),
         },
         "/apps/example/1": {
             component: dynamicWrapper(() =>
                 import(/* webpackChunkName: "example" */ "@/routes/Example")
-            )
+            ),
         },
         "/apps/es2020": {
             component: dynamicWrapper(() =>
                 import(/* webpackChunkName: "es2020" */ "@/routes/ES2020")
-            )
+            ),
+        },
+        "/apps/react": {
+            component: dynamicWrapper(() =>
+                import(/* webpackChunkName: "es2020" */ "@/routes/React")
+            ),
         },
         "/apps/exception/404": {
             component: dynamicWrapper(() =>
                 import(/* webpackChunkName: "404" */ "@/routes/Exception/404")
-            )
+            ),
         },
         "/login": {
             component: dynamicWrapper(() =>
                 import(
                     /* webpackChunkName: "loginLayout" */ "@/layouts/LoginLayout"
                 )
-            )
+            ),
         },
     };
 };
 
 function getFlatMenuData(menus: MenuData) {
     let keys: FlatMenu = {};
-    menus.forEach(item => {
+    menus.forEach((item) => {
         if (item.children) {
             keys[item.path] = { ...item };
             keys = { ...keys, ...getFlatMenuData(item.children) };
@@ -80,7 +85,7 @@ function dynamicWrapper(component: any) {
             }
             return createElement(component().default, {
                 ...props,
-                routerData: routerDataCache
+                routerData: routerDataCache,
             });
         };
     }
@@ -92,7 +97,7 @@ function dynamicWrapper(component: any) {
         }
         return createElement(LoadableCom, {
             ...props,
-            routerData: routerDataCache
+            routerData: routerDataCache,
         });
     };
 }
@@ -101,21 +106,21 @@ export const getRouterData = () => {
     const routerConfig: RouterConfig = getRouterConfig();
     const flatMenuData = getFlatMenuData(getMenuData());
     const routerData: RouterData = {};
-    Object.keys(routerConfig).forEach(path => {
+    Object.keys(routerConfig).forEach((path) => {
         // 将path转成正则，/apps/23sdfasd === /apps/:id
         const pathRegexp: RegExp = pathToRegexp(path);
-        const menuKey = Object.keys(flatMenuData).find(key =>
+        const menuKey = Object.keys(flatMenuData).find((key) =>
             pathRegexp.test(key)
         );
         let menuItem: any = {};
         if (menuKey) {
             menuItem = flatMenuData[menuKey];
         }
-        let router = routerConfig[path] as (RouterConfigItem & MenuDataItem);
+        let router = routerConfig[path] as RouterConfigItem & MenuDataItem;
         router = {
             ...router,
             name: router.name || menuItem.name,
-            authority: router.authority || menuItem.authority
+            authority: router.authority || menuItem.authority,
         };
         routerData[path] = router;
     });

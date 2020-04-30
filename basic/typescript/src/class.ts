@@ -105,8 +105,8 @@ car.run();
 function logParameter(target: object, propertyKey: string, index: number) {
     console.log(target, propertyKey, index);
 }
-// class Person {
-//     greet(@logParameter message: string, @logParameter name: string) {
-//         return `${message} ${name}`;
-//     }
-// }
+class Person {
+    greet(@logParameter message: string, @logParameter name: string) {
+        return `${message} ${name}`;
+    }
+}

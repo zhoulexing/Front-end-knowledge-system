@@ -40,6 +40,11 @@ const menuData: MenuData = [
         path: "es2020"
     },
     {
+        name: "react",
+        icon: HomeOutlined,
+        path: "react"
+    },
+    {
         name: "异常页",
         icon: WarningOutlined,
         path: "exception",

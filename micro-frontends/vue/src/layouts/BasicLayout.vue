@@ -1,3 +1,6 @@
 <template>
-    <div>BasicLauout</div>
+    <div>
+        BasicLauout
+        <router-view />
+    </div>
 </template>

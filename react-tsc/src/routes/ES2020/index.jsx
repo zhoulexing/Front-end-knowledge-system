@@ -1,10 +1,7 @@
 import * as React from "react";
 import { Button } from "antd";
 
-
-
 export default class ES2020 extends React.Component {
-
     componentDidCatch(err) {
         console.log(err);
     }
@@ -38,16 +35,16 @@ export default class ES2020 extends React.Component {
                     <Button onClick={this.getAwait}>操作</Button>
                 </div>
             </div>
-        )
+        );
     }
 
     getAwait = async () => {
         const value = await this.getAsyncData(100);
         console.log(value);
-    }
+    };
 
     getAsyncData(value) {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             setTimeout(() => {
                 resolve(value);
             });
@@ -58,38 +55,34 @@ export default class ES2020 extends React.Component {
         const num = 1111;
         const bigNum = BigInt(num);
         console.log(typeof bigNum, bigNum);
-    }
+    };
 
     getOperation = () => {
         let a = 0;
         let b = a ?? 1;
         console.log(b);
-    }
+    };
 
     getChainProp = () => {
         const obj = {};
         console.log(obj?.first?.second);
-    }
+    };
 
     getPrivite = () => {
         const test = new Test();
         console.log(test.getId());
-    }
+    };
 
     flat = () => {
         console.log([1, 2, [3, 4, [5, 6]]].flat()); // [1, 2, 3, 4, Array(2)]
+    };
 
-    }
-
-    flatMap = () => {
-        
-    }
+    flatMap = () => {};
 }
-
 
 class Test {
     #id = 0;
-    
+
     static #age = 20;
 
     #increment() {

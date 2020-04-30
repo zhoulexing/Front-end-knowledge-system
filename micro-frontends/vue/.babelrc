@@ -4,5 +4,8 @@
             "@babel/preset-env",
             { "targets": { "browsers": "> 0.25%, not dead" } }
         ]
+    ],
+    "plugins": [
+        ["import", { "libraryName": "ant-design-vue", "libraryDirectory": "es", "style": true }]
     ]
 }

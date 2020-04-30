@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "start": "cross-env NODE_ENV=development webpack-dev-server --config config/webpack.config.js --progress",
-    "build": "rimraf dist && cross-env NODE_ENV=production webpack --config config/webpack.config.js --progress"
+    "build": "rimraf dist && cross-env NODE_ENV=production webpack --config config/webpack.config.js --progress",
+    "analyc": "cross-env NODE_ENV=production npm_config_report=true npm run build"
   },
   "author": "zlx",
   "license": "ISC",
@@ -73,6 +74,7 @@
     "typescript": "^3.8.3",
     "url-loader": "^3.0.0",
     "webpack": "^4.42.0",
+    "webpack-bundle-analyzer": "^3.7.0",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3",
     "wepack": "^0.0.1"

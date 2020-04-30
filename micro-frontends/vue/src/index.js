@@ -2,6 +2,15 @@ import "./public-path";
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
+import "./antd";
+
+// import Antd from "ant-design-vue";
+// Vue.use(Antd);
+
+// import Button from "ant-design-vue/es/button";
+// import 'ant-design-vue/es/button/style';
+// Vue.use(Button);
+
 
 Vue.config.productionTip = false;
 

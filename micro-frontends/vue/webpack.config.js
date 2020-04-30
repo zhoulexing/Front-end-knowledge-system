@@ -33,7 +33,23 @@ module.exports = {
                 test:/\.vue$/,
                 exclude: /node_modules/,
                 use: "vue-loader"
-            }
+            },
+            {
+                test:/\.(less|css)$/,
+                use: [
+                    "style-loader",
+                    "css-loader",
+                    {
+                        loader: "less-loader",
+                        options: {
+                            lessOptions: {
+                                cacheDirectory: true,
+                                javascriptEnabled: true,
+                            }
+                        },
+                    },
+                ],
+            },
         ]
     },
 

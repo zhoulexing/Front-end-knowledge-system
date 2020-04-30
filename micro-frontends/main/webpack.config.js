@@ -11,24 +11,65 @@ module.exports = {
     output: {
         path: outPath,
         filename: "[name].js",
-        publicPath: "/"
+        publicPath: "/",
     },
     devtool: "source-map",
     resolve: {
         extensions: [".js", ".jsx"],
         modules: ["node_modules"],
         alias: {
-            "@": sourcePath
-        }
+            "@": sourcePath,
+        },
     },
     module: {
         rules: [
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                use: "babel-loader"
-            }
-        ]
+                use: "babel-loader",
+            },
+            {
+                test: /\.(less|css)$/,
+                exclude: /node_modules/,
+                use: [
+                    "style-loader",
+                    {
+                        loader: "css-loader",
+                        options: {
+                            modules: {
+                                localIdentName: "[local]--[hash:base64:5]",
+                            },
+                        },
+                    },
+                    {
+                        loader: "less-loader",
+                        options: {
+                            lessOptions: {
+                                cacheDirectory: true,
+                                javascriptEnabled: true,
+                            }
+                        },
+                    },
+                ],
+            },
+            {
+                test: /\.(less|css)$/,
+                include: /node_modules/,
+                use: [
+                    "style-loader",
+                    "css-loader",
+                    {
+                        loader: "less-loader",
+                        options: {
+                            lessOptions: {
+                                cacheDirectory: true,
+                                javascriptEnabled: true,
+                            }
+                        },
+                    },
+                ],
+            },
+        ],
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -41,8 +82,8 @@ module.exports = {
                 minifyJS: true,
                 minifyCSS: true,
                 collapseInlineTagWhitespace: true,
-                collapseWhitespace: true // 删除空白符与换行符
-            }
+                collapseWhitespace: true, // 删除空白符与换行符
+            },
         }),
     ],
 
@@ -50,6 +91,6 @@ module.exports = {
         headers: { "Access-Control-Allow-Origin": "*" },
         historyApiFallback: true,
         host: "0.0.0.0",
-        port: 8090
-    }
+        port: 8090,
+    },
 };

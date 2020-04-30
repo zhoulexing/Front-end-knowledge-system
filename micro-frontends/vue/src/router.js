@@ -18,7 +18,7 @@ export const constantRouter = [
         redirect: "/apps/vue/init/example",
         children: [
             {
-                path: "/apps/vue/init/example",
+                path: "example",
                 component: () => import("@/views/example/index")
             }
         ]
