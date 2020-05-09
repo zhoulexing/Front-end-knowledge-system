@@ -1,6 +1,5 @@
 <template>
-    <div>
-        BasicLauout
+    <div class="vue">
         <router-view />
     </div>
 </template>

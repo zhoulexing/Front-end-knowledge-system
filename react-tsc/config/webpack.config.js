@@ -55,6 +55,7 @@ module.exports = {
                     {
                         loader: "less-loader",
                         options: {
+                            modifyVars: require("../src/theme"),
                             cacheDirectory: true,
                             javascriptEnabled: true
                         }

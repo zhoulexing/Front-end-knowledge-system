@@ -3,7 +3,7 @@ import {
     runAfterFirstMounted,
     setDefaultMountApp,
     start
-} from "../qiankun";
+} from "qiankun";
 import Routes from "../router";
 import ReactDOM from "react-dom";
 import React from "react";
@@ -11,6 +11,7 @@ import React from "react";
 import render from "../render/ReactRender";
 import { Provider } from "react-redux";
 import store from "../store";
+import * as utils from "../utils";
 
 ReactDOM.render(
     <Provider store={store}>
@@ -19,13 +20,18 @@ ReactDOM.render(
     document.getElementById("main")
 );
 
+// 可动态注册
 registerMicroApps(
     [
         {
             name: "vue",
             entry: "//localhost:8091",
             render,
-            activeRule: genActiveRule("#/apps/vue")
+            activeRule: genActiveRule("#/apps/vue"),
+            props: { // 传递给子应用，静态通信
+                user: "lt",
+                utils
+            } 
         }
     ],
     {
@@ -74,9 +80,10 @@ start({
 });
 
 
-
+// 设置默认子应用
 // setDefaultMountApp("/react16");
 
+// 第一个子应用加载完毕回调
 // runAfterFirstMounted(() => {
 //     console.log("[MainApp] first app mounted");
 // });

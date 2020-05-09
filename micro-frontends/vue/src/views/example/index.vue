@@ -1,31 +1,43 @@
 <template>
-    <div>
-        <div :click="goSearch" class="example">example</div>
-        <a-button type="primary">Primary</a-button>
+    <div class="example-container">
+        <a-button @click="setCount" type="primary">vue</a-button>
     </div>
 </template>
 
 <script>
+import Vue from "vue";
 export default {
     name: "Example",
     components: {
 
     },
+    mounted() {
+        const { $mainUtils } = Vue.prototype;
+        if($mainUtils) {
+            const name = $mainUtils.getName();
+            console.info("My name:", name);
+        }
+    },
     data() {
         return {
-            value: "lingtong"
+            count: 0
         };
     },
     methods: {
-        goSearch() {
-            console.log(this.value);
+        setCount() {
+            const { subject } = Vue.prototype.$mainUtils;
+            this.count++;
+            subject.publish("count", this.count);
         }
     }
 };
 </script>
 
 <style lang="less" scoped>
-    .example {
-        color: red;
+    .example-container {
+        padding: 20px;
+    }
+    .test {
+        color: gold;
     }
 </style>

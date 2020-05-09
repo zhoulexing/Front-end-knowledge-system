@@ -1,6 +1,7 @@
 const path = require("path");
 const { VueLoaderPlugin } = require("vue-loader");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const StatsPlugin = require("stats-webpack-plugin");
 
 const sourcePath = path.resolve(__dirname, "./src");
 const outPath = path.resolve(__dirname, "./dist");
@@ -12,7 +13,6 @@ module.exports = {
     output: {
         path: outPath,
         filename: "[name].js",
-        // publicPath: "http://localhost:8091/",
 
         library: "vue",
         libraryTarget: "umd"
@@ -39,6 +39,7 @@ module.exports = {
                 use: [
                     "style-loader",
                     "css-loader",
+                    "postcss-loader",
                     {
                         loader: "less-loader",
                         options: {
@@ -68,6 +69,16 @@ module.exports = {
             }
         }),
         new VueLoaderPlugin(),
+        new StatsPlugin("micro-vue-config.json", {
+            chunkModules: false,
+            entrypoints: true,
+            source: false,
+            chunks: false,
+            modules: false,
+            assets: false,
+            children: false,
+            exclude: [/node_modules/]
+        }),
     ],
 
     devServer: {

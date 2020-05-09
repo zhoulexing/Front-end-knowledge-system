@@ -7,7 +7,7 @@ const outPath = path.resolve(__dirname, "./dist");
 module.exports = {
     mode: process.env.NODE_ENV,
     context: sourcePath,
-    entry: "./entry/index.js",
+    entry: "./entry/htmlEntry.js",
     output: {
         path: outPath,
         filename: "[name].js",
@@ -47,7 +47,7 @@ module.exports = {
                             lessOptions: {
                                 cacheDirectory: true,
                                 javascriptEnabled: true,
-                            }
+                            },
                         },
                     },
                 ],
@@ -62,9 +62,10 @@ module.exports = {
                         loader: "less-loader",
                         options: {
                             lessOptions: {
+                                modifyVars: require("./src/theme"),
                                 cacheDirectory: true,
                                 javascriptEnabled: true,
-                            }
+                            },
                         },
                     },
                 ],

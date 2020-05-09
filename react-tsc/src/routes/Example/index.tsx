@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./index.less";
-import { Button } from "antd";
+import { Button, Popover } from "antd";
 import { connect } from "react-redux"; 
 import { Dispatch } from "redux";
 import user from "@/assets/images/user.jpg";
@@ -39,7 +39,14 @@ class Example extends React.Component<ExampleProps> {
                 <img src={user}/>
                 <img src={logo}/>
                 
-                
+                <Popover content="parent">
+                    <div>
+                        <Button>123</Button>
+                        <Popover content="children">
+                            <Button>456</Button>
+                        </Popover>
+                    </div>
+                </Popover>
             </div>
         )
     }

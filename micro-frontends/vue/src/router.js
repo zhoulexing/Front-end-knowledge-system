@@ -6,7 +6,7 @@ Vue.use(Router);
 export const constantRouter = [
     {
         path: "/apps/vue",
-        redirect: "/apps/vue/login"
+        redirect: "/apps/vue/init"
     },
     {
         path: "/apps/vue/login",

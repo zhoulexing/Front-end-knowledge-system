@@ -4,21 +4,14 @@ import App from "./App.vue";
 import router from "./router";
 import "./antd";
 
-// import Antd from "ant-design-vue";
-// Vue.use(Antd);
-
-// import Button from "ant-design-vue/es/button";
-// import 'ant-design-vue/es/button/style';
-// Vue.use(Button);
-
 
 Vue.config.productionTip = false;
 
 let instance = null;
 
-function render() {
+function render(routes) {
     instance = new Vue({
-        router,
+        router: routes || router,
         render: h => h(App)
     }).$mount("#root");
 }
@@ -27,16 +20,18 @@ if (!window.__POWERED_BY_QIANKUN__) {
     render();
 }
 
-export async function bootstrap() {
-    console.log("[vue] vue app bootstraped");
+export async function bootstrap(props) {
+    console.log("[vue] vue app bootstraped：", props);
+    Vue.prototype.$mainUtils = props.utils || {};
 }
 
-export async function mount(props) {
-    console.log("[vue] props from main framework", props);
-    render();
+export async function mount({ ROUTES }) {
+    console.log("[vue] props from main framework");
+    render(ROUTES);
 }
 
 export async function unmount() {
     instance.$destroy();
     instance = null;
 }
+

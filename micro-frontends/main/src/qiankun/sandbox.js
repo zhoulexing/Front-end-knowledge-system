@@ -142,7 +142,6 @@ export function genSandbox(appName) {
          * 也可能是从 unmount 之后再次唤醒进入 mount
          */
         async mount() {
-            debugger
             const sideEffectsRebuildersAtBootstrapping = sideEffectsRebuilders.slice(
                 0,
                 bootstrappingFreers.length
@@ -188,7 +187,6 @@ export function genSandbox(appName) {
          * 恢复 global 状态，使其能回到应用加载之前的状态
          */
         async unmount() {
-            debugger
             if (process.env.NODE_ENV === "development") {
                 console.info(
                     `${appName} modified global properties will be restore`,
