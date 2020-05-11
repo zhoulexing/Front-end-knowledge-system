@@ -55,9 +55,10 @@ module.exports = {
                     {
                         loader: "less-loader",
                         options: {
-                            modifyVars: require("../src/theme"),
-                            cacheDirectory: true,
-                            javascriptEnabled: true
+                            lessOptions: {
+                                cacheDirectory: true,
+                                javascriptEnabled: true
+                            }                            
                         }
                     }
                 ]
@@ -71,8 +72,11 @@ module.exports = {
                     {
                         loader: "less-loader",
                         options: {
-                            cacheDirectory: true,
-                            javascriptEnabled: true
+                            lessOptions: {
+                                modifyVars: require("../src/theme"),
+                                cacheDirectory: true,
+                                javascriptEnabled: true
+                            }
                         }
                     }
                 ]

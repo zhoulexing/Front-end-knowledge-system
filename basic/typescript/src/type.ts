@@ -1,5 +1,9 @@
 let bool: boolean = false;
-let num: number = 1;
+let decLiteral: number = 2; // 十进制
+let hexLiteral: number = 0xf00d; // 十六进制
+let binaryLIteral: number = 0b1010; // 二进制
+let octalLiteral: number = 0o744; // 八进制
+
 let arr: number[] = [1,2,3];
 let arr2: Array<number> = [1,2,3];
 let tuple: [string, number] = ["", 1];

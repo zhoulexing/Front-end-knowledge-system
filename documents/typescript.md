@@ -224,3 +224,74 @@ process.exitWithLogging = function() {
 
 当安装 Typescript 时，会顺带安装 lib.d.ts 等声明文件。此文件包含了 Javascript 运行时以及
 DOM 中存在各种常见的环境声明。
+
+### Typescript 的原始类型
+
+```
+let bool: boolean = false;
+let str: string = "hello";
+let num: number = 1;
+let vnu: void = undefined;
+let vnu1: null = null;
+let vnu2: undefined = undefined;
+let sym: symbol = Symbol();
+let bi: bigint;
+```
+
+### Typescript 的其他类型
+unknown于any的不同之处是unknown在类型确认之前，不能进行任何操作，比如实例化、getter、函数执行等。
+never类型是任何类型的子类型，也可以赋值给任何类型，没有类型是never的子类型或可以赋值给never类型。
+```
+let notSure: any = 4;
+notSure = "hello";
+
+let value: unknown;
+unknown = 1;
+unknown = "hello";
+
+let empty: never[] = [];
+
+// 数组
+const list: Array<number> = [1,2,3];
+const list2: number[] = [1,2,3];
+
+// 元组（Tuple）
+let x: [string, number];
+x = ["hello", 1];
+
+// Object, 除原始类型之外的类型
+let value: object;
+value = {};
+value = [];
+```
+
+### 枚举类型
+```
+
+```
+
+### tsconfig.json
+
+```
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,// 装饰器
+        "target": "es5", // 编译为es5
+        "module": "esnext", // 制定使用模块
+        "allowJs": true, // 允许编辑js文件
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "removeComments": true, // 移除注释，注意import()按需加载的注释
+        "outDir": "dist", // 输出目录
+        "moduleResolution": "node", // 模块解析策略
+        "strict": true, // 严格模式
+        "lib": ["esnext", "dom"],
+        "strictNullChecks": false, // 为false， null可赋给void，true则不可以
+    },
+    "include": ["./src"], // 指定目录
+    "exclude": [
+        "dist",
+        "node_modules"
+    ]
+}
+```

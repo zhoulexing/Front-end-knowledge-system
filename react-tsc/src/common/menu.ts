@@ -27,10 +27,6 @@ const menuData: MenuData = [
             {
                 name: "示例1",
                 path: "1"
-            },
-            {
-                name: "示例2",
-                path: "2"
             }
         ]
     },

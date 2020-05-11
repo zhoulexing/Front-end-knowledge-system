@@ -343,7 +343,16 @@ less-loader 用来解析 less
             javascriptEnabled: true,
             // 定制主题
             modifyVars: { "@primary-color": "#1DA57A" },
-            sourceMap: true
+            sourceMap: true,
+        },
+
+        // less-loader-v6.0
+        options: {
+            lessOptions: {
+                javascriptEnabled: true,
+                modifyVars: { "@primary-color": "#1DA57A" },
+                sourceMap: true,
+            }
         }
     }]
 }
