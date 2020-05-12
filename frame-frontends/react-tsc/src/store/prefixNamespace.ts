@@ -1,4 +1,4 @@
-import { Model } from "./index.d";
+import { Model } from ".";
 import { NAMESPACE_SEP } from "./constants";
 import { ReducersMapObject } from "redux";
 

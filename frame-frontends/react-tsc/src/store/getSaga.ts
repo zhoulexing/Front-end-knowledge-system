@@ -4,7 +4,7 @@ import {
     EffectWithType,
     Model,
     EffectsCommandMap
-} from "./index.d";
+} from ".";
 import * as sagaEffects from "redux-saga/effects";
 import { NAMESPACE_SEP } from "./constants";
 import prefixType from "./prefixType";

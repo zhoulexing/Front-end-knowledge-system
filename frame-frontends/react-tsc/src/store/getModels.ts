@@ -1,4 +1,4 @@
-import { Model } from "./index.d";
+import { Model } from ".";
 import invariant from "invariant";
 import isPlainObject from "lodash/isPlainObject";
 import prefixNamespace from "./prefixNamespace";

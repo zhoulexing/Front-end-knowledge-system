@@ -1,6 +1,6 @@
 import prefixType from "./prefixType";
 import { Dispatch, AnyAction } from "redux";
-import { Model } from "./index.d";
+import { Model } from ".";
 
 
 export default function prefixedDispatch(dispatch: Dispatch, model: Model) {

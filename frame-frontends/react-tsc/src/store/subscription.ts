@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import prefixedDispatch from "./prefixedDispatch";
-import { SubscriptionsMapObject } from "./index.d";
+import { SubscriptionsMapObject } from ".";
 
 
 export function run(subs: SubscriptionsMapObject, model: Model, store: any, history: History.PoorMansUnknown, onError: Function) {

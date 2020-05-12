@@ -1,5 +1,5 @@
 import { NAMESPACE_SEP } from "./constants";
-import { Model } from "./index.d";
+import { Model } from ".";
 
 export default function prefixType(type: string, model: Model) {
     const prefixedType = `${model.namespace}${NAMESPACE_SEP}${type}`;

@@ -10,7 +10,7 @@ import { createLogger } from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import { ReduxCompatibleReducer } from "redux-actions";
-import { Model, MiddlewareFunction } from "./index.d";
+import { Model, MiddlewareFunction } from ".";
 import { createHashHistory } from "history";
 import getModels, { ModelMap } from "./getModels";
 import getReducer from "./getReducer";

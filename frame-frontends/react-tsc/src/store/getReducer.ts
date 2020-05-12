@@ -1,5 +1,5 @@
 import { handleActions } from "redux-actions";
-import { ReducersMapObjectWithEnhancer } from "./index.d";
+import { ReducersMapObjectWithEnhancer } from ".";
 
 
 export default function getReducer(reducers: ReducersMapObjectWithEnhancer | undefined, state: any) {
