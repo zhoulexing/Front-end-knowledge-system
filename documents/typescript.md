@@ -266,8 +266,15 @@ value = [];
 ```
 
 ### 枚举类型
+指定数字，则为自增
 ```
-
+enum Direction {
+    Up,
+    Right,
+    Botton,
+    Left
+}
+console.log(Direction.Up, Direction[0]); // 0, 'Up', 
 ```
 
 ### tsconfig.json
