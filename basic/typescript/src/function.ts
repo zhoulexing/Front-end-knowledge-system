@@ -1,62 +1,48 @@
-function add(x: number, y: number): number {
-    return x + y;
+function func1(num1: number, num2: number): number {
+    return num1 + num2;
 }
-
-function buildName(firstName: string, ...resetOfName: string[]): string {
-    return firstName + ' ' + resetOfName.join(' ');
+const func2: (num1: number, num2: number) => number = function(num1, num2) {
+    return num1 + num2;
 }
+const func3: (num1: number, num2?: number) => number = function(num1, num2) {
+    return num1 + (num2 ? num2 : 0);
+}
+function func4(num1: number, num2 = 10) {
+    return num1 + num2;
+}
+const func5 = (num1: number, ...num2: number[]) => num2.reduce(((a, b) => a + b), num1); 
 
-function getValue<T extends object, U extends keyof T>(obj: T, key: U): T[U] {
+
+interface Direction1 {
+    top: number,
+    bottom?: number,
+    left?: number,
+    right?: number,
+}
+function func6(top: number): Direction1;
+function func6(top: number, bottom: number): Direction1;
+function func6(top: number, bottom: number, left: number): Direction1;
+function func6(top: number, bottom: number, left: number, right: number): Direction1;
+function func6(top: number, bottom?: number, left?: number, right?: number) {
+    if(bottom === undefined && left === undefined && right === undefined) {
+        bottom = left = right = top;
+    } else if(left === undefined && right === undefined) {
+        left = top;
+        right = bottom;
+    }
+    return {
+        top,
+        bottom,
+        left,
+        right
+    };
+}
+func6(1);
+func6(1, 2);
+func6(1, 2, 3);
+func6(1, 2, 3, 4);
+
+function func7<T extends object, U extends keyof T>(obj: T, key: U): T[U] {
     return obj[key];
 }
 
-function factory<T>(type: {new(): T}):T {
-    return new type();
-}
-
-interface ModelsType {
-    [propName:string]: any;
-}
-
-interface ContextType {
-    [name:string]: string | number;
-}
-
-function readModels() {
-    const models: ModelsType = {};
-    // 需要@types/webpack-env才能支持require.context
-    const obj: ContextType = { name: "zlx", age: 25 };
-    const keys: string[] = Object.keys(obj);
-    keys.forEach((key: string) => {
-        models[key] = obj[key];
-    });
-    return models;
-}
-
-
-interface TypedResponse<T = any> extends Response {
-    json<P = T>(): Promise<P>;
-}
-
-function checkStatus(response: TypedResponse) {
-    if(!response.ok) {
-        throw new Error(response.statusText);
-    }
-    return response.json();
-}
-
-function request<T>(url: string): Promise<T> {
-    return fetch(url)
-        .then(checkStatus)
-        .catch((error: Error) => {
-            throw error;
-        });
-}
-
-request<{ title: string, message: string }>("/url/xxx")
-    .then(({ title, message }) => {
-        console.log(title, message);
-    })
-    .catch(error => {
-        console.error(error);
-    });
