@@ -292,20 +292,34 @@ MockPromise.race = function(promises) {
 }
 
 
-function test() {
+function test(arr) {
     return new Promise((resolve, reject) => {
-        const arr = [10, 20, 30];
         for(let i = 0; i < arr.length; i++) {
             let item = arr[i];
             if(item === 10) {
                 reject(item);
                 break;
             }
-            console.log(item);
         }
+        resolve("success");
     });
 }
-test().then(item => {
+
+function test1() {
+    return test([20]).then(res => {
+        console.log(res);
+        return Promise.resolve("456");
+    });
+}
+
+test1().then((res) => {
+    console.log("123:", res);
+}).finally(() => {
+    
+});
+
+
+test([10, 20, 30]).then(item => {
 
 }).catch(err => {
     console.log("error:", err);
