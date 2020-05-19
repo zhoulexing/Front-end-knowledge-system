@@ -10,6 +10,7 @@
         "outDir": "dist", // 输出目录
         "moduleResolution": "node", // 模块解析策略
         "strict": true, // 严格模式
+        "strictNullChecks": false,
         "lib": ["esnext", "dom"],
     },
     "include": ["./src"], // 指定目录

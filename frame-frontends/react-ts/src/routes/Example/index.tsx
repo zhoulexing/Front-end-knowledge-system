@@ -6,7 +6,7 @@ import { Dispatch } from "redux";
 import user from "@/assets/images/user.jpg";
 import logo from "@/assets/images/logo.svg";
 import isEmpty from "lodash/isEmpty";
-import { ConnectState } from "@/store/index.d";
+import { ConnectState } from "@/store/common";
 import { ExampleModelState } from "@/models/example";
 
 export interface ExampleProps extends ExampleModelState{

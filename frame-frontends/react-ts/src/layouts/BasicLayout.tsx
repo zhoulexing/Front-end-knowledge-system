@@ -6,7 +6,7 @@ import SiderMenu from "@/components/SiderMenu";
 import { getMenuData, MenuDataItem } from "@/common/menu";
 import { RouterData } from "@/common/router";
 import logo from "@/assets/images/logo.svg";
-import { ConnectState, RouterModelState } from "@/store/index.d";
+import { ConnectState, RouterModelState } from "@/store/common";
 import { Switch, Redirect, Route } from "react-router-dom";
 import { getRoutes } from "@/utils/util";
 import Authorized from "@/utils/Authorized";

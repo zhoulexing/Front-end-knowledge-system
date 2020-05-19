@@ -1,9 +1,8 @@
 import { Dispatch } from "redux";
 import prefixedDispatch from "./prefixedDispatch";
-import { SubscriptionsMapObject } from ".";
+import { SubscriptionsMapObject, Model, HistoryEnhancer } from "./common";
 
-
-export function run(subs: SubscriptionsMapObject, model: Model, store: any, history: History.PoorMansUnknown, onError: Function) {
+export function run(subs: SubscriptionsMapObject, model: Model, store: any, history: HistoryEnhancer, onError: Function) {
     const funcs = [];
     const nonFuncs = [];
     for (const key in subs) {

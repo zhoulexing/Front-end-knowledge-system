@@ -1,6 +1,6 @@
 
 import { AnyAction } from "redux";
-import { Effect, Subscription } from "@/store/index.d";
+import { Effect, Subscription } from "@/store/common";
 
 export interface NoticeItem {
     id: string;

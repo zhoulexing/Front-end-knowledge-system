@@ -31,8 +31,8 @@ describe("test components GlobalHeader", () => {
         expect(props.onCollapse).toBeCalled();
     });
 
-    it("Snapshot", () => {
-        const tree = render(<GlobalHeader {...props} />);
+    it("Snapshot", async () => {
+        const tree = await render(<GlobalHeader {...props} />);
         expect(tree).toMatchSnapshot();
     });
 });

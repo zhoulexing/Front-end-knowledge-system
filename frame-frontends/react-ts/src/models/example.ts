@@ -1,4 +1,4 @@
-import { Effect } from "@/store/index.d";
+import { Effect } from "@/store/common";
 import { AnyAction } from "redux";
 
 export interface ExampleModelState {

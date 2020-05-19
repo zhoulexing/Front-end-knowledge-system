@@ -10,7 +10,7 @@ import { createLogger } from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import { ReduxCompatibleReducer } from "redux-actions";
-import { Model, MiddlewareFunction } from ".";
+import { Model, MiddlewareFunction } from "./common";
 import { createHashHistory } from "history";
 import getModels, { ModelMap } from "./getModels";
 import getReducer from "./getReducer";
@@ -69,7 +69,7 @@ function configureStore(opts?: Options, hooksAndOpts?: any) {
     for (const key in models) {
         model = models[key];
       if (model.subscriptions) {
-        unlisteners[model.namespace] = runSubscription(model.subscriptions, model, store, history, onError);
+        unlisteners[model.namespace] = runSubscription(model.subscriptions, model, store, history as any, onError);
       }
     }
 
