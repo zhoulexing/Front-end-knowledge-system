@@ -37,7 +37,7 @@ export class Test extends React.Component<ITestProps, ITestState> {
         )
     }
 
-    private handleSubmit = (e: React.FormEvent<HTMLFontElement>) => {
+    private handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     }
 
