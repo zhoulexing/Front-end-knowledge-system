@@ -1,13 +1,12 @@
 import React from "react";
-// import { connect } from "react-redux";
-// import { ConnectState } from "@/store/index.d";
+import { Button } from "antd";
 
-interface RefTestProps {
+interface TestComponentProps {
     name?: string;
     ref?: React.RefObject<RefTest>
 }
 
-class RefTest extends React.Component<RefTestProps> {
+class TestComponent extends React.Component<TestComponentProps> {
     render() {
         const { name } = this.props;
         return <div>{name || "test"}</div>;
@@ -19,7 +18,27 @@ class RefTest extends React.Component<RefTestProps> {
     }
 }
 
-// export default connect(({ example }: ConnectState) => ({
-//     ...example
-// }))(RefTest);
+class RefTest extends React.Component {
+    private testRef = React.createRef<TestComponent>();
+
+    render() {
+        return (
+            <div>
+                <Button onClick={this.getName}>获取name</Button>
+            </div>
+        )
+    }
+
+    getName = () => {
+        let name = (this.testRef.current as TestComponent).getName();
+        let name1 = this.testRef?.current?.getName();
+        let name2;
+        if(this.testRef.current) {
+            name2 = this.testRef.current.getName();
+        }
+        console.log(name, name1, name2);
+    }
+}
+
+
 export default RefTest;

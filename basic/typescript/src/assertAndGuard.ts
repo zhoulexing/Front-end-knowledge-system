@@ -1,50 +1,50 @@
-interface Obj {
+interface AssertAndGuard {
     name: string,
     age: number,
 }
 
-class Obj1 {
+class AssertAndGuard1 {
     name = "zlx";
     age = 20;
 }
 
-class Obj2 {
+class AssertAndGuard2 {
     name = "yww";
     color = "pink";
 }
 
-type Obj3 = {
+type AssertAndGuard3 = {
     name: "zlx",
     age: number,
 }
 
-type Obj4 = {
+type AssertAndGuard4 = {
     name: "yww",
     age: number,
 }
 
-const obj = {} as Obj;
+const obj = {} as AssertAndGuard;
 obj.name = "zlx";
 obj.age = 20;
 
-const obj2 = "zlx" as any as Obj;
+const obj2 = "zlx" as any as AssertAndGuard;
 
-function objFunc1(arg: Obj1 | Obj2) {
-    if(arg instanceof Obj1) {
+function objFunc1(arg: AssertAndGuard1 | AssertAndGuard2) {
+    if(arg instanceof AssertAndGuard1) {
         console.log(arg.age);
-        console.log(arg.color);
+        // console.log(arg.color); Errro
         console.log(arg.name);
     }
-    if(arg instanceof Obj2) {
+    if(arg instanceof AssertAndGuard2) {
         // console.log(arg.age); Error
         console.log(arg.color);
     }
 }
 
-function objFunc2(arg: Obj1 | Obj2) {
+function objFunc2(arg: AssertAndGuard1 | AssertAndGuard2) {
     if("age" in arg) {
         console.log(arg.age);
-        console.log(arg.color);
+        // console.log(arg.color); Error
         console.log(arg.name);
     }
     if("color" in arg) {
@@ -53,7 +53,7 @@ function objFunc2(arg: Obj1 | Obj2) {
     }
 }
 
-function objFunc3(arg: Obj3 | Obj4) {
+function objFunc3(arg: AssertAndGuard3 | AssertAndGuard4) {
     if(arg.name === "zlx") {
         console.log(arg.age);
         console.log(arg.name);

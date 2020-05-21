@@ -1,19 +1,39 @@
 import React from "react";
 
-interface ApiTestProps {
+interface TestComponentProps {
     name?: string;
 }
 
-class ApiTest extends React.Component<ApiTestProps> {
+class TestComponent extends React.Component<TestComponentProps> {
     render() {
-        const { name } = this.props;
-        return <div>{name || "test"}</div>;
-    }
 
-    getName = () => {
         const { name } = this.props;
-        return name;
+        return (
+            <div>{name || "test"}</div>
+        );
     }
 }
+
+class ApiTest extends React.Component {
+    render() {
+        const params = {
+            component: <TestComponent></TestComponent>,
+            component1: TestComponent,
+        };
+
+
+        const props = { name: "zlx" };
+        return (
+            <div>
+                {params.component}
+                {React.createElement(params.component1, props)}
+                {React.cloneElement(params.component, props)}
+            </div>
+        );
+    }
+}
+
+
+
 
 export default ApiTest;

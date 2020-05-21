@@ -13,16 +13,16 @@ function func4(num1: number, num2 = 10) {
 const func5 = (num1: number, ...num2: number[]) => num2.reduce(((a, b) => a + b), num1); 
 
 
-interface Direction1 {
+interface Func {
     top: number,
     bottom?: number,
     left?: number,
     right?: number,
 }
-function func6(top: number): Direction1;
-function func6(top: number, bottom: number): Direction1;
-function func6(top: number, bottom: number, left: number): Direction1;
-function func6(top: number, bottom: number, left: number, right: number): Direction1;
+function func6(top: number): Func;
+function func6(top: number, bottom: number): Func;
+function func6(top: number, bottom: number, left: number): Func;
+function func6(top: number, bottom: number, left: number, right: number): Func;
 function func6(top: number, bottom?: number, left?: number, right?: number) {
     if(bottom === undefined && left === undefined && right === undefined) {
         bottom = left = right = top;
