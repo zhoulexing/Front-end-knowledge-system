@@ -1,12 +1,7 @@
-### 编译上下文
-
-编译上下文主要是用来告诉编译器那些文件是有效的，哪些是无效的，
-Typescript 的编译上下文是 tsconfig.json 文件，具体配置项见官方文档
-[Typescript 上下文](https://jkchao.github.io/typescript-book-chinese/project/compilationContext.html#tsconfig-json)。
-
 ### 声明空间
 
 在 Typescript 中有两种声明空间：类型声明空间和变量声明空间。
+对于类型如果
 
 #### 类型声明空间
 
@@ -27,6 +22,20 @@ class Foo {}
 const someVar = Foo;
 const someOtherVar = 123;
 ```
+
+### 类型概览
+
+Typescript 中类型有原始类型、数组、元祖、对象、特殊类型、类、接口、泛型、内联类型注解、联合类型、交叉类型、
+索引类型、条件类型等。
+
+### 类型编程
+
+类似于 js 的方法，利用范型可根据传入的类型生成对应的类型。基于此可很好的利用类型工具库。
+
+### 实用技巧
+
+属性注释，会在应用的时候进行提示；
+巧妙利用类型工具库。
 
 ### 模块
 
@@ -53,30 +62,6 @@ import { foo } from './foo';
 const bar = foo;
 ```
 
-#### 文件模块详情
-
-Typescript 可以根据 module 的值 commonjs, amd, es modules, others 编译成不同的 javascript 类型。
-模块查找与 node 基本一样，也可以重写类型的动态查找。
-
-```
-declare module 'foo' {
-    export var bar: number;
-}
-
-import * as foo from 'foo';
-foo === { bar: number }
-```
-
-import/require 仅仅是导入类型, 如下只做了两件事，分别是导入 foo 模块的所有类型信息、确定 foo 模块运行的依赖关系。
-
-```
-import foo = require('foo');
-```
-
-#### globals.d.ts
-
-globals.d.ts 文件用来将一些接口或者类型放入全局命名空间里，这些定义的接口和类型能在你的所有 TypeScript 代码里使用。
-
 ### 命名空间
 
 Typescript 中提供了 namespace 关键字来声明命名空间。
@@ -96,185 +81,18 @@ Utility.log('Call me');
 Utility.error('maybe');
 ```
 
-### 动态导入表达式
-
-需要在 tsconfig.json 中将 module 设为 esnext。
+### 声明文件
 
 ```
-import(/* webpackChunkName: "momentjs" */ 'moment')
-    .then(moment => {
-        // 懒加载的模块拥有所有的类型，并且能够按期工作
-        // 类型检查会工作，代码引用也会工作  :100:
-        const time = moment().format();
-        console.log('TypeScript >= 2.4.0 Dynamic Import Expression:');
-        console.log(time);
-    })
-    .catch(err => {
-        console.log('Failed to load moment', err);
-    });
-```
-
-### 类型概览
-
-Typescript 中类型有原始类型、数组、接口、内联类型注解、特殊类型、泛型、联合类型、交叉类型、
-元组类型、类型别名。
-
-```
-let num:number;
-let str:string;
-let bool:boolean;
-
-let boolArray: boolean[];
-
-interface Name = {
-    first: string,
-    second: string
-};
-let name: Name = {
-    first: 'John',
-    second: 'Doe'
-};
-
-let name: {
-    first: string,
-    second: string
-};
-let name: Name = {
-    first: 'John',
-    second: 'Doe'
-};
-
-let power: any;
-let val: null;
-let alias: undefined;
-function log(message: string):void {
-    console.log(message);
+declare module 'foo' { // 声明一个模块
+    export var bar: number;
 }
-
-function reverse<T>(items: T[]):T[] {
-    const toreturn = [];
-    for (let i = items.length - 1; i >= 0; i--) {
-        toreturn.push(items[i]);
-    }
-    return toreturn;
-}
-
-function formatCommandLine(command: string | string[]) {
-    let line = '';
-    if (typeof command === 'string') {
-        line = command.trim();
-    } else {
-        line = command.join(' ').trim();
-    }
-}
-
-function extend<T, U>(first: T, second: U): T & U {
-    const result = <T & U>{};
-    result.frist = frist.key;
-    result.second = second.key;
-    return result;
-}
-
-let nameNumber: [string, number];
-
-type StrOrNum = string | number;
-let sample: StrOrNum;
-```
-
-### 从 Javascript 迁移
-
--   添加一个 tsconfig.json 文件
--   把文件扩展名从.js 改为.ts，开始使用 any 来减少错误
--   开始在 typescript 中写代码，减少 any 的使用
--   为你的第三方代码定义环境声明
-
-```
-declare var $:any;
-
-declare type JQuery = any;
-declare var $:JQuery;
-
-declare module 'jquery';
-declare module '*.css';
-declare module '*.html';
-```
-
-### 环境声明
-
-可以通过关键字 declare 来声明变量，将这些变量放到.ts 或者.d.ts 文件中里，globals.d.ts 是全局的声明文件。
-变量声明推荐使用接口，便于扩展。
-
-```
-interface Process {
-    exit(code?:number):void;
-}
-declare let process:Process;
-
-interface Process {
-    exitWithLogging(code?: number): void;
-}
-
-process.exitWithLogging = function() {
-    console.log('exiting');
-    process.exit.apply(process, arguments);
-};
-```
-
-### lib.d.ts
-
-当安装 Typescript 时，会顺带安装 lib.d.ts 等声明文件。此文件包含了 Javascript 运行时以及
-DOM 中存在各种常见的环境声明。
-
-### Typescript 的原始类型
-
-```
-let bool: boolean = false;
-let str: string = "hello";
-let num: number = 1;
-let vnu: void = undefined;
-let vnu1: null = null;
-let vnu2: undefined = undefined;
-let sym: symbol = Symbol();
-let bi: bigint;
-```
-
-### Typescript 的其他类型
-unknown于any的不同之处是unknown在类型确认之前，不能进行任何操作，比如实例化、getter、函数执行等。
-never类型是任何类型的子类型，也可以赋值给任何类型，没有类型是never的子类型或可以赋值给never类型。
-```
-let notSure: any = 4;
-notSure = "hello";
-
-let value: unknown;
-unknown = 1;
-unknown = "hello";
-
-let empty: never[] = [];
-
-// 数组
-const list: Array<number> = [1,2,3];
-const list2: number[] = [1,2,3];
-
-// 元组（Tuple）
-let x: [string, number];
-x = ["hello", 1];
-
-// Object, 除原始类型之外的类型
-let value: object;
-value = {};
-value = [];
-```
-
-### 枚举类型
-指定数字，则为自增
-```
-enum Direction {
-    Up,
-    Right,
-    Botton,
-    Left
-}
-console.log(Direction.Up, Direction[0]); // 0, 'Up', 
+declare var; // 声明全局变量
+declare function; // 声明全局方法
+declare class; // 声明全局类
+declare enum; // 声明全局枚举类型
+declare namespace; // 声明（含有子属性的）全局对象
+interface 和 type // 声明全局类型
 ```
 
 ### tsconfig.json
@@ -284,19 +102,24 @@ console.log(Direction.Up, Direction[0]); // 0, 'Up',
     "compilerOptions": {
         "experimentalDecorators": true,// 装饰器
         "target": "es5", // 编译为es5
-        "module": "esnext", // 制定使用模块
+        "module": "esnext", // 指定使用模块
+        "sourceMap": true, // 把 ts 文件编译成 js 文件的时候，同时生成对应的 map 文件
         "allowJs": true, // 允许编辑js文件
-        "allowSyntheticDefaultImports": true,
+        "allowSyntheticDefaultImports": true, // 允许import React from "react"，而不是import * as React from "React"
         "forceConsistentCasingInFileNames": true,
         "removeComments": true, // 移除注释，注意import()按需加载的注释
+        "noImplicitAny"：false, // 为 false 时，如果编译器无法根据变量的使用来判断类型时，将用 any 类型代替。为 true 时，进行强类型检查，会报错
         "outDir": "dist", // 输出目录
         "moduleResolution": "node", // 模块解析策略
         "strict": true, // 严格模式
         "lib": ["esnext", "dom"],
         "strictNullChecks": false, // 为false， null可赋给void，true则不可以
+        "declaration": true, // 生成声明文件
     },
-    "include": ["./src"], // 指定目录
-    "exclude": [
+    "extends": "./config/base", // 复用配置文件
+    "files"：[], // 只能指定文件，不能指定目录，且包含依赖；files的优先级最高，files > exclude > include
+    "include": ["./src"], // 可指定目录，也可指定文件
+    "exclude": [ // 有默认值，为node_modules、bower_components、jspm_packages 和编译选项 outDir 指定的路径。
         "dist",
         "node_modules"
     ]

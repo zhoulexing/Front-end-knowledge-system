@@ -6,16 +6,21 @@ interface IForTestState {
 }
 
 interface IForTestProps {
-
+    getCount?: () => void,
 }
 
 
 class ForTest extends React.Component<IForTestProps, IForTestState> {
     constructor(props: IForTestProps) {
         super(props);
+        this.getCount = this.getAge.bind(this);
         this.state = {
             count: 1
         }
+    }
+
+    componentDidMount() {
+        console.log("component is run");
     }
 
     render() {
@@ -26,8 +31,20 @@ class ForTest extends React.Component<IForTestProps, IForTestState> {
         )
     }
 
+    getName = () => {
+        return "zlx";
+    }
+
+    getAge() {
+        return 25;
+    }
+
     getCount = () => {
+        const { getCount } = this.props;
         const { count } = this.state;
+        if(getCount) {
+            getCount();
+        }
         this.setState({
             count: count + 1,
         });
