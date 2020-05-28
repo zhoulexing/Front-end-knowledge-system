@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "test:other": "jest tests/utils/other.test.ts",
     "start": "cross-env NODE_ENV=development webpack-dev-server --config config/webpack.config.js --progress",
     "build": "rimraf dist && cross-env NODE_ENV=production webpack --config config/webpack.config.js --progress",
     "analytic": "cross-env NODE_ENV=production npm_config_report=true npm run build",
