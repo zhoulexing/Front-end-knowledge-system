@@ -1,8 +1,10 @@
 import React from "react";
 import RefTest from "./RefTest";
 import ApiTest from "./ApiTest";
+import StateTest from "./StateTest";
+import HookTest from "./HookTest";
 
-interface ReactTestProps {}
+interface ReactTestProps { }
 
 class ReactTest extends React.Component<ReactTestProps> {
   constructor(props: ReactTestProps) {
@@ -15,6 +17,12 @@ class ReactTest extends React.Component<ReactTestProps> {
         <div>
           <ApiTest />
           <RefTest />
+        </div>
+        <div>
+          <StateTest />
+        </div>
+        <div>
+          <HookTest />
         </div>
       </div>
     );

@@ -74,26 +74,26 @@ describe("test components ForTest", () => {
     /**
      * 测试组件的内部函数, 用箭头函数来定义方法
      */
-    it("calls component getCount", () => {
-        const sWrapper = shallow(<ForTest />);
-        const spyFunction = jest.spyOn(sWrapper.instance(), "getName");
-        sWrapper.instance().getName();
-        expect(spyFunction).toHaveBeenCalled();
-        spyFunction.mockRestore();
-    });
+    // it("calls component getCount", () => {
+    //     const sWrapper = shallow(<ForTest />);
+    //     const spyFunction = jest.spyOn(sWrapper.instance(), "getName");
+    //     sWrapper.instance().getName();
+    //     expect(spyFunction).toHaveBeenCalled();
+    //     spyFunction.mockRestore();
+    // });
 
     /**
      * 测试组件的内部函数, 在constructor使用bind来定义方法
      */
-    it("calls component getGet", () => {
-        const props = {
-            getCount: jest.fn(),
-        };
-        const sWrapper = shallow(<ForTest {...props} />);
-        const spyFunction = jest.spyOn(ForTest.prototype, "getAge");
-        const Construc = sWrapper.instance();
-        Construc.getName();
-        expect(spyFunction).toHaveBeenCalled();
-        spyFunction.mockRestore();
-    });
+    // it("calls component getGet", () => {
+    //     const props = {
+    //         getCount: jest.fn(),
+    //     };
+    //     const sWrapper = shallow(<ForTest {...props} />);
+    //     const spyFunction = jest.spyOn(ForTest.prototype, "getAge");
+    //     const Construc = sWrapper.instance();
+    //     Construc.getName();
+    //     expect(spyFunction).toHaveBeenCalled();
+    //     spyFunction.mockRestore();
+    // });
 });
