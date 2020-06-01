@@ -10,15 +10,15 @@ interface LoginLayoutProps {
 
 class LoginLayout extends React.Component<LoginLayoutProps, any> {
     goIndex = () => {
-        this.props.dispatch(push("/apps"));
+      this.props.dispatch(push("/apps"));
     };
 
     render() {
-        return (
-            <div>
-                <Button onClick={this.goIndex}>LoginLayout</Button>
-            </div>
-        );
+      return (
+        <div>
+          <Button onClick={this.goIndex}>LoginLayout</Button>
+        </div>
+      );
     }
 }
 

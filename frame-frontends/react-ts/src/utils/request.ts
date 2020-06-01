@@ -8,7 +8,7 @@ interface TypedResponse<T = any> extends Response {
 }
 
 function parseJSON(response: TypedResponse) {
-    return response.json();
+  return response.json();
 }
 
 interface ErrorRest extends Error {
@@ -16,16 +16,16 @@ interface ErrorRest extends Error {
 }
 
 function checkStatus(response: TypedResponse) {
-    if (response.status >= 200 && response.status < 300) {
-        return response;
-    }
-    notification.error({
-        message: `请求错误 ${response.status}: ${response.url}`,
-        description: response.statusText
-    });
-    const error = new Error(response.statusText) as ErrorRest;
-    error.response = response;
-    throw error;
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  }
+  notification.error({
+    message: `请求错误 ${response.status}: ${response.url}`,
+    description: response.statusText,
+  });
+  const error = new Error(response.statusText) as ErrorRest;
+  error.response = response;
+  throw error;
 }
 
 interface Options {
@@ -33,17 +33,17 @@ interface Options {
 }
 
 export default function request<T>(url: string, options: object): Promise<T> {
-    const defaultOpt: Options = {};
-    const newOpt: Options = { ...defaultOpt, ...options };
-    newOpt.headers = {
-        Accept: "application/json",
-        ...newOpt.headers
-    };
-    return fetch(url, newOpt)
-        .then(checkStatus)
-        .then(parseJSON)
-        .catch(() => {
-            const { dispatch } = store;
-            dispatch(push("/login"));
-        });
+  const defaultOpt: Options = {};
+  const newOpt: Options = { ...defaultOpt, ...options };
+  newOpt.headers = {
+    Accept: "application/json",
+    ...newOpt.headers,
+  };
+  return fetch(url, newOpt)
+    .then(checkStatus)
+    .then(parseJSON)
+    .catch(() => {
+      const { dispatch } = store;
+      dispatch(push("/login"));
+    });
 }

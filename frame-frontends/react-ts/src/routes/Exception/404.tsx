@@ -6,16 +6,16 @@ import { push } from "connected-react-router";
 // 但是还没发布，先来个简单的。
 
 const NoFoundPage: React.FC<{}> = () => (
-    <Result
-        status="404"
-        title="404"
-        subTitle="Sorry, the page you visited does not exist."
-        extra={
-            <Button type="primary" onClick={() => push("/")}>
-                Back Home
-            </Button>
-        }
-    ></Result>
+  <Result
+    status="404"
+    title="404"
+    subTitle="Sorry, the page you visited does not exist."
+    extra={(
+      <Button type="primary" onClick={() => push("/")}>
+        Back Home
+      </Button>
+          )}
+  />
 );
 
 export default NoFoundPage;

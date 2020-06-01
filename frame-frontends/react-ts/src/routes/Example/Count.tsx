@@ -3,14 +3,14 @@ import { Button } from "antd";
 
 
 class Count extends React.Component {
-    render() {
-        return (
-            <div className="test">
-                数量：1
-                <Button>加</Button>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div className="test">
+        数量：1
+        <Button>加</Button>
+      </div>
+    );
+  }
 }
 
 

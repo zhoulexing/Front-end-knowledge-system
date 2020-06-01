@@ -30,52 +30,52 @@ export interface GlobalModelType {
 }
 
 const globalModal: GlobalModelType = {
-    namespace: "global",
+  namespace: "global",
 
-    state: {
-        collapsed: false,
-        loading: false,
-        notices: [],
+  state: {
+    collapsed: false,
+    loading: false,
+    notices: [],
+  },
+
+  effects: {
+    * fetchNotices(_, { call, put, select }) {
+      const data = yield call();
+      yield put({
+        type: "saveNotices",
+        payload: data,
+      });
+      const unreadCount: number = yield select(
+        (state) => state.global.notices.filter((item) => !item.read).length,
+      );
+      yield put({
+        type: "user/changeNotifyCount",
+        payload: {
+          totalCount: data.length,
+          unreadCount,
+        },
+      });
     },
+  },
 
-    effects: {
-        *fetchNotices(_, { call, put, select }) {
-            const data = yield call();
-            yield put({
-                type: "saveNotices",
-                payload: data
-            });
-            const unreadCount: number = yield select(
-                (state) => state.global.notices.filter((item) => !item.read).length
-            );
-            yield put({
-                type: "user/changeNotifyCount",
-                payload: {
-                    totalCount: data.length,
-                    unreadCount
-                }
-            });
-        }
+  reducers: {
+    changeLayoutCollapsed(state, { payload }) {
+      return {
+        ...state,
+        collapsed: payload,
+      };
     },
+  },
 
-    reducers: {
-        changeLayoutCollapsed(state, { payload }) {
-            return {
-                ...state,
-                collapsed: payload
-            };
+  subscriptions: {
+    setup({ history, dispatch }) {
+      return history.listen(({ pathname, search }) => {
+        if (typeof window.ga !== "undefined") {
+          window.ga("send", "pageview", pathname + search);
         }
+      });
     },
-
-    subscriptions: {
-        setup({ history, dispatch }) {
-            return history.listen(({ pathname, search }) => {
-                if (typeof window.ga !== "undefined") {
-                    window.ga("send", "pageview", pathname + search);
-                }
-            });
-        }
-    }
+  },
 };
 
 

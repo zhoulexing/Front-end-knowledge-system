@@ -12,26 +12,26 @@ interface RouterConfigProps {
 const { AuthorizedRoute } = Authorized;
 
 const RouterConfig: React.SFC<RouterConfigProps> = ({ history }: any) => {
-    const routerData = getRouterData();
-    const LoginLayout = routerData["/login"].component;
-    const BasicLayout = routerData["/apps"].component;
+  const routerData = getRouterData();
+  const LoginLayout = routerData["/login"].component;
+  const BasicLayout = routerData["/apps"].component;
 
-    return (
-        <ConnectedRouter history={history}>
-            <Switch>
-                <Redirect exact from="/" to="/login" />
-                <Route path="/login" component={LoginLayout} />
-                <AuthorizedRoute 
-                    path="/apps"
-                    render={ props => <BasicLayout { ...props }/> }
-                    authority={ ["admin"] }
-                    redirectPath={ getQueryPath("/login", {
-                        redirect: window.location.href
-                    }) }
-                />
-            </Switch>
-        </ConnectedRouter>
-    );
-}
+  return (
+    <ConnectedRouter history={history}>
+      <Switch>
+        <Redirect exact from="/" to="/login" />
+        <Route path="/login" component={LoginLayout} />
+        <AuthorizedRoute
+          path="/apps"
+          render={(props) => <BasicLayout {...props} />}
+          authority={["admin"]}
+          redirectPath={getQueryPath("/login", {
+            redirect: window.location.href,
+          })}
+        />
+      </Switch>
+    </ConnectedRouter>
+  );
+};
 
 export default RouterConfig;

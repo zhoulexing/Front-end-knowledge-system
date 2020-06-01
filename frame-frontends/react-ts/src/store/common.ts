@@ -1,4 +1,6 @@
-import { ReducersMapObject, Reducer, AnyAction, Dispatch } from "redux";
+import {
+  ReducersMapObject, Reducer, AnyAction, Dispatch,
+} from "redux";
 import { GlobalModelState } from "@/models/global";
 import { ExampleModelState } from "@/models/example";
 
