@@ -83,7 +83,7 @@ module.exports = {
         "ecmaVersion": 2019,
         "sourceType": 'module',
         "ecmaFeatures":{
-            jsx:true
+            jsx:true`
         }
     },
     rules: { // 定义自己的规则
