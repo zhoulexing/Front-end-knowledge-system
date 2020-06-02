@@ -7,8 +7,14 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "basic",
+            "name": "basic:sensitiveWords",
             "program": "${workspaceFolder}/basic/javascript/sensitiveWords.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "basic:eslint",
+            "program": "${workspaceFolder}/basic/eslint/tests/lib/rules/settimeout-no-number.js"
         },
         {
             "type": "node",

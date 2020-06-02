@@ -346,8 +346,9 @@ less-loader 用来解析 less
             sourceMap: true,
         },
 
-        // less-loader-v6.0
+        // less-loader-v6.0修改
         options: {
+            ...other,
             lessOptions: {
                 javascriptEnabled: true,
                 modifyVars: { "@primary-color": "#1DA57A" },
@@ -439,7 +440,7 @@ file-loader 和 url-loader 都是用来处理页面引入文件路劲的问题�
 }
 ```
 
-## 配置 js
+## 配置 js|ts
 
 ### babel-loader
 
@@ -497,6 +498,25 @@ false、entry、usage。false 不会考虑浏览器版本，直接全部引入�
         }]
     ]
 }
+```
+
+## ts-loader
+
+在babel7中，@babel/preset-typescript集成了@babel/plugin-transform-typescript
+
+## eslint-loader
+
+```
+ {
+    test: /\.(ts|js)x?$/,
+    // exclude: [/node_modules/],
+    include: [path.resolve(__dirname, "src")],
+    use: ["eslint-loader"],
+    enforce: "pre",
+    options: { // 这里的配置项参数将会被传递到 eslint 的 CLIEngine 
+        formatter: require("eslint-friendly-formatter") // 指定错误报告的格式规范
+    }
+},
 ```
 
 ### 针对浏览器版本按需编译的配置
