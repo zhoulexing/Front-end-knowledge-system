@@ -54,10 +54,11 @@ npm install eslint-plugin-react --save-dev // react规范
 npm install eslint-config-airbnb --save-dev // airbnb规范
 npm install eslint-plugin-jsx-a11y --save-dev // jsx的rules规范
 npm install eslint-plugin-import --save-dev // 在使用 import 的时候，一些 rules 规范
+npm install eslint-import-resolver-webpack --save-dev // no-unresolved 规则
 
 npm install prettier --save-dev // prettier插件的核心代码
-npm install prettier eslint-config-prettier --save-dev // 解决ESLint中的样式规范和prettier中样式规范的冲突，以prettier的样式规范为准，使ESLint中的样式规范自动失效
-npm install prettier eslint-plugin-prettier --save-dev // 将prettier作为ESLint规范来使用
+npm install eslint-config-prettier --save-dev // 解决ESLint中的样式规范和prettier中样式规范的冲突，以prettier的样式规范为准，使ESLint中的样式规范自动失效
+npm install eslint-plugin-prettier --save-dev // 将prettier作为ESLint规范来使用
 module.exports = {
     parser:  '@typescript-eslint/parser', // 定义ESLint的解析器
     extends: [
@@ -77,7 +78,12 @@ module.exports = {
         "react": {
             "pragma": "React",
             "version": "detect"
-        }
+        },
+        "import/resolver": {
+			webpack: {
+				config: "webpack.config.js"
+			}
+		},
     },
     parserOptions: {  //    指定ESLint可以解析JSX语法
         "ecmaVersion": 2019,
