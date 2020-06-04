@@ -20,13 +20,13 @@
             "type": "node",
             "request": "launch",
             "name": "express-node",
-            "program": "${workspaceFolder}/node-express/app.js"
+            "program": "${workspaceFolder}/node-server/express/app.js"
         },
         {
             "type": "node",
             "request": "launch",
             "name": "koa-node",
-            "program": "${workspaceFolder}/node-koa/app.js"
+            "program": "${workspaceFolder}/node-server/koa/app.js"
         }
     ]
 }
