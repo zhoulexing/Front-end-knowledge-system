@@ -20,7 +20,7 @@
             "type": "node",
             "request": "launch",
             "name": "express-node",
-            "program": "${workspaceFolder}/node-server/express/app.js"
+            "program": "${workspaceFolder}/node-server/express/entry/app.js"
         },
         {
             "type": "node",

@@ -4,7 +4,7 @@
   "private": true,
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node entry/app.js",
     "test": "NODE_ENV=test mocha --recursive test",
     "test:utils": "mocha -r ./test/setup.js ./test/app/utils --recursive --inspect -w",
     "test:config": "cross-env NODE_ENV=test mocha -r ./test/setup.js ./test/app/config --recursive --inspect -w",
