@@ -6,6 +6,8 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compress = require('compression');
+const session = require('express-session');
+var FileStore = require('session-file-store')(session);
 const methodOverride = require('method-override');
 
 module.exports = (app, config) => {
@@ -26,6 +28,18 @@ module.exports = (app, config) => {
   app.use(compress());
   app.use(express.static(config.root + '/public'));
   app.use(methodOverride());
+  app.use(session({
+    name: 'zlx',
+    secret: 'zlx', // 用来对session id相关的cookie进行签名
+    store: new FileStore({
+      path: '../'
+    }), // 本地文件存储session
+    saveUninitialized: false, // 是否自动保存未初始化的会话，建议false
+    resave: false,  // 是否每次都重新保存会话，建议false
+    cookie: {
+        maxAge: 60 * 1000 * 30  // 有效期，单位是毫秒
+    }
+  }));
 
 
   // 处理跨域
