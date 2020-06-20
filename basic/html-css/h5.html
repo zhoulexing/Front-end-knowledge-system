@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <input type="file" multiple id="file">
+        <input type="button" onclick="showFileName()" value="文件上传">
+    </div>
+
+    <script>
+        function showFileName() {
+            let file;
+            let files = document.getElementById("file").files;
+            for(let i = 0, length = files.length; i < length; i++) {
+                file = files[i];
+                console.log(file.name, file);
+            }
+            let reader = new FileReader();
+            reader.onload = (event) => {
+                console.log(event.target.result);
+            }
+            reader.readAsText(files[0], "gb2312");
+        }
+    </script>
+
+    <script>
+        var str = "Hello World!";
+        var buf = new ArrayBuffer(str.length * 2);
+        var bufView = new Uint8Array(buf);
+        for(var i = 0; i < str.length; i++) {
+            bufView[i] = str.charCodeAt(i)
+        }
+        var newStr = String.fromCharCode.apply(null, bufView);
+    </script>
+</body>
+</html>

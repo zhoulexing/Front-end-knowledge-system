@@ -1,0 +1,169 @@
+.a1 {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: blue;
+}
+.a1:hover {
+    animation: move 2s linear 3 both alternate;
+}
+@keyframes move {
+    0% {
+        transform: translate(0);
+    }
+    100% {
+        transform: translate(200px, 0);
+    }
+}
+
+.a2 {
+    width: 200px;
+    height: 20px;
+    border: 1px solid;
+    animation: rotate 2.5s infinite, color 2s infinite, width 3s infinite;
+}
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@keyframes color {
+    20% {
+        background-color: #f91;
+    }
+    80% {
+        background-color: #0ff;
+    }
+}
+@keyframes width {
+    0% {
+        width: 40%;
+    }
+    100% {
+        width: 70%;
+    }
+}
+
+.radio-1,
+.radio-2 {
+    width: 900px;
+    padding: 3% 0%;
+    margin: 10px auto;
+    background-color: darkseagreen;
+    text-align: center;
+}
+.radio-1 label {
+    display: inline-block;
+    position: relative;
+    width: 28px;
+    height: 28px;
+    border: 1px solid #cccccc;
+    border-radius: 100%;
+    cursor: pointer;
+    background-color: #ffffff;
+    margin-right: 10px;
+}
+.radio-2 label {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    overflow: hidden;
+    border: 1px solid #eeeeee;
+    border-radius: 100%;
+    margin-right: 10px;
+    background-color: #ffffff;
+    position: relative;
+    cursor: pointer;
+}
+.radio-1 label:after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 4px;
+    left: 4px;
+    background-color: #666;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.2s ease-out;
+}
+.radio-2 label:after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 20px;
+    height: 20px;
+    background-color: #666666;
+    border-radius: 50%;
+    transform: rotate(-180deg);
+    transform-origin: -2px 50%;
+    transition: transform 0.2s ease-in;
+}
+.radio-1 [type="radio"],
+.radio-2 [type="radio"] {
+    display: none;
+}
+.radio-1 [type="radio"]:checked + label,
+.radio-2 [type="radio"]:checked + label {
+    background-color: #eeeeee;
+    transition: background-color 0.2s ease-in;
+}
+.radio-1 [type="radio"]:checked + label:after {
+    transform: scale(1);
+    transition: transform 0.2s ease-in;
+}
+.radio-2 [type="radio"]:checked + label:after {
+    transform: rotate(0deg);
+    transition: transform 0.2s ease-in;
+}
+
+
+.a3 {
+    position: relative;
+	transform-style: preserve-3d;
+	transform-origin: 50px 50px;
+    transform: rotateX(-33.5deg) rotateY(45deg);
+    animation: fastspin 6s ease-in-out infinite;
+    margin-left: 100px;
+}
+.a3 div {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100px;
+    height: 100px;
+}
+.a3 .front {
+    background-color: khaki;
+    transform: translateZ(50px);
+}
+.a3 .left {
+    background-color: lightcoral;
+    transform: rotateY(-90deg) translateZ(50px);
+}
+.a3 .right {
+    background-color: lightseagreen;
+    transform: rotateY(90deg) translateZ(50px);
+}
+.a3 .bottom {
+    background-color: magenta;
+    transform: rotateX(-90deg) translateZ(50px);
+}
+.a3 .back {
+    background-color: palegreen;
+    transform: rotateX(-180deg) translateZ(50px);
+}
+.a3 .top {
+    background-color: palegreen;
+    transform: rotateX(90deg) translateZ(50px);
+}
+@keyframes fastspin {
+	0% {
+		transform: rotateX(-33.5deg) rotateY(45deg);
+	}
+	40%,
+	to {
+		transform: rotateX(-33.5deg) rotateY(-315deg);
+	}
+}
