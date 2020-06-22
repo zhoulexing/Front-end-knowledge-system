@@ -500,6 +500,57 @@ false、entry、usage。false 不会考虑浏览器版本，直接全部引入�
 }
 ```
 
+### 针对文件进行tree shaking
+
+1. 使用es6的模块化方式
+2. 在optimization中添加属性usedExports
+```
+{
+    mode: 'production',
+    optimization: {
+        usedExports: true,
+        ...
+    }
+}
+```
+3. package.json中设置是否有副作用
+```
+// 所有文件都有副作用
+{
+    "sideEffects": true
+}
+// 没有文件有副作用
+{
+    "sideEffects": false
+}
+// 指定有副作用的文件
+{
+     "sideEffects": [
+        "./src/file1.js",
+        "./src/file2.js"
+    ]
+}
+```
+4. 全局css
+```
+import '../my.css';
+{
+    module: {
+        rules: [
+            {
+                test: /.css/,
+                use: [loaders],
+                sideEffects: true
+            }
+        ]
+    }
+}
+```
+
+### happypack
+
+利用多进程进行打包。
+
 ## ts-loader
 
 在babel7中，@babel/preset-typescript集成了@babel/plugin-transform-typescript
