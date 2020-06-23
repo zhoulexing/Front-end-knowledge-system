@@ -312,20 +312,22 @@ PostCSS 不是类似 Less，Sass，Stylus 那样的 CSS 预处理器，而是一
 
 ```postcss.config.js
 module.exports = {
-    plugins: [ 
-        // 指定@import引入css文件的功能和范围
-        require("postcss-import") ({root: "./loadcss"}), 
-        require("postcss-preset-env") (),
+    plugins: [ // 指定@import引入css文件的功能和范围
+            require("postcss-import") ({root: "./loadcss"}), require(
+                "postcss-preset-env"
+            ) (),
         // 支持css一些新的功能
-        require("postcss-cssnext"), // 支持css一些新的功能, postcss-cssnext已经支持autoprefixer
-        require("cssnano") (),
+            require("postcss-cssnext"), // 支持css一些新的功能, postcss-cssnext已经支持autoprefixer
+            require("cssnano") (),
         // 压缩和优化css, 删除注释和重复样式等
-        require("autoprefixer") ({// 解决浏览器私有前缀的问题
-            overrideBrowserslist: ["> 1%","last 5 versions" ]
-        }),
-        // 添加命名空间
-        require("postcss-selector-namespace") ({namespace:".custom-namespace"}),
-    ];
+            require("autoprefixer")
+            (
+                {// 解决浏览器私有前缀的问题
+                    overrideBrowserslist: [ "> 1%",
+                "last 5 versions" ]}
+            ), // 添加命名空间
+            require("postcss-selector-namespace")
+            ({namespace: ".custom-namespace"}), ];
 }
 ```
 
@@ -456,14 +458,16 @@ false、entry、usage。false 不会考虑浏览器版本，直接全部引入�
 就是用来解决这个问题。@babel/plugin-transform-runtime 除了配合@babel/polyfill 使用之外, 可以单独使用，另外也提供了，@babel/runtime-corejs2、
 @babel/runtime-corejs3，添加这两个库，需要配置 corejs。
 
+可以添加 cacheDirectory=true 缓存来提升打包性能。
+
 除此之外需要注意，在指定 targets 的 esmodules 为 true 时，browsers 将不生效；babel 升至 7 之后，export default { a } & import { a } from '../\*.js'写法不支持。
 
 ```webpack.config.js
 {
     test: /\.js$/,
     use: [{
-        loader: 'babel-loader'
-    }]
+        loader: 'babel-loader?cacheDirectory=true'
+    }],
 }
 ```
 
@@ -500,10 +504,66 @@ false、entry、usage。false 不会考虑浏览器版本，直接全部引入�
 }
 ```
 
-### 针对文件进行tree shaking
+### ts-loader
 
-1. 使用es6的模块化方式
-2. 在optimization中添加属性usedExports
+在 babel7 中，@babel/preset-typescript 集成了@babel/plugin-transform-typescript。
+
+```
+{
+    test: /\.ts$/,
+    use: [{
+        loader: 'babel-loader?cacheDirectory=true'
+    }, {
+        loader: 'ts-loader'
+    }]
+}
+```
+
+### 配置多进程打包(happypack)
+
+利用多进程进行打包提升效率。
+
+```
+{
+    module: {
+        rules: [
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                use: ["happypack/loader?id=js"]
+            },
+            {
+                test: /\.tsx?$/, // @babel/plugin-transform-typescript和@babel/preset-typescript
+                exclude: /node_modules/,
+                use: ["happypack/loader?id=ts"]
+            },
+        ]
+    },
+    plugins: [
+        new HappyPack({
+            id: "js",
+            loaders: ["babel-loader?cacheDirectory=true"],
+            threadPool: happyThreadPool,
+            verbose: true // 是否允许happypack输出日志
+        }),
+        new HappyPack({
+            id: "ts",
+            loaders: [
+                "babel-loader?cacheDirectory=true",
+                "ts-loader?happyPackMode=true"
+            ],
+            threadPool: happyThreadPool,
+            verbose: true
+        }),
+    ]
+}
+```
+
+### 配置 tree shaking
+
+1. 使用 es6 的模块化导入导出
+2. 在 optimization 中添加属性 usedExports
+
 ```
 {
     mode: 'production',
@@ -513,7 +573,9 @@ false、entry、usage。false 不会考虑浏览器版本，直接全部引入�
     }
 }
 ```
-3. package.json中设置是否有副作用
+
+3. package.json 中设置是否有副作用
+
 ```
 // 所有文件都有副作用
 {
@@ -531,7 +593,9 @@ false、entry、usage。false 不会考虑浏览器版本，直接全部引入�
     ]
 }
 ```
-4. 全局css
+
+4. 全局 css
+
 ```
 import '../my.css';
 {
@@ -547,15 +611,7 @@ import '../my.css';
 }
 ```
 
-### happypack
-
-利用多进程进行打包。
-
-## ts-loader
-
-在babel7中，@babel/preset-typescript集成了@babel/plugin-transform-typescript
-
-## eslint-loader
+### 配置 eslint
 
 ```
  {
@@ -564,7 +620,7 @@ import '../my.css';
     include: [path.resolve(__dirname, "src")],
     use: ["eslint-loader"],
     enforce: "pre",
-    options: { // 这里的配置项参数将会被传递到 eslint 的 CLIEngine 
+    options: { // 这里的配置项参数将会被传递到 eslint 的 CLIEngine
         formatter: require("eslint-friendly-formatter") // 指定错误报告的格式规范
     }
 },
@@ -605,3 +661,23 @@ lase 2 Chrome versions
     -   es2020 需要 babel 相关库大于 7.8.3
 -   最新 API 的配置
 -   浏览器按需编译配置
+
+## 配置打包性能分析
+
+### 测量构建时间
+
+```
+yarn install  speed-measure-webpack-plugin -D
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const smp = new SpeedMeasurePlugin();
+module.exports = smp.wrap(webpackConfig); // webpackConfig为配置对象
+```
+
+### 分析包内容
+```
+yarn install  webpack-bundle-analyzer -D
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+plugins: [
+    new BundleAnalyzerPlugin()
+]
+```
