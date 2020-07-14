@@ -1,14 +1,14 @@
 export default {
     dev: {
         '/api/': {
-            target: 'https://preview.pro.ant.design',
+            target: 'http://localhost:8004',
             changeOrigin: true,
             pathRewrite: { '^': '' },
         },
     },
     test: {
         '/api/': {
-            target: 'https://preview.pro.ant.design',
+            target: 'http://localhost:8004',
             changeOrigin: true,
             pathRewrite: { '^': '' },
         },

@@ -293,15 +293,18 @@ MockPromise.race = function(promises) {
 
 
 function test(arr) {
+    console.log("test:", arr);
     return new Promise((resolve, reject) => {
-        for(let i = 0; i < arr.length; i++) {
-            let item = arr[i];
-            if(item === 10) {
-                reject(item);
-                break;
+        setTimeout(() => {
+            for(let i = 0; i < arr.length; i++) {
+                let item = arr[i];
+                if(item === 10) {
+                    reject(item);
+                    break;
+                }
             }
-        }
-        resolve("success");
+            resolve("success");
+        }, 1000);
     });
 }
 
@@ -323,4 +326,27 @@ test([10, 20, 30]).then(item => {
 
 }).catch(err => {
     console.log("error:", err);
+});
+
+
+Promise.allSettled([
+    test([3]),
+    test([4]),
+    test([5]),
+    test([10]),
+]).then(res => {
+    console.log("then:", res);
+}).catch(err => {
+    console.log("catch:", err);
+});
+
+Promise.all([
+    test([3]),
+    test([10]),
+    test([4]),
+    test([5]),
+]).then(res => {
+    console.log("then:", res);
+}).catch(err => {
+    console.log("catch:", err);
 });

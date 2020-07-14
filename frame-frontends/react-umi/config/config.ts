@@ -45,6 +45,10 @@ export default defineConfig({
             component: '@/layouts/UserLayout',
             routes: [
                 {
+                    path: '/user',
+                    redirect: '/user/login',
+                },
+                {
                     name: 'login',
                     path: '/user/login',
                     component: '@/pages/user/login',

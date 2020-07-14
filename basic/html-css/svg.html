@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            .circle {
+                fill: red;
+                stroke: black;
+                stroke-width: 3pt;
+            }
+            .line {
+                stroke: red;
+                stroke-width: 3pt;
+            }
+            .rect {
+                fill: red;
+                stroke: black;
+                stroke-width: 3pt;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <svg width="100" height="100">
+                <circle cx="50" cy="50" r="50" class="circle"></circle>
+                <line x1="0" y1="0" x2="100" y2="0" class="line"></line>
+            </svg>
+        </div>
+        <div>
+            <svg width="200" height="50">
+                <polyline points="0,0 50,50 100,0" fill="none" stroke="black" />
+                <rect x="100" y="0" width="100" height="50" class="rect"></rect>
+            </svg>
+        </div>
+        <div>
+            <svg width="60" height="50">
+                <ellipse cx="30" cy="25" rx="30" ry="25" fill="red"></ellipse>
+            </svg>
+        </div>
+        <div>
+            <svg width="100" height="60">
+                <polygon
+                    points="0,20 40,0 60,0 100,20 100,40 60,60 40,60 0,40 0,20"
+                    fill="red"
+                ></polygon>
+            </svg>
+        </div>
+        <div>
+            <svg width="100" height="100">
+                <path
+                    d="
+                    M 10,10
+                    L 15,20
+                    L 20,25
+                    L 5,30
+                    L 30,35
+                    L 10,40
+                    L 100,45
+                    L 90,50
+                    L 80,55
+                    L 100,10
+                    Z
+                "
+                ></path>
+                <text x="50" y="50">Hello World</text>
+            </svg>
+        </div>
+        <div>
+            <svg width="500px" height="500px">
+                <rect x="0" y="0" width="100" height="100" fill="#feac5e">
+                    <animate
+                        attributeName="x"
+                        from="0"
+                        to="500"
+                        dur="2s"
+                        repeatCount="indefinite"
+                    />
+                    <animate
+                        attributeName="width"
+                        to="500"
+                        dur="2s"
+                        repeatCount="indefinite"
+                    />
+                </rect>
+            </svg>
+        </div>
+    </body>
+</html>

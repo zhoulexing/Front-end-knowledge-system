@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            .container {
+                display: flex;
+                flex-wrap: wrap;
+                width: 600px;
+                height: 600px;
+            }
+            .item {
+                width: 200px;
+                height: 200px;
+                text-align: center;
+                line-height: 200px;
+                box-shadow: 0 0 5px red;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+            <div class="item">
+                <input type="button" value="抽奖" onclick="init()" />
+            </div>
+            <div class="item">6</div>
+            <div class="item">7</div>
+            <div class="item">8</div>
+            <div class="item">9</div>
+        </div>
+
+        <script>
+            const domList = [];
+            const domItem = document.querySelectorAll(".item");
+            domList[0] = domItem[0];
+            domList[1] = domItem[1];
+            domList[2] = domItem[2];
+            domList[3] = domItem[5];
+            domList[4] = domItem[8];
+            domList[5] = domItem[7];
+            domList[6] = domItem[6];
+            domList[7] = domItem[3];
+
+            let interval = null;
+            let time = 100;
+            function init() {
+                clearInterval(interval);
+                for (let i = 0; i < domList.length; i++) {
+                    domList[i].style.backgroundColor = "#fff";
+                }
+
+                let index = 0;
+                interval = setInterval(() => {
+                    if (index > 7) {
+                        index = 0;
+                        domList[7].style.backgroundColor = "#fff";
+                    } else if (index != 0) {
+                        domList[index - 1].style.backgroundColor = "#fff";
+                    }
+                    domList[index].style.backgroundColor = "blue";
+
+                    index++;
+                }, time);
+
+                setTimeout(() => {
+                    stop(index);
+                }, 3000);
+            }
+
+            function stop(position) {
+                clearInterval(interval);
+                let current = -1;
+                for (let i = 0; i < domList.length; i++) {
+                    if (domList[i].style.backgroundColor === "blue") {
+                        current = i;
+                    }
+                }
+                stopLuck(position, current + 1, time, 10);
+            }
+
+            function stopLuck(luckPosition, index, time, stepTime) {
+                setTimeout(() => {
+                    if(index > 7) {
+                        index = 0;
+                        domList[7].style.backgroundColor = "#fff";
+                    } else if(index != 0) {
+                        domList[index - 1].style.backgroundColor = "#fff";
+                    }
+
+                    domList[index].style.backgroundColor = "blue";
+
+                    if(time < 400 || index != luckPosition) {
+                        stepTime++;
+                        time += stepTime;
+                        index++;
+                        stopLuck(luckPosition, index, time, stepTime);
+                    } else {
+                        setTimeout(() => {
+                            if(luckPosition == 1) {
+                                console.log("恭喜中奖");
+                            } else {
+                                console.log("很遗憾，没有中奖");
+                            }
+                        }, 1000);
+                    }
+                }, time);
+            }
+        </script>
+    </body>
+</html>
