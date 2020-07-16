@@ -35,6 +35,8 @@ export default defineConfig({
         writeToDisk: false,
     },
     title: '火麒麟',
+    favicon: '/images/favicon.ico',
+    headScripts: [],
     proxy: proxy[(REACT_APP_ENV as REACT_APP_ENV_TYPE) || 'dev'],
     theme: {
         'primary-color': defaultSettings.primaryColor,
