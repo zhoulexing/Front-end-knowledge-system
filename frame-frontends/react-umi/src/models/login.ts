@@ -4,8 +4,7 @@ import { fakeAccountLogin } from '@/services/login';
 export interface StateType {
     status?: 'success' | 'error';
     user?: {
-        username: string;
-        usertype: string;
+        userName: string;
     };
 }
 
@@ -36,6 +35,9 @@ const Model: LoginModelType = {
                 type: 'changeLoginStatus',
                 payload: response,
             });
+            if(response.status === 'success') {
+                history.push('/');
+            }
         },
         *logout(_, { call, put }) {
             if (window.location.pathname !== '/user/login') {
@@ -46,7 +48,7 @@ const Model: LoginModelType = {
 					type: 'changeLoginStatus',
                 	payload: {
 						status: 'error',
-						user: undefined,
+						data: undefined,
 					},
 				});
             }
@@ -58,7 +60,7 @@ const Model: LoginModelType = {
             return {
                 ...state,
                 status: payload.status,
-                user: payload.user,
+                user: payload.data,
             };
         },
     },

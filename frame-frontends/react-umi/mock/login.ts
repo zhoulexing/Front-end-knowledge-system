@@ -1,25 +1,33 @@
 import { Request, Response } from 'express';
 
 export default {
-    'GET /api/currentUser': {
-        status: 'success',
-        user: {
-            userName: '火麒麟',
-            usertype: 'ww',
-            age: 100
-        }
-    },
     'POST /api/login/account': (req: Request, res: Response) => {
-        const { password, userName  } = req.body;
+        const { password, userName, mobile, captcha  } = req.body;
         if(userName === 'zlx' && password === '123') {
             res.send({
                 status: 'success',
-                userName
+                data: {
+                    userName
+                }
             }); 
-        } else {
-            res.send({
-                status: 'error'
-            });
+            return;
         }
+        if(mobile === '13003696610' && captcha === '123456') {
+            res.send({
+                status: 'success',
+                data: {
+                    userName: mobile
+                }
+            });
+            return; 
+        }
+        res.send({
+            status: 'error',
+            data: null
+        });
+    },
+    'GET /api/login/captcha': {
+        status: 'success',
+        data: '123456'
     },
 }

@@ -59,10 +59,10 @@ const LoginItem: React.FC<LoginItemProps> = props => {
 
     const onGetCaptcha = useCallback(async (mobile: string) => {
         const result = await getFakeCaptcha(mobile);
-        if (result === false) {
+        if (result.status === 'error') {
             return;
         }
-        message.success('获取验证码成功！验证码为：1234');
+        message.success('获取验证码成功！验证码为：123456');
         setTiming(true);
     }, []);
 
@@ -143,8 +143,9 @@ Object.keys(ItemMap).forEach((key) => {
                     type={key}
                     rules={item.rules}
                     {...props}
-                    {...context}
-                    updateActive={context.updateActive}
+                    // 根据需要传递context属性
+                    // {...context}
+                    // updateActive={context.updateActive}
                 />
             )}
         </LoginContext.Consumer>
