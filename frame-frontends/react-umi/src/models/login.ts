@@ -1,7 +1,7 @@
 import { history, Reducer, Effect } from 'umi';
 import { fakeAccountLogin } from '@/services/login';
 
-export interface StateType {
+export interface LoginStateType {
     status?: 'success' | 'error';
     user?: {
         userName: string;
@@ -10,13 +10,13 @@ export interface StateType {
 
 export interface LoginModelType {
     namespace: string;
-    state: StateType;
+    state: LoginStateType;
     effects: {
         login: Effect;
         logout: Effect;
     };
     reducers: {
-        changeLoginStatus: Reducer<StateType>;
+        changeLoginStatus: Reducer<LoginStateType>;
     };
 }
 

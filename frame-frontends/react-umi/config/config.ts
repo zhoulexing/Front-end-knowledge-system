@@ -2,6 +2,7 @@ import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 
+
 type REACT_APP_ENV_TYPE = 'dev' | 'test' | undefined;
 const { REACT_APP_ENV } = process.env;
 
@@ -17,7 +18,7 @@ export default defineConfig({
     hash: true,
     antd: {},
     dva: {
-        hmr: true
+        hmr: true,
     },
     locale: {
         default: 'zh-CN',
@@ -34,8 +35,8 @@ export default defineConfig({
         // 生成assets到文件系统
         writeToDisk: false,
     },
-    title: '火麒麟',
-    favicon: '/images/favicon.ico',
+    title: false,
+    favicon: '/favicon.ico',
     headScripts: [],
     proxy: proxy[(REACT_APP_ENV as REACT_APP_ENV_TYPE) || 'dev'],
     theme: {
@@ -73,7 +74,7 @@ export default defineConfig({
                         {
                             path: '/example',
                             name: 'example',
-                            icon: 'smile',
+                            icon: 'icon-smile',
                             component: '@/pages/example',
                         },
                         {

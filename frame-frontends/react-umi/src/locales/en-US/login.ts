@@ -1,3 +1,4 @@
 export default {
-    'login.submit': 'submit'
-}
+    'login.submit': 'submit',
+    'menu.home': 'Home',
+};
