@@ -59,20 +59,21 @@ export default defineConfig({
             ],
         },
         {
-            path: '/',
+            path: '/layout',
             component: '@/layouts/SecurityLayout',
+            exact: true,
             routes: [
                 {
-                    path: '/',
+                    path: '/layout',
                     component: '@/layouts/BasicLayout',
                     authority: ['admin'],
                     routes: [
                         {
-                            path: '/',
-                            redirect: '/example',
+                            path: '/layout',
+                            redirect: '/layout/example',
                         },
                         {
-                            path: '/example',
+                            path: '/layout/example',
                             name: 'example',
                             icon: 'icon-smile',
                             component: '@/pages/example',
@@ -87,5 +88,45 @@ export default defineConfig({
                 },
             ],
         },
+        {
+            path: '/mobile',
+            component: '@/layouts/MobileLayout',
+            routes: [
+                {
+                    path: '/mobile',
+                    redirect: '/mobile/home',
+                },
+                {
+                    name: 'home',
+                    path: '/mobile/home',
+                    component: '@/pages/home',
+                }
+            ]
+        },
+        {
+            path: '/test',
+            component: '@/layouts/TestLayout',
+            routes: [
+                {
+                    path: '/test',
+                    redirect: '/test/qrcode',
+                },
+                {
+                    name: 'qrcode',
+                    path: '/test/qrcode',
+                    component: '@/pages/qrcode',
+                },
+                {
+                    name: 'stateManager',
+                    path: '/test/stateManager',
+                    component: '@/pages/stateManager',
+                },
+                {
+                    name: 'umiApi',
+                    path: '/test/umiApi',
+                    component: '@/pages/umiApi',
+                },
+            ]
+        }
     ],
 });

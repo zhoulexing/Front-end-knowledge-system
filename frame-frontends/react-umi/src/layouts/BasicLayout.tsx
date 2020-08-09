@@ -101,7 +101,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
 
     const { formatMessage } = useIntl();
 
-    const breadcrumbRender = (routers = []) => [
+    const breadcrumbRender = (routers: MenuDataItem[] = []) => [
         {
             path: '/',
             breadcrumbName: formatMessage({ id: 'menu.home' }),

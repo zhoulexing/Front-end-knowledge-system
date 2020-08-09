@@ -25,6 +25,7 @@
     "@ant-design/icons": "^4.2.1",
     "@ant-design/pro-layout": "^6.2.5",
     "classnames": "^2.2.6",
+    "qrcode.react": "^1.0.0",
     "querystring": "^0.2.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "@types/classnames": "^2.2.10",
+    "@types/qrcode.react": "^1.0.1",
     "@umijs/preset-react": "1.x",
     "@umijs/test": "^3.2.4",
     "cross-env": "^7.0.2",
