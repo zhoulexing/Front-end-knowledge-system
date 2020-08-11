@@ -1,23 +1,22 @@
 import { history, Reducer, Effect } from 'umi';
 import { fakeAccountLogin } from '@/services/login';
 
-export interface StateType {
+export interface LoginStateType {
     status?: 'success' | 'error';
     user?: {
-        username: string;
-        usertype: string;
+        userName: string;
     };
 }
 
 export interface LoginModelType {
     namespace: string;
-    state: StateType;
+    state: LoginStateType;
     effects: {
         login: Effect;
         logout: Effect;
     };
     reducers: {
-        changeLoginStatus: Reducer<StateType>;
+        changeLoginStatus: Reducer<LoginStateType>;
     };
 }
 
@@ -36,6 +35,9 @@ const Model: LoginModelType = {
                 type: 'changeLoginStatus',
                 payload: response,
             });
+            if(response.status === 'success') {
+                history.push('/');
+            }
         },
         *logout(_, { call, put }) {
             if (window.location.pathname !== '/user/login') {
@@ -46,7 +48,7 @@ const Model: LoginModelType = {
 					type: 'changeLoginStatus',
                 	payload: {
 						status: 'error',
-						user: undefined,
+						data: undefined,
 					},
 				});
             }
@@ -58,7 +60,7 @@ const Model: LoginModelType = {
             return {
                 ...state,
                 status: payload.status,
-                user: payload.user,
+                user: payload.data,
             };
         },
     },

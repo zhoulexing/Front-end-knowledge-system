@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <input type="file" accept="image/*" onchange="loadfile(event)"/>
+        <input type="file" accept="image/*" onchange="loadfile2(event)"/>
+        <input type="file" accept="image/*" onchange="loadfile3(event)"/>
+        <input type="file" accept="image/*" onchange="loadfile4(event)"/>
+    </div>
+    <div>
+        <img id="previewContainer" alt="">
+        <img id="previewContainer2" alt="">
+        <img id="previewContainer3" alt="">
+        <img id="previewContainer4" alt="">
+    </div>
+    <div>
+        <canvas id="canvas" width="300" height="300"></canvas>
+    </div>
+
+    <script>
+        function loadfile(event) {
+            const fileReader = new FileReader();
+            fileReader.onload = () => {
+                const imgDom = document.querySelector("#previewContainer");
+                const blob = new Blob([fileReader.result]);
+                imgDom.src = URL.createObjectURL(blob);
+            }
+            fileReader.readAsArrayBuffer(event.target.files[0]);
+        }
+
+        function loadfile2(event) {
+            const fileReader = new FileReader();
+            fileReader.onload = () => {
+                const imgDom = document.querySelector("#previewContainer2");
+                imgDom.src = fileReader.result;
+                imgDom.onload = () => {
+                    draw(imgDom);
+                }
+            }
+            fileReader.readAsDataURL(event.target.files[0]);
+        }
+
+        function loadfile3(event) {
+            const fileReader = new FileReader();
+            fileReader.onload = () => {
+                const imgDom = document.createElement("img");
+                const blob = new Blob([fileReader.result]);
+                imgDom.src = URL.createObjectURL(blob);
+                imgDom.onload = () => {
+                    compress2(imgDom);
+                }
+            }
+            fileReader.readAsArrayBuffer(event.target.files[0]);
+        }
+
+        function loadfile4(event) {
+            const fileReader = new FileReader();
+            fileReader.onload = () => {
+                const blob = new Blob([fileReader.result]);
+                const url = URL.createObjectURL(blob);
+                download(url);
+            }
+            fileReader.readAsArrayBuffer(event.target.files[0]);
+        }
+
+        function draw(imgDom) {
+            const canvas = document.querySelector("#canvas");
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(imgDom, 0, 0, 300, 300);
+            const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imgData.data;
+            for(let i = 0; i < data.length; i+=4) {
+                const avg = (data[i] + data[i+1] + data[i+2]) / 3;
+                data[i] = data[i + 1] = data[i + 2] = avg;
+            }
+            ctx.putImageData(imgData, 0, 0);
+            compress(canvas);
+        }
+
+        function compress(canvas, quality = 80, mimeType = "image/webp") {
+            const imgDataURL = canvas.toDataURL(mimeType, quality / 100);
+            const imgDom = document.querySelector("#previewContainer3");
+            imgDom.src = imgDataURL;
+        }
+
+        function compress2(imgDom, quality = 80, mimeType = "image/webp") {
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(imgDom, 0, 0, 300, 300);
+            const imgDataURL = canvas.toDataURL(mimeType, quality / 100);
+            const imgDom2 = document.querySelector("#previewContainer4");
+            imgDom2.src = imgDataURL;
+        }
+
+        function download(url) {
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "test.png";
+            link.click();
+            link.remove();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

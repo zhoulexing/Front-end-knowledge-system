@@ -2,6 +2,7 @@ import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 
+
 type REACT_APP_ENV_TYPE = 'dev' | 'test' | undefined;
 const { REACT_APP_ENV } = process.env;
 
@@ -17,7 +18,7 @@ export default defineConfig({
     hash: true,
     antd: {},
     dva: {
-        hmr: true
+        hmr: true,
     },
     locale: {
         default: 'zh-CN',
@@ -34,7 +35,9 @@ export default defineConfig({
         // 生成assets到文件系统
         writeToDisk: false,
     },
-    title: '火麒麟',
+    title: false,
+    favicon: '/favicon.ico',
+    headScripts: [],
     proxy: proxy[(REACT_APP_ENV as REACT_APP_ENV_TYPE) || 'dev'],
     theme: {
         'primary-color': defaultSettings.primaryColor,
@@ -56,22 +59,23 @@ export default defineConfig({
             ],
         },
         {
-            path: '/',
+            path: '/layout',
             component: '@/layouts/SecurityLayout',
+            exact: true,
             routes: [
                 {
-                    path: '/',
+                    path: '/layout',
                     component: '@/layouts/BasicLayout',
                     authority: ['admin'],
                     routes: [
                         {
-                            path: '/',
-                            redirect: '/example',
+                            path: '/layout',
+                            redirect: '/layout/example',
                         },
                         {
-                            path: '/example',
+                            path: '/layout/example',
                             name: 'example',
-                            icon: 'smile',
+                            icon: 'icon-smile',
                             component: '@/pages/example',
                         },
                         {
@@ -84,5 +88,45 @@ export default defineConfig({
                 },
             ],
         },
+        {
+            path: '/mobile',
+            component: '@/layouts/MobileLayout',
+            routes: [
+                {
+                    path: '/mobile',
+                    redirect: '/mobile/home',
+                },
+                {
+                    name: 'home',
+                    path: '/mobile/home',
+                    component: '@/pages/home',
+                }
+            ]
+        },
+        {
+            path: '/test',
+            component: '@/layouts/TestLayout',
+            routes: [
+                {
+                    path: '/test',
+                    redirect: '/test/qrcode',
+                },
+                {
+                    name: 'qrcode',
+                    path: '/test/qrcode',
+                    component: '@/pages/qrcode',
+                },
+                {
+                    name: 'stateManager',
+                    path: '/test/stateManager',
+                    component: '@/pages/stateManager',
+                },
+                {
+                    name: 'umiApi',
+                    path: '/test/umiApi',
+                    component: '@/pages/umiApi',
+                },
+            ]
+        }
     ],
 });
