@@ -1,10 +1,11 @@
 import React from 'react';
+import styles from './index.less';
 
 interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
     return (
-        <div>123</div>
+        <div className={styles.home}>Home</div>
     )
 };
 

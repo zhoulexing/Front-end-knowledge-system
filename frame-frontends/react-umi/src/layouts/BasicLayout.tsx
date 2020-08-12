@@ -1,9 +1,5 @@
 import React from 'react';
-import ProLayout, {
-    MenuDataItem,
-    BasicLayoutProps as ProLayoutProps,
-    Settings,
-} from '@ant-design/pro-layout';
+import ProLayout, { MenuDataItem, BasicLayoutProps as ProLayoutProps, Settings } from '@ant-design/pro-layout';
 import { useIntl, Link, connect, Dispatch } from 'umi';
 import logo from '@/assets/logo.svg';
 import { ConnectState } from '@/models/connect';
@@ -35,10 +31,7 @@ const noMatch = (
     />
 );
 
-const menuHeadRender = (
-    logoDom: React.ReactNode,
-    titleDom: React.ReactNode,
-) => {
+const menuHeadRender = (logoDom: React.ReactNode, titleDom: React.ReactNode) => {
     return (
         <Link to="/">
             {logoDom}
@@ -53,36 +46,20 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] => {
             ...item,
             children: item.children ? menuDataRender(item.children) : undefined,
         };
-        return Authorized.check(
-            item.authority,
-            localItem,
-            null,
-        ) as MenuDataItem;
+        return Authorized.check(item.authority, localItem, null) as MenuDataItem;
     });
 };
 
-const menuItemRender = (
-    menuItemProps: MenuDataItem,
-    defaultDom: React.ReactNode,
-) => {
+const menuItemRender = (menuItemProps: MenuDataItem, defaultDom: React.ReactNode) => {
     if (menuItemProps.isUrl || !menuItemProps.path) {
         return defaultDom;
     }
     return <Link to={menuItemProps.path}>{defaultDom}</Link>;
 };
 
-const itemRender = (
-    route: MenuDataItem,
-    params: MenuDataItem,
-    routes: MenuDataItem[],
-    paths: string[],
-) => {
+const itemRender = (route: MenuDataItem, params: MenuDataItem, routes: MenuDataItem[], paths: string[]) => {
     const first = routes.indexOf(route) === 0;
-    return first ? (
-        <Link to={paths.join('/')}>{route.breadcrumbName}</Link>
-    ) : (
-        <span>{route.breadcrumbName}</span>
-    );
+    return first ? <Link to={paths.join('/')}>{route.breadcrumbName}</Link> : <span>{route.breadcrumbName}</span>;
 };
 
 const footerRender = () => {
@@ -90,12 +67,9 @@ const footerRender = () => {
 };
 
 const BasicLayout: React.FC<BasicLayoutProps> = props => {
-    const { children, settings } = props;
+    const { children, settings, route } = props;
 
-    const authorized = getAuthorityFromRouter(
-        props.route.routes,
-        location.pathname || '/',
-    ) || {
+    const authorized = getAuthorityFromRouter(route.routes, route.path || '/') || {
         authority: undefined,
     };
 
