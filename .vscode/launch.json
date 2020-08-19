@@ -7,8 +7,8 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "basic:sensitiveWords",
-            "program": "${workspaceFolder}/basic/javascript/sensitiveWords.js"
+            "name": "basic:getRoutes",
+            "program": "${workspaceFolder}/basic/javascript/getRoutes.js"
         },
         {
             "type": "node",

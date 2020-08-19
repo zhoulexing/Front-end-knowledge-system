@@ -1,11 +1,12 @@
 import React from 'react';
-import ProLayout, { MenuDataItem, BasicLayoutProps as ProLayoutProps, Settings } from '@ant-design/pro-layout';
+import ProLayout, { MenuDataItem, BasicLayoutProps as ProLayoutProps, Settings, SettingDrawer } from '@ant-design/pro-layout';
 import { useIntl, Link, connect, Dispatch } from 'umi';
-import logo from '@/assets/logo.svg';
+import logo from '@/assets/logo.png';
 import { ConnectState } from '@/models/connect';
 import Authorized from '@/utils/Authorized';
 import { getAuthorityFromRouter } from '@/utils/util';
 import { Button, Result } from 'antd';
+import RightContent from '@/components/GlobalHeader/RightContent';
 
 export interface BasicLayoutProps extends ProLayoutProps {
     breadcrumbNameMap: {
@@ -16,6 +17,7 @@ export interface BasicLayoutProps extends ProLayoutProps {
     route: ProLayoutProps['route'] & {
         authority: string[];
     };
+    headerHeight: number;
 }
 
 const noMatch = (
@@ -67,7 +69,7 @@ const footerRender = () => {
 };
 
 const BasicLayout: React.FC<BasicLayoutProps> = props => {
-    const { children, settings, route } = props;
+    const { children, settings, route, dispatch } = props;
 
     const authorized = getAuthorityFromRouter(route.routes, route.path || '/') || {
         authority: undefined,
@@ -75,31 +77,47 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
 
     const { formatMessage } = useIntl();
 
-    const breadcrumbRender = (routers: MenuDataItem[] = []) => [
-        {
-            path: '/',
-            breadcrumbName: formatMessage({ id: 'menu.home' }),
-        },
-        ...routers,
-    ];
+    const breadcrumbRender = (routers: any = []) => {
+        return [
+            {
+                path: '/',
+                breadcrumbName: formatMessage({ id: 'menu.home' }),
+            },
+            ...routers,
+        ];
+    }
 
     return (
-        <ProLayout
-            logo={logo}
-            formatMessage={formatMessage}
-            menuHeaderRender={menuHeadRender}
-            itemRender={itemRender}
-            menuItemRender={menuItemRender}
-            menuDataRender={menuDataRender}
-            footerRender={footerRender}
-            breadcrumbRender={breadcrumbRender}
-            {...props}
-            {...settings}
-        >
-            <Authorized authority={authorized!.authority} noMatch={noMatch}>
-                {children}
-            </Authorized>
-        </ProLayout>
+        <>
+            <ProLayout
+                logo={logo}
+                formatMessage={formatMessage}
+                menuHeaderRender={menuHeadRender}
+                itemRender={itemRender}
+                menuItemRender={menuItemRender}
+                menuDataRender={menuDataRender}
+                footerRender={footerRender}
+                breadcrumbRender={breadcrumbRender}
+                rightContentRender={() => <RightContent />}
+                siderWidth={256}
+                headerHeight={64}
+                {...props}
+                {...settings}
+            >
+                <Authorized authority={authorized!.authority} noMatch={noMatch}>
+                    {children}
+                </Authorized>
+            </ProLayout>
+            <SettingDrawer
+                settings={settings}
+                onSettingChange={(config) =>{
+                    dispatch({
+                        type: 'settings/changeSettings',
+                        payload: config
+                    })
+                }}
+            />
+        </>
     );
 };
 

@@ -46,8 +46,8 @@ export default defineConfig({
         'primary-color': defaultSettings.primaryColor,
     },
     extraPostCSSPlugins: [
-        postcssAspectRatioMini({}),
-        postcssWriteSvg({ utf8: false }),
+        // postcssAspectRatioMini({}),
+        // postcssWriteSvg({ utf8: false }),
         // pxToViewPort({
         //     unitToConvert: 'px', // 需要转换的单位
         //     viewportWidth: 750, // 视窗的宽度，对应的是设计稿的宽度
@@ -63,12 +63,12 @@ export default defineConfig({
         //     landscapeWidth: 1334, //横屏时使用的视口宽度
         //     exclude: /node_modules/i,
         // }),
-        px2rem({ 
-            rootValue: 16, // rootValue=designWidth*100/750,此处设计稿为375，所以375*100/750=50
-            unitPrecision: 5,
-            mediaQuery: false,
-            propList: ['*'],
-        })
+        // px2rem({ 
+        //     rootValue: 16, // 将代码中所写的px值除以16转化成rem值
+        //     unitPrecision: 5,
+        //     mediaQuery: false,
+        //     propList: ['*'],
+        // })
     ],
     routes: [
         {
@@ -89,12 +89,11 @@ export default defineConfig({
         {
             path: '/layout',
             component: '@/layouts/SecurityLayout',
-            exact: true,
             routes: [
                 {
                     path: '/layout',
                     component: '@/layouts/BasicLayout',
-                    authority: ['admin'],
+                    authority: [],
                     routes: [
                         {
                             path: '/layout',

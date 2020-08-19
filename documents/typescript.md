@@ -115,6 +115,7 @@ interface 和 type // 声明全局类型
         "lib": ["esnext", "dom"],
         "strictNullChecks": false, // 为false， null可赋给void，true则不可以
         "declaration": true, // 生成声明文件
+        "emitDecoratorMetadata": true, // Reflect Metadata, yarn add reflect-metadata
     },
     "extends": "./config/base", // 复用配置文件
     "files"：[], // 只能指定文件，不能指定目录，且包含依赖；files的优先级最高，files > exclude > include

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .45s;
+            background-color: blue;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <button onclick="showHide()">收起或展开</button>
+        <div id='container'>
+            123
+            <br>
+            123
+            <br>
+            123
+            <br>
+            123
+            <br>
+            123
+            <br>
+            123
+            <br>
+            123
+            <br>
+            123
+            <br>
+        </div>
+    </div>
+    <!-- 为何div的高度不为0？ -->
+    <div><span style="display: inline-block;"></span></div>
+    <script>
+        const dom = document.querySelector('#container');
+
+        function showHide() {
+            const maxHeight = dom.style.maxHeight;
+            dom.style.maxHeight = maxHeight === '0px' ? '500px' : '0px';
+        }
+    </script>
+</body>
+</html>
