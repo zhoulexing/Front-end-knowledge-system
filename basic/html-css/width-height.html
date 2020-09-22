@@ -21,10 +21,11 @@
             background-color: coral;
             margin: 50px;
             padding: 50px;
-            width: 1000px;
+            width: 50px;
             height: 1000px;
-            border: solid 50px #000;
-            /* position: relative; */
+            border: solid 10px #000;
+            position: relative;
+            overflow: auto;
         }
         .box-inner {
             background-color: darkgreen;
@@ -86,7 +87,13 @@
             screenTop: ${window.screenTop},
             screenX: ${window.screenX},
             screenY: ${window.screenY},
-        `)
+        `);
+        console.log(boxInner.getBoundingClientRect());
+        console.log(`
+            getComputedStyle-width: ${window.getComputedStyle(boxOuter).width},
+            getComputedStyle-left: ${window.getComputedStyle(boxInner).left},
+            getBoundingClientRect: ${boxInner.getBoundingClientRect()}
+        `);
     </script>
 </body>
 </html>

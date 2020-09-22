@@ -108,13 +108,16 @@ async function getData() {
     try {
         await Promise.reject('出错了');
     } catch (error) {
-        
+        return error;
     }
     await Promise.resolve('Hello World');
 }
 getData().then(data => {
     console.log(data); // Hello World
 });
+
+
+
 
 
 /* 

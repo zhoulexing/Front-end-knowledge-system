@@ -293,7 +293,6 @@ MockPromise.race = function(promises) {
 
 
 function test(arr) {
-    console.log("test:", arr);
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             for(let i = 0; i < arr.length; i++) {
@@ -307,6 +306,79 @@ function test(arr) {
         }, 1000);
     });
 }
+
+function test5(value) {
+    return new Promise((resolve, reject) => {
+        if(value === 1) {
+            resolve('123');
+        }
+    })
+}
+test5(1).then((value) => {
+    console.log(value);
+    test([1]).then(value => {
+        console.log('345');
+    });
+}).then(() => {
+    console.log('end');
+})
+
+
+function test4() {
+    test([10]).then(value => {
+        return value;
+    }).catch(err => {
+        // return err;
+    }).then(value => {
+        console.log(value);
+    })
+}
+test4()
+
+function test3() {
+    test([1]).then(value => {
+        return value;
+    }).catch((err) => {
+        console.log('catch err:', err);
+        return 'error';
+    }).finally(value => {
+        console.log('finally:', value);
+    });
+}
+test3();
+
+function test2() {
+    return test([1]).then(value => {
+        return value;
+    }).then(() => {
+        return Promise.reject('error');
+    }).catch(err => {
+        return Promise.reject(err);
+    }).finally(() => {
+        console.log('finish');
+    });
+}
+
+test2().then(value => {
+    console.log('then:', value);
+}).catch(err => {
+    console.log('catch err:', err);
+})
+
+
+test([1]).then(value => {
+    if(value === 'success') {
+        return test([2]);
+    }
+    return Promise.reject('错误了');
+}).then(() => {
+    return test([10]);
+}).then(() => {
+    console.log("空的");
+}).catch(err => {
+    console.error(err);
+});
+
 
 function test1() {
     return test([20]).then(res => {

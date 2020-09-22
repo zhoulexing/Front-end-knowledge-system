@@ -172,6 +172,11 @@ export default defineConfig({
                     path: '/test/umiApi',
                     component: '@/pages/umiApi',
                 },
+                {
+                    name: 'clodopPrint',
+                    path: '/test/clodopPrint',
+                    component: '@/pages/clodopPrint',
+                }
             ]
         }
     ],
