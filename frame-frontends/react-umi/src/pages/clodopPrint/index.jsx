@@ -6,7 +6,9 @@ const ClodopPrint = () => {
         CLODOP.PRINT_INIT('预览');
         CLODOP.SET_PRINT_PAGESIZE(1, 1000, 1000);
 
+        LODOP.SET_PRINT_STYLEA(0, "Stretch", 10);
         LODOP.ADD_PRINT_TEXT(0, 0, 500, 500, 'hello');
+        LODOP.SET_PRINT_STYLEA(0, "Stretch", 10);
         // LODOP.ADD_PRINT_TEXT(0, 0, 100, 100, 'word');
         // LODOP.SET_PRINT_STYLEA(0, 'FontSize', 20);
 		// LODOP.SET_PRINT_STYLEA(0, "LinkedItem", -1);
