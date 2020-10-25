@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            .test1::before {
+                content: "";
+                display: inline-block;
+                height: 100%;
+                width: 4px;
+                border-left: 1px solid #000;
+                position: absolute;
+                left: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <h3>线性渐变: 角度是按垂直平分线从上到下，顺时针角度旋转</h3>
+        <div style="display: flex">
+            <div
+                style="
+                    width: 50px;
+                    height: 50px;
+                    background-image: linear-gradient(to bottom, red, blue);
+                    margin-right: 10px;
+                "
+            ></div>
+            <div
+                style="
+                    width: 50px;
+                    height: 50px;
+                    background-image: linear-gradient(
+                        to right,
+                        red 90%,
+                        blue 100%
+                    );
+                    margin-right: 10px;
+                "
+            ></div>
+            <div
+                style="
+                    width: 50px;
+                    height: 50px;
+                    background-image: linear-gradient(
+                        to right,
+                        red 0,
+                        red 10px,
+                        blue 10px,
+                        yellow 20px,
+                        orange 30px
+                    );
+                    margin-right: 10px;
+                "
+            ></div>
+        </div>
+        <hr />
+
+        <h3>径向渐变</h3>
+        <div style="display: flex">
+            <div
+                style="
+                    width: 100px;
+                    height: 100px;
+                    background-image: radial-gradient(red, blue);
+                    margin-right: 10px;
+                "
+            ></div>
+            <div
+                style="
+                    width: 100px;
+                    height: 100px;
+                    background-image: radial-gradient(20px, red, blue);
+                    margin-right: 10px;
+                "
+            ></div>
+            <div
+                style="
+                    width: 100px;
+                    height: 100px;
+                    background-image: radial-gradient(20px 50px, red, blue);
+                    margin-right: 10px;
+                "
+            ></div>
+            <div
+                style="
+                    width: 100px;
+                    height: 100px;
+                    background-image: radial-gradient(
+                        circle at 10px 10px,
+                        red,
+                        blue
+                    );
+                    margin-right: 10px;
+                "
+            ></div>
+            <div
+                style="
+                    width: 100px;
+                    height: 100px;
+                    background-image: radial-gradient(
+                        30px 10px,
+                        red 10px,
+                        blue 30px
+                    );
+                "
+            ></div>
+        </div>
+        <hr />
+
+        <h3>重复渐变</h3>
+        <div style="display: flex">
+            <div
+                style="
+                    width: 100px;
+                    height: 100px;
+                    background-image: repeating-linear-gradient(
+                        red,
+                        blue,
+                        yellow 30px
+                    );
+                    margin-right: 10px;
+                "
+            ></div>
+            <div
+                style="
+                    width: 100px;
+                    height: 100px;
+                    background-image: repeating-radial-gradient(
+                        red,
+                        blue,
+                        yellow 30px
+                    );
+                    margin-right: 10px;
+                "
+            ></div>
+        </div>
+        <hr />
+
+        <h3>利用渐变实现网格背景</h3>
+        <div
+            style="
+                height: 100px;
+                background-image: repeating-linear-gradient(
+                        to bottom,
+                        #ccc 0,
+                        #ccc 1px,
+                        rgba(0, 0, 0, 0) 1px,
+                        rgba(0, 0, 0, 0) 10px
+                    ),
+                    repeating-linear-gradient(
+                        to right,
+                        #ccc 0,
+                        #ccc 1px,
+                        rgba(0, 0, 0, 0) 1px,
+                        rgba(0, 0, 0, 0) 10px
+                    );
+            "
+        ></div>
+        <hr />
+
+        <h3>利用渐变实现纹理背景</h3>
+        <div style="display: flex">
+            <div
+                style="
+                    width: 100px;
+                    height: 100px;
+                    background-image: repeating-linear-gradient( red 0, red 10px, transparent 10px, transparent 20px);
+                    margin-right: 10px;
+                "
+            ></div>
+            <div
+                style="
+                    width: 100px;
+                    height: 100px;
+                    background-image: repeating-linear-gradient( red 0, red 10px, transparent 10px, transparent 20px);
+                    margin-right: 10px;
+                "
+            ></div>
+        </div>
+    </body>
+</html>

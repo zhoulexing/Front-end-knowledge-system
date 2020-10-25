@@ -54,14 +54,6 @@ module.exports = {
                     priority: -20,
                     reuseExistingChunk: true
                 }
-            },
-            minSize: {
-                javascript: 0,
-                style: 0,
-            },
-            maxSize: {
-                javascript: 30000,
-                style: 30000,
             }
         }
     },

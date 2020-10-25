@@ -1,44 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        a + a::before {
-            content: '';
-            font-size: 0;
-            padding: 10px 3px 1px;
-            margin-left: 6px;
-            border-left: 1px solid red;
-        }
-    </style>
-</head>
-<body>
-    <div>
-        <span style="padding: 20px;margin: 20px;background: red;">123</span>
-        <div>456</div>
-    </div>
-    <div>
-        <a href="">登录</a>
-        <a href="">注册</a>
-    </div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            html, body {
+                padding: 0;
+                margin: 0;
+            }
+        </style>
+        <style>
+            a + a::before {
+                content: "";
+                font-size: 0;
+                padding: 10px 3px 1px;
+                margin-left: 6px;
+                border-left: 1px solid red;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <div style="position: fixed; left: 0; top: 0;">标题</div>
+            <div>
+                <span style="padding-top: 30px;">内容</span>
+            </div>
+        </div>
+
+        <div>
+            <span style="padding: 20px; margin: 20px; background: red;"
+                >123</span
+            >
+            <div>456</div>
+        </div>
+        <div>
+            <a href="">登录</a>
+            <a href="">注册</a>
+        </div>
+        <div>
+            <div style="width: 100px;">
+                <span style="padding: 50%;">123456</span>
+            </div>
+        </div>
+        <div style="display: inline-block;width: 140px;height: 10px;padding: 35px 0; border-top: 10px solid; border-bottom: 10px solid; background-color: red; background-clip: content-box;"></div>
 
 
+        <hr>
+        <div>
+            <div style="background-color: crimson;">1</div>
+            <div style="background-color: darkgoldenrod;">2</div>
+            <div style="background-color: darkorchid;">3</div>
+        </div>
+        <hr>
 
-    <hr>
+        <div style="overflow: hidden;">
+            <div style="float: left;background-color: blue;margin-bottom: -99px;padding-bottom: 99px;">
+                <div>1</div>
+                <div>2</div>
+            </div>
+            <div style="float: left;background-color: crimson;margin-bottom: -99px;padding-bottom: 99px;">
+                <div>3</div>
+            </div>
+        </div>
 
-    <div>
-        <span>
-            我是<big>很大的</big>字体字体字体字体字体字体字体字体字体字体字体字体字体字体字体字体字体字体字体字体
-            <div>第二行</div>
-        </span>
-    </div>
 
-    <hr>
+        <hr>
 
-    <div>
-        <span style="position: absolute;">123</span>
-    </div>
-</body>
+        <div style="line-height: 96px;background-color: darkred;">
+            <span style="line-height: 20px;background-color: deepskyblue;">123</span>
+        </div>
+
+        <hr>
+
+        <div>
+            <span>1</span>
+        </div>
+        <div>
+            <span style="display: inline-block;"></span>
+        </div>
+
+        <hr>
+
+        <div>
+            <div>123</div>
+            <div style="position: absolute;">456</div>
+        </div>
+    </body>
 </html>

@@ -40,6 +40,7 @@
     "@types/classnames": "^2.2.10",
     "@types/jest": "^26.0.10",
     "@types/qrcode.react": "^1.0.1",
+    "@types/redux-actions": "^2.6.1",
     "@umijs/preset-react": "^1.5.21",
     "@umijs/test": "^3.2.16",
     "cross-env": "^7.0.2",
