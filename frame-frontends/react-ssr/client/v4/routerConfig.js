@@ -6,7 +6,7 @@ const Index = (props) => {
     const [data, setData] = useState(null);
 
     const onClick = () => {
-        console.log('Index');
+        console.log('Index', data);
     }
 
     useEffect(() => {
