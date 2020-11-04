@@ -38,11 +38,11 @@ class App extends React.Component {
         }
     }
 
-    componentDidMount() {
-        this.setState({
-            count: 1
-        });
-    }
+    // componentDidMount() {
+    //     this.setState({
+    //         count: 1
+    //     });
+    // }
 
     onClick() {
         this.setState({
@@ -55,15 +55,15 @@ class App extends React.Component {
 
     render() {
         return (
-            <Test count={this.state.count} onClick={this.onClick.bind(this)}/>
-            // <div>
-            //     <Test1 />
-            // </div>
+            // <Test count={this.state.count} onClick={this.onClick.bind(this)}/>
+            <div>
+                <Test />
+                <Test1 />
+            </div>
         )
     } 
 }
 
-debugger
 ReactDOM.render(
     <App />,
     document.getElementById("root")
