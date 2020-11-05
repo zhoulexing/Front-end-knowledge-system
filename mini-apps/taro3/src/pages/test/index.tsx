@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { View, Text, Button, NavigationBar } from "@tarojs/components";
-import "./index.less";
+import { View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 
-export default class Index extends Component {
+export default class Test extends Component {
     componentWillMount() {
 		console.log(Taro.getCurrentInstance());
 	}
@@ -21,14 +20,8 @@ export default class Index extends Component {
     render() {
         return (
             <View className="index">
-                <Text>Hello world!</Text>
-				<Button onClick={this.handleClick}>点我</Button>
-				<NavigationBar>asd</NavigationBar>
+                test
             </View>
         );
-	}
-	
-	handleClick() {
-		console.log('Hello');
-	}
+    }
 }
