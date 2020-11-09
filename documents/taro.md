@@ -26,12 +26,12 @@
 
 ## 路由跳转
 
--   navigateTo: 小程序、H5、React Native都支持
--   redirectTo: 小程序、H5、React Native都支持
--   switchTab: 小程序、H5、React Native都支持
--   navigateBack: 小程序、H5、React Native都支持
--   relaunch: 小程序、H5、React Native都支持
--   getCurrentPages：H5不支持
+-   navigateTo: 小程序、H5、React Native 都支持
+-   redirectTo: 小程序、H5、React Native 都支持
+-   switchTab: 小程序、H5、React Native 都支持
+-   navigateBack: 小程序、H5、React Native 都支持
+-   relaunch: 小程序、H5、React Native 都支持
+-   getCurrentPages：H5 不支持
 
 ## taro 性能优化
 
@@ -64,3 +64,8 @@
 -   shouldComponentUpdate、React.PureComponent、React.memo
 
 -   Taro 框架做了一些性能优化方面的工作，在真正调用小程序的 setData 方法之前，Taro 会做一次 diff。
+
+## 相关问题
+
+-   在文件中如果通过 module.exports 导出对象，如果不引入@taro/tarojs 则可以正常的通过 import 进行解构，
+    但是引入之后，import 结构就会报错。
