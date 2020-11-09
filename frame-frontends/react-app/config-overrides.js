@@ -1,6 +1,29 @@
-const { override, fixBabelImports } = require("customize-cra");
+const {
+    override,
+    fixBabelImports,
+    addLessLoader,
+    addDecoratorsLegacy,
+    addPostcssPlugins,
+    disableEsLint
+} = require('customize-cra');
 
-module.exports = override(fixBabelImports("import", {
-    libraryName: 'ant-mobile',
-    style: 'css'
-}));
+module.exports = override(
+    addDecoratorsLegacy(),
+    fixBabelImports("import", {
+        libraryName: 'antd-mobile',
+        style: true
+    }),
+    addLessLoader({
+        lessOptions: {
+            javascriptEnabled: true,
+            modifyVars: {}
+        }
+    }),
+    addPostcssPlugins(
+        [require('postcss-pxtorem')({
+            rootValue: 16,
+            propList: ['*']
+        })]
+    ),
+    disableEsLint()
+);

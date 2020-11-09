@@ -12,4 +12,6 @@ const reportWebVitals = (onPerfEntry?: ReportHandler) => {
   }
 }
 
+reportWebVitals(console.log);
+
 export default reportWebVitals;

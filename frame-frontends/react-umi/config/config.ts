@@ -68,6 +68,7 @@ export default defineConfig({
         //     unitPrecision: 5,
         //     mediaQuery: false,
         //     propList: ['*'],
+        //     propWhiteList: []
         // })
     ],
     routes: [

@@ -37,3 +37,18 @@ react只有调用setState方法或者调用hook的方法来进行更新，而这
 后续的流程与初始化流程差不多，只不过在过程中会根据不同的条件进行不同的逻辑处理。如果组件是正在更新中，
 则会将performSyncWorkOnRoot方法添加到queueCallack数组中，待上一次渲染完，在执行queueCallback数组
 中的函数进行更新。
+
+## react状态管理库
+
+- redux
+    redux、react-redux、redux-thunk、redux-saga（dva）、redux-promise、redux-observable
+- mobx
+    mobx、mobx-react-lite、
+- recoil
+    recoil
+- xstate
+    xstate、@xstate/react
+- hooks
+    use-global-hook、mozz、stated-bean、unstated-next、react-duce、
+- context
+    useContext、createContext、
