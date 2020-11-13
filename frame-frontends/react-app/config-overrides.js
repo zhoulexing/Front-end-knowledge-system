@@ -16,7 +16,10 @@ module.exports = override(
     addLessLoader({
         lessOptions: {
             javascriptEnabled: true,
-            modifyVars: {}
+            modifyVars: {
+                'background-color': '#fbfbfb',
+                'radius-md': '2px'
+            }
         }
     }),
     addPostcssPlugins(

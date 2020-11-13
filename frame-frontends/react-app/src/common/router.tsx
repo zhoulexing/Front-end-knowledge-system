@@ -19,7 +19,22 @@ const getRouterConfig = () => ({
         component: loadable(() => import(
             /* webpackChunkName: "recoul" */ "../pages/recoil"
         ))
-    }
+    },
+    '/apps/title': {
+        component: loadable(() => import(
+            /* webpackChunkName: "title" */ "../pages/title"
+        ))
+    },
+    '/apps/mock': {
+        component: loadable(() => import(
+            /* webpackChunkName: "mock" */ "../pages/mock"
+        ))
+    },
+    '/apps/mobile': {
+        component: loadable(() => import(
+            /* webpackChunkName: "mobile" */ "../pages/mobile"
+        ))
+    },
 } as RouterConfigProps)
 
 
