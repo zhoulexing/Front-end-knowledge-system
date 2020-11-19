@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+        .ads-position {
+            overflow: auto;
+            position: relative;
+            width: 400px;
+            height: 280px;
+            outline: 1px solid #3c9;
+        }
+        ul {
+            padding: 200px 0;
+        }
+        li {
+            position: sticky;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            color: #fff;
+        }
+        li:nth-child(1) {
+            top: 0;
+            z-index: 9;
+            background-color: #f66;
+        }
+        li:nth-child(2) {
+            top: 40px;
+            z-index: 9;
+            background-color: #66f;
+        }
+        li:nth-child(3) {
+            background-color: #f90;
+        }
+        li:nth-child(4) {
+            bottom: 0;
+            z-index: 8;
+            background-color: #09f;
+        }
+        li:nth-child(5) {
+            bottom: 40px;
+            z-index: 7;
+            background-color: #3c9;
+        }
+    </style>
+</head>
+<body>
+    <div class="ads-position"> 
+        <ul>
+            <li>Top 1</li>
+            <li>Top 2</li>
+            <li>Normal</li>
+            <li>Bottom 1</li>
+            <li>Bottom 2</li>
+        </ul>
+    </div>
+</body>
+</html>
