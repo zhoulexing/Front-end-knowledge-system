@@ -3,8 +3,6 @@ import { View, Text, Button, NavigationBar } from "@tarojs/components";
 import "./index.less";
 import Taro from "@tarojs/taro";
 
-console.log("app:", Taro.getApp());
-
 export default class Index extends Component {
     componentWillMount() {
 		console.log(Taro.getCurrentInstance());

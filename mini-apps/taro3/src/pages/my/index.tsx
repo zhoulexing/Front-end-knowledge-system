@@ -1,27 +1,18 @@
-import React, { Component } from "react";
-import { View, Text } from "@tarojs/components";
-import Taro from "@tarojs/taro";
+import React from "react";
+import { View, Button } from "@tarojs/components";
+import { useRecoilState } from "recoil";
+import userAtom from "../../atoms/user";
 
-export default class My extends Component {
-    componentWillMount() {
-		console.log(Taro.getCurrentInstance());
-	}
+const My = () => {
+    const [user, setUser] = useRecoilState(userAtom);
+    const changeUsername = () => {
+        setUser({ username: "yww" });
+    };
+    return (
+        <View>
+            <Button onClick={changeUsername}>{user.username}</Button>
+        </View>
+    );
+};
 
-    componentDidMount() {
-	}
-
-    componentWillUnmount() {}
-
-    componentDidShow() {
-	}
-
-    componentDidHide() {}
-
-    render() {
-        return (
-            <View className="index">
-                <Text>My</Text>
-            </View>
-        );
-    }
-}
+export default My;

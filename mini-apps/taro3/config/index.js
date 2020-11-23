@@ -44,7 +44,7 @@ const config = {
   },
   h5: {
     publicPath: '/',
-    staticDirectory: 'static',
+    staticDirectory: 'assets',
     output: {
       filename: 'js/[name].[hash:8].js',
       chunkFilename: 'js/[name].[chunkhash:8].js'
