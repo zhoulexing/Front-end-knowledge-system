@@ -43,6 +43,7 @@ const config = {
     }
   },
   h5: {
+    esnextModules: ['taro-ui'],
     publicPath: '/',
     staticDirectory: 'assets',
     output: {

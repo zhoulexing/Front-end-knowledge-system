@@ -37,7 +37,8 @@
     "react": "^16.10.0",
     "react-dom": "^16.10.0",
     "recoil": "^0.1.2",
-    "sr-sdk-wxapp": "^1.3.6"
+    "sr-sdk-wxapp": "^1.3.6",
+    "taro-ui": "^3.0.0-alpha.3"
   },
   "devDependencies": {
     "@babel/core": "^7.8.0",

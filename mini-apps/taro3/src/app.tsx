@@ -1,6 +1,7 @@
 import React from "react";
 import { RecoilRoot } from 'recoil';
 import "./app.less";
+import "./app.scss";
 
 interface AppProps {
 
