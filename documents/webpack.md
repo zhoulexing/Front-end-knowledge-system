@@ -559,6 +559,21 @@ false、entry、usage。false 不会考虑浏览器版本，直接全部引入�
 }
 ```
 
+### 配置 eslint
+
+```
+ {
+    test: /\.(ts|js)x?$/,
+    // exclude: [/node_modules/],
+    include: [path.resolve(__dirname, "src")],
+    use: ["eslint-loader"],
+    enforce: "pre",
+    options: { // 这里的配置项参数将会被传递到 eslint 的 CLIEngine
+        formatter: require("eslint-friendly-formatter") // 指定错误报告的格式规范
+    }
+},
+```
+
 ### 配置 tree shaking
 
 1. 使用 es6 的模块化导入导出
@@ -609,21 +624,6 @@ import '../my.css';
         ]
     }
 }
-```
-
-### 配置 eslint
-
-```
- {
-    test: /\.(ts|js)x?$/,
-    // exclude: [/node_modules/],
-    include: [path.resolve(__dirname, "src")],
-    use: ["eslint-loader"],
-    enforce: "pre",
-    options: { // 这里的配置项参数将会被传递到 eslint 的 CLIEngine
-        formatter: require("eslint-friendly-formatter") // 指定错误报告的格式规范
-    }
-},
 ```
 
 ### 针对浏览器版本按需编译的配置
@@ -680,4 +680,19 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 plugins: [
     new BundleAnalyzerPlugin()
 ]
+```
+
+## 配置脚本
+
+### 启动命令的变化
+
+```
+4.x: webpack-dev-server --config ./config/xxx.js
+5.x: webpack serve --config ./config/xxx.js
+```
+
+## TS配置
+
+```
+yarn add typescript ts-node @types/node @types/webpack -D
 ```

@@ -27,6 +27,6 @@
     "src/**/*",
     "config/**/*",
     ".umirc.ts",
-    "typings.d.ts"
+    "typings.d.ts", "../react-app/src/common/router.tsx"
   ]
 }
