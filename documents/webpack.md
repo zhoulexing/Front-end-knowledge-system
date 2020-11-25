@@ -1,4 +1,4 @@
-# webpack 配置文档(>v4.41)
+# webpack 基础配置项(>v4.41)
 
 ## 配置模式
 
@@ -155,7 +155,9 @@ optimization: {
         maxInitialRequests: 3, // 最大的初始化加载次数，默认为 3
         automaticNameDelimiter: "~", // 抽取出来的文件的自动生成名字的分割符，默认为 ~
         name: true, // 抽取出来文件的名字，默认为 true，表示自动生成文件名
-        cacheGroups: { // cacheGroups 才是我们配置的关键, 它可以继承/覆盖上面 splitChunks 中所有的参数值, 除此之外还额外提供了三个配置，分别为：test, priority 和 reuseExistingChunk
+        // cacheGroups 才是我们配置的关键, 它可以继承/覆盖上面 splitChunks 中所有的参数值,
+        // 除此之外还额外提供了三个配置，分别为：test, priority 和 reuseExistingChunk
+        cacheGroups: {
             vendors: {
                 test: /[\\/]node_modules[\\/]/,
                 priority: -10 // 优先级
@@ -165,6 +167,7 @@ optimization: {
                 priority: -20,
                 reuseExistingChunk: true, // 是否复用存在的chunk
             },
+            // 以上是默认值配置
             reactBase: {
                 name: "reactBase",
                 test: module => {
@@ -202,6 +205,46 @@ optimization: {
     },
     ...
 }
+```
+
+## 持久化缓存配置
+
+为了提高编译速度，社区有两种编译方案，第一种是通过 dll 预编译来让 webpack 跳过一些模块的编译；
+第二种是通过把 loader 的处理结果缓存到本地磁盘，来加速二次编译。webpack5 添加了 cache 的配置方
+式即第二种方式来加速编译。
+
+编译又分为长效编译和编译缓存，长效编译是通过 optimization 的 splitChunks 和 runtimeChunk 的配置，
+让编译出的文件具有稳定的 hash 名称，从而让浏览器能长期有效、安全的复用缓存，达到加速页面加载的效果。
+编译缓存是将编辑的结果缓存起来，在后续编译时复用缓存，从而达到加速编译的效果。
+
+```
+cache: {
+    type: 'filesystem' | ''
+}
+```
+
+# webpack 项目配置(>v4.41)
+
+## 配置模板
+
+```
+new HtmlWebpackPlugin({
+    title: "前沿前端",
+    favicon: "./assets/images/favicon.ico",
+    template: `./index.ejs`,
+    filename: `index.html`,
+    // 压缩html
+    minify: {
+        minifyJS: true,
+        minifyCSS: true,
+        collapseInlineTagWhitespace: true,
+        collapseWhitespace: true // 删除空白符与换行符
+    }
+    // append: {
+    // body:"",
+    // head: ""
+    // }
+}),
 ```
 
 ## 配置样式
@@ -312,22 +355,23 @@ PostCSS 不是类似 Less，Sass，Stylus 那样的 CSS 预处理器，而是一
 
 ```postcss.config.js
 module.exports = {
-    plugins: [ // 指定@import引入css文件的功能和范围
-            require("postcss-import") ({root: "./loadcss"}), require(
-                "postcss-preset-env"
-            ) (),
+    plugins: [
+        // 指定@import引入css文件的功能和范围
+        require("postcss-import") ({root: "./loadcss"}), require(
+            "postcss-preset-env"
+        ) (),
         // 支持css一些新的功能
-            require("postcss-cssnext"), // 支持css一些新的功能, postcss-cssnext已经支持autoprefixer
-            require("cssnano") (),
+        require("postcss-cssnext"), // 支持css一些新的功能, postcss-cssnext已经支持autoprefixer
+        require("cssnano") (),
         // 压缩和优化css, 删除注释和重复样式等
-            require("autoprefixer")
-            (
-                {// 解决浏览器私有前缀的问题
-                    overrideBrowserslist: [ "> 1%",
-                "last 5 versions" ]}
-            ), // 添加命名空间
-            require("postcss-selector-namespace")
-            ({namespace: ".custom-namespace"}), ];
+        require("autoprefixer")
+        (
+            {// 解决浏览器私有前缀的问题
+                overrideBrowserslist: [ "> 1%",
+            "last 5 versions" ]}
+        ), // 添加命名空间
+        require("postcss-selector-namespace")
+        ({namespace: ".custom-namespace"}), ];
 }
 ```
 
@@ -674,6 +718,7 @@ module.exports = smp.wrap(webpackConfig); // webpackConfig为配置对象
 ```
 
 ### 分析包内容
+
 ```
 yarn install  webpack-bundle-analyzer -D
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -691,7 +736,9 @@ plugins: [
 5.x: webpack serve --config ./config/xxx.js
 ```
 
-## TS配置
+## wepack 多语言配置
+
+typescript
 
 ```
 yarn add typescript ts-node @types/node @types/webpack -D

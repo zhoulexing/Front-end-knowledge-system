@@ -29,5 +29,11 @@ module.exports = {
                 collapseWhitespace: true // 删除空白符与换行符
             }
         }),
-    ]
+    ],
+    cache: {
+        type: 'filesystem',
+        buildDependencies: {
+            config: [ __filename ] // 当你 CLI 自动添加它时，你可以忽略它
+        }
+    }
 }

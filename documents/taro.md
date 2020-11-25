@@ -1,7 +1,7 @@
 ## 小程序生命周期
 
 -   小程序初始化完成：onLaunch(options) ==== componentWillMount, componentDidMount(在 willMount 后执行)
-    options 可以通过 this.\$router.params 获取；
+    options 可以通过 this.$router.params 获取；
     options 在 v3 之后通过@tarojs/taro 中的 getCurrentInstance().router 获取；
     对于项目入口组件而言，路由信息推荐在 componentDidShow 声明周期的参数中直接读取；
 

@@ -1,44 +1,50 @@
 import React from "react";
-import { RecoilRoot } from 'recoil';
+import createApp from "./store";
+import { Provider } from "react-redux";
+import Taro from "@tarojs/taro";
+import models from "./models/index";
 import "./app.less";
 import "./app.scss";
 
-interface AppProps {
-
-}
-
-interface AppStates {}
-
-class App extends React.Component<AppProps, AppStates> {
+const store = createApp({ models });
+class App extends React.Component {
     globalData = {
-		env: "test"
-	};
+        env: "test",
+    };
 
     componentDidMount() {
-	}
+        Taro.getSetting({
+            success: (res) => {
+                if (res.authSetting["scope.userInfo"]) {
+                    this.getUserInfo();
+                }
+            },
+            fail: (err) => {
+                console.log("Taro.getSetting:", err);
+            },
+        });
+    }
 
-    componentDidShow(options) {
-	}
+    getUserInfo() {
+        Taro.getUserInfo({
+            success: (res) => {
+                store.dispatch({
+                    type: 'user/setUser',
+                    payload: res.userInfo
+                });
+            },
+        });
+    }
+
+    componentDidShow(options) {}
 
     componentDidHide() {}
 
     componentDidCatchError() {}
 
     render() {
-        return (
-            <RecoilRoot>
-                {this.props.children}
-            </RecoilRoot>
-        );
+        return <Provider store={store}>{this.props.children}</Provider>;
     }
 }
-
-// const App = (props) => {
-//     return (
-//         <RecoilRoot>
-//             {props.children}   
-//         </RecoilRoot>
-//     )
-// }
 
 export default App;

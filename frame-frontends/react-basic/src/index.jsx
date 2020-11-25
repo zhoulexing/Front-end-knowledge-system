@@ -5,7 +5,7 @@ class Test extends React.Component {
     constructor() {
         super();
         this.state = {
-            name: "zlx"
+            name: "zlx111"
         }
     }
 
@@ -32,7 +32,7 @@ function Test1() {
 function Test2() {
     const onClick = () => {}
     const [count, setCount] = useState(0);
-    return <div onClick={onClick}>Test2 - {count}</div>
+    return <div onClick={onClick}>Test211 - {count}</div>
 }
 
 
