@@ -13,6 +13,7 @@ class App extends React.Component {
     };
 
     componentDidMount() {
+        console.log(Taro.getSetting);
         Taro.getSetting({
             success: (res) => {
                 if (res.authSetting["scope.userInfo"]) {
@@ -30,7 +31,9 @@ class App extends React.Component {
             success: (res) => {
                 store.dispatch({
                     type: 'user/setUser',
-                    payload: res.userInfo
+                    payload: {
+                        username: res.userInfo.nickName
+                    }
                 });
             },
         });

@@ -23,6 +23,13 @@ module.exports = {
             libraryName: "antd-mobile",
             style: true,
         }),
+
+        // fixBabelImports('import', {
+        //     libraryName: 'antd',
+        //     libraryDirectory: 'es',
+        //     style: true,
+        // }),
+
         addLessLoader({
             lessOptions: {
                 javascriptEnabled: true,

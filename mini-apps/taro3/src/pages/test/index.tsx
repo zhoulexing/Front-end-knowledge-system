@@ -21,7 +21,8 @@ export default class Test extends Component {
     render() {
         return (
             <View className="index">
-                test
+                {/* <PlatTest /> */}
+                111
             </View>
         );
     }
