@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,// 装饰器
+        "target": "es5", // 编译为es5
+        "module": "commonjs", // 制定使用模块
+        "allowJs": true, // 允许编辑js文件
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "removeComments": true,
+        "outDir": "dist", // 输出目录
+        "moduleResolution": "node", // 模块解析策略
+        "strict": true, // 严格模式
+        "emitDecoratorMetadata": true, // Reflect Metadata
+        "strictNullChecks": false,
+        "skipLibCheck": true,
+        "noUnusedLocals": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "noImplicitReturns": true,
+        "lib": ["esnext", "dom"],
+    },
+    "include": ["./src"], // 指定目录
+    "exclude": [
+        "dist", 
+        "node_modules"
+    ]
+}
