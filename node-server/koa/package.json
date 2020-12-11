@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "nodemon --inspect app.js",
     "test": "mocha --harmony test/*.js --require co-mocha"
   },
   "dependencies": {
