@@ -1,4 +1,4 @@
-import { addPlatforms } from "../taro-helper";
+import helper from "../taro-helper";
 
 export default class Plugin {
 
@@ -36,7 +36,7 @@ export default class Plugin {
         if (this.ctx.platforms.has(platform.name)) {
             throw new Error(`适配平台 ${platform.name} 已存在`);
         }
-        addPlatforms(platform.name);
+        helper.addPlatforms(platform.name);
         this.ctx.platforms.set(platform.name, platform);
         this.register(platform);
     }

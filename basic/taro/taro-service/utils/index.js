@@ -1,7 +1,7 @@
 import path from "path";
 import { merge } from "lodash";
 import resolve from "resolve";
-import { getModuleDefaultExport } from "../../taro-helper";
+import helper from "../../taro-helper";
 
 export function mergePlugins(dist, src) {
     return () => {
@@ -49,7 +49,7 @@ export function resolvePresetsOrPlugins(root, args, type) {
             type,
             opts: args[item] || {},
             apply() {
-                return getModuleDefaultExport(require(fPath));
+                return helper.getModuleDefaultExport(require(fPath));
             },
         };
     });

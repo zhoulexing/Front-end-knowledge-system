@@ -1,5 +1,5 @@
-const { UnRecursiveTemplate } = require( "../../../taro-shared/src/template");
-const { printDevelopmentTip } = require("../../util");
+import { UnRecursiveTemplate } from "../../../taro-shared/template";
+import { printDevelopmentTip } from "../../util";
 
 export class Template extends UnRecursiveTemplate {
     supportXS = true;

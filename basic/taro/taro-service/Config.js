@@ -1,11 +1,7 @@
-import * as fs from "fs-extra";
-import {
-    resolveScriptPath,
-    createBabelRegister,
-    getModuleDefaultExport,
-} from "../taro-helper/index";
-import * as path from "path";
-import { CONFIG_DIR_NAME, DEFAULT_CONFIG_FILE } from "./constants";
+import fs from "fs-extra";
+import helper  from "../taro-helper/index";
+import path from "path";
+import { CONFIG_DIR_NAME, DEFAULT_CONFIG_FILE } from "./utils/constants";
 import { merge } from "lodash";
 
 export default class Config {
@@ -15,14 +11,14 @@ export default class Config {
     }
 
     init() {
-        this.configPath = resolveScriptPath(
+        this.configPath = helper.resolveScriptPath(
             path.join(this.appPath, CONFIG_DIR_NAME, DEFAULT_CONFIG_FILE)
         );
         if (!fs.existsSync(this.configPath)) {
             this.initialConfig = {};
             this.isInitSuccess = false;
         } else {
-            createBabelRegister({
+            helper.createBabelRegister({
                 only: [
                     (filePath) =>
                         filePath.indexOf(
@@ -31,7 +27,7 @@ export default class Config {
                 ],
             });
             try {
-                this.initialConfig = getModuleDefaultExport(
+                this.initialConfig = helper.getModuleDefaultExport(
                     require(this.configPath)
                 )(merge);
                 this.isInitSuccess = true;

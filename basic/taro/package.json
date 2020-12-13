@@ -8,9 +8,11 @@
     "debug": "babel-node --inspect-brk taro-cli/index.js build --type weapp"
   },
   "dependencies": {
+    "chalk": "^4.1.0",
     "lodash": "^4.17.20",
     "minimist": "^1.2.5",
-    "resolve": "^1.19.0"
+    "resolve": "^1.19.0",
+    "tapable": "^2.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
@@ -22,6 +24,7 @@
     "@babel/preset-env": "^7.12.10",
     "@babel/preset-typescript": "^7.12.7",
     "@babel/runtime": "^7.12.5",
+    "@hapi/joi": "^17.1.1",
     "debug": "^4.3.1",
     "find-yarn-workspace-root": "^2.0.0",
     "fs-extra": "^9.0.1"

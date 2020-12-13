@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "test:ts": "ts-node src/test.ts",
-    "test:js": "babel-node src/js/a.js"
+    "test:js": "babel-node src/js/run.js"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

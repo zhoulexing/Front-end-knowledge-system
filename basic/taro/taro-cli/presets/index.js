@@ -17,7 +17,7 @@ export default () => {
             // path.resolve(__dirname, 'platforms', 'ui.js'),
 
             // commands
-            // path.resolve(__dirname, "commands", "build.js"),
+            path.resolve(__dirname, "commands", "build.js"),
             // path.resolve(__dirname, "commands", "init.js"),
             // path.resolve(__dirname, "commands", "config.js"),
             // path.resolve(__dirname, "commands", "create.js"),

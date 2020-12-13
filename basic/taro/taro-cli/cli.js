@@ -1,6 +1,6 @@
 import  minimist from "minimist";
 import { Kernel } from "../taro-service";
-import build from "./build";
+import build from "./commands/build";
 import path from "path";
 
 

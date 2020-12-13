@@ -1,9 +1,7 @@
-import { EventEmitter } from "events";
-import helper, {
-    recursiveFindNodeModules,
-    createBabelRegister,
-} from "../taro-helper";
-import { NODE_MODULES } from "../taro-helper/constants";
+import {
+    EventEmitter
+} from "events";
+import helper from "../taro-helper";
 import Config from "./Config";
 import Plugin from "./Plugin";
 import path from "path";
@@ -12,7 +10,18 @@ import {
     resolvePresetsOrPlugins,
     convertPluginsToObject,
 } from "./utils/index";
-import { PluginType } from "./utils/constants";
+import {
+    PluginType,
+    IS_MODIFY_HOOK,
+    IS_EVENT_HOOK,
+    IS_ADD_HOOK
+} from "./utils/constants";
+import {
+    argv
+} from "process";
+import {
+    AsyncSeriesWaterfallHook
+} from 'tapable'
 
 export default class Kernel extends EventEmitter {
     constructor(options) {
@@ -51,8 +60,8 @@ export default class Kernel extends EventEmitter {
     initPaths() {
         this.paths = {
             appPath: this.appPath,
-            nodeModulesPath: recursiveFindNodeModules(
-                path.join(this.appPath, NODE_MODULES)
+            nodeModulesPath: helper.recursiveFindNodeModules(
+                path.join(this.appPath, helper.NODE_MODULES)
             ),
         };
         if (this.config.isInitSuccess) {
@@ -93,7 +102,7 @@ export default class Kernel extends EventEmitter {
             allConfigPlugins
         );
         process.env.NODE_ENV !== "test" &&
-            createBabelRegister({
+            helper.createBabelRegister({
                 only: [
                     ...Object.keys(allConfigPresets),
                     ...Object.keys(allConfigPlugins),
@@ -119,8 +128,17 @@ export default class Kernel extends EventEmitter {
     }
 
     initPlugin(plugin) {
-        const { id, path, opts, apply } = plugin;
-        const pluginCtx = this.initPluginCtx({ id, path, ctx: this });
+        const {
+            id,
+            path,
+            opts,
+            apply
+        } = plugin;
+        const pluginCtx = this.initPluginCtx({
+            id,
+            path,
+            ctx: this
+        });
         this.debugger("initPlugin", plugin);
         this.registerPlugin(plugin);
         apply()(pluginCtx, opts);
@@ -131,8 +149,16 @@ export default class Kernel extends EventEmitter {
         console.log("checkPluginOpts:", pluginCtx, opts);
     }
 
-    initPluginCtx({ id, path, ctx }) {
-        const pluginCtx = new Plugin({ id, path, ctx });
+    initPluginCtx({
+        id,
+        path,
+        ctx
+    }) {
+        const pluginCtx = new Plugin({
+            id,
+            path,
+            ctx
+        });
         const internalMethods = ["onReady", "onStart"];
         const kernelApis = [
             "appPath",
@@ -153,9 +179,9 @@ export default class Kernel extends EventEmitter {
             get: (target, name) => {
                 if (this.methods.has(name)) return this.methods.get(name);
                 if (kernelApis.includes(name)) {
-                    return typeof this[name] === "function"
-                        ? this[name].bind(this)
-                        : this[name];
+                    return typeof this[name] === "function" ?
+                        this[name].bind(this) :
+                        this[name];
                 }
                 return target[name];
             },
@@ -164,9 +190,21 @@ export default class Kernel extends EventEmitter {
 
     initPreset(preset) {
         this.debugger("initPreset", preset);
-        const { id, path, opts, apply } = preset;
-        const pluginCtx = this.initPluginCtx({ id, path, ctx: this });
-        const { presets, plugins } = apply()(pluginCtx, opts) || {};
+        const {
+            id,
+            path,
+            opts,
+            apply
+        } = preset;
+        const pluginCtx = this.initPluginCtx({
+            id,
+            path,
+            ctx: this
+        });
+        const {
+            presets,
+            plugins
+        } = apply()(pluginCtx, opts) || {};
         console.log("presets, plugins：", presets, plugins);
         this.registerPlugin(preset);
         if (Array.isArray(presets)) {
@@ -211,12 +249,59 @@ export default class Kernel extends EventEmitter {
 
     async init() {
         this.debugger("init");
-        
+
         this.initConfig();
         this.initPaths();
 
         this.initPresetsAndPlugins();
-        // await this.applyPlugins("onReady");
+        await this.applyPlugins("onReady");
+    }
+
+    async applyPlugins(args) {
+        let name;
+        let initialVal;
+        let opts;
+        if (typeof args === "string") {
+            name = args;
+        } else {
+            name = args.name;
+            initialVal = args.initialVal;
+            opts = argv.opts;
+        }
+
+        this.debugger('applyPlugins')
+        this.debugger(`applyPlugins:name:${name}`)
+        this.debugger(`applyPlugins:initialVal:${initialVal}`)
+        this.debugger(`applyPlugins:opts:${opts}`)
+
+        if (typeof name !== 'string') {
+            throw new Error('调用失败，未传入正确的名称！')
+        }
+        const hooks = this.hooks.get(name) || [];
+        console.log("hooks:", hooks);
+        const waterfall = new AsyncSeriesWaterfallHook(['arg'])
+        if (hooks.length) {
+            const resArr = []
+            for (const hook of hooks) {
+                waterfall.tapPromise({
+                    name: hook.plugin,
+                    stage: hook.stage || 0,
+                    // @ts-ignore
+                    before: hook.before
+                }, async arg => {
+                    const res = await hook.fn(opts, arg)
+                    if (IS_MODIFY_HOOK.test(name) && IS_EVENT_HOOK.test(name)) {
+                        return res
+                    }
+                    if (IS_ADD_HOOK.test(name)) {
+                        resArr.push(res)
+                        return resArr
+                    }
+                    return null
+                })
+            }
+        }
+        return await waterfall.promise(initialVal);
     }
 
     async run(args) {
@@ -236,5 +321,17 @@ export default class Kernel extends EventEmitter {
         this.setRunOpts(opts);
 
         await this.init();
+        this.debugger('command:onStart');
+        await this.applyPlugins('onStart');
+
+        console.log("opts:", opts, name, this.commands);
+        if (!this.commands.has(name)) {
+            throw new Error(`${name} 命令不存在`)
+        }
+
+        await this.applyPlugins({
+            name,
+            opts
+        });
     }
 }
