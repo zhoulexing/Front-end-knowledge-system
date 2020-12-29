@@ -3,6 +3,8 @@ import * as constants from "./constants";
 import createBabelRegister from './babelRegister';
 import * as utils from "./utils";
 import * as npm from "./npm";
+import chalk from 'chalk';
+import fs from "fs-extra";
 
 
 const helper = {
@@ -10,6 +12,8 @@ const helper = {
     ...utils,
     ...npm,
     createDebug,
+    chalk,
+    fs,
     createBabelRegister,
 };
 

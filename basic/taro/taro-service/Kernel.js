@@ -27,8 +27,7 @@ export default class Kernel extends EventEmitter {
     constructor(options) {
         super();
         this.debugger = helper.createDebug("Taro:Kernel");
-        options.appPath =
-            "D:\\project\\Front-end-knowledge-system\\mini-apps\\taro3";
+        options.appPath = path.join(__dirname, '../../../mini-apps/taro3');
         this.appPath = options.appPath || process.cwd();
         this.optsPresets = options.presets;
         this.optsPlugins = options.plugins;
@@ -266,7 +265,7 @@ export default class Kernel extends EventEmitter {
         } else {
             name = args.name;
             initialVal = args.initialVal;
-            opts = argv.opts;
+            opts = args.opts;
         }
 
         this.debugger('applyPlugins')

@@ -14,13 +14,18 @@ function buildLine(error) {
 }
 
 function buildReport(configPath, errors) {
-    const errorLines = _.compose(
-        _.map(buildLine),
-        _.get('details')
-    )(errors)
+    // const errorLines = _.curry(
+    //     _.map(buildLine),
+    //     _.get('details')
+    // )(errors)
+    // return {
+    //     desc: `检查 Taro 配置 (${configPath})，请到文档查看详情：https://nervjs.github.io/taro/docs/next/config-detail。`,
+    //     lines: errorLines
+    // }
+    console.log("buildReport:", errors);
     return {
         desc: `检查 Taro 配置 (${configPath})，请到文档查看详情：https://nervjs.github.io/taro/docs/next/config-detail。`,
-        lines: errorLines
+        lines: []
     }
 }
 

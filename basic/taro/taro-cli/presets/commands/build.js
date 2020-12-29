@@ -1,4 +1,4 @@
-import configValidator from '../../doctor/configValidator'
+import configValidator from '../../doctor/configValidator';
 
 export default (ctx) => {
     registerBuildHooks(ctx)
@@ -31,6 +31,7 @@ export default (ctx) => {
                 outputPath,
                 configPath
             } = ctx.paths
+
             const {
                 isWatch,
                 envHasBeenSet
