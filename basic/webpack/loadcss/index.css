@@ -15,5 +15,5 @@ body {
 .img {
     width: 100px;
     height: 100px;
-    background: url('./images/prototype.jpg') no-repeat;
+    background: url(/images/prototype.jpg) no-repeat;
 }

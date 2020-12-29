@@ -65,6 +65,17 @@
 
 -   Taro 框架做了一些性能优化方面的工作，在真正调用小程序的 setData 方法之前，Taro 会做一次 diff。
 
+## 运行原理
+
+-   对命令进行解析，获取命令中相关的参数；
+-   实例化Kernel；
+    -   将helper赋值给Kernel对象；
+-   根据命令中的参数调用不同的方法有build、init和convert；
+-   在build方法中，会调用kernel的run函数；
+    -   run函数中会调用kernel的init方法，init方法会调用initConfig、initPaths、initRresetsAndPlugin，并调用applyPlugins方法，传入onReady字符串参数；
+    -   initRresetsAndPlugin会将cli下面的presets文件夹下面的插件全部加载；
+    -   
+
 ## 相关问题
 
 -   在文件中如果通过 module.exports 导出对象，如果不引入@taro/tarojs 则可以正常的通过 import 进行解构，

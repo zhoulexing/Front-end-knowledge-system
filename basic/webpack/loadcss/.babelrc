@@ -1,7 +1,7 @@
 {
     "presets": [
         ["@babel/preset-env", {
-            "modules": "commonjs",
+            // "modules": "commonjs",
             "targets": {
                 "browsers": ["> 0.25%, not dead", "last 2 versions"]
             } 

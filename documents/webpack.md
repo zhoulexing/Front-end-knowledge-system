@@ -352,6 +352,10 @@ PostCSS 不是类似 Less，Sass，Stylus 那样的 CSS 预处理器，而是一
     }]
 }
 ```
+postcss-loader升级到v4.x后, 除了安装postcss-loader外，还需要postcss；
+autoprefixer 插件换成了 postcss-preset-env
+
+
 
 ```postcss.config.js
 module.exports = {
@@ -706,6 +710,53 @@ lase 2 Chrome versions
 -   最新 API 的配置
 -   浏览器按需编译配置
 
+## 配置sentry
+
+|  旧  | 新 | 作用 |
+| --- | --- | --- |
+| raven-js | @sentry/browser | 前端错误日志上报SDK |
+| webpack-sentry-plugin | @sentry/webpack-plugin | webpack项目sourcemap上传插件 |
+
+旧
+```
+// 添加webpack中的plugin
+new SentryWebpackPlugin({
+    organization: "test",
+    project: "react",
+    apiKey: "xxx", // 要带有"project:write"权限
+    baseSentryURL: "xxx",
+    exclude: /\.css/,
+    include: /\.map|\.js|\.json|\.html/,
+    filenameTransform: filename => `~/${urlPrefix}/${filename}`,
+    release,
+    deleteAfterCompile: true
+});
+// 入口文件
+import * as Sentry from "@sentry/browser";
+Sentry.init({
+	dsn: 'xxx',
+	release: RELEASE,
+	maxBreadcrumbs: '50',
+	logger: hostname + '---' + RELEASE,
+});
+```
+
+新
+```
+new SentryWebpackPlugin({
+    org: "test",
+    project: "test",
+    authToken: "xxx", // 要带有"project:write"权限
+    url: "xxx",
+    ignore: ["node_modules", "webpack.config.js"],
+    include: "./new_assets/build",
+    ext: ["map", "js", "json", "html"],
+    urlPrefix: `~/api/0/`,
+    release,
+    deleteAfterCompile: true
+});
+```
+
 ## 配置打包性能分析
 
 ### 测量构建时间
@@ -742,4 +793,10 @@ typescript
 
 ```
 yarn add typescript ts-node @types/node @types/webpack -D
+```
+
+## yarn 升级依赖
+
+```
+yarn upgrade-interactive --latest
 ```
