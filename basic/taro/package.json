@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "chalk": "^4.1.0",
+    "cross-spawn": "^7.0.3",
     "lodash": "^4.17.20",
     "minimist": "^1.2.5",
     "resolve": "^1.19.0",
