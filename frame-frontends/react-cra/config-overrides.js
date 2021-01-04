@@ -19,16 +19,16 @@ const addCustomize = () => config => {
 module.exports = {
     webpack: override(
         addDecoratorsLegacy(),
-        fixBabelImports("import", {
-            libraryName: "antd-mobile",
-            style: true,
-        }),
-
-        // fixBabelImports('import', {
-        //     libraryName: 'antd',
-        //     libraryDirectory: 'es',
+        // fixBabelImports("import", {
+        //     libraryName: "antd-mobile",
         //     style: true,
         // }),
+
+        fixBabelImports('import', {
+            libraryName: 'antd',
+            libraryDirectory: 'es',
+            style: true,
+        }),
 
         addLessLoader({
             lessOptions: {

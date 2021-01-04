@@ -5,10 +5,11 @@ const OptimizeCss = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
     mode: process.env.NODE_ENV,
-    entry: './loadcss/index.js',
+    entry: './loadcss/testPostCss.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].[hash:8].js'
+        filename: '[name].[hash:8].js',
+        publicPath: ''
     },
     module: {
         rules: [{
@@ -19,13 +20,16 @@ module.exports = {
                 loader: 'css-loader',
                 options: {
                     sourceMap: true,
+                    url: false
                 }
             }, {
-                loader: 'postcss-loader'
+                loader: 'postcss-loader',
             }, {
                 loader: 'less-loader',
                 options: {
-                    javascriptEnabled: true
+                    lessOptions: {
+                        javascriptEnabled: true
+                    }
                 }
             }]
         }, {

@@ -35,6 +35,11 @@ const getRouterConfig = () => ({
             /* webpackChunkName: "mobile" */ "../pages/mobile"
         ))
     },
+    '/apps/antd': {
+        component: loadable(() => import(
+            /* webpackChunkName: "antd" */ "../pages/antd"
+        ))
+    },
 } as RouterConfigProps)
 
 
