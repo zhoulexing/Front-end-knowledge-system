@@ -16,6 +16,9 @@ module.exports = {
             }
         ]
     },
+    resolve: {
+        extensions: [".js", ".jsx", ".less", ".css"],
+    },
     plugins: [
         new HtmlWebpackPlugin({
             title: "test",
