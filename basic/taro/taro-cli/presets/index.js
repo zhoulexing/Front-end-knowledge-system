@@ -28,8 +28,8 @@ export default () => {
             // path.resolve(__dirname, "commands", "inspect.js"),
 
             // files
-            // path.resolve(__dirname, "files", "writeFileToDist.js"),
-            // path.resolve(__dirname, "files", "generateProjectConfig.js"),
+            path.resolve(__dirname, "files", "writeFileToDist.js"),
+            path.resolve(__dirname, "files", "generateProjectConfig.js"),
             // path.resolve(__dirname, "files", "generateFrameworkInfo.js"),
         ],
     };

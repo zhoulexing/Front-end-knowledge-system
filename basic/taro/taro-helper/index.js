@@ -10,7 +10,7 @@ import fs from "fs-extra";
 const helper = {
     ...constants,
     ...utils,
-    ...npm,
+    npm,
     createDebug,
     chalk,
     fs,
