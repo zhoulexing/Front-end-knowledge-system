@@ -76,7 +76,6 @@ export default class Kernel extends EventEmitter {
                 ),
             });
         }
-        console.log("initPaths:", this.paths);
         this.debugger(`initPaths:${JSON.stringify(this.paths, null, 2)}`);
     }
 
@@ -138,14 +137,12 @@ export default class Kernel extends EventEmitter {
             path,
             ctx: this
         });
-        this.debugger("initPlugin", plugin);
         this.registerPlugin(plugin);
         apply()(pluginCtx, opts);
         this.checkPluginOpts(pluginCtx, opts);
     }
 
     checkPluginOpts(pluginCtx, opts) {
-        console.log("checkPluginOpts:", pluginCtx, opts);
     }
 
     initPluginCtx({
@@ -204,7 +201,6 @@ export default class Kernel extends EventEmitter {
             presets,
             plugins
         } = apply()(pluginCtx, opts) || {};
-        console.log("presets, plugins：", presets, plugins);
         this.registerPlugin(preset);
         if (Array.isArray(presets)) {
             const _presets = resolvePresetsOrPlugins(
@@ -240,7 +236,6 @@ export default class Kernel extends EventEmitter {
             presets,
             PluginType.Preset
         );
-        console.log("allPresets:", allPresets);
         while (allPresets.length) {
             this.initPreset(allPresets.shift());
         }
@@ -253,6 +248,7 @@ export default class Kernel extends EventEmitter {
         this.initPaths();
 
         this.initPresetsAndPlugins();
+
         await this.applyPlugins("onReady");
     }
 
@@ -277,7 +273,7 @@ export default class Kernel extends EventEmitter {
             throw new Error('调用失败，未传入正确的名称！')
         }
         const hooks = this.hooks.get(name) || [];
-        console.log("hooks:", hooks);
+        console.log("hooks:", name, hooks);
         const waterfall = new AsyncSeriesWaterfallHook(['arg'])
         if (hooks.length) {
             const resArr = []
@@ -323,7 +319,6 @@ export default class Kernel extends EventEmitter {
         this.debugger('command:onStart');
         await this.applyPlugins('onStart');
 
-        console.log("opts:", opts, name, this.commands);
         if (!this.commands.has(name)) {
             throw new Error(`${name} 命令不存在`)
         }

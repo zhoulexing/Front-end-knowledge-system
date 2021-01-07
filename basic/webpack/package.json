@@ -51,6 +51,7 @@
   "dependencies": {
     "@babel/runtime": "^7.12.5",
     "less": "^3.13.0",
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.20",
+    "tapable": "^2.2.0"
   }
 }

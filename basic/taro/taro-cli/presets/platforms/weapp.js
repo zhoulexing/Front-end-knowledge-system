@@ -47,6 +47,8 @@ export default (ctx) => {
                 distConfigName: "project.config.json",
             });
 
+            
+
             // 准备 miniRunner 参数
             const miniRunnerOpts = {
                 ...config,
@@ -65,12 +67,13 @@ export default (ctx) => {
                 template: new Template(),
             };
 
+            
             // build with webpack
-            const miniRunner = await npm.getNpmPkg(
-                "@tarojs/mini-runner",
-                appPath
-            );
-            await miniRunner(appPath, miniRunnerOpts);
+            // const miniRunner = await npm.getNpmPkg(
+            //     "@tarojs/mini-runner",
+            //     appPath
+            // );
+            // await miniRunner(appPath, miniRunnerOpts);
         },
     });
 };

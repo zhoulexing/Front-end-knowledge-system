@@ -54,7 +54,7 @@ const weixinAdapter = {
 export class BaseTemplate {
     constructor() {
         this.exportExpr = "module.exports =";
-        this.isSupportRecursive;
+        this.isSupportRecursive = false;
         this.supportXS = false;
         this.miniComponents;
         this.modifyCompProps;

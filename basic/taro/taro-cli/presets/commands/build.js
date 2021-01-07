@@ -17,7 +17,6 @@ export default (ctx) => {
             '--release': 'Release quickapp'
         },
         async fn(opts) {
-            console.log("opts---------->", opts);
             const {
                 platform,
                 config
