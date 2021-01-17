@@ -48,7 +48,7 @@ export default (ctx) => {
             });
 
             
-
+            console.log("appPath:", appPath);
             // 准备 miniRunner 参数
             const miniRunnerOpts = {
                 ...config,
@@ -69,11 +69,11 @@ export default (ctx) => {
 
             
             // build with webpack
-            // const miniRunner = await npm.getNpmPkg(
-            //     "@tarojs/mini-runner",
-            //     appPath
-            // );
-            // await miniRunner(appPath, miniRunnerOpts);
+            const miniRunner = await npm.getNpmPkg(
+                "@tarojs/mini-runner",
+                appPath
+            );
+            await miniRunner(appPath, miniRunnerOpts);
         },
     });
 };

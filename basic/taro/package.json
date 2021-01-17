@@ -8,6 +8,7 @@
     "debug": "babel-node --inspect-brk taro-cli/index.js build --type weapp"
   },
   "dependencies": {
+    "@tarojs/mini-runner": "^3.0.24",
     "chalk": "^4.1.0",
     "cross-spawn": "^7.0.3",
     "lodash": "^4.17.20",
