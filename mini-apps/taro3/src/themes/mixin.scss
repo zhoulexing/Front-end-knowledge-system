@@ -1,0 +1,23 @@
+@import "./index.scss";
+
+// List中每一项的基本样式
+@mixin listTtem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid $color-border-base;
+    border-bottom: 1px solid $color-border-base;
+    height: 80px;
+    padding: 0 $page-lr;
+    background-color: $color-bg-grey;
+}
+
+// 订单管理或单号查询列表等中操作的按钮基本样式
+@mixin btnExecute {
+    background: transparent;
+    color: $color-brand;
+    border-radius: $border-radius-sm;
+    font-size: $font-size-sm;
+    height: 54px;
+    line-height: 52px;
+}

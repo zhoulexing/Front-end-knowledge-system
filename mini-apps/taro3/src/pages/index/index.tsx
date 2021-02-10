@@ -1,34 +1,19 @@
 import React, { Component } from "react";
-import { View, Text, Button, NavigationBar } from "@tarojs/components";
-import "./index.less";
-import Taro from "@tarojs/taro";
-
+import { View, Button } from "@tarojs/components";
+import styles from "./index.module.scss";
 export default class Index extends Component {
-    componentWillMount() {
-		console.log(Taro.getCurrentInstance());
-	}
-
-    componentDidMount() {
-	}
-
-    componentWillUnmount() {}
-
-    componentDidShow() {
-	}
-
-    componentDidHide() {}
+    
+    handleClick = () => {
+        Taro.redirectTo({
+            url: "/pages/xxx/index"
+        })
+    }
 
     render() {
         return (
-            <View className="index">
-                <Text>Hello world!</Text>
-				<Button onClick={this.handleClick}>点我</Button>
-				<NavigationBar>asd</NavigationBar>
+            <View className={styles.container}>
+                <Button onClick={this.handleClick}>点我</Button>
             </View>
         );
-	}
-	
-	handleClick() {
-		console.log('Hello');
-	}
+    }
 }

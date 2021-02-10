@@ -45,7 +45,7 @@ export default class Test extends Component<IProps, IState> {
     }
 
     componentWillMount() {
-        console.log(Taro.getCurrentInstance());
+        // console.log(Taro.getCurrentInstance());
     }
 
     componentDidMount() {

@@ -1,32 +1,51 @@
-import Taro from '@tarojs/taro';
+import Taro from "@tarojs/taro";
 
 interface Options {
     data?: any;
-    headers?: any;
+    header?: any;
+    method?: "GET" | "POST";
+    "Content-Type"?: string;
+}
+interface ResponseSuccess {
+    result: boolean;
+    data: any;
 }
 
-const baseUrl = '';
+interface ResponseError {
+    errorCode: number;
+    errorMessage: string;
+    data?: null;
+}
 
-export default function request(url: string, options?: Options) {
-    const defaultOpt: Options = {};
+const baseUrl = "";
+
+export default function request(
+    url: string,
+    options?: Options
+): Promise<ResponseSuccess | ResponseError> {
+    const defaultOpt: Options = {
+        method: "GET",
+    };
     const newOpt: Options = { ...defaultOpt, ...options };
-    newOpt.headers = {
+    newOpt.header = {
         Accept: "application/json",
-        'Content-Type': 'application/json',
-        ...newOpt.headers,
+        "Content-Type": "application/json",
+        ...newOpt.header,
     };
     return new Promise((resolve, reject) => {
         Taro.request({
             url: baseUrl + url,
+            mode: "cors",
+            credentials: "include",
             data: newOpt.data,
-            header: newOpt.headers,
             success: (res) => {
-                if(res?.data?.result) {
+                if (res?.data?.result) {
                     resolve(res.data);
                     return;
-                } 
-                reject(res.data.error);
+                }
+                reject(res?.data?.error);
             },
+            ...newOpt,
         });
     });
 }

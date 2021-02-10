@@ -3,7 +3,6 @@ import createApp from "./store";
 import { Provider } from "react-redux";
 import Taro from "@tarojs/taro";
 import models from "./models/index";
-import "./app.less";
 import "./app.scss";
 
 const store = createApp({ models });
