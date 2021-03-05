@@ -1,12 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import TestRender from "./render";
-import lazyLegacyRoot from "./lazyLegacyRoot";
+// import lazyLegacyRoot from "./lazyLegacyRoot";
 
 
-const Legacy = lazyLegacyRoot(() => import("./legacy"));
+// const Legacy = lazyLegacyRoot(() => import("./legacy"));
 
+
+debugger
 ReactDOM.render(
-    <Legacy />,
+    <TestRender />,
     document.getElementById("root")
 )

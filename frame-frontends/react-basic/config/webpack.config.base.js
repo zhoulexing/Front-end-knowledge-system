@@ -5,7 +5,7 @@ module.exports = {
     entry: "./src/index.jsx",
     output: {
         filename: "[name].[hash:8].js",
-        path: path.resolve(__dirname, "dist"),
+        path: path.resolve(__dirname, "../dist"),
     },
     module: {
         rules: [
@@ -33,10 +33,37 @@ module.exports = {
             }
         }),
     ],
-    cache: {
-        type: 'filesystem',
-        buildDependencies: {
-            config: [ __filename ] // 当你 CLI 自动添加它时，你可以忽略它
-        }
-    }
+    optimization: {
+        usedExports: true,
+        splitChunks: {
+            chunks: "all",
+            maxAsyncRequests: 5,
+            minSize: 1000,
+            maxSize: 60000,
+            minChunks: 1,
+            cacheGroups: {
+                reactBase: {
+                    name: "reactBase",
+                    test: (module) => {
+                        console.log("--->", /[\\/]node_modules[\\/](react|react-dom)$/.test(module.context));
+                        return /[\\/]node_modules[\\/](react|react-dom)$/.test(module.context)
+                    },
+                    chunks: "initial",
+                    priority: 100
+                },
+                printModal: {
+                    name: "render",
+                    test: /[\\/]src[\\/]render/,
+                    chunks: "initial",
+                    priority: 101
+                }
+            }
+        },
+    },
+    // cache: {
+    //     type: 'filesystem',
+    //     buildDependencies: {
+    //         config: [ __filename ] // 当你 CLI 自动添加它时，你可以忽略它
+    //     }
+    // }
 }
