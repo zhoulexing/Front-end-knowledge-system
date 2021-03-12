@@ -1,31 +1,64 @@
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useState, useEffect } from "react";
 
-class Test extends React.Component {
+class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            name: "zlx111",
+            name: "zlx",
+            list: [
+                { name: "zlx", age: 10 },
+                { name: "yww", age: 11 },
+            ],
         };
     }
 
     componentDidMount() {
         this.setState({
-            name: "yww",
+            list: this.state.list.map((item) => {
+                item.age += 1;
+                return item;
+            }),
         });
     }
 
     render() {
         return (
-            <div onClick={this.props.onClick}>
-                {this.state.name + this.props.count}
-            </div>
+            <>
+                {/* {this.state.list.map((item) => (
+                    <span>{item.age}</span>
+                ))} */}
+                <Test1 />
+                <Test2 />
+            </>
         );
     }
 }
 
-function Test1() {
+class Test extends React.Component {
+    // constructor() {
+    //     super();
+    //     this.state = {
+    //         name: "zlx111",
+    //     };
+    // }
+
+    // componentDidMount() {
+    //     this.setState({
+    //         name: "yww",
+    //     });
+    //     this.setState({
+    //         name: "yww2",
+    //     });
+    // }
+
+    render() {
+        return <Test4 name={this.props.name}></Test4>;
+    }
+}
+
+function Test1({ name }) {
     console.log("Test1");
-    return "Test1";
+    return <Test3 />;
 }
 
 function Test2() {
@@ -35,18 +68,31 @@ function Test2() {
 }
 
 function Test3() {
-    const obj = { count: 0 };
+    const [count, setCount] = useState(0);
 
-    useLayoutEffect(() => {
-        console.log(obj);
-    }, [obj]);
+    useEffect(() => {
+        setCount(1);
+    }, []);
 
     const handleClick = () => {
         obj.count++;
         console.log(obj);
+    };
+
+    return count;
+}
+
+class Test4 extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            age: 10,
+        };
     }
 
-    return <div onClick={handleClick}>{obj.count}</div>;
+    render() {
+        return this.props.name;
+    }
 }
 
 export default Test3;

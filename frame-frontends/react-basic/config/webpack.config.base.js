@@ -45,7 +45,6 @@ module.exports = {
                 reactBase: {
                     name: "reactBase",
                     test: (module) => {
-                        console.log("--->", /[\\/]node_modules[\\/](react|react-dom)$/.test(module.context));
                         return /[\\/]node_modules[\\/](react|react-dom)$/.test(module.context)
                     },
                     chunks: "initial",
@@ -67,3 +66,4 @@ module.exports = {
     //     }
     // }
 }
+
