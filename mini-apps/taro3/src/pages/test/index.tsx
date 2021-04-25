@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, ScrollView } from "@tarojs/components";
-import Taro from "@tarojs/taro";
+import Taro, { setNavigationBarTitle } from "@tarojs/taro";
 import VirtualList from "@tarojs/components/virtual-list";
 
 const getId = (() => {
@@ -49,6 +49,9 @@ export default class Test extends Component<IProps, IState> {
     }
 
     componentDidMount() {
+        my.setNavigationBar({
+            title: "测试1",
+        });
         this.resetList();
     }
 
@@ -101,10 +104,7 @@ export default class Test extends Component<IProps, IState> {
                 >
                     {Row}
                 </VirtualList> */}
-                <ScrollView
-                    scrollY
-                    style={{ height: '100%' }}
-                >
+                <ScrollView scrollY style={{ height: "100%" }}>
                     <View>
                         {list.map((item) => (
                             <View key={item.id}>{item.title}</View>

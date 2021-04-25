@@ -30,10 +30,10 @@
   "author": "",
   "dependencies": {
     "@babel/runtime": "^7.7.7",
-    "@tarojs/components": "3.1.0-beta.0",
-    "@tarojs/react": "3.1.0-beta.0",
-    "@tarojs/runtime": "3.1.0-beta.0",
-    "@tarojs/taro": "3.1.0-beta.0",
+    "@tarojs/components": "^3.2.1",
+    "@tarojs/react": "^3.2.1",
+    "@tarojs/runtime": "^3.2.1",
+    "@tarojs/taro": "^3.2.1",
     "dva-core": "^2.0.3",
     "dva-loading": "^3.0.21",
     "lodash": "^4.17.20",
@@ -42,12 +42,12 @@
     "react-redux": "^7.2.2",
     "redux-logger": "^3.0.6",
     "sr-sdk-wxapp": "^1.3.6",
-    "taro-ui": "^3.0.0-alpha.3"
+    "taro-ui": "^3.0.0-alpha.10"
   },
   "devDependencies": {
     "@babel/core": "^7.8.0",
-    "@tarojs/mini-runner": "3.1.0-beta.0",
-    "@tarojs/webpack-runner": "3.1.0-beta.0",
+    "@tarojs/mini-runner": "^3.2.1",
+    "@tarojs/webpack-runner": "^3.2.1",
     "@types/react": "^16.0.0",
     "@types/react-redux": "^7.1.11",
     "@types/redux": "^3.6.0",
