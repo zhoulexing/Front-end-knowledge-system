@@ -1,0 +1,12 @@
+{
+    "threshold": 10,
+    "reporters": ["html", "console"],
+    "ignore": [
+        "node_modules/**"
+    ],
+    "absolute": false,
+    "minTokens": 50,
+    "minLines": 5,
+    "maxLines": 1000,
+    "output": "dist/jscpd"
+}
