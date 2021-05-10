@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "start:jsinspect": "jsinspect -t 50 ./src",
+    "start:jscpd": "jscpd ./src"
+  },
+  "dependencies": {
+    "jscpd": "^3.3.25",
+    "jsinspect": "^0.12.7"
+  }
+}

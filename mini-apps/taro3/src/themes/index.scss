@@ -1,0 +1,41 @@
+// taro-ui主题
+$color-brand: #4855a8;
+$border-radius-md: 0px; 
+
+// color
+$color-light: #FF6C61;
+$color-white: #fff;
+$color-grey: #848484;
+
+
+// font
+$font-size: 28px;
+$font-size-sm: 26px;
+$font-size-lg: 30px;
+
+// border-color
+$color-border-base:#eee;
+$color-border-radio: $color-grey;
+
+// border-radius
+$border-radius-base: 10px;
+$border-radius-sm: 5px;
+$border-radius-lg: 15PX;
+$border-radius-circle: 50%;
+
+// background-color
+$color-bg-base: #fff;
+$color-bg-grey: #F7F7F7;
+$color-bg-light: #FF6C61;
+$color-bg-mask: rgba(0, 0, 0, 0.5);
+$color-bg-page: #f5f5f5;
+
+// text-color
+$color-text-base:  #000; // 文字基本颜色
+$color-text-base-inverse:  #fff; // 文字反色
+$color-text-placeholde:  #848484; // 辅助色
+
+
+// 通用页面左右、上下间距
+$page-tb: 20px;
+$page-lr: 20px;

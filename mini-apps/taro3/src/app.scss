@@ -1,3 +1,8 @@
-@import "~taro-ui/dist/style/index.scss";
+@import "./themes/index.scss";
+@import "~taro-ui/dist/style/components/button.scss";
 
-$hd: 1;
+
+body, page {
+    font-size: $font-size;
+    background-color: $color-bg-page;
+}

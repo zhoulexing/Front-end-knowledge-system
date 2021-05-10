@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Button, Text } from "@tarojs/components";
-import { AtButton, AtDivider, AtAvatar } from "taro-ui";
+// 最好用按需加载的方式，否则包会很大
+// import AtButton from "taro-ui/lib/components/button";
+import { AtButton, AtDivider, AtAvatar, AtInput } from "taro-ui";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { State } from "../../models/index";
@@ -13,6 +15,8 @@ interface MyProps extends State {
 }
 
 interface MyState {}
+
+// console.log(_.isEmpty({}));
 
 class My extends React.Component<MyProps, MyState> {
     config = {
@@ -28,6 +32,10 @@ class My extends React.Component<MyProps, MyState> {
             },
         });
     };
+
+    componentDidMount() {
+        console.log(Taro.getSystemInfoSync());
+    }
 
     handleClick2 = () => {
         Tips.toast("hello");
@@ -63,8 +71,16 @@ class My extends React.Component<MyProps, MyState> {
                 <AtDivider content="分割线"></AtDivider>
                 <AtButton onClick={this.handleClick3}>跳转</AtButton>
                 <AtButton openType="getUserInfo">授权</AtButton>
+
+
+                <AtInput name="a" onChange={this.handleChange.bind(this, "aa")}></AtInput>
+                <AtInput name="b" onChange={this.handleChange.bind(this, "bb")}></AtInput>
             </View>
         );
+    }
+
+    handleChange = (key, value) => {
+        console.log(key, value);
     }
 }
 

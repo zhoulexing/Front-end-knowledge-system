@@ -4,7 +4,7 @@ import { createLogger } from 'redux-logger';
 
 
 export default function createApp(opt) {
-    opt.onAction = [createLogger()];
+    // opt.onAction = [createLogger()];
 
     const app = create(opt);
     app.use(createLoading());

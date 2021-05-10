@@ -1,0 +1,84 @@
+"use strict";
+
+require("core-js/modules/es6.set.js");
+
+require("core-js/modules/es6.string.iterator.js");
+
+require("core-js/modules/es6.object.to-string.js");
+
+require("core-js/modules/es6.array.iterator.js");
+
+require("core-js/modules/web.dom.iterable.js");
+
+require("core-js/modules/es6.symbol.js");
+
+require("core-js/modules/es6.array.from.js");
+
+var _test = _interopRequireDefault(require("./test"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+console.log(_test.default);
+var set = new Set();
+Array.from([1, 24]);
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+require("core-js/modules/es6.set.js");
+
+require("core-js/modules/es6.string.iterator.js");
+
+require("core-js/modules/es6.object.to-string.js");
+
+require("core-js/modules/es6.array.iterator.js");
+
+require("core-js/modules/web.dom.iterable.js");
+
+var set = new Set();
+var _default = set;
+exports.default = _default;
+"use strict";
+
+require("core-js/modules/es6.set.js");
+
+require("core-js/modules/es6.string.iterator.js");
+
+require("core-js/modules/es6.object.to-string.js");
+
+require("core-js/modules/es6.array.iterator.js");
+
+require("core-js/modules/web.dom.iterable.js");
+
+require("core-js/modules/es6.symbol.js");
+
+require("core-js/modules/es6.array.from.js");
+
+require("core-js/modules/es6.set.js");
+
+require("core-js/modules/es6.string.iterator.js");
+
+require("core-js/modules/es6.object.to-string.js");
+
+require("core-js/modules/es6.array.iterator.js");
+
+require("core-js/modules/web.dom.iterable.js");
+
+require("core-js/modules/es6.symbol.js");
+
+require("core-js/modules/es6.array.from.js");
+
+var _test = _interopRequireDefault(require("./test"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    default: obj
+  };
+}
+
+console.log(_test.default);
+var set = new Set();
+Array.from([1, 24]);

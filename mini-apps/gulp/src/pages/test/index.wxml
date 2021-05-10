@@ -1,0 +1,4 @@
+<view class="container">
+    <view>Hello {{name}}!</view>
+    <button bindtap="handleChange">点我</button>
+</view>

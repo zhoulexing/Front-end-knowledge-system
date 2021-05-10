@@ -1,0 +1,8 @@
+{
+    "threshold":     30,
+    "identifiers":   true,
+    "literals":      true,
+    "ignore":        "test|spec|mock",
+    "reporter":      "json",
+    "truncate":      100,
+}

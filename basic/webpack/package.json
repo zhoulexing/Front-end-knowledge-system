@@ -10,7 +10,8 @@
     "loadjs:dev": "rimraf ./loadjs/dist && cross-env NODE_ENV=development webpack --config ./loadjs/webpack.config.js",
     "loadjs:pro": "rimraf ./loadjs/dist && cross-env NODE_ENV=production webpack --config ./loadjs/webpack.config.js",
     "es2020": "rimraf ./es2020/dist && cross-env NODE_ENV=development webpack --config ./es2020/webpack.config.js",
-    "treeShaking": "rimraf ./treeShaking/dist && cross-env NODE_ENV=development webpack --config ./treeShaking/webpack.config.js"
+    "treeShaking": "rimraf ./treeShaking/dist && cross-env NODE_ENV=development webpack --config ./treeShaking/webpack.config.js",
+    "jsonP": "rimraf ./jsonP/dist && cross-env NODE_ENV=development webpack --config ./jsonP/webpack.config.js"
   },
   "author": "zlx",
   "license": "ISC",
@@ -46,12 +47,14 @@
     "style-loader": "^2.0.0",
     "url-loader": "^4.1.1",
     "webpack": "^5.10.3",
+    "webpack-bundle-analyzer": "^4.4.1",
     "webpack-cli": "^4.2.0"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.5",
     "less": "^3.13.0",
     "lodash": "^4.17.20",
+    "moment": "^2.29.1",
     "tapable": "^2.2.0"
   }
 }

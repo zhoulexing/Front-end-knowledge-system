@@ -46,9 +46,7 @@ export default (ctx) => {
                 srcConfigName: "project.config.json",
                 distConfigName: "project.config.json",
             });
-
             
-            console.log("appPath:", appPath);
             // 准备 miniRunner 参数
             const miniRunnerOpts = {
                 ...config,

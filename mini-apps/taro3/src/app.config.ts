@@ -1,20 +1,5 @@
-let pages: string[] = [];
-if(process.env.TARO_ENV === 'h5') {
-	pages = [
-		"pages/index/index",
-		"pages/my/index",
-		"pages/test/index"
-	]
-} else {
-	pages = [
-        "pages/index/index",
-        "pages/my/index",
-        "pages/test/index"
-    ];
-}
-
 export default {
-    pages: pages,
+    pages: ["pages/index/index", "pages/my/index", "pages/test/index"],
     window: {
         backgroundTextStyle: "light",
         navigationBarBackgroundColor: "#fff",
