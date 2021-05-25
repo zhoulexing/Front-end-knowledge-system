@@ -74,7 +74,6 @@
 -   在build方法中，会调用kernel的run函数；
     -   run函数中会调用kernel的init方法，init方法会调用initConfig、initPaths、initRresetsAndPlugin，并调用applyPlugins方法，传入onReady字符串参数；
     -   initRresetsAndPlugin会将cli下面的presets文件夹下面的插件全部加载；
-    -   
 
 ## 相关问题
 
