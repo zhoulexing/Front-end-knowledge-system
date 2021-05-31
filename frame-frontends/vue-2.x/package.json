@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "ant-design-vue": "^1.6.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "element-ui": "^2.13.2",
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
