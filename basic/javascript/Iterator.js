@@ -1,3 +1,11 @@
+var arr = [11, 22, 33];
+var iter = arr[Symbol.iterator]();
+iter.next(); // { value: 11, done: false }
+iter.next(); // { value: 22, done: false }
+iter.next(); // { value: 33, done: false }
+iter.next(); // { value: undefined, done: true }
+
+
 /* 
 遍历器（Iterator）是一种接口，为各种不同的数据结构提供统一的访问机制。
 任何数据结构只要部署Iterator接口，就可以完成遍历操作。

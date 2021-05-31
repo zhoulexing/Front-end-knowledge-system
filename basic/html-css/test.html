@@ -63,8 +63,19 @@
 
 
         <div>
-            <div style="position: absolute; margin-left: 20px;">222</div>
+            <!-- <div style="position: absolute; margin-left: 20px;">222</div> -->
         </div>
+
     </div>
+    <div onclick="onClick()">点我</div>
+    <script>
+        function onClick() {
+            
+            var newWinodw = window.open("http://www.baidu.com", "_parent");
+            console.log(newWinodw, newWinodw === window);
+            console.log(window.top === window);
+            console.log(window.parent === window);
+        }
+    </script>
 </body>
 </html>
