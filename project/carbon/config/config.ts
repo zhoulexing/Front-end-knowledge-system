@@ -12,7 +12,7 @@ export default defineConfig({
     ignoreMomentLocale: true,
     history: {
         // browser、hash、memory
-        type: 'browser',
+        type: 'hash',
     },
     hash: true,
     antd: {},

@@ -2,55 +2,125 @@ import React, { Component } from 'react';
 import DotTitle from '../../components/DotTitle';
 import ProgressTitle from '../../components/ProgressTitle';
 import styles from './index.less';
+import { Map, Histogram } from '../../components/echarts';
+import url2 from '../../assets/2.png';
 
 class Home extends Component {
     render() {
         return (
             <div className={styles.container}>
                 <div className={styles.left}>
-                    <div>
+                    <div style={{marginBottom: "40px"}}>
                         <DotTitle text="重点行业碳排放量实时监测数据"></DotTitle>
+                        <div style={{ marginTop: "10px" }}><img src={url2}/></div>
+                    </div>
+                    <div className={styles.c17}>
+                        <div className={styles.c18}>6 + 1领域双碳监测</div>
+                        <div className={styles.c19}>产业监测</div>
+                        <div className={styles.c20}>区域双碳监测</div>
                     </div>
                     <div>
-                        <DotTitle text="各行业碳排放量的实时/预测曲线"></DotTitle>
-                        <div>
-                            <div>钢铁行业</div>
-                        </div>
-
-                    </div>
-                    <div>
-                        <DotTitle text="行业新增产能能耗对比"></DotTitle>
+                        <Histogram />
                     </div>
                 </div>
                 <div className={styles.middle}>
-                    <div className={styles.statics}>
-                        <div>
-                            <DotTitle text="能源消费总量"></DotTitle>
-                            <div>当前: <span className={styles.num}>2.47</span>亿吨标煤</div>
-                            <div>目标: <span className={styles.num}>2.5</span>亿吨标煤</div>
-                            <ProgressTitle text="任务完成" iconType="success" precent="98%"/>
+                    <div className={styles.mdUp}>
+                        <div className={styles.mdLeft}>
+                            <div>
+                                <DotTitle text="碳达峰倒计时"></DotTitle>
+                                <div>距离<span style={{ fontSize: "16px", marginLeft: "5px" }}>2029.12.31</span>,还有</div>
+                                <div className={styles.mdTime}>
+                                    3287
+                            </div>
+                                <div style={{ color: "#77818e", textAlign: "center" }}>(天)</div>
+                            </div>
                         </div>
-                        <div>
-                            <DotTitle text="碳排放总量"></DotTitle>
-                            <div>当前: <span className={styles.num}>2.47</span>亿吨</div>
-                            <div>目标: <span className={styles.num}>2.5</span>亿吨</div>
-                            <ProgressTitle text="任务不通过" iconType="warn" precent="30%"/>
+                        <div className={styles.mdRight}>
+                            <div>
+                                <DotTitle text="能源消费总量"></DotTitle>
+                                <div>当前: <span className={styles.num}>2.47</span>亿吨标煤</div>
+                                <div>目标: <span className={styles.num}>2.5</span>亿吨标煤</div>
+                                <ProgressTitle text="任务完成" iconType="success" precent="98%" />
+                            </div>
+                            <div>
+                                <DotTitle text="碳排放总量"></DotTitle>
+                                <div>当前: <span className={styles.num}>2.47</span>亿吨</div>
+                                <div>目标: <span className={styles.num}>2.5</span>亿吨</div>
+                                <ProgressTitle text="任务不通过" iconType="warn" precent="30%" />
+                            </div>
+                            <div>
+                                <DotTitle text="能耗强度"></DotTitle>
+                                <div>当前: <span className={styles.num}>0.32</span>吨标煤/万元</div>
+                                <div>目标: <span className={styles.num}>0.41</span>吨标煤/万元</div>
+                                <ProgressTitle text="任务未完成" iconType="error" precent="20%" />
+                            </div>
+                            <div>
+                                <DotTitle text="碳排放强度"></DotTitle>
+                                <div>当前: <span className={styles.num}>0.76</span>吨/万元</div>
+                                <div>目标: <span className={styles.num}>0.76</span>吨/万元</div>
+                                <ProgressTitle text="任务未成" iconType="success" precent="100%" />
+                            </div>
                         </div>
-                        <div>
-                            <DotTitle text="能耗强度"></DotTitle>
-                            <div>当前: <span className={styles.num}>0.32</span>吨标煤/万元</div>
-                            <div>目标: <span className={styles.num}>0.41</span>吨标煤/万元</div>
-                            <ProgressTitle text="任务未完成" iconType="error" precent="20%"/>
+                    </div>
+                    <div className={styles.mapContainer}>
+                        <Map />
+                        <div className={styles.mapTime}>
+                            <div className={styles.c1}>
+                                <div className={styles.c3}>月</div>
+                                <div className={styles.c2}>季</div>
+                                <div className={styles.c2}>年</div>
+                            </div>
+                            <div className={styles.c4}>
+                                {['5月', '4月', '3月', '2月', '1月'].map((item, index) => (
+                                    <div className={styles.c5}>
+                                        {
+                                            index === 0 ?
+                                            <div className={styles.c7}>
+                                                <div className={styles.c8}></div>
+                                            </div>
+                                            :
+                                            <div className={styles.c11}></div>
+                                        }
+                                        
+                                        <div className={index === 0 ? styles.c6 : styles.c10}>{item}</div>
+                                        { index !== 4 && <div className={styles.c9}></div> }
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                        <div>
-                            <DotTitle text="碳排放强度"></DotTitle>
-                            <div>当前: <span className={styles.num}>0.76</span>吨/万元</div>
-                            <div>目标: <span className={styles.num}>0.76</span>吨/万元</div>
-                            <ProgressTitle text="任务未成" iconType="success" precent="100%"/>
+                    </div>
+                    <div className={styles.c12}>
+                        <div className={styles.c13}>
+                            <div className={styles.c14}></div>
+                            总领域
+                        </div>
+                        <div className={styles.c15}>
+                            <div className={styles.c16}></div>
+                            能源
+                        </div>
+                        <div className={styles.c15}>
+                            <div className={styles.c14}></div>
+                            工业
+                        </div>
+                        <div className={styles.c15}>
+                            <div className={styles.c14}></div>
+                            交通
+                        </div>
+                        <div className={styles.c15}>
+                            <div className={styles.c16}></div>
+                            建筑
+                        </div>
+                        <div className={styles.c15}>
+                            <div className={styles.c14}></div>
+                            农业
+                        </div>
+                        <div className={styles.c15}>
+                            <div className={styles.c14}></div>
+                            居民生活
                         </div>
                     </div>
                 </div>
-                <div className={styles.right}>333</div>
+                <div className={styles.right}></div>
             </div>
         )
     }

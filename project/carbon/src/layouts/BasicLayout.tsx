@@ -3,6 +3,15 @@ import styles from './BasicLayout.less';
 
 const LEFT_MENUS = [
     {
+        name: "总览",
+    },
+    {
+        name: "时序",
+    },
+    {
+        name: "路线",
+    },
+    {
         name: "能源",
     },
     {
@@ -10,14 +19,14 @@ const LEFT_MENUS = [
     },
     {
         name: "交通",
-    },
-    {
-        name: "建筑",
-    },
+    }
 ];
 
 
 const RIGHT_MENUS = [
+    {
+        name: "建筑",
+    },
     {
         name: "农业",
     },
