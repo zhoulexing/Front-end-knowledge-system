@@ -65,7 +65,7 @@ const Line: React.FC<IProps> = (props) => {
     }, []);
 
     return (
-        <div id="line" style={{ width: '500px', height: '500px'}}></div>
+        <div id="line" style={{ width: '485px', height: '500px'}}></div>
     )
 }
 

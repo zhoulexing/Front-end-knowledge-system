@@ -61,7 +61,7 @@ const Histogram: React.FC<IProps> = (props) => {
     }, []);
 
     return (
-        <div id="histogram" style={{ width: '500px', height: '500px'}}></div>
+        <div id="histogram" style={{ width: '485px', height: '500px'}}></div>
     )
 }
 

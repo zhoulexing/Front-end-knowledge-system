@@ -1,14 +1,15 @@
 .container {
-    padding: 20px 40px;
+    padding: 20px;
     display: flex;
 }
 
 .left {
-    width: 30%;
+    width: 485px;
 }
 
 .middle {
-    width: 50%;
+    flex: 1;
+    margin: 0 10px;
 
     .mdUp {
         display: flex;
@@ -34,8 +35,9 @@
     .mdTime {
         display: flex;
         justify-content: center;
-        font-size: 30px;
-        letter-spacing: 10px;
+        font-size: 26px;
+        padding: 10px 0;
+        font-style: italic;
     }
 
     .num {
@@ -54,7 +56,7 @@
 }
 
 .right {
-    width: 20%;
+    width: 485px;
 }
 
 .c1 {
@@ -157,18 +159,18 @@
     background-size: contain;
 }
 .c14 {
-    width: 5px;
-    height: 5px;
+    width: 6px;
+    height: 6px;
     background: #47fbc1;
     border-radius: 50%;
-    box-shadow: 0 0 3px 3px;
+    box-shadow: 0 0 2px 2px;
     margin-right: 15px;
 }
 .c15 {
     display: flex;
-    border-radius: 10px;
+    border-radius: 20px;
     border: 1px solid #475671; 
-    padding: 8px 25px;
+    padding: 6px 25px 8px 25px;
     align-items: center;
     font-size: 16px;
     margin-right: 15px;
@@ -205,4 +207,10 @@
     font-size: 16px;
     padding: 0 20px;
     color: #334252;
+}
+.c21 {
+    background-image: linear-gradient(to bottom, #335076 45%, transparent 45%, transparent 55%, #335076 55%, #335076 100%);
+    background-repeat: no-repeat;
+    padding: 0 10px 0 5px;
+    margin: 0 3px;
 }

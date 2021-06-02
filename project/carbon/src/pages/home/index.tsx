@@ -4,6 +4,10 @@ import ProgressTitle from '../../components/ProgressTitle';
 import styles from './index.less';
 import { Map, Histogram } from '../../components/echarts';
 import url2 from '../../assets/2.png';
+import right1 from '../../assets/right/1.png';
+import right2 from '../../assets/right/2.png';
+import right3 from '../../assets/right/3.png';
+import right4 from '../../assets/right/4.png';
 
 class Home extends Component {
     render() {
@@ -30,8 +34,11 @@ class Home extends Component {
                                 <DotTitle text="碳达峰倒计时"></DotTitle>
                                 <div>距离<span style={{ fontSize: "16px", marginLeft: "5px" }}>2029.12.31</span>,还有</div>
                                 <div className={styles.mdTime}>
-                                    3287
-                            </div>
+                                    <div className={styles.c21}>3</div>
+                                    <div className={styles.c21}>2</div>
+                                    <div className={styles.c21}>8</div>
+                                    <div className={styles.c21}>7</div>
+                                </div>
                                 <div style={{ color: "#77818e", textAlign: "center" }}>(天)</div>
                             </div>
                         </div>
@@ -72,7 +79,7 @@ class Home extends Component {
                             </div>
                             <div className={styles.c4}>
                                 {['5月', '4月', '3月', '2月', '1月'].map((item, index) => (
-                                    <div className={styles.c5}>
+                                    <div className={styles.c5} key={item}>
                                         {
                                             index === 0 ?
                                             <div className={styles.c7}>
@@ -120,7 +127,17 @@ class Home extends Component {
                         </div>
                     </div>
                 </div>
-                <div className={styles.right}></div>
+                <div className={styles.right}>
+                    <div>
+                        <img src={right1}/>
+                    </div>
+                    <div>
+                        <img src={right2}/>
+                    </div>
+                    <div>
+                        <img src={right4}/>
+                    </div>
+                </div>
             </div>
         )
     }
