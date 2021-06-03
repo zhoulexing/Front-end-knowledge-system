@@ -3,14 +3,39 @@ import DotTitle from '../../components/DotTitle';
 import ProgressTitle from '../../components/ProgressTitle';
 import styles from './index.less';
 import { Map, Histogram } from '../../components/echarts';
+import classNames from 'classnames';
 import url2 from '../../assets/2.png';
 import right1 from '../../assets/right/1.png';
 import right2 from '../../assets/right/2.png';
 import right3 from '../../assets/right/3.png';
 import right4 from '../../assets/right/4.png';
+import left1 from '../../assets/left/1.png';
+import left2 from '../../assets/left/2.png';
+import left3 from '../../assets/left/3.png';
 
-class Home extends Component {
+interface IProps {}
+
+interface IState {
+    leftTabKey: number;
+}
+
+class Home extends Component<IProps, IState> {
+    constructor(props) {
+        super(props);
+        this.state = {
+            leftTabKey: 1
+        }
+    }
+
+    onLeftTabKey = (leftTabKey: number) => {
+        this.setState({
+            leftTabKey
+        });
+    }
+
     render() {
+        const { leftTabKey } = this.state;
+
         return (
             <div className={styles.container}>
                 <div className={styles.left}>
@@ -19,12 +44,23 @@ class Home extends Component {
                         <div style={{ marginTop: "10px" }}><img src={url2}/></div>
                     </div>
                     <div className={styles.c17}>
-                        <div className={styles.c18}>6 + 1领域双碳监测</div>
-                        <div className={styles.c19}>产业监测</div>
-                        <div className={styles.c20}>区域双碳监测</div>
+                        <div className={classNames(styles.c18, leftTabKey === 1 && styles.c22)} onClick={this.onLeftTabKey.bind(this, 1)}>6 + 1领域双碳监测</div>
+                        <div className={classNames(styles.c19, leftTabKey === 2 && styles.c22)} onClick={this.onLeftTabKey.bind(this, 2)}>产业监测</div>
+                        <div className={classNames(styles.c20, leftTabKey === 3 && styles.c22)} onClick={this.onLeftTabKey.bind(this, 3)}>区域双碳监测</div>
                     </div>
                     <div>
-                        <Histogram />
+                        { 
+                            leftTabKey === 1 &&
+                            <div><img src={left1} /></div>
+                        }
+                        { 
+                            leftTabKey === 2 &&
+                            <div><img src={left2} /></div>
+                        }
+                        { 
+                            leftTabKey === 3 &&
+                            <div><img src={left3} /></div>
+                        }
                     </div>
                 </div>
                 <div className={styles.middle}>
@@ -32,7 +68,7 @@ class Home extends Component {
                         <div className={styles.mdLeft}>
                             <div>
                                 <DotTitle text="碳达峰倒计时"></DotTitle>
-                                <div>距离<span style={{ fontSize: "16px", marginLeft: "5px" }}>2029.12.31</span>,还有</div>
+                                <div style={{ fontSize: "15px", color: '#e5e8e9'}}>距离<span style={{ fontSize: "16px", marginLeft: "5px" }}>2029.12.31</span>,还有</div>
                                 <div className={styles.mdTime}>
                                     <div className={styles.c21}>3</div>
                                     <div className={styles.c21}>2</div>
@@ -43,29 +79,113 @@ class Home extends Component {
                             </div>
                         </div>
                         <div className={styles.mdRight}>
-                            <div>
-                                <DotTitle text="能源消费总量"></DotTitle>
-                                <div>当前: <span className={styles.num}>2.47</span>亿吨标煤</div>
-                                <div>目标: <span className={styles.num}>2.5</span>亿吨标煤</div>
-                                <ProgressTitle text="任务完成" iconType="success" precent="98%" />
+                            <div className={styles.c23}>
+                                <div style={{ marginBottom: "10px"}}>
+                                    <div className={styles.c24}>能源消费总量</div>
+                                    <div className={styles.c25}>&lt;亿吨标煤&gt;</div>
+                                </div>
+                                <div className={styles.c26}>
+                                    <div className={styles.c27}>
+                                        <span>当前</span>
+                                        <span style={{fontSize: "12px", marginLeft: "3px"}}>(归上)：</span>
+                                    </div>
+                                    <div className={styles.c28}>2.47</div>
+                                </div>
+                                <div className={styles.c26}>
+                                    <div className={styles.c27}>
+                                        <span>当前</span>
+                                        <span style={{fontSize: "12px", marginLeft: "3px"}}>(全社会)：</span>
+                                    </div>
+                                    <div className={styles.c28}>2.47</div>
+                                </div>
+                                <div className={styles.c26}>
+                                    <div className={styles.c27}>
+                                        <span>目标</span>
+                                        <span style={{fontSize: "12px", marginLeft: "3px"}}>(全社会)：</span>
+                                    </div>
+                                    <div className={styles.c28}>2.47</div>
+                                </div>
                             </div>
-                            <div>
-                                <DotTitle text="碳排放总量"></DotTitle>
-                                <div>当前: <span className={styles.num}>2.47</span>亿吨</div>
-                                <div>目标: <span className={styles.num}>2.5</span>亿吨</div>
-                                <ProgressTitle text="任务不通过" iconType="warn" precent="30%" />
+                            <div className={styles.c23}>
+                                <div style={{ marginBottom: "10px"}}>
+                                    <div className={styles.c24}>碳排放总量</div>
+                                    <div className={styles.c25}>&lt;亿吨&gt;</div>
+                                </div>
+                                <div className={styles.c26}>
+                                    <div className={styles.c27}>
+                                        <span>当前</span>
+                                        <span style={{fontSize: "12px", marginLeft: "3px"}}>(归上)：</span>
+                                    </div>
+                                    <div className={styles.c28}>2.47</div>
+                                </div>
+                                <div className={styles.c26}>
+                                    <div className={styles.c27}>
+                                        <span>当前</span>
+                                        <span style={{fontSize: "12px", marginLeft: "3px"}}>(全社会)：</span>
+                                    </div>
+                                    <div className={styles.c28}>2.47</div>
+                                </div>
+                                <div className={styles.c26}>
+                                    <div className={styles.c27}>
+                                        <span>目标</span>
+                                        <span style={{fontSize: "12px", marginLeft: "3px"}}>(全社会)：</span>
+                                    </div>
+                                    <div className={styles.c28}>2.47</div>
+                                </div>
                             </div>
-                            <div>
-                                <DotTitle text="能耗强度"></DotTitle>
-                                <div>当前: <span className={styles.num}>0.32</span>吨标煤/万元</div>
-                                <div>目标: <span className={styles.num}>0.41</span>吨标煤/万元</div>
-                                <ProgressTitle text="任务未完成" iconType="error" precent="20%" />
+                            <div className={styles.c23}>
+                                <div style={{ marginBottom: "10px"}}>
+                                    <div className={styles.c24}>能耗强度</div>
+                                    <div className={styles.c25}>&lt;吨标煤/万元&gt;</div>
+                                </div>
+                                <div className={styles.c26}>
+                                    <div className={styles.c27}>
+                                        <span>当前</span>
+                                        <span style={{fontSize: "12px", marginLeft: "3px"}}>(归上)：</span>
+                                    </div>
+                                    <div className={styles.c28}>2.47</div>
+                                </div>
+                                <div className={styles.c26}>
+                                    <div className={styles.c27}>
+                                        <span>当前</span>
+                                        <span style={{fontSize: "12px", marginLeft: "3px"}}>(全社会)：</span>
+                                    </div>
+                                    <div className={styles.c28}>2.47</div>
+                                </div>
+                                <div className={styles.c26}>
+                                    <div className={styles.c27}>
+                                        <span>目标</span>
+                                        <span style={{fontSize: "12px", marginLeft: "3px"}}>(全社会)：</span>
+                                    </div>
+                                    <div className={styles.c28}>2.47</div>
+                                </div>
                             </div>
-                            <div>
-                                <DotTitle text="碳排放强度"></DotTitle>
-                                <div>当前: <span className={styles.num}>0.76</span>吨/万元</div>
-                                <div>目标: <span className={styles.num}>0.76</span>吨/万元</div>
-                                <ProgressTitle text="任务未成" iconType="success" precent="100%" />
+                            <div className={styles.c23}>
+                                <div style={{ marginBottom: "10px"}}>
+                                    <div className={styles.c24}>碳排放强度</div>
+                                    <div className={styles.c25}>&lt;吨/万元&gt;</div>
+                                </div>
+                                <div className={styles.c26}>
+                                    <div className={styles.c27}>
+                                        <span>当前</span>
+                                        <span style={{fontSize: "12px", marginLeft: "3px"}}>(归上)：</span>
+                                    </div>
+                                    <div className={styles.c28}>2.47</div>
+                                </div>
+                                <div className={styles.c26}>
+                                    <div className={styles.c27}>
+                                        <span>当前</span>
+                                        <span style={{fontSize: "12px", marginLeft: "3px"}}>(全社会)：</span>
+                                    </div>
+                                    <div className={styles.c28}>2.47</div>
+                                </div>
+                                <div className={styles.c26}>
+                                    <div className={styles.c27}>
+                                        <span>目标</span>
+                                        <span style={{fontSize: "12px", marginLeft: "3px"}}>(全社会)：</span>
+                                    </div>
+                                    <div className={styles.c28}>2.47</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -128,10 +248,10 @@ class Home extends Component {
                     </div>
                 </div>
                 <div className={styles.right}>
-                    <div>
+                    <div style={{marginBottom: "35px"}}>
                         <img src={right1}/>
                     </div>
-                    <div>
+                    <div style={{marginBottom: "35px"}}>
                         <img src={right2}/>
                     </div>
                     <div>

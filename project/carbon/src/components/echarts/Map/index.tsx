@@ -258,7 +258,7 @@ const AreaMap: React.FC<IProps> = (props) => {
     }, []);
 
     return (
-        <div id="testMap" style={{ width: '900px', height: '550px', paddingLeft: '80px'}}></div>
+        <div id="testMap" style={{ width: '900px', height: '700px', paddingLeft: '80px'}}></div>
     )
 }
 
