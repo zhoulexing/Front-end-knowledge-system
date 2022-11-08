@@ -3299,10 +3299,10 @@ gulp-livereload@^4.0.2:
     tiny-lr "^1.1.1"
     vinyl "^2.2.0"
 
-gulp-nodemon@^2.0.2:
+gulp-nodemon@^2.5.0:
   version "2.5.0"
-  resolved "https://registry.npm.taobao.org/gulp-nodemon/download/gulp-nodemon-2.5.0.tgz#83a023f1ab4094fedae9a48e60937d768f107224"
-  integrity sha1-g6Aj8atAlP7a6aSOYJN9do8QciQ=
+  resolved "https://registry.yarnpkg.com/gulp-nodemon/-/gulp-nodemon-2.5.0.tgz#83a023f1ab4094fedae9a48e60937d768f107224"
+  integrity sha512-vXfaP72xo2C6XOaXrNcLEM3QqDJ1x21S3x97U4YtzN2Rl2kH57++aFkAVxe6BafGRSTxs/xVfE/jNNlCv5Ym2Q==
   dependencies:
     colors "^1.2.1"
     gulp "^4.0.0"
